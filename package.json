@@ -4,14 +4,14 @@
   "description": "Desktop helper for GitHub Classroom",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "test": "node_modules/mocha/bin/mocha test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/education/classroom-desktop/"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "GitHub",
   "license": "MIT",
   "bugs": {
@@ -20,5 +20,9 @@
   "homepage": "https://github.com/education/classroom-desktop#readme",
   "devDependencies": {
     "electron-prebuilt": "^1.2.0"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
   }
 }
