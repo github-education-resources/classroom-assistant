@@ -1,0 +1,11 @@
+#!/bin/sh
+# Usage: script/setup
+# Sets up application for the first time after cloning
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+script/bootstrap
+
+echo "==> App is now ready to go!"
