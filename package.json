@@ -1,27 +1,23 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "classroom-desktop",
+  "version": "0.0.1",
+  "description": "Desktop helper for GitHub Classroom",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": "git+https://github.com/education/classroom-desktop/"
   },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
   ],
   "author": "GitHub",
-  "license": "CC0-1.0",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
+    "url": "https://github.com/education/classroom-desktop/issues"
   },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "homepage": "https://github.com/education/classroom-desktop#readme",
   "devDependencies": {
     "electron-prebuilt": "^1.2.0"
   }
