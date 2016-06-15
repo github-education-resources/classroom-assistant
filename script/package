@@ -1,0 +1,8 @@
+#!/bin/sh
+# Usage: script/package
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "==> Building Mac app"
+npm run build-mac

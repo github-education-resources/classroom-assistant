@@ -1,11 +1,13 @@
 {
   "name": "classroom-desktop",
+  "productName": "Classroom Desktop",
   "version": "0.0.1",
   "description": "Desktop helper for GitHub Classroom",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "test": "node_modules/mocha/bin/mocha test"
+    "test": "node_modules/mocha/bin/mocha test",
+    "build-mac": "electron-packager . Classroom --platform=darwin --arch=x64 --out=dist --overwrite"
   },
   "repository": {
     "type": "git",
