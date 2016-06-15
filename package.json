@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/education/classroom-desktop#readme",
   "devDependencies": {
+    "electron-packager": "^7.0.4",
     "electron-prebuilt": "^1.2.0"
   },
   "dependencies": {
