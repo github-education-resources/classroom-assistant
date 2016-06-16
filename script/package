@@ -2,7 +2,23 @@
 # Usage: script/package
 set -e
 
+COL='\033[1;32m'
+NC='\033[0m' # No Color
+
+function echo_status {
+  echo "${COL}==> $1${NC}"
+}
+
 cd "$(dirname "$0")/.."
 
-echo "==> Building Mac app"
+echo_status "Building Mac app"
 npm run build-mac
+
+if [ -z "$CLASSROOM_DESKTOP_OSX_DEVELOPER_ID" ]; then
+  echo_status "CLASSROOM_DESKTOP_OSX_DEVELOPER_ID not set, the app will not be signed"
+else
+  echo_status "Signing Mac app"
+  codesign --deep --force --verbose --sign "$CLASSROOM_DESKTOP_OSX_DEVELOPER_ID" dist/Classroom-darwin-x64/Classroom.app
+fi
+
+echo_status "Done!"
