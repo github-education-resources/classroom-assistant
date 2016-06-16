@@ -4,9 +4,42 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+const autoUpdater = electron.autoUpdater
+
+autoUpdater.on('error', error => {
+  console.error(error)
+})
+
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+function startAutoUpdates() {
+  autoUpdater.setFeedURL('http://cd-us.herokuapp.com/update/darwin?version=' + app.getVersion())
+
+  autoUpdater.on('checking-for-update', () => {
+    mainWindow.webContents.send('info' , {msg:'checking for update'});
+  })
+
+  autoUpdater.on('update-available', () => {
+    mainWindow.webContents.send('info' , {msg:'update available'});
+  })
+
+  autoUpdater.on('update-not-available', () => {
+    mainWindow.webContents.send('info' , {msg:'update not available'});
+  })
+
+  autoUpdater.on('update-downloaded', () => {
+    mainWindow.webContents.send('info' , {msg:'quitting and installing'});
+    autoUpdater.quitAndInstall()
+  })
+
+  autoUpdater.checkForUpdates()
+  setInterval(function() {
+    autoUpdater.checkForUpdates()
+  }, 3600000)
+}
 
 function createWindow () {
   // Create the browser window.
@@ -17,6 +50,8 @@ function createWindow () {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
+
+  startAutoUpdates()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
