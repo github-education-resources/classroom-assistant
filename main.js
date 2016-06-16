@@ -1,6 +1,7 @@
 const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
+const isDev = require('electron-is-dev')
 
 const updater = require('./updater')
 
@@ -15,11 +16,14 @@ function createWindow () {
   mainWindow.loadURL(`file://${__dirname}/app/index.html`)
   mainWindow.webContents.openDevTools()
 
-  updater.start(app, msBetweenUpdates, () => {
-    mainWindow.webContents.send('info', {msg: "update found"})
-  }, (err) => {
-    mainWindow.webContents.send('info', {msg: err})
-  })
+  // Start updater unless in development mode
+  if (!isDev) {
+    updater.start(app, msBetweenUpdates, () => {
+      mainWindow.webContents.send('info', {msg: "update found"})
+    }, (err) => {
+      mainWindow.webContents.send('info', {msg: err})
+    })
+  }
 
   mainWindow.on('closed', function () {
     mainWindow = null
