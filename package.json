@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "chai": "^3.5.0",
-    "electron-is-dev": "^0.1.1",
     "mocha": "^2.5.3"
   }
 }
