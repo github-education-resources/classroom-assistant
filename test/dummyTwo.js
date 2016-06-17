@@ -1,9 +1,11 @@
-var assert = require('chai').assert;
+/* eslint-env mocha */
 
-describe('objects', function() {
-  describe('strings', function () {
-    it('should concatenate', function () {
-      assert.equal("helloworld", "hello" + "world");
-    });
-  });
-});
+const assert = require("chai").assert
+
+describe("objects", () => {
+  describe("strings", () => {
+    it("should concatenate", () => {
+      assert.equal("helloworld", "hello" + "world")
+    })
+  })
+})

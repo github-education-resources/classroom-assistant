@@ -1,3 +1,8 @@
-var ipcRenderer = require('electron').ipcRenderer
+// Disabling no-console for now, as there is currently no UI
+/* eslint no-console: "off" */
 
-ipcRenderer.on('info', function(event , data){ console.log(data.msg) });
+const ipcRenderer = require("electron").ipcRenderer
+
+ipcRenderer.on("info", (event, data) => {
+  console.log(data.msg)
+})
