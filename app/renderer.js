@@ -1,8 +1,5 @@
 const logger = require("./renderer-logger")
 
 setInterval(() => {
-  logger.info("Info!")
-  logger.warning("Warning!")
-  logger.debug("Debug!")
-  logger.error("Error!")
+  logger.info("Browser log!")
 }, 1000)

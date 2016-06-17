@@ -12,9 +12,6 @@ const logger = require("./logger")
 let mainWindow
 
 logger.init()
-ipcMain.on("log-entry", (event, opts) => {
-  logger.logWithType(opts.type, opts.message)
-})
 
 function createWindow () {
   logger.info("creating app window")

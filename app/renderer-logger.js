@@ -1,5 +1,13 @@
 const ipcRenderer = require("electron").ipcRenderer
 
+// Public: a module for logging in renderer processes. Sends messages which
+// get routed to the logger module associated with the main process
+// (../logger.js)
+//
+// Examples
+//
+//    logger.info("Hello world from the browser window!")
+//    logger.error("UI component failed to render")
 module.exports = {
   info (message) {
     ipcRenderer.send("log-entry", {

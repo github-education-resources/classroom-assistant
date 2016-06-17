@@ -1,4 +1,5 @@
 const winston = require("winston")
+const ipcMain = require("electron").ipcMain
 
 // Public: methods for initialising and using the project logger. Designed
 // to provide a common abstract interface for project-wide logging.
@@ -12,6 +13,12 @@ module.exports = {
   init () {
     winston.add(winston.transports.File, {
       filename: "./app.log"
+    })
+
+    // Route incoming "log-entry" messages from 'app/renderer-logger'
+    let self = this;
+    ipcMain.on("log-entry", (event, opts) => {
+      self.logWithType(opts.type, opts.message)
     })
   },
 
