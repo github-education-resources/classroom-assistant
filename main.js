@@ -6,10 +6,15 @@ const BrowserWindow = electron.BrowserWindow
 const isDev = require("electron-is-dev")
 
 const updater = require("./updater")
+const logger = require("./logger")
 
 let mainWindow
 
+logger.init()
+
 function createWindow () {
+  logger.info("creating app window")
+
   mainWindow = new BrowserWindow({width: 800, height: 600})
   mainWindow.loadURL(`file://${__dirname}/app/index.html`)
   mainWindow.webContents.openDevTools()

@@ -1,8 +1,5 @@
-// Disabling no-console for now, as there is currently no UI
-/* eslint no-console: "off" */
+const logger = require("./renderer-logger")
 
-const ipcRenderer = require("electron").ipcRenderer
-
-ipcRenderer.on("info", (event, data) => {
-  console.log(data.msg)
-})
+setInterval(() => {
+  logger.info("Browser log!")
+}, 1000)
