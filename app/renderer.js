@@ -1,4 +1,4 @@
-const logger = require("./logger")
+const logger = require("./renderer-logger")
 
 setInterval(() => {
   logger.info("Info!")

@@ -10,6 +10,7 @@ const updater = require("./updater")
 const logger = require("./logger")
 
 let mainWindow
+
 logger.init()
 ipcMain.on("log-entry", (event, opts) => {
   logger.logWithType(opts.type, opts.message)
@@ -17,6 +18,7 @@ ipcMain.on("log-entry", (event, opts) => {
 
 function createWindow () {
   logger.info("creating app window")
+
   mainWindow = new BrowserWindow({width: 800, height: 600})
   mainWindow.loadURL(`file://${__dirname}/app/index.html`)
   mainWindow.webContents.openDevTools()
