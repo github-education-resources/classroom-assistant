@@ -9,25 +9,34 @@ const winston = require("winston")
 //    logger.info("Update found")
 //    logger.error("Update failed to install")
 module.exports = {
-  init() {
+  init () {
     winston.add(winston.transports.File, {
       filename: "./app.log"
     })
   },
 
-  info(message) {
+  logWithType (type, message) {
+    switch (type) {
+    case "info": this.info(message); break
+    case "warning": this.warning(message); break
+    case "error": this.error(message); break
+    case "debug": this.debug(message); break
+    }
+  },
+
+  info (message) {
     winston.info(message)
   },
 
-  warning(message) {
+  warning (message) {
     winston.warn(message)
   },
 
-  error(message) {
+  error (message) {
     winston.error(message)
   },
 
-  debug(message) {
+  debug (message) {
     winston.debug(message)
   }
 }
