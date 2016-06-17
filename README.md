@@ -2,6 +2,8 @@
 
 A desktop helper for [GitHub Classroom](https://classroom.github.com/)
 
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
+
 ## Installing for Development
 
 A local version is simple to set up:
