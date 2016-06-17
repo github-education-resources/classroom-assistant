@@ -16,7 +16,7 @@ module.exports = {
     })
 
     // Route incoming "log-entry" messages from 'app/renderer-logger'
-    let self = this;
+    let self = this
     ipcMain.on("log-entry", (event, opts) => {
       self.logWithType(opts.type, opts.message)
     })
