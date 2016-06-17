@@ -5,7 +5,6 @@ const isDev = require('electron-is-dev')
 
 const updater = require('./updater')
 
-// Configure app window
 let mainWindow
 
 function createWindow () {
@@ -13,7 +12,6 @@ function createWindow () {
   mainWindow.loadURL(`file://${__dirname}/app/index.html`)
   mainWindow.webContents.openDevTools()
 
-  // Start updater unless in development mode
   if (!isDev) {
     var msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates, () => {
