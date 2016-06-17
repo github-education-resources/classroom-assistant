@@ -1,4 +1,4 @@
-/*eslint-env node */
+/* eslint-env node */
 
 const electron = require("electron")
 const app = electron.app

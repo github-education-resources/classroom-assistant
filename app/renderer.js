@@ -3,6 +3,6 @@
 
 const ipcRenderer = require("electron").ipcRenderer
 
-ipcRenderer.on("info", (event , data) => {
+ipcRenderer.on("info", (event, data) => {
   console.log(data.msg)
 })

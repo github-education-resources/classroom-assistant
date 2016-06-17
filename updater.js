@@ -15,7 +15,7 @@ module.exports = {
   //                      the error oject as an argument.
   //
   // Returns noting.
-  start(app, interval, availableCallback, errorCallback) {
+  start (app, interval, availableCallback, errorCallback) {
     autoUpdater.setFeedURL(`${UPDATES_SERVER_URL}/update/darwin?version=${app.getVersion()}`)
 
     // Fire callbacks on events for notification purposes
@@ -27,7 +27,7 @@ module.exports = {
     })
 
     autoUpdater.checkForUpdates()
-    setInterval(function() {
+    setInterval(function () {
       autoUpdater.checkForUpdates()
     }, interval)
   }
