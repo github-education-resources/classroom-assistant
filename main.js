@@ -5,9 +5,6 @@ const isDev = require('electron-is-dev')
 
 const updater = require('./updater')
 
-// Configure auto updates
-var msBetweenUpdates = 1000 * 60 * 30
-
 // Configure app window
 let mainWindow
 
@@ -18,6 +15,7 @@ function createWindow () {
 
   // Start updater unless in development mode
   if (!isDev) {
+    var msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates, () => {
       mainWindow.webContents.send('info', {msg: "update found"})
     }, (err) => {
