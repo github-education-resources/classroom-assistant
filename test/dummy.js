@@ -1,9 +1,11 @@
-var assert = require('chai').assert;
+/*eslint-env mocha */
 
-describe('arithmetic', function() {
-  describe('numbers', function () {
-    it('should add up correctly', function () {
-      assert.equal(2, 1 + 1);
-    });
-  });
-});
+const assert = require("chai").assert
+
+describe("arithmetic", () => {
+  describe("numbers", () => {
+    it("should add up correctly", () => {
+      assert.equal(2, 1 + 1)
+    })
+  })
+})

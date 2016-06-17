@@ -1,8 +1,8 @@
-const autoUpdater = require('electron').autoUpdater
+const autoUpdater = require("electron").autoUpdater
 
 // Internal: URL of the update metadata server -
 //    an instance of Aluxian/squirrel-updates-server
-UPDATES_SERVER_URL = "http://cd-us.herokuapp.com"
+const UPDATES_SERVER_URL = "http://cd-us.herokuapp.com"
 
 module.exports = {
 
@@ -19,10 +19,10 @@ module.exports = {
     autoUpdater.setFeedURL(`${UPDATES_SERVER_URL}/update/darwin?version=${app.getVersion()}`)
 
     // Fire callbacks on events for notification purposes
-    autoUpdater.on('error', errorCallback);
-    autoUpdater.on('update-available', availableCallback);
+    autoUpdater.on("error", errorCallback)
+    autoUpdater.on("update-available", availableCallback)
 
-    autoUpdater.on('update-downloaded', () => {
+    autoUpdater.on("update-downloaded", () => {
       autoUpdater.quitAndInstall()
     })
 

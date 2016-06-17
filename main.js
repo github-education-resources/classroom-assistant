@@ -1,9 +1,11 @@
-const electron = require('electron')
+/*eslint-env node */
+
+const electron = require("electron")
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
-const isDev = require('electron-is-dev')
+const isDev = require("electron-is-dev")
 
-const updater = require('./updater')
+const updater = require("./updater")
 
 let mainWindow
 
@@ -15,26 +17,26 @@ function createWindow () {
   if (!isDev) {
     var msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates, () => {
-      mainWindow.webContents.send('info', {msg: "update found"})
+      mainWindow.webContents.send("info", {msg: "update found"})
     }, (err) => {
-      mainWindow.webContents.send('info', {msg: err})
+      mainWindow.webContents.send("info", {msg: err})
     })
   }
 
-  mainWindow.on('closed', function () {
+  mainWindow.on("closed", function () {
     mainWindow = null
   })
 }
 
-app.on('ready', createWindow)
+app.on("ready", createWindow)
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", function () {
+  if (process.platform !== "darwin") {
     app.quit()
   }
 })
 
-app.on('activate', function () {
+app.on("activate", function () {
   if (mainWindow === null) {
     createWindow()
   }
