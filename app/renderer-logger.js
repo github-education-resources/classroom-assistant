@@ -1,8 +1,7 @@
 const ipcRenderer = require("electron").ipcRenderer
 
-// Public: a module for logging in renderer processes. Sends messages which
-// get routed to the logger module associated with the main process
-// (../logger.js)
+// Public: a module for logging in renderer processes. Sends all messages to the
+// main logger (../logger.js)
 //
 // Examples
 //
