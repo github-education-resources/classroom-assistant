@@ -33,6 +33,11 @@
     "chai": "^3.5.0",
     "electron-is-dev": "^0.1.1",
     "mocha": "^2.5.3",
+    "node-jsx": "^0.13.3",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-photonkit": "^0.4.1",
+    "react-router": "^2.4.1",
     "winston": "^2.2.0"
   }
 }
