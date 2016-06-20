@@ -1,7 +1,7 @@
 "use strict"
 
-const {hashHistory, Route, Router} = require("react-router")
 const React = require("react")
+const {hashHistory, Route, Router} = require("react-router")
 
 const App = require("./components/app")
 
