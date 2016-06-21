@@ -65,12 +65,16 @@ const Item = ({
   active,
   handleClick
 }) => {
-  return <ListItem
-      image="https://avatars3.githubusercontent.com/u/1744446?v=3&s=400"
-      title={text}
-      subtitle="subtitle"
-      onClick={handleClick}
-      active={active} />
+  return (
+    <div
+      onClick={handleClick}>
+      <ListItem
+          image="https://avatars3.githubusercontent.com/u/1744446?v=3&s=400"
+          title={text}
+          subtitle="subtitle"
+          active={active} />
+    </div>
+  )
 }
 
 const App = ({
@@ -94,9 +98,9 @@ const App = ({
           })}
         </ListGroup>
       </Pane>
-      <DevTools store={store}/>
     </Content>
     <Toolbar psType="footer" title="footer" />
+    <DevTools store={store}/>
   </Window>
   )
 }
