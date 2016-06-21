@@ -1,6 +1,24 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {Window, Toolbar, Content, Pane, ListGroup, ListItem} from "react-photonkit"
+import {createStore} from "redux"
+
+const reducer = (state, action) => {
+  switch (action.type) {
+  case "SELECT_ITEM":
+    return state
+  default:
+    return state
+  }
+}
+
+const render = () => {
+  ReactDOM.render(
+    <App />
+  , document.getElementById("app"))
+}
+
+const store = createStore(reducer)
 
 const App = () => {
   return (
@@ -18,7 +36,6 @@ const App = () => {
             image="https://avatars3.githubusercontent.com/u/1744446?v=3&s=400"
             title="list item"
             subtitle="subtitle" />
-          ...
         </ListGroup>
       </Pane>
     </Content>
@@ -27,6 +44,5 @@ const App = () => {
   )
 }
 
-ReactDOM.render(
-  <App />
-, document.getElementById("app"))
+store.subscribe(render)
+render()
