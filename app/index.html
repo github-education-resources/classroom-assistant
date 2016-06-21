@@ -9,10 +9,7 @@
   </body>
 
   <script>
-    require('node-jsx').install({
-      harmony: true,
-      extension: '.jsx'
-    })
-    require('./index.js')
+    require('babel-register');
+    require('./index')
   </script>
 </html>

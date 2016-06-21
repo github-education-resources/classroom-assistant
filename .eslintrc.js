@@ -33,6 +33,10 @@ module.exports = {
             "error",
             "never"
         ],
+        "jsx-quotes": [
+            "error",
+            "prefer-double"
+        ],
         "react/jsx-uses-vars": "error",
         "react/jsx-uses-react": "error"
     }
