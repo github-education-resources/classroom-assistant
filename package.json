@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "test": "node_modules/.bin/eslint --ext .js,.jsx . && node_modules/mocha/bin/mocha test",
+    "test": "node_modules/.bin/eslint --ext .js,.jsx . && node_modules/mocha/bin/mocha --compilers js:babel-core/register test",
     "build-mac": "electron-packager . Classroom --platform=darwin --arch=x64 --out=dist --overwrite"
   },
   "repository": {

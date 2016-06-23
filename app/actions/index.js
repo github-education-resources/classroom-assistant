@@ -1,4 +1,4 @@
-const SELECT_ITEM = "SELECT_ITEM"
+import {SELECT_ITEM} from "../constants/actionTypes"
 
 export const selectItem = (id) => {
   return {
