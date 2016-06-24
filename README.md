@@ -17,7 +17,7 @@ script/setup
 Once installed, run the application with
 
 ```
-script/server
+script/run
 ```
 
 ## Building
