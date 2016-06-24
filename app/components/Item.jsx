@@ -5,18 +5,16 @@ const Item = ({
   text,
   active,
   handleClick
-}) => {
-  return (
-    <div
-      onClick={handleClick}>
-      <ListItem
-          image="https://avatars3.githubusercontent.com/u/1744446?v=3&s=400"
-          title={text}
-          subtitle="subtitle"
-          active={active} />
-    </div>
-  )
-}
+}) => (
+  <div
+    onClick={handleClick}>
+    <ListItem
+        image="https://avatars3.githubusercontent.com/u/1744446?v=3&s=400"
+        title={text}
+        subtitle="subtitle"
+        active={active} />
+  </div>
+)
 
 Item.propTypes = {
   text: PropTypes.string.isRequired,

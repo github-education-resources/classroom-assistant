@@ -5,24 +5,22 @@ import Item from "./Item"
 const ItemList = ({
   items,
   handleItemClick
-}) => {
-  return (
-    <Pane>
-      <ListGroup>
-        {items.map((todo) => {
-          return (
-            <Item
-              key={todo.id}
-              text={todo.text}
-              active={todo.active}
-              handleClick={() => { handleItemClick(todo.id) }}
-            />
-          )
-        })}
-      </ListGroup>
-    </Pane>
-  )
-}
+}) => (
+  <Pane>
+    <ListGroup>
+      {items.map((todo) => {
+        return (
+          <Item
+            key={todo.id}
+            text={todo.text}
+            active={todo.active}
+            handleClick={() => { handleItemClick(todo.id) }}
+          />
+        )
+      })}
+    </ListGroup>
+  </Pane>
+)
 
 ItemList.propTypes = {
   items: PropTypes.array.isRequired,
