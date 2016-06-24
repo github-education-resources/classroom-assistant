@@ -2,6 +2,7 @@
 
 import { assert } from "chai"
 import { SELECT_ITEM } from "../app/constants/actionTypes"
+import deepFreeze from "deep-freeze"
 
 import itemsReducer from "../app/reducers/items"
 
@@ -58,6 +59,8 @@ describe("reducers", () => {
         type: SELECT_ITEM,
         id: 1
       }
+
+      deepFreeze(initialState)
 
       assert.deepEqual(
         expectedState,
