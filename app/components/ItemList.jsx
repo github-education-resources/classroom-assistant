@@ -14,7 +14,7 @@ const ItemList = ({
             key={todo.id}
             text={todo.text}
             active={todo.active}
-            handleClick={() => { handleItemClick(todo.id) }}
+            handleClick={function () { handleItemClick(todo.id) }}
           />
         )
       })}
