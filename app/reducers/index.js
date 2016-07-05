@@ -1,7 +1,11 @@
 import { combineReducers } from "redux"
 
-import items from "./items"
+import submissions from "./submissions"
+import organization from "./organization"
+import assignment from "./assignment"
 
 export default combineReducers({
-  items
+  organization,
+  submissions,
+  assignment
 })
