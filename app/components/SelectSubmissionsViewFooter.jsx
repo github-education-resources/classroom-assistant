@@ -7,16 +7,8 @@ const containerStyles = {
   borderTop: "solid 1px #e3e3e3"
 }
 
-const cancelButtonStyles = {
-  float: "left"
-}
-
-const nextButtonStyles = {
-  float: "right"
-}
-
 const SelectSubmissionsViewFooter = () => (
-  <div style={containerStyles}>
+  <div className="navbar-fixed-bottom" style={containerStyles}>
     <Link to="/">
       <button className="btn btn-danger">Cancel</button>
     </Link>

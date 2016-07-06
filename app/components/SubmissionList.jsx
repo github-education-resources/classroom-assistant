@@ -10,11 +10,13 @@ const SubmissionList = ({
   submissions
 }) => (
   <div style={containerStyles}>
-    {submissions.map((submissionProps) => {
-      return (
-        <Submission key={submissionProps.id} {...submissionProps}/>
-      )
-    })}
+    <div className="container">
+      {submissions.map((submissionProps) => {
+        return (
+          <Submission key={submissionProps.id} {...submissionProps}/>
+        )
+      })}
+    </div>
   </div>
 )
 

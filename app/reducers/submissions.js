@@ -20,6 +20,27 @@ const initialState = [
     avatarUrl: "https://avatars.githubusercontent.com/u/6755555?v=3&size=96",
     repoUrl: "https://github.com/education/classroom-desktop",
     selected: true
+  }, {
+    id: 4,
+    username: "nicktikhonov",
+    displayName: "Nick Tikhonov",
+    avatarUrl: "https://avatars.githubusercontent.com/u/6755555?v=3&size=96",
+    repoUrl: "https://github.com/education/classroom-desktop",
+    selected: true
+  }, {
+    id: 5,
+    username: "nicktikhonov",
+    displayName: "Nick Tikhonov",
+    avatarUrl: "https://avatars.githubusercontent.com/u/6755555?v=3&size=96",
+    repoUrl: "https://github.com/education/classroom-desktop",
+    selected: true
+  }, {
+    id: 6,
+    username: "nicktikhonov",
+    displayName: "Nick Tikhonov",
+    avatarUrl: "https://avatars.githubusercontent.com/u/6755555?v=3&size=96",
+    repoUrl: "https://github.com/education/classroom-desktop",
+    selected: true
   }
 ]
 
