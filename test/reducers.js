@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 
 import { assert } from "chai"
-import submissions from "../app/reducers/submissions"
+import submissions from "../app/modules/submissions/reducers/submissions"
 
 describe("reducers", () => {
   describe("submissions reducer", () => {
