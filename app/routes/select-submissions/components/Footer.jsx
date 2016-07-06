@@ -7,7 +7,7 @@ const containerStyles = {
   borderTop: "solid 1px #e3e3e3"
 }
 
-const SelectSubmissionsViewFooter = () => (
+const Footer = () => (
   <div className="navbar-fixed-bottom" style={containerStyles}>
     <Link to="/">
       <button className="btn btn-danger">Cancel</button>
@@ -18,4 +18,4 @@ const SelectSubmissionsViewFooter = () => (
   </div>
 )
 
-export default SelectSubmissionsViewFooter
+export default Footer

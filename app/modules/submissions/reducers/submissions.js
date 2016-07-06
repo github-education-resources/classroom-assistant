@@ -1,3 +1,5 @@
+import {SUBMISSION_SELECT} from "../constants"
+
 const initialState = [
   {
     id: 1,
@@ -46,7 +48,7 @@ const initialState = [
 
 const submission = (state, action) => {
   switch (action.type) {
-  case "SELECT_ITEM":
+  case SUBMISSION_SELECT:
     if (action.id === state.id) {
       return Object.assign({}, state, {selected: !state.selected})
     } else {
@@ -63,7 +65,7 @@ const submissions = (state, action) => {
   }
 
   switch (action.type) {
-  case "SELECT_ITEM":
+  case SUBMISSION_SELECT:
     return state.map((each) => {
       return submission(each, action)
     })

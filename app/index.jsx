@@ -6,7 +6,7 @@ import { createStore, compose } from "redux"
 import { Provider } from "react-redux"
 
 import DevTools from "./devtools"
-import reducer from "./reducers"
+import reducer from "./modules/reducers"
 import Routes from "./routes"
 
 const store = createStore(reducer, compose(DevTools.instrument()))

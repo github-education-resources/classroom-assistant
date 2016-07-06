@@ -2,10 +2,10 @@ import React from "react"
 import isDev from "electron-is-dev"
 import { Router, Route } from "react-router"
 
-import DevTools from "./DevTools"
-import LaunchView from "./components/LaunchView"
-import SelectSubmissionsView from "./components/SelectSubmissionsView"
-import SelectDestinationView from "./components/SelectDestinationView"
+import DevTools from "../DevTools"
+import LaunchView from "./index/index"
+import SelectSubmissionsView from "./select-submissions/index"
+import SelectDestinationView from "./select-destination/index"
 
 let devToolsInstance
 if (isDev) {
