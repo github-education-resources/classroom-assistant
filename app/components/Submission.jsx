@@ -1,5 +1,10 @@
 import React, { PropTypes } from "react"
 
+const containerStyles = {
+  padding: "10px",
+  borderTop: "solid 1px #e3e3e3"
+}
+
 const Submission = ({
   id,
   username,
@@ -8,31 +13,28 @@ const Submission = ({
   repoUrl,
   selected
 }) => (
-  <div
-    className="flex-table border-top"
-    styles={{
-      paddingTop: "20px",
-      paddingBottom: "20px"
-    }}>
-    <div className="flex-table-item">
-      <img
-        className="avatar left"
-        width="48px"
-        height="48px"
-        alt={username}
-        src={avatarUrl}/>
-      <div>
-        <a className="css-truncate css-truncate-target">
-          @{username}
-        </a>
-        <span className="text-muted css-truncate css-truncate-target">
-          {displayName}
-        </span>
+  <div style={containerStyles}>
+    <div className="media">
+      <a className="media-left" href="#">
+        <img
+          width="48px"
+          height="48px"
+          src={avatarUrl}
+          className="media-object"
+          alt={username}/>
+      </a>
+      <div className="media-body">
+        <div className="row">
+          <div className="col-xs-6">
+            <h4 className="media-heading">@{username}</h4>
+            {displayName}
+          </div>
+          <div className="col-xs-6">
+            <a href={repoUrl}>{repoUrl}</a>
+            <input type="checkbox" checked={selected} readOnly={true}/>
+          </div>
+        </div>
       </div>
-    </div>
-    <div className="flex-table-item">
-      <a href={repoUrl}>{repoUrl}</a>
-      <input type="checkbox" checked={selected} readOnly={true}/>
     </div>
   </div>
 )

@@ -3,6 +3,12 @@ import React, { PropTypes } from "react"
 import SelectableSubmissionList from "../containers/SelectableSubmissionList"
 import { connect } from "react-redux"
 
+const mediaContainerStyles = {
+  padding: "20px",
+  background: "#fbfbfb",
+  borderBottom: "solid 1px #e3e3e3"
+}
+
 const AssignmentPanel = ({
   name,
   type
@@ -15,15 +21,20 @@ const AssignmentPanel = ({
   }
 
   return (
-    <div className="container">
-      <div className="site-content">
-        <div className="site-content-cap">
-          <h4>{name}</h4>
-          <p>{typeLabel}</p>
+    <div>
+      <div style={mediaContainerStyles}>
+        <div className="media">
+          <a className="media-left" href="#">
+            <img src="http://placehold.it/48x48" className="media-object" alt="Generic placeholder image" />
+          </a>
+          <div className="media-body">
+            <h4 className="media-heading">{name}</h4>
+            {typeLabel}
+          </div>
         </div>
-        <div className="site-content-body">
-          <SelectableSubmissionList />
-        </div>
+      </div>
+      <div className="container">
+        <SelectableSubmissionList />
       </div>
     </div>
   )
