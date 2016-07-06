@@ -4,8 +4,8 @@ import { hashHistory } from "react-router"
 import { syncHistoryWithStore } from "react-router-redux"
 import { createStore, compose } from "redux"
 import { Provider } from "react-redux"
-import DevTools from "./DevTools"
 
+import DevTools from "./devtools"
 import reducer from "./reducers"
 import Routes from "./routes"
 
