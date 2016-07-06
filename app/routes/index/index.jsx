@@ -1,8 +1,6 @@
 import React from "react"
 import { Link } from "react-router"
 
-console.log("Got here")
-
 const LaunchView = () => (
   <div>
     <p>Launch View</p>
