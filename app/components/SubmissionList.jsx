@@ -8,17 +8,26 @@ const containerStyles = {
 
 const SubmissionList = ({
   submissions
-}) => (
-  <div style={containerStyles}>
-    <div className="container">
-      {submissions.map((submissionProps) => {
-        return (
-          <Submission key={submissionProps.id} {...submissionProps}/>
-        )
-      })}
+}) => {
+  const numSelected = submissions.filter((each) => {
+    return each.selected
+  }).length
+
+  return (
+    <div style={containerStyles}>
+      <div className="container">
+        <div>
+          {numSelected}/{submissions.length} selected
+        </div>
+        {submissions.map((submissionProps) => {
+          return (
+            <Submission key={submissionProps.id} {...submissionProps}/>
+          )
+        })}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 SubmissionList.propTypes = {
   submissions: PropTypes.array.isRequired
