@@ -13,21 +13,24 @@ describe("reducers", () => {
           displayName: "Nick Tikhonov",
           avatarUrl: "https://avatars.githubusercontent.com/u/6755555?v=3&size=96",
           repoUrl: "https://github.com/education/classroom-desktop",
-          selected: true
+          selected: true,
+          progress: 30
         }, {
           id: 2,
           username: "nicktikhonov",
           displayName: "Nick Tikhonov",
           avatarUrl: "https://avatars.githubusercontent.com/u/6755555?v=3&size=96",
           repoUrl: "https://github.com/education/classroom-desktop",
-          selected: true
+          selected: true,
+          progress: 50
         }, {
           id: 3,
           username: "nicktikhonov",
           displayName: "Nick Tikhonov",
           avatarUrl: "https://avatars.githubusercontent.com/u/6755555?v=3&size=96",
           repoUrl: "https://github.com/education/classroom-desktop",
-          selected: true
+          selected: true,
+          progress: 100
         }
       ]
 

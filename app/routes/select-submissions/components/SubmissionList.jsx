@@ -1,5 +1,6 @@
 import React, { PropTypes } from "react"
 import Submission from "./Submission"
+import SelectAllPanel from "./SelectAllPanel"
 
 const SubmissionList = ({
   submissions
@@ -10,9 +11,7 @@ const SubmissionList = ({
 
   return (
     <div>
-      <div>
-        {numSelected}/{submissions.length} selected
-      </div>
+      <SelectAllPanel selected={numSelected} total={submissions.length} />
       {submissions.map((submissionProps) => {
         return (
           <Submission key={submissionProps.id} {...submissionProps}/>

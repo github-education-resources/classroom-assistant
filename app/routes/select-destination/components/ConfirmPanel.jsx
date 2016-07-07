@@ -1,6 +1,11 @@
 import React, { PropTypes } from "react"
 import ItemPanel from "../../../shared-components/ItemPanel"
 
+const editIconStyles = {
+  paddingTop: "5px",
+  paddingRight: "5px"
+}
+
 const ConfirmPanel = ({
   iconPath,
   title,
@@ -10,7 +15,13 @@ const ConfirmPanel = ({
     imagePath={iconPath}
     title={title}
     subtitle={subtitle}
-  />
+  >
+    <i
+      className="fa fa-pencil fa-2x pull-right"
+      aria-hidden="true"
+      style={editIconStyles}
+    />
+  </ItemPanel>
 )
 
 ConfirmPanel.propTypes = {

@@ -14,8 +14,9 @@ const Submission = ({
     title={displayName}
     subtitle={username}
   >
-    <a href={repoUrl}>{repoUrl}</a>
-    <input type="checkbox" checked={selected} readOnly={true}/>
+    <div className="pull-right">
+      <input type="checkbox" checked={selected} readOnly={true}/>
+    </div>
   </ItemPanel>
 )
 
