@@ -26,7 +26,7 @@ const ItemPanel = ({
         <div className="row">
           <div className="col-xs-6">
             <h4 className="media-heading">{title}</h4>
-            {subtitle}
+            <h5>{subtitle}</h5>
           </div>
           <div className="col-xs-6">
             {children}
@@ -41,7 +41,7 @@ ItemPanel.propTypes = {
   imagePath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired
+  children: PropTypes.array
 }
 
 export default ItemPanel

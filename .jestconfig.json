@@ -2,5 +2,11 @@
   "testPathIgnorePatterns": [
     "/node_modules/",
     "/dist/"
+  ],
+  "unmockedModulePathPatterns": [
+    "<rootDir>/node_modules/react/",
+    "<rootDir>/node_modules/react-dom/",
+    "<rootDir>/node_modules/react-addons-test-utils/",
+    "<rootDir>/node_modules/enzyme"
   ]
 }
