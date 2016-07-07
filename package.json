@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "test": "node_modules/.bin/eslint --ext .js,.jsx . && node_modules/mocha/bin/mocha --compilers js:babel-core/register test",
+    "test": "node_modules/.bin/eslint --ext .js,.jsx . && jest -c .jestconfig.json",
     "build-mac": "electron-packager . Classroom --platform=darwin --arch=x64 --out=dist --overwrite"
   },
   "repository": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/education/classroom-desktop#readme",
   "devDependencies": {
+    "babel-jest": "^13.2.2",
     "electron-packager": "^7.0.4",
     "electron-prebuilt": "^1.2.0",
     "eslint": "^2.13.0",
@@ -28,6 +29,7 @@
     "eslint-plugin-promise": "^1.3.2",
     "eslint-plugin-react": "^5.2.1",
     "eslint-plugin-standard": "^1.3.2",
+    "jest-cli": "^13.2.3",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11"
@@ -38,12 +40,10 @@
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.9.0",
     "bootstrap": "^3.3.6",
-    "chai": "^3.5.0",
     "classnames": "^2.2.5",
     "deep-freeze": "0.0.1",
     "electron-is-dev": "^0.1.1",
     "font-awesome": "^4.6.3",
-    "mocha": "^2.5.3",
     "octicons": "^4.2.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
