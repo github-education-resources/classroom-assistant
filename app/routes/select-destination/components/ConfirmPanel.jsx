@@ -9,7 +9,8 @@ const editIconStyles = {
 const ConfirmPanel = ({
   iconPath,
   title,
-  subtitle
+  subtitle,
+  onEditClick
 }) => (
   <ItemPanel
     imagePath={iconPath}
@@ -20,6 +21,7 @@ const ConfirmPanel = ({
       className="fa fa-pencil fa-2x pull-right"
       aria-hidden="true"
       style={editIconStyles}
+      onClick={onEditClick}
     />
   </ItemPanel>
 )
@@ -27,7 +29,8 @@ const ConfirmPanel = ({
 ConfirmPanel.propTypes = {
   iconPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired
+  subtitle: PropTypes.string.isRequired,
+  onEditClick: PropTypes.func.isRequired
 }
 
 export default ConfirmPanel

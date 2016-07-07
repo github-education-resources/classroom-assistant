@@ -41,7 +41,7 @@ ItemPanel.propTypes = {
   imagePath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  children: PropTypes.array
+  children: PropTypes.any
 }
 
 export default ItemPanel

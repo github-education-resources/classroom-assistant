@@ -55,6 +55,7 @@
     "react-router-redux": "^4.0.5",
     "recompose": "^0.20.2",
     "redux": "^3.5.2",
+    "sinon": "^1.17.4",
     "winston": "^2.2.0"
   }
 }
