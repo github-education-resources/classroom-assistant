@@ -1,7 +1,7 @@
 {
   "testPathIgnorePatterns": [
-    "/node_modules/",
-    "/dist/"
+    "<rootDir>/node_modules/",
+    "<rootDir>/dist/"
   ],
   "unmockedModulePathPatterns": [
     "<rootDir>/node_modules/react/",
