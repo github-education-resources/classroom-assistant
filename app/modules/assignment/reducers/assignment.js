@@ -1,5 +1,5 @@
 const initialState = {
-  name: "Sample Assignment",
+  name: "Assignment 1: Introduction to Programming",
   type: "individual"
 }
 

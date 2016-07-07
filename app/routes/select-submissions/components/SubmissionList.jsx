@@ -2,6 +2,10 @@ import React, { PropTypes } from "react"
 import Submission from "./Submission"
 import SelectAllPanel from "./SelectAllPanel"
 
+const containerStyles = {
+  marginBottom: "100px"
+}
+
 const SubmissionList = ({
   submissions
 }) => {
@@ -10,7 +14,7 @@ const SubmissionList = ({
   }).length
 
   return (
-    <div>
+    <div style={containerStyles}>
       <SelectAllPanel selected={numSelected} total={submissions.length} />
       {submissions.map((submissionProps) => {
         return (
