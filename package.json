@@ -42,6 +42,7 @@
     "deep-freeze": "0.0.1",
     "electron-is-dev": "^0.1.1",
     "mocha": "^2.5.3",
+    "octicons": "^4.2.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-photonkit": "^0.4.1",

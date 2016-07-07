@@ -1,15 +1,12 @@
 import React from "react"
 
+import AssignmentPanel from "../../shared-containers/AssignmentPanel"
 import Footer from "./components/Footer"
 import ConfirmPanel from "./components/ConfirmPanel"
 
 const SelectDestinationView = () => (
   <div>
-    <ConfirmPanel
-      iconPath="http://placehold.it/48x48"
-      title="SomeAssignment"
-      subtitle="Individual Assignment"
-    />
+    <AssignmentPanel />
     <ConfirmPanel
       iconPath="http://placehold.it/48x48"
       title="4/10"

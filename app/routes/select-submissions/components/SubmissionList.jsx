@@ -15,16 +15,14 @@ const SubmissionList = ({
 
   return (
     <div style={containerStyles}>
-      <div className="container">
-        <div>
-          {numSelected}/{submissions.length} selected
-        </div>
-        {submissions.map((submissionProps) => {
-          return (
-            <Submission key={submissionProps.id} {...submissionProps}/>
-          )
-        })}
+      <div>
+        {numSelected}/{submissions.length} selected
       </div>
+      {submissions.map((submissionProps) => {
+        return (
+          <Submission key={submissionProps.id} {...submissionProps}/>
+        )
+      })}
     </div>
   )
 }
