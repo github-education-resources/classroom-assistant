@@ -12,7 +12,8 @@ const ItemArchivePanel = ({
   <ItemPanel
     imagePath={avatarUrl}
     title={username}
-    subtitle={displayName}>
+    subtitle={displayName}
+  >
     <div className="progress">
       <div
         className="progress-bar"
@@ -21,7 +22,8 @@ const ItemArchivePanel = ({
         aria-valuemax="100"
         style={{
           width: "70%"
-        }}>
+        }}
+      >
         <span className="sr-only">70% Complete</span>
       </div>
     </div>

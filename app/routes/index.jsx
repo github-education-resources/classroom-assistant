@@ -1,4 +1,4 @@
-import React from "react"
+import React, { PropTypes } from "react"
 import isDev from "electron-is-dev"
 import { Router, Route } from "react-router"
 
@@ -27,6 +27,10 @@ const Routes = ({
       {devToolsInstance}
     </div>
   )
+}
+
+Routes.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
 export default Routes

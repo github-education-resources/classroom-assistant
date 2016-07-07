@@ -1,4 +1,4 @@
-import React from "react"
+import React, { PropTypes } from "react"
 
 const panelStyles = {
   padding: "20px",
@@ -19,7 +19,8 @@ const ItemPanel = ({
           height="48px"
           src={imagePath}
           className="media-object"
-          alt={title}/>
+          alt={title}
+        />
       </div>
       <div className="media-body">
         <div className="row">
@@ -35,5 +36,12 @@ const ItemPanel = ({
     </div>
   </div>
 )
+
+ItemPanel.propTypes = {
+  imagePath: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired
+}
 
 export default ItemPanel

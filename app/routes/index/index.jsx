@@ -14,11 +14,11 @@ const LaunchView = () => (
           GitHub Classroom Desktop lets you archive assignments submitted on GitHub
           Classroom with a click of a button.
         </p>
-          <div className="text-center">
-            <Link to="select">
-              <button className="btn btn-primary btn-lg">Get started on GitHub Classroom</button>
-            </Link>
-          </div>
+        <div className="text-center">
+          <Link to="select">
+            <button className="btn btn-primary btn-lg">Get started on GitHub Classroom</button>
+          </Link>
+        </div>
       </div>
     </div>
   </div>
