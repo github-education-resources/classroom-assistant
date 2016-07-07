@@ -9,11 +9,8 @@ const containerStyles = {
 
 const Footer = () => (
   <div className="navbar-fixed-bottom" style={containerStyles}>
-    <Link to="/select">
-      <button className="btn btn-danger">Back</button>
-    </Link>
-    <Link to="/progress">
-      <button className="btn btn-success pull-right">Begin Archive</button>
+    <Link to="/">
+      <button className="btn btn-danger">Close</button>
     </Link>
   </div>
 )

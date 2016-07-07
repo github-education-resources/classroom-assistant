@@ -1,11 +1,6 @@
 import React, { PropTypes } from "react"
 import Submission from "./Submission"
 
-const containerStyles = {
-  paddingTop: "20px",
-  paddingBottom: "20px"
-}
-
 const SubmissionList = ({
   submissions
 }) => {
@@ -14,7 +9,7 @@ const SubmissionList = ({
   }).length
 
   return (
-    <div style={containerStyles}>
+    <div>
       <div>
         {numSelected}/{submissions.length} selected
       </div>

@@ -6,6 +6,7 @@ import DevTools from "../DevTools"
 import LaunchView from "./index/index"
 import SelectSubmissionsView from "./select-submissions/index"
 import SelectDestinationView from "./select-destination/index"
+import ArchiveProgressView from "./archive-progress/index"
 
 let devToolsInstance
 if (isDev) {
@@ -21,6 +22,7 @@ const Routes = ({
         <Route name="home" path="/" component={LaunchView} />
         <Route name="select" path="/select" component={SelectSubmissionsView} />
         <Route name="destination" path="/destination" component={SelectDestinationView} />
+        <Route name="progress" path="/progress" component={ArchiveProgressView} />
       </Router>
       {devToolsInstance}
     </div>
