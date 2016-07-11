@@ -12,7 +12,6 @@ const ItemArchivePanel = ({
   displayName,
   avatarUrl,
   repoUrl,
-  selected,
   progress
 }) => {
   let viewButton, barColorClass
@@ -33,6 +32,8 @@ const ItemArchivePanel = ({
     )
   }
 
+  const progressBarClasses = classNames("progress-bar", barColorClass)
+
   return (
     <ItemPanel
       imagePath={avatarUrl}
@@ -43,7 +44,7 @@ const ItemArchivePanel = ({
         <div className="col-sm-8">
           <div className="progress">
             <div
-              className={classNames("progress-bar", barColorClass)}
+              className={progressBarClasses}
               role="progressbar" aria-valuenow={progress}
               aria-valuemin="0"
               aria-valuemax="100"
@@ -67,7 +68,6 @@ ItemArchivePanel.propTypes = {
   displayName: PropTypes.string.isRequired,
   avatarUrl: PropTypes.string.isRequired,
   repoUrl: PropTypes.string.isRequired,
-  selected: PropTypes.bool.isRequired,
   progress: PropTypes.number.isRequired
 }
 
