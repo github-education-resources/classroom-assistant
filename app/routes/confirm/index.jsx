@@ -4,7 +4,7 @@ import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import Footer from "./components/Footer"
 import ConfirmPanel from "./components/ConfirmPanel"
 
-const SelectDestinationView = () => (
+const ConfirmPage = () => (
   <div>
     <AssignmentPanel />
     <ConfirmPanel
@@ -21,4 +21,4 @@ const SelectDestinationView = () => (
   </div>
 )
 
-export default SelectDestinationView
+export default ConfirmPage

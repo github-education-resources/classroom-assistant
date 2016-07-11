@@ -3,10 +3,10 @@ import isDev from "electron-is-dev"
 import { Router, Route } from "react-router"
 
 import DevTools from "../DevTools"
-import LaunchView from "./index/index"
-import SelectSubmissionsView from "./select-submissions/index"
-import SelectDestinationView from "./select-destination/index"
-import ArchiveProgressView from "./archive-progress/index"
+import IndexPage from "./index/index"
+import SelectPage from "./select/index"
+import ConfirmPage from "./confirm/index"
+import ArchivePage from "./archive/index"
 
 let devToolsInstance
 if (isDev) {
@@ -19,10 +19,10 @@ const Routes = ({
   return (
     <div>
       <Router history={history}>
-        <Route name="home" path="/" component={LaunchView} />
-        <Route name="select" path="/select" component={SelectSubmissionsView} />
-        <Route name="destination" path="/destination" component={SelectDestinationView} />
-        <Route name="progress" path="/progress" component={ArchiveProgressView} />
+        <Route name="index" path="/" component={IndexPage} />
+        <Route name="select" path="/select" component={SelectPage} />
+        <Route name="confirm" path="/confirm" component={ConfirmPage} />
+        <Route name="archive" path="/archive" component={ArchivePage} />
       </Router>
       {devToolsInstance}
     </div>

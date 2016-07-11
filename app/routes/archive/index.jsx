@@ -1,15 +1,14 @@
 import React from "react"
-
 import AssignmentPanel from "../shared/containers/AssignmentPanel"
-import SelectableSubmissionList from "./containers/SelectableSubmissionList"
+import SubmissionArchivePanelList from "./containers/SubmissionArchivePanelList"
 import Footer from "./components/Footer"
 
-const SelectSubmissionsView = () => (
+const ArchivePage = () => (
   <div>
     <AssignmentPanel />
-    <SelectableSubmissionList />
+    <SubmissionArchivePanelList />
     <Footer />
   </div>
 )
 
-export default SelectSubmissionsView
+export default ArchivePage

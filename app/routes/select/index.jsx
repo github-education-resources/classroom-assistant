@@ -1,14 +1,15 @@
 import React from "react"
+
 import AssignmentPanel from "../shared/containers/AssignmentPanel"
-import SubmissionArchivePanelList from "./containers/SubmissionArchivePanelList"
+import SelectableSubmissionList from "./containers/SelectableSubmissionList"
 import Footer from "./components/Footer"
 
-const ArchiveProgressView = () => (
+const SelectPage = () => (
   <div>
     <AssignmentPanel />
-    <SubmissionArchivePanelList />
+    <SelectableSubmissionList />
     <Footer />
   </div>
 )
 
-export default ArchiveProgressView
+export default SelectPage

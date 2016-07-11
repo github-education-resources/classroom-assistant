@@ -5,7 +5,7 @@ const containerStyles = {
   paddingTop: "50px"
 }
 
-const LaunchView = () => (
+const IndexPage = () => (
   <div style={containerStyles}>
     <div className="row">
       <div className="col-sm-6 col-sm-offset-3">
@@ -24,4 +24,4 @@ const LaunchView = () => (
   </div>
 )
 
-export default LaunchView
+export default IndexPage

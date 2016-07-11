@@ -12,7 +12,7 @@ const Footer = () => (
     <Link to="/select">
       <button className="btn btn-danger">Back</button>
     </Link>
-    <Link to="/progress">
+    <Link to="/archive">
       <button className="btn btn-success pull-right">Begin Archive</button>
     </Link>
   </div>
