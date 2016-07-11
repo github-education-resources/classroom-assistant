@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react"
 import classNames from "classnames"
-import ItemPanel from "../../../shared-components/ItemPanel"
+import ItemPanel from "../../shared/components/ItemPanel"
 
 const containerStyles = {
   marginTop: "10px"

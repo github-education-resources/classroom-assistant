@@ -1,6 +1,6 @@
 import React from "react"
 
-import AssignmentPanel from "../../shared-containers/AssignmentPanel"
+import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import SelectableSubmissionList from "./containers/SelectableSubmissionList"
 import Footer from "./components/Footer"
 

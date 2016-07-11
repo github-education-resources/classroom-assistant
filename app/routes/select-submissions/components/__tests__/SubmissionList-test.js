@@ -1,7 +1,7 @@
 jest.unmock("../SubmissionList.jsx")
 jest.unmock("../Submission.jsx")
 jest.unmock("../SelectAllPanel.jsx")
-jest.unmock("../../../../shared-components/ItemPanel.jsx")
+jest.unmock("../../../shared/components/ItemPanel.jsx")
 
 import React from "react"
 import { mount } from "enzyme"

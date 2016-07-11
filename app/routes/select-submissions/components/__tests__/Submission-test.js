@@ -1,5 +1,5 @@
 jest.unmock("../Submission.jsx")
-jest.unmock("../../../../shared-components/ItemPanel.jsx")
+jest.unmock("../../../shared/components/ItemPanel.jsx")
 
 import React from "react"
 import { shallow } from "enzyme"

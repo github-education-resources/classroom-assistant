@@ -1,5 +1,5 @@
 import React from "react"
-import AssignmentPanel from "../../shared-containers/AssignmentPanel"
+import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import SubmissionArchivePanelList from "./containers/SubmissionArchivePanelList"
 import Footer from "./components/Footer"
 
