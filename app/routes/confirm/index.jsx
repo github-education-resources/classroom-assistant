@@ -1,8 +1,8 @@
 import React from "react"
 
 import AssignmentPanel from "../shared/containers/AssignmentPanel"
-import Footer from "./components/Footer"
 import ConfirmPanel from "./components/ConfirmPanel"
+import Footer from "../shared/components/Footer"
 
 const ConfirmPage = () => (
   <div>
@@ -17,7 +17,16 @@ const ConfirmPage = () => (
       title="some/default/path"
       subtitle="Archive Destination"
     />
-    <Footer />
+    <Footer
+      left={{
+        label: "Back",
+        route: "/select"
+      }}
+      right={{
+        label: "Next: Begin Archive",
+        route: "/archive"
+      }}
+    />
   </div>
 )
 
