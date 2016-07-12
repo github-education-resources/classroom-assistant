@@ -15,7 +15,7 @@ logger.init()
 function createWindow () {
   logger.info("creating app window")
 
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 900, height: 600})
   mainWindow.loadURL(`file://${__dirname}/app/index.html`)
   mainWindow.webContents.openDevTools()
 

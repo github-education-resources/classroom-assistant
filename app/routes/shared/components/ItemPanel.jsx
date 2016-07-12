@@ -24,11 +24,11 @@ const ItemPanel = ({
       </div>
       <div className="media-body">
         <div className="row">
-          <div className="col-xs-6">
+          <div className="col-xs-7">
             <h4 className="media-heading">{title}</h4>
             <h5>{subtitle}</h5>
           </div>
-          <div className="col-xs-6">
+          <div className="col-xs-5">
             {children}
           </div>
         </div>

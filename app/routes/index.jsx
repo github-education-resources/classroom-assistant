@@ -7,6 +7,7 @@ import IndexPage from "./index/index"
 import SelectPage from "./select/index"
 import ConfirmPage from "./confirm/index"
 import ArchivePage from "./archive/index"
+import SettingsPage from "./settings/index"
 
 let devToolsInstance
 if (isDev) {
@@ -23,6 +24,7 @@ const Routes = ({
         <Route name="select" path="/select" component={SelectPage} />
         <Route name="confirm" path="/confirm" component={ConfirmPage} />
         <Route name="archive" path="/archive" component={ArchivePage} />
+        <Route name="settings" path="/settings" component={SettingsPage} />
       </Router>
       {devToolsInstance}
     </div>
