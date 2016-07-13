@@ -1,13 +1,27 @@
 import React, { PropTypes } from "react"
 import ItemPanel from "../../shared/components/ItemPanel"
 
-const Submission = ({
+import { compose, withHandlers } from "recompose"
+
+const enchance = compose(
+  withHandlers({
+    onCheckboxClick: (props) => () => {
+      if (props.onSelectedChange) {
+        props.onSelectedChange(!props.selected)
+      }
+    }
+  })
+)
+
+const Submission = enchance(({
   id,
   username,
   displayName,
   avatarUrl,
   repoUrl,
-  selected
+  selected,
+  onSelectedChange,
+  onCheckboxClick
 }) => (
   <ItemPanel
     imagePath={avatarUrl}
@@ -15,10 +29,10 @@ const Submission = ({
     subtitle={username}
   >
     <div className="pull-right">
-      <input type="checkbox" checked={selected} readOnly={true}/>
+      <input type="checkbox" checked={selected} onClick={onCheckboxClick} readOnly={true}/>
     </div>
   </ItemPanel>
-)
+))
 
 Submission.propTypes = {
   id: PropTypes.number.isRequired,
@@ -26,7 +40,8 @@ Submission.propTypes = {
   displayName: PropTypes.string.isRequired,
   avatarUrl: PropTypes.string.isRequired,
   repoUrl: PropTypes.string.isRequired,
-  selected: PropTypes.bool.isRequired
+  selected: PropTypes.bool.isRequired,
+  onChange: PropTypes.func
 }
 
 export default Submission
