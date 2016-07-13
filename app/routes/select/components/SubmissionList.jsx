@@ -10,7 +10,7 @@ const containerStyles = {
 
 const enchance = compose(
   withHandlers({
-    renderSelectAllPanel: (props) => (submissionProps) => {
+    renderSubmission: (props) => (submissionProps) => {
       return (
         <Submission key={submissionProps.id} {...submissionProps}/>
       )
@@ -26,13 +26,13 @@ const enchance = compose(
 
 const SubmissionList = enchance(({
   submissions,
-  renderSelectAllPanel,
+  renderSubmission,
   numSelectedSubmissions
 }) => {
   return (
     <div style={containerStyles}>
       <SelectAllPanel selected={numSelectedSubmissions()} total={submissions.length} />
-      {submissions.map(renderSelectAllPanel)}
+      {submissions.map(renderSubmission)}
     </div>
   )
 })
