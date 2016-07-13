@@ -9,7 +9,6 @@
     "test": "npm run lint && npm run test-unit",
     "lint": "node_modules/.bin/eslint --ext .js,.jsx .",
     "test-unit": "jest -c .jestconfig.json",
-    "test-integ": "node_modules/.bin/mocha --compilers js:babel-core/register test/acceptance.js",
     "build-mac": "electron-packager . 'GitHub Classroom' --platform=darwin --arch=x64 --out=dist --overwrite"
   },
   "repository": {
@@ -33,12 +32,13 @@
     "eslint-plugin-react": "^5.2.1",
     "eslint-plugin-standard": "^1.3.2",
     "jest-cli": "^13.2.3",
+    "deep-freeze": "0.0.1",
+    "enzyme": "^2.3.0",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11"
   },
   "dependencies": {
-    "assert": "^1.4.1",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-plugin-transform-strict-mode": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
@@ -46,23 +46,17 @@
     "babel-register": "^6.9.0",
     "bootstrap": "^3.3.6",
     "classnames": "^2.2.5",
-    "deep-freeze": "0.0.1",
     "electron-is-dev": "^0.1.1",
-    "enzyme": "^2.3.0",
     "font-awesome": "^4.6.3",
-    "mocha": "^2.5.3",
-    "octicons": "^4.2.0",
     "react": "^15.1.0",
     "react-addons-test-utils": "15.1.0",
     "react-dom": "^15.1.0",
-    "react-photonkit": "^0.4.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "react-router-redux": "^4.0.5",
     "recompose": "^0.20.2",
     "redux": "^3.5.2",
     "sinon": "^1.17.4",
-    "spectron": "^3.2.6",
     "winston": "^2.2.0"
   }
 }
