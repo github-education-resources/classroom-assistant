@@ -1,5 +1,4 @@
 jest.unmock("../SubmissionList.jsx")
-jest.unmock("../Submission.jsx")
 jest.unmock("../SelectAllPanel.jsx")
 jest.unmock("../../../shared/components/ItemPanel.jsx")
 
@@ -7,7 +6,7 @@ import React from "react"
 import { mount } from "enzyme"
 
 import SubmissionList from "../SubmissionList.jsx"
-import Submission from "../Submission.jsx"
+import SelectableSubmission from "../../containers/SelectableSubmission.jsx"
 import SelectAllPanel from "../SelectAllPanel.jsx"
 
 let testProps = {
@@ -29,9 +28,9 @@ let testProps = {
 }
 
 describe("SubmissionList", () => {
-  it("renders Submission components as children", () => {
+  it("renders SelectableSubmission components as children", () => {
     let wrapper = mount(<SubmissionList {...testProps} />)
-    expect(wrapper.find(Submission).length).toEqual(2)
+    expect(wrapper.find(SelectableSubmission).length).toEqual(2)
   })
 
   it("renders a SelectAllPanel", () => {

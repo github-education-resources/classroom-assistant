@@ -41,7 +41,7 @@ Submission.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
   repoUrl: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
-  onChange: PropTypes.func
+  onSelectedChange: PropTypes.func
 }
 
 export default Submission

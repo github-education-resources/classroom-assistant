@@ -1,7 +1,7 @@
 import React, { PropTypes } from "react"
 import { compose, withHandlers } from "recompose"
 
-import Submission from "./Submission"
+import SelectableSubmission from "../containers/SelectableSubmission"
 import SelectAllPanel from "./SelectAllPanel"
 
 const containerStyles = {
@@ -12,7 +12,7 @@ const enchance = compose(
   withHandlers({
     renderSubmission: (props) => (submissionProps) => {
       return (
-        <Submission key={submissionProps.id} {...submissionProps}/>
+        <SelectableSubmission key={submissionProps.id} {...submissionProps}/>
       )
     },
 
