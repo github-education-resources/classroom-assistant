@@ -2,7 +2,7 @@ import React, { PropTypes } from "react"
 import { compose, withHandlers } from "recompose"
 
 import SelectableSubmission from "../containers/SelectableSubmission"
-import SelectAllPanel from "./SelectAllPanel"
+import ActionableSelectAllPanel from "../containers/ActionableSelectAllPanel"
 
 const containerStyles = {
   marginBottom: "100px"
@@ -14,12 +14,6 @@ const enchance = compose(
       return (
         <SelectableSubmission key={submissionProps.id} {...submissionProps}/>
       )
-    },
-
-    numSelectedSubmissions: (props) => () => {
-      return props.submissions.filter((each) => {
-        return each.selected
-      }).length
     }
   })
 )
@@ -31,11 +25,7 @@ const SubmissionList = enchance(({
 }) => {
   return (
     <div style={containerStyles}>
-      <SelectAllPanel
-        selected={numSelectedSubmissions()}
-        total={submissions.length}
-        selectAll={true}
-      />
+      <ActionableSelectAllPanel />
       {submissions.map(renderSubmission)}
     </div>
   )
