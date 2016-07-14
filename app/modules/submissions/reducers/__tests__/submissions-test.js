@@ -1,7 +1,108 @@
 jest.unmock("../submissions")
+
 import submissions from "../submissions"
+import { SUBMISSION_SELECT } from "../../constants"
 
 describe("submissions", () => {
+  it("selects a non-selected submission given SUBMISSION_SELECT", () => {
+    const initialState = [
+      {
+        id: 1,
+        username: "StudentEvelyn",
+        displayName: "Evelyn",
+        avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
+        repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
+        selected: false,
+        progress: 30
+      }
+    ]
+
+    const expectedState = [
+      {
+        id: 1,
+        username: "StudentEvelyn",
+        displayName: "Evelyn",
+        avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
+        repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
+        selected: true,
+        progress: 30
+      }
+    ]
+
+    const action = {
+      type: SUBMISSION_SELECT,
+      id: 1
+    }
+
+    expect(submissions(initialState, action)).toEqual(expectedState)
+  })
+
+  it("unselects a selected submission given SUBMISSION_SELECT", () => {
+    const initialState = [
+      {
+        id: 1,
+        username: "StudentEvelyn",
+        displayName: "Evelyn",
+        avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
+        repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
+        selected: true,
+        progress: 30
+      }
+    ]
+
+    const expectedState = [
+      {
+        id: 1,
+        username: "StudentEvelyn",
+        displayName: "Evelyn",
+        avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
+        repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
+        selected: false,
+        progress: 30
+      }
+    ]
+
+    const action = {
+      type: SUBMISSION_SELECT,
+      id: 1
+    }
+
+    expect(submissions(initialState, action)).toEqual(expectedState)
+  })
+
+  it("does not change the state of a submission with non-matching id", () => {
+    const initialState = [
+      {
+        id: 2,
+        username: "StudentEvelyn",
+        displayName: "Evelyn",
+        avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
+        repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
+        selected: true,
+        progress: 30
+      }
+    ]
+
+    const expectedState = [
+      {
+        id: 2,
+        username: "StudentEvelyn",
+        displayName: "Evelyn",
+        avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
+        repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
+        selected: true,
+        progress: 30
+      }
+    ]
+
+    const action = {
+      type: SUBMISSION_SELECT,
+      id: 1
+    }
+
+    expect(submissions(initialState, action)).toEqual(expectedState)
+  })
+
   it("returns the correct initial state", () => {
     expect(submissions(undefined, {})).toEqual([{
       id: 1,
