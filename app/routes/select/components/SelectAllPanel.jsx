@@ -38,8 +38,7 @@ const SelectAllPanel = enchance(({
             style={checkboxStyles}
             type="checkbox"
             checked={selectAll}
-            onClick={onSelectAllChange}
-            readOnly={true}
+            onChange={onSelectAllChange}
           />
         </div>
       </div>

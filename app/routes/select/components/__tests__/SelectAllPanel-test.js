@@ -34,7 +34,7 @@ describe("SelectAllPanel", () => {
   it("calls handler function with false when the checkbox is unchecked by user", () => {
     let handler = sinon.spy()
     let wrapper = shallow(<SelectAllPanel {...testProps} onSelectAllChange={handler} />)
-    wrapper.find("input").simulate("click")
+    wrapper.find("input").simulate("change")
 
     expect(handler.calledWith(false)).toBe(true)
   })
@@ -48,7 +48,7 @@ describe("SelectAllPanel", () => {
 
     let handler = sinon.spy()
     let wrapper = shallow(<SelectAllPanel {...testPropsChecked} onSelectAllChange={handler} />)
-    wrapper.find("input").simulate("click")
+    wrapper.find("input").simulate("change")
 
     expect(handler.calledWith(true)).toBe(true)
   })

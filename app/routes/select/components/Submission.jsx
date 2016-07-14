@@ -5,7 +5,7 @@ import { compose, withHandlers } from "recompose"
 
 const enchance = compose(
   withHandlers({
-    onCheckboxClick: (props) => () => {
+    onCheckboxChange: (props) => () => {
       if (props.onSelectedChange) {
         props.onSelectedChange(!props.selected)
       }
@@ -21,7 +21,7 @@ const Submission = enchance(({
   repoUrl,
   selected,
   onSelectedChange,
-  onCheckboxClick
+  onCheckboxChange
 }) => (
   <ItemPanel
     imagePath={avatarUrl}
@@ -29,7 +29,11 @@ const Submission = enchance(({
     subtitle={username}
   >
     <div className="pull-right">
-      <input type="checkbox" checked={selected} onClick={onCheckboxClick} readOnly={true}/>
+      <input
+        type="checkbox"
+        checked={selected}
+        onChange={onCheckboxChange}
+      />
     </div>
   </ItemPanel>
 ))

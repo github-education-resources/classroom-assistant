@@ -60,8 +60,7 @@ describe("Submission", () => {
     let clickHandler = sinon.spy()
     let wrapper = shallow(<Submission {...testProps} onSelectedChange={clickHandler}/>)
 
-    wrapper.find("input").simulate("click")
-    expect(clickHandler.callCount).toBe(1)
+    wrapper.find("input").simulate("change")
     expect(clickHandler.calledWith(!testProps.selected)).toBe(true)
   })
 })
