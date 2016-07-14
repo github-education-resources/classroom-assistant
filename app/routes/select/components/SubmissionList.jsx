@@ -31,7 +31,11 @@ const SubmissionList = enchance(({
 }) => {
   return (
     <div style={containerStyles}>
-      <SelectAllPanel selected={numSelectedSubmissions()} total={submissions.length} />
+      <SelectAllPanel
+        selected={numSelectedSubmissions()}
+        total={submissions.length}
+        selectAll={true}
+      />
       {submissions.map(renderSubmission)}
     </div>
   )
