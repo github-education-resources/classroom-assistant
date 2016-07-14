@@ -1,4 +1,4 @@
-import {SUBMISSION_SELECT} from "../constants"
+import { SUBMISSION_SELECT, SUBMISSION_CHANGE_ALL } from "../constants"
 
 const initialState = [
   {
@@ -60,6 +60,8 @@ const submission = (state, action) => {
     } else {
       return state
     }
+  case SUBMISSION_CHANGE_ALL:
+    return Object.assign({}, state, {selected: action.newValue})
   default:
     return state
   }
@@ -70,15 +72,9 @@ const submissions = (state, action) => {
     return initialState
   }
 
-  switch (action.type) {
-  case SUBMISSION_SELECT:
-    return state.map((each) => {
-      return submission(each, action)
-    })
-
-  default:
-    return state
-  }
+  return state.map((each) => {
+    return submission(each, action)
+  })
 }
 
 export default submissions
