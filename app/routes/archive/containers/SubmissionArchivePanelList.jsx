@@ -3,7 +3,7 @@ import ItemArchivePanelList from "../components/ItemArchivePanelList"
 
 const mapStateToProps = (state) => {
   return {
-    submissions: state.submissions
+    submissions: state.submissions.filter(each => each.selected)
   }
 }
 
