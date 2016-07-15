@@ -1,9 +1,11 @@
 import { connect } from "react-redux"
+
 import ItemArchivePanelList from "../components/ItemArchivePanelList"
+import { selected } from "../../../modules/submissions/selectors"
 
 const mapStateToProps = (state) => {
   return {
-    submissions: state.submissions.filter(each => each.selected)
+    submissions: selected(state)
   }
 }
 
