@@ -10,7 +10,10 @@ import DevTools from "./devtools"
 import reducer from "./modules/reducers"
 import Routes from "./routes"
 
-const store = createStore(reducer, compose(DevTools.instrument()))
+const store = createStore(reducer, compose(
+  DevTools.instrument()
+))
+
 const history = syncHistoryWithStore(hashHistory, store)
 
 let devToolsInstance

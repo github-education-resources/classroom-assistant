@@ -6,7 +6,7 @@ const editIconStyles = {
   paddingRight: "5px"
 }
 
-const ConfirmPanel = ({
+const EditItemPanel = ({
   iconPath,
   title,
   subtitle,
@@ -26,11 +26,11 @@ const ConfirmPanel = ({
   </ItemPanel>
 )
 
-ConfirmPanel.propTypes = {
+EditItemPanel.propTypes = {
   iconPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  onEditClick: PropTypes.func.isRequired
+  onEditClick: PropTypes.func
 }
 
-export default ConfirmPanel
+export default EditItemPanel
