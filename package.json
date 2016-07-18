@@ -24,6 +24,7 @@
   "homepage": "https://github.com/education/classroom-desktop#readme",
   "devDependencies": {
     "babel-jest": "^13.2.2",
+    "babel-polyfill": "^6.9.1",
     "electron-packager": "^7.0.4",
     "electron-prebuilt": "^1.2.0",
     "eslint": "^2.13.0",
@@ -48,6 +49,8 @@
     "classnames": "^2.2.5",
     "electron-is-dev": "^0.1.1",
     "font-awesome": "^4.6.3",
+    "jest-cli": "^13.2.3",
+    "mocha": "^2.5.3",
     "react": "^15.1.0",
     "react-addons-test-utils": "15.1.0",
     "react-dom": "^15.1.0",
