@@ -51,6 +51,7 @@
     "font-awesome": "^4.6.3",
     "jest-cli": "^13.2.3",
     "mocha": "^2.5.3",
+    "nodegit": "^0.14.1",
     "react": "^15.1.0",
     "react-addons-test-utils": "15.1.0",
     "react-dom": "^15.1.0",
@@ -60,6 +61,7 @@
     "recompose": "^0.20.2",
     "redux": "^3.5.2",
     "reselect": "^2.5.3",
+    "rimraf": "^2.5.3",
     "sinon": "^1.17.4",
     "winston": "^2.2.0"
   }
