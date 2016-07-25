@@ -19,12 +19,12 @@ const Header = ({
           <img src={imagePath} className="media-object" alt={title} />
         </a>
         <div className="media-body">
-          <div classNam="row">
-            <div classNam="col-sm-6">
+          <div className="row">
+            <div className="col-sm-6">
               <h4 className="media-heading">{title}</h4>
               {subtitle}
             </div>
-            <div classNam="col-sm-6">
+            <div className="col-sm-6">
               {children}
             </div>
           </div>

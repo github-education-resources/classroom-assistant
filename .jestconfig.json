@@ -12,7 +12,10 @@
     "<rootDir>/node_modules/reselect/",
     "<rootDir>/node_modules/enzyme",
     "<rootDir>/node_modules/sinon/",
-    "<rootDir>/node_modules/classnames/"
+    "<rootDir>/node_modules/classnames/",
+    "<rootDir>/node_modules/nodegit/",
+    "<rootDir>/node_modules/rimraf/",
+    "<rootDir>/node_modules/promisify-node/"
   ],
   "moduleFileExtensions": [
     "js",

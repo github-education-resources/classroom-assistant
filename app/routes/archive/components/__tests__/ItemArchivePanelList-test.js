@@ -3,10 +3,9 @@ jest.unmock("../ItemArchivePanel.jsx")
 jest.unmock("../../../shared/components/ItemPanel.jsx")
 
 import React from "react"
-import { mount } from "enzyme"
+import { shallow } from "enzyme"
 
 import ItemArchivePanelList from "../ItemArchivePanelList.jsx"
-import ItemArchivePanel from "../ItemArchivePanel.jsx"
 
 let testProps = {
   submissions: [{
@@ -28,7 +27,7 @@ let testProps = {
 
 describe("ItemArchivePanelList", () => {
   it("renders ItemArchivePanel components as children", () => {
-    let wrapper = mount(<ItemArchivePanelList {...testProps} />)
-    expect(wrapper.find(ItemArchivePanel).length).toEqual(2)
+    let wrapper = shallow(<ItemArchivePanelList {...testProps} />)
+    expect(wrapper.find("ItemArchivePanel").length).toEqual(2)
   })
 })
