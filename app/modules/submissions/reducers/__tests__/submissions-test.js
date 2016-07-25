@@ -1,7 +1,7 @@
 jest.unmock("../submissions")
 
 import submissions from "../submissions"
-import { SUBMISSION_SELECT, SUBMISSION_CHANGE_ALL } from "../../constants"
+import { SUBMISSION_SELECT, SUBMISSION_CHANGE_ALL, SUBMISSION_RECEIVE_CLONE_PROGRESS } from "../../constants"
 
 const evelynSelected = {
   id: 1,
@@ -33,6 +33,16 @@ const maxSelected = {
   progress: 50
 }
 
+const maxSelectedProgressSixty = {
+  id: 2,
+  username: "StudentMax",
+  displayName: "Max",
+  avatarUrl: "https://avatars.githubusercontent.com/u/16492576?v=3&size=96",
+  repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentMax",
+  selected: true,
+  progress: 60
+}
+
 const maxNotSelected = {
   id: 2,
   username: "StudentMax",
@@ -44,6 +54,28 @@ const maxNotSelected = {
 }
 
 describe("submissions", () => {
+  describe("SUBMISSION_RECEIVE_CLONE_PROGRESS", () => {
+    it("changes progress of the right submission", () => {
+      const action = {
+        type: SUBMISSION_RECEIVE_CLONE_PROGRESS,
+        id: maxSelected.id,
+        progress: 60
+      }
+
+      expect(submissions([maxSelected], action)).toEqual([maxSelectedProgressSixty])
+    })
+
+    it("doesn't change progress of submissions with different ids", () => {
+      const action = {
+        type: SUBMISSION_RECEIVE_CLONE_PROGRESS,
+        id: maxSelected.id,
+        progress: 60
+      }
+
+      expect(submissions([evelynSelected], action)).toEqual([evelynSelected])
+    })
+  })
+
   describe("SUBMISSION_SELECT", () => {
     it("selects a non-selected submission given SUBMISSION_SELECT", () => {
       const action = {

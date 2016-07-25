@@ -1,13 +1,13 @@
 import React from "react"
 import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import SubmissionArchivePanelList from "./containers/SubmissionArchivePanelList"
-import Footer from "../shared/components/Footer"
+import NavFooter from "../shared/components/NavFooter"
 
 const ArchivePage = () => (
   <div>
     <AssignmentPanel />
     <SubmissionArchivePanelList />
-    <Footer
+    <NavFooter
       left={{
         label: "Quit",
         route: "/"

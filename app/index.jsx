@@ -1,18 +1,26 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { hashHistory } from "react-router"
-import { syncHistoryWithStore } from "react-router-redux"
-import { createStore, compose } from "redux"
+import { syncHistoryWithStore, routerMiddleware } from "react-router-redux"
+import { createStore, compose, applyMiddleware } from "redux"
 import { Provider } from "react-redux"
+import thunk from "redux-thunk"
 import isDev from "electron-is-dev"
 
 import DevTools from "./devtools"
 import reducer from "./modules/reducers"
 import Routes from "./routes"
 
-const store = createStore(reducer, compose(
-  DevTools.instrument()
-))
+const store = createStore(
+  reducer,
+  compose(
+    applyMiddleware(
+      thunk,
+      routerMiddleware(hashHistory)
+    ),
+    DevTools.instrument()
+  )
+)
 
 const history = syncHistoryWithStore(hashHistory, store)
 

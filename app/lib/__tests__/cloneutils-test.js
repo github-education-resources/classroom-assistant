@@ -67,7 +67,8 @@ describe("Clone Utilities", () => {
         () => {}
       ).then(() => {
         fail("Clone should not succeed")
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err)
         done()
       })
     })
@@ -85,7 +86,8 @@ describe("Clone Utilities", () => {
         )
       }).then(() => {
         fail("Clone should not succeed")
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err)
         done()
       })
     })

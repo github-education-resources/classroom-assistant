@@ -3,7 +3,7 @@ import React from "react"
 import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import EditItemPanel from "../shared/components/EditItemPanel"
 import SubmissionConfirmPanel from "./containers/SubmissionConfirmPanel"
-import Footer from "../shared/components/Footer"
+import ActionableConfirmFooter from "./containers/ActionableConfirmFooter"
 
 const ConfirmPage = () => (
   <div>
@@ -14,16 +14,7 @@ const ConfirmPage = () => (
       title="some/default/path"
       subtitle="Archive Destination"
     />
-    <Footer
-      left={{
-        label: "Back",
-        route: "/select"
-      }}
-      right={{
-        label: "Next: Begin Archive",
-        route: "/archive"
-      }}
-    />
+    <ActionableConfirmFooter />
   </div>
 )
 

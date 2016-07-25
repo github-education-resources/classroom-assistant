@@ -13,8 +13,8 @@ describe("SettingsPage", () => {
   })
 
   it("renders a footer with a back button", () => {
-    expect(wrapper.find("Footer").length).toBe(1)
-    expect(wrapper.find("Footer").prop("left")).toEqual({
+    expect(wrapper.find("NavFooter").length).toBe(1)
+    expect(wrapper.find("NavFooter").prop("left")).toEqual({
       label: "Back",
       route: "/"
     })

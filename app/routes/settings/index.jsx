@@ -1,7 +1,7 @@
 
 import React from "react"
 
-import Footer from "../shared/components/Footer"
+import NavFooter from "../shared/components/NavFooter"
 import EditItemPanel from "../shared/components/EditItemPanel"
 
 const ConfirmPage = () => (
@@ -16,7 +16,7 @@ const ConfirmPage = () => (
       title="Archive Destination"
       subtitle="Archived submissions will be saved to /some/default/path"
     />
-    <Footer
+    <NavFooter
       left={{
         label: "Back",
         route: "/"

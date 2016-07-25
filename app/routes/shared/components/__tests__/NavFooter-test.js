@@ -1,13 +1,13 @@
-jest.unmock("../Footer.jsx")
+jest.unmock("../NavFooter.jsx")
 
 import React from "react"
 import { shallow } from "enzyme"
 
-import Footer from "../Footer.jsx"
+import NavFooter from "../NavFooter.jsx"
 
-describe("Footer", () => {
+describe("NavFooter", () => {
   it("renders no buttons if none are provided", () => {
-    let wrapper = shallow(<Footer />)
+    let wrapper = shallow(<NavFooter />)
     expect(wrapper.find(".btn").length).toBe(0)
   })
 
@@ -19,7 +19,7 @@ describe("Footer", () => {
       }
     }
 
-    let wrapper = shallow(<Footer {...testProps} />)
+    let wrapper = shallow(<NavFooter {...testProps} />)
     let rendered = wrapper.find("button.btn")
 
     expect(rendered.length).toBe(1)
@@ -35,7 +35,7 @@ describe("Footer", () => {
       }
     }
 
-    let wrapper = shallow(<Footer {...testProps} />)
+    let wrapper = shallow(<NavFooter {...testProps} />)
     let rendered = wrapper.find("button.btn.pull-right")
 
     expect(rendered.length).toBe(1)
@@ -55,7 +55,7 @@ describe("Footer", () => {
       }
     }
 
-    let wrapper = shallow(<Footer {...testProps} />)
+    let wrapper = shallow(<NavFooter {...testProps} />)
     let right = wrapper.find("button.btn.pull-right")
     let left = wrapper.find("button.btn.pull-right")
 
