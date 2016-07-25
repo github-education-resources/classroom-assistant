@@ -63,6 +63,7 @@
     "reselect": "^2.5.3",
     "rimraf": "^2.5.3",
     "sinon": "^1.17.4",
+    "spectron": "^3.2.6",
     "winston": "^2.2.0"
   }
 }
