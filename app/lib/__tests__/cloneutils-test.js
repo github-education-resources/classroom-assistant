@@ -8,6 +8,7 @@ const fs = require("fs")
 
 const TEST_REPO = "https://github.com/education/classroom-desktop"
 const TEST_FAKE_REPO = "https://github.com/education/a-repo-that-will-never-exist"
+
 const DESTINATION = "/tmp/" + Math.random().toString(36).substring(7)
 
 describe("Clone Utilities", () => {
@@ -65,6 +66,24 @@ describe("Clone Utilities", () => {
         DESTINATION,
         () => {}
       ).then(() => {
+        fail("Clone should not succeed")
+      }).catch(() => {
+        done()
+      })
+    })
+
+    it("throws an error when cloning a repo to an existing non-empty directory", (done) => {
+      clone(
+        TEST_REPO,
+        DESTINATION,
+        () => {}
+      ).then(() => {
+        return clone(
+          TEST_REPO,
+          DESTINATION,
+          () => {}
+        )
+      }).then(() => {
         fail("Clone should not succeed")
       }).catch(() => {
         done()
