@@ -14,3 +14,8 @@ export const typeLabel = createSelector(
     }
   }
 )
+
+export const name = createSelector(
+  all,
+  (assignment) => assignment.name
+)

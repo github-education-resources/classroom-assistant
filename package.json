@@ -47,6 +47,7 @@
     "babel-register": "~6.9.0",
     "bootstrap": "~3.3.6",
     "classnames": "~2.2.5",
+    "dateformat": "^1.0.12",
     "electron-is-dev": "~0.1.1",
     "font-awesome": "~4.6.3",
     "jest-cli": "~13.2.3",

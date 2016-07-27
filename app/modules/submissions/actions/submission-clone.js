@@ -3,6 +3,9 @@ import { push } from "react-router-redux"
 import { selected } from "../selectors"
 import { clone } from "../../../lib/cloneutils"
 import { submissionReceiveCloneProgress } from "./submission-receive-clone-progress"
+import { cloneDestination } from "../../settings/selectors"
+import { getClonePath } from "../../../lib/pathutils"
+import { name } from "../../assignment/selectors"
 
 export const submissionClone = () => {
   return (dispatch, getState) => {
@@ -11,8 +14,12 @@ export const submissionClone = () => {
     const selectedSubmissions = selected(getState())
 
     selectedSubmissions.forEach((selectedSubmission) => {
-      console.log(selectedSubmission.repoUrl)
-      const destination = "/tmp/" + selectedSubmission.username
+      const destination = getClonePath(
+        cloneDestination(getState()),
+        name(getState()),
+        selectedSubmission.username
+      )
+
       clone(
         selectedSubmission.repoUrl,
         destination,
@@ -31,7 +38,6 @@ export const submissionClone = () => {
             100
           )
         )
-        console.log("Clone complete")
       }).catch((err) => {
         console.log("An error has occured: " + err)
       })
