@@ -3,6 +3,7 @@ import React from "react"
 
 import NavFooter from "../shared/components/NavFooter"
 import EditItemPanel from "../shared/components/EditItemPanel"
+import EditDestinationPanel from "../shared/containers/EditDestinationPanel"
 
 const ConfirmPage = () => (
   <div>
@@ -11,11 +12,7 @@ const ConfirmPage = () => (
       title="Account"
       subtitle="You are signed in as StudentEvelyn"
     />
-    <EditItemPanel
-      iconPath="http://placehold.it/48x48"
-      title="Archive Destination"
-      subtitle="Archived submissions will be saved to /some/default/path"
-    />
+    <EditDestinationPanel />
     <NavFooter
       left={{
         label: "Back",
