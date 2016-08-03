@@ -53,6 +53,7 @@
     "jest-cli": "~13.2.3",
     "mocha": "~2.5.3",
     "nodegit": "~0.14.1",
+    "opener": "^1.4.1",
     "react": "~15.1.0",
     "react-addons-test-utils": "15.1.0",
     "react-dom": "~15.1.0",

@@ -1,4 +1,4 @@
-import { SUBMISSION_SELECT, SUBMISSION_CHANGE_ALL, SUBMISSION_RECEIVE_CLONE_PROGRESS } from "../constants"
+import { SUBMISSION_SELECT, SUBMISSION_CHANGE_ALL, SUBMISSION_RECEIVE_CLONE_PROGRESS, SUBMISSION_SET_CLONE_PATH } from "../constants"
 
 const initialState = [
   {
@@ -8,6 +8,7 @@ const initialState = [
     avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
     repoUrl: "http://github.com/nicktikhonov/dotfiles",
     selected: true,
+    clonePath: "",
     progress: 0
   }, {
     id: 2,
@@ -16,6 +17,7 @@ const initialState = [
     avatarUrl: "https://avatars.githubusercontent.com/u/16492576?v=3&size=96",
     repoUrl: "http://github.com/NickTikhonov/hyperterm-hyperline",
     selected: true,
+    clonePath: "",
     progress: 0
   }, {
     id: 3,
@@ -24,6 +26,7 @@ const initialState = [
     avatarUrl: "https://avatars.githubusercontent.com/u/16492482?v=3&size=96",
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentZi",
     selected: true,
+    clonePath: "",
     progress: 0
   }, {
     id: 4,
@@ -32,6 +35,7 @@ const initialState = [
     avatarUrl: "https://avatars.githubusercontent.com/u/16492425?v=3&size=96",
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentAli",
     selected: true,
+    clonePath: "",
     progress: 0
   }, {
     id: 5,
@@ -40,6 +44,7 @@ const initialState = [
     avatarUrl: "https://avatars.githubusercontent.com/u/16492375?v=3&size=96",
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentShay",
     selected: true,
+    clonePath: "",
     progress: 0
   }, {
     id: 6,
@@ -48,6 +53,7 @@ const initialState = [
     avatarUrl: "https://avatars.githubusercontent.com/u/16479545?v=3&size=96",
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentZara",
     selected: true,
+    clonePath: "",
     progress: 0
   }
 ]
@@ -57,6 +63,12 @@ const submission = (state, action) => {
   case SUBMISSION_SELECT:
     if (action.id === state.id) {
       return Object.assign({}, state, {selected: !state.selected})
+    } else {
+      return state
+    }
+  case SUBMISSION_SET_CLONE_PATH:
+    if (action.id === state.id) {
+      return Object.assign({}, state, {clonePath: action.clonePath})
     } else {
       return state
     }

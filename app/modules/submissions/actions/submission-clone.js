@@ -5,6 +5,7 @@ import { name } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
 import { submissionReceiveCloneProgress } from "./submission-receive-clone-progress"
+import { submissionSetClonePath } from "./submission-set-clone-path"
 
 import { clone } from "../../../lib/cloneutils"
 import { getClonePath } from "../../../lib/pathutils"
@@ -25,6 +26,8 @@ export const submissionClone = () => {
         name(getState()),
         selectedSubmission.username
       )
+
+      dispatch(submissionSetClonePath(selectedSubmission.id, destination))
 
       clonePromises.push(
         clone(

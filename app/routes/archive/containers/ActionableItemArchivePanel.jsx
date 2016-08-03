@@ -1,13 +1,14 @@
 import { connect } from "react-redux"
 
 import ItemArchivePanel from "../components/ItemArchivePanel"
+import { submissionViewDirectory } from "../../../modules/submissions/actions/submission-view-directory"
 
 const mapStateToProps = (state, ownProps) => ownProps
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onViewClick: () => {
-      console.log("Clicked View!")
+      dispatch(submissionViewDirectory(ownProps.id))
     }
   }
 }
