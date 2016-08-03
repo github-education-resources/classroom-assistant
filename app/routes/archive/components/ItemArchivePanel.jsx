@@ -12,7 +12,8 @@ const ItemArchivePanel = ({
   displayName,
   avatarUrl,
   repoUrl,
-  progress
+  progress,
+  onViewClick
 }) => {
   let viewButton, barColorClass
 
@@ -20,7 +21,7 @@ const ItemArchivePanel = ({
     barColorClass = "progress-bar-success"
     viewButton = (
       <div className="col-sm-4">
-        <button className="btn btn-xs btn-primary">
+        <button className="btn btn-xs btn-primary" onClick={onViewClick}>
           <i className="fa fa-folder-open" aria-hidden="true"></i> View
         </button>
       </div>
@@ -68,7 +69,8 @@ ItemArchivePanel.propTypes = {
   displayName: PropTypes.string.isRequired,
   avatarUrl: PropTypes.string.isRequired,
   repoUrl: PropTypes.string.isRequired,
-  progress: PropTypes.number.isRequired
+  progress: PropTypes.number.isRequired,
+  onViewClick: PropTypes.func
 }
 
 export default ItemArchivePanel

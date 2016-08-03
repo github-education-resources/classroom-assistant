@@ -2,6 +2,7 @@ jest.unmock("../ItemArchivePanel.jsx")
 
 import React from "react"
 import { shallow } from "enzyme"
+import sinon from "sinon"
 
 import ItemArchivePanel from "../ItemArchivePanel.jsx"
 
@@ -54,5 +55,13 @@ describe("ItemArchivePanel", () => {
   it("renders the progress bar with the fill corresponding to the percentage", () => {
     let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
     expect(wrapper.find(".progress-bar").prop("aria-valuenow")).toEqual(progressProps.progress)
+  })
+
+  it("calls handler when the 'view' button is pressed", () => {
+    let handler = sinon.spy()
+    let wrapper = shallow(<ItemArchivePanel {...completeProps} onViewClick={handler} />)
+    wrapper.find("button").simulate("click")
+
+    expect(handler.callCount).toBe(1)
   })
 })
