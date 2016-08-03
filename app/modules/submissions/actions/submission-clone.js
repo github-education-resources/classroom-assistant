@@ -1,17 +1,23 @@
 import { push } from "react-router-redux"
 
 import { selected } from "../selectors"
-import { clone } from "../../../lib/cloneutils"
-import { submissionReceiveCloneProgress } from "./submission-receive-clone-progress"
-import { cloneDestination } from "../../settings/selectors"
-import { getClonePath } from "../../../lib/pathutils"
 import { name } from "../../assignment/selectors"
+import { cloneDestination } from "../../settings/selectors"
 
+import { submissionReceiveCloneProgress } from "./submission-receive-clone-progress"
+
+import { clone } from "../../../lib/cloneutils"
+import { getClonePath } from "../../../lib/pathutils"
+
+// PUBLIC: Async thunk action for cloning all selected submissions. This creator
+// dispatches PUSH actions to navigate the application the "archive" view and
+// SUBMISSION_RECEIVE_CLONE_PROGRESS to update the progress bars.
 export const submissionClone = () => {
   return (dispatch, getState) => {
     dispatch(push("/archive"))
 
     const selectedSubmissions = selected(getState())
+    const clonePromises = []
 
     selectedSubmissions.forEach((selectedSubmission) => {
       const destination = getClonePath(
@@ -20,26 +26,24 @@ export const submissionClone = () => {
         selectedSubmission.username
       )
 
-      clone(
-        selectedSubmission.repoUrl,
-        destination,
-        (progress) => {
-          dispatch(
-            submissionReceiveCloneProgress(
-              selectedSubmission.id,
-              progress
+      clonePromises.push(
+        clone(
+          selectedSubmission.repoUrl,
+          destination,
+          (progress) => {
+            dispatch(
+              submissionReceiveCloneProgress(
+                selectedSubmission.id,
+                progress
+              )
             )
-          )
-        }
-      ).then(() => {
-        dispatch(
-          submissionReceiveCloneProgress(
-            selectedSubmission.id,
-            100
-          )
+          }
         )
-      }).catch((err) => {
-        console.log("An error has occured: " + err)
+      )
+
+      return Promise.all(clonePromises).then().catch((err) => {
+        console.log("An error has occured")
+        console.log(err)
       })
     })
   }
