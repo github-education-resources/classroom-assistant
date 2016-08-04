@@ -2,7 +2,6 @@ jest.unmock("../cloneutils.js")
 
 import { clone } from "../cloneutils.js"
 import rmdir from "rimraf"
-import sinon from "sinon"
 
 const fs = require("fs")
 
@@ -35,27 +34,27 @@ describe("Clone Utilities", () => {
     })
 
     it("notifies when the repo is 0% downloaded", (done) => {
-      const statusCallback = sinon.spy()
+      const statusCallback = jest.fn()
 
       clone(
         TEST_REPO,
         DESTINATION,
         statusCallback
       ).then(() => {
-        expect(statusCallback.calledWith(0)).toBe(true)
+        expect(statusCallback.mock.calls[0][0]).toBe(0)
         done()
       })
     })
 
     it("notifies when the repo is 100% downloaded", (done) => {
-      const statusCallback = sinon.spy()
+      const statusCallback = jest.fn()
 
       clone(
         TEST_REPO,
         DESTINATION,
         statusCallback
       ).then(() => {
-        expect(statusCallback.calledWith(100)).toBe(true)
+        expect(statusCallback.mock.calls[statusCallback.mock.calls.length - 1][0]).toBe(100)
         done()
       })
     })

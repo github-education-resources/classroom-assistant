@@ -2,7 +2,6 @@ jest.unmock("../EditItemPanel.jsx")
 
 import React from "react"
 import { shallow } from "enzyme"
-import sinon from "sinon"
 
 import EditItemPanel from "../EditItemPanel.jsx"
 
@@ -14,11 +13,11 @@ describe("EditItemPanel", () => {
   }
 
   it("calls onEditClick when pencil is clicked", () => {
-    let clickHandler = sinon.spy()
+    let clickHandler = jest.fn()
     let wrapper = shallow(<EditItemPanel {...staticOptions} onEditClick={clickHandler}/>)
 
     wrapper.find("i").simulate("click")
-    expect(clickHandler.callCount).toBe(1)
+    expect(clickHandler.mock.calls.length).toBe(1)
   })
 
   it("renders an ItemPanel, correctly passing down properties", () => {

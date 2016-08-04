@@ -15,7 +15,6 @@
     "<rootDir>/node_modules/redux-thunk/",
     "<rootDir>/node_modules/redux-mock-store/",
     "<rootDir>/node_modules/enzyme",
-    "<rootDir>/node_modules/sinon/",
     "<rootDir>/node_modules/classnames/",
     "<rootDir>/node_modules/nodegit/",
     "<rootDir>/node_modules/rimraf/",

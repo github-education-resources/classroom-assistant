@@ -2,7 +2,6 @@ jest.unmock("../ItemArchivePanel.jsx")
 
 import React from "react"
 import { shallow } from "enzyme"
-import sinon from "sinon"
 
 import ItemArchivePanel from "../ItemArchivePanel.jsx"
 
@@ -70,10 +69,10 @@ describe("ItemArchivePanel", () => {
   })
 
   it("calls handler when the 'view' button is pressed", () => {
-    let handler = sinon.spy()
+    let handler = jest.fn()
     let wrapper = shallow(<ItemArchivePanel {...completeProps} onViewClick={handler} />)
     wrapper.find("button").simulate("click")
 
-    expect(handler.callCount).toBe(1)
+    expect(handler.mock.calls.length).toBe(1)
   })
 })
