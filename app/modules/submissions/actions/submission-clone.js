@@ -4,7 +4,7 @@ import { selected } from "../selectors"
 import { name } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
-import { submissionReceiveCloneProgress } from "./submission-receive-clone-progress"
+import { submissionSetProgress } from "./submission-set-progress"
 import { submissionSetClonePath } from "./submission-set-clone-path"
 
 import { clone } from "../../../lib/cloneutils"
@@ -12,7 +12,7 @@ import { getClonePath } from "../../../lib/pathutils"
 
 // PUBLIC: Async thunk action for cloning all selected submissions. This creator
 // dispatches PUSH actions to navigate the application the "archive" view and
-// SUBMISSION_RECEIVE_CLONE_PROGRESS to update the progress bars.
+// SUBMISSION_SET_PROGRESS to update the progress bars.
 export const submissionClone = () => {
   return (dispatch, getState) => {
     dispatch(push("/archive"))
@@ -35,7 +35,7 @@ export const submissionClone = () => {
           destination,
           (progress) => {
             dispatch(
-              submissionReceiveCloneProgress(
+              submissionSetProgress(
                 selectedSubmission.id,
                 progress
               )

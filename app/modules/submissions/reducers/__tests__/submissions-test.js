@@ -1,7 +1,7 @@
 jest.unmock("../submissions")
 
 import submissions from "../submissions"
-import { SUBMISSION_SELECT, SUBMISSION_CHANGE_ALL, SUBMISSION_RECEIVE_CLONE_PROGRESS, SUBMISSION_SET_CLONE_PATH } from "../../constants"
+import { SUBMISSION_SELECT, SUBMISSION_SELECT_ALL, SUBMISSION_SET_PROGRESS, SUBMISSION_SET_CLONE_PATH } from "../../constants"
 
 const TEST_CLONE_PATH = "/some/clone/path"
 
@@ -72,10 +72,10 @@ const maxNotSelected = {
 }
 
 describe("submissions", () => {
-  describe("SUBMISSION_RECEIVE_CLONE_PROGRESS", () => {
+  describe("SUBMISSION_SET_PROGRESS", () => {
     it("changes progress of the right submission", () => {
       const action = {
-        type: SUBMISSION_RECEIVE_CLONE_PROGRESS,
+        type: SUBMISSION_SET_PROGRESS,
         id: maxSelected.id,
         progress: 60
       }
@@ -85,7 +85,7 @@ describe("submissions", () => {
 
     it("doesn't change progress of submissions with different ids", () => {
       const action = {
-        type: SUBMISSION_RECEIVE_CLONE_PROGRESS,
+        type: SUBMISSION_SET_PROGRESS,
         id: maxSelected.id,
         progress: 60
       }
@@ -124,10 +124,10 @@ describe("submissions", () => {
     })
   })
 
-  describe("SUBMISSION_CHANGE_ALL", () => {
+  describe("SUBMISSION_SELECT_ALL", () => {
     it("selects all unselected submissions when newValue is true", () => {
       const action = {
-        type: SUBMISSION_CHANGE_ALL,
+        type: SUBMISSION_SELECT_ALL,
         newValue: true
       }
 
@@ -136,7 +136,7 @@ describe("submissions", () => {
 
     it("selects all already-selected submissions when newValue is true", () => {
       const action = {
-        type: SUBMISSION_CHANGE_ALL,
+        type: SUBMISSION_SELECT_ALL,
         newValue: true
       }
 
@@ -145,7 +145,7 @@ describe("submissions", () => {
 
     it("deselects all selected submissions when newValue is false", () => {
       const action = {
-        type: SUBMISSION_CHANGE_ALL,
+        type: SUBMISSION_SELECT_ALL,
         newValue: false
       }
 
@@ -154,7 +154,7 @@ describe("submissions", () => {
 
     it("deselects all already non-selected submissions when newValue is false", () => {
       const action = {
-        type: SUBMISSION_CHANGE_ALL,
+        type: SUBMISSION_SELECT_ALL,
         newValue: false
       }
 

@@ -1,4 +1,4 @@
-import { SUBMISSION_SELECT, SUBMISSION_CHANGE_ALL, SUBMISSION_RECEIVE_CLONE_PROGRESS, SUBMISSION_SET_CLONE_PATH } from "../constants"
+import { SUBMISSION_SELECT, SUBMISSION_SELECT_ALL, SUBMISSION_SET_PROGRESS, SUBMISSION_SET_CLONE_PATH } from "../constants"
 
 const initialState = [
   {
@@ -72,7 +72,7 @@ const submission = (state, action) => {
     } else {
       return state
     }
-  case SUBMISSION_RECEIVE_CLONE_PROGRESS:
+  case SUBMISSION_SET_PROGRESS:
     if (action.id === state.id) {
       let newProgress
       if (action.progress > 100) {
@@ -86,7 +86,7 @@ const submission = (state, action) => {
     } else {
       return state
     }
-  case SUBMISSION_CHANGE_ALL:
+  case SUBMISSION_SELECT_ALL:
     return Object.assign({}, state, {selected: action.newValue})
   default:
     return state
