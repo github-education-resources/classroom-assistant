@@ -23,7 +23,12 @@ const ItemArchivePanel = ({
     )
   } else {
     progressElement = (
-      <div className="progress pull-right">
+      <div
+        className="progress pull-right"
+        style={{
+          width: "100%"
+        }}
+      >
         <div
           className="progress-bar progress-bar-info"
           role="progressbar" aria-valuenow={cloneProgress}
