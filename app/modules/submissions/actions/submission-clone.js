@@ -32,22 +32,29 @@ export const submissionClone = () => {
       dispatch(submissionSetCloneStatus(selectedSubmission.id, "Cloning Submission..."))
 
       clonePromises.push(
-        clone(
-          selectedSubmission.repoUrl,
-          destination,
-          (progress) => {
-            dispatch(
-              submissionSetCloneProgress(
-                selectedSubmission.id,
-                progress
+        new Promise((resolve, reject) => {
+          clone(
+            selectedSubmission.repoUrl,
+            destination,
+            (progress) => {
+              dispatch(
+                submissionSetCloneProgress(
+                  selectedSubmission.id,
+                  progress
+                )
               )
-            )
 
-            if (progress === 100) {
-              dispatch(submissionSetCloneStatus(selectedSubmission.id, "Finished Cloning."))
+              if (progress === 100) {
+                dispatch(submissionSetCloneStatus(selectedSubmission.id, "Finished Cloning."))
+              }
             }
-          }
-        )
+          )
+          .then(resolve)
+          .catch(() => {
+            dispatch(submissionSetCloneStatus(selectedSubmission.id, "Clone failed: an error has occured."))
+            resolve()
+          })
+        })
       )
 
       return Promise.all(clonePromises).then().catch((err) => {
