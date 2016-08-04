@@ -9,7 +9,7 @@
     "test": "npm run lint && npm run test-unit",
     "lint": "node_modules/.bin/eslint --ext .js,.jsx .",
     "test-unit": "jest -c .jestconfig.json",
-    "build-mac": "electron-packager . Classroom --icon=app/resources/icon.icns --platform=darwin --arch=x64 --out=dist --overwrite"
+    "build-mac": "electron-packager . 'GitHub Classroom' --icon=app/resources/icon.icns --platform=darwin --arch=x64 --out=dist --overwrite"
   },
   "repository": {
     "type": "git",
