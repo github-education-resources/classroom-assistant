@@ -1,10 +1,5 @@
 import React, { PropTypes } from "react"
-import classNames from "classnames"
 import ItemPanel from "../../shared/components/ItemPanel"
-
-const containerStyles = {
-  marginTop: "10px"
-}
 
 const ItemArchivePanel = ({
   id,
@@ -16,25 +11,33 @@ const ItemArchivePanel = ({
   cloneStatus,
   onViewClick
 }) => {
-  let viewButton, barColorClass
+  let progressElement
 
   if (cloneProgress === 100) {
-    barColorClass = "progress-bar-success"
-    viewButton = (
-      <div className="col-sm-4">
+    progressElement = (
+      <div className="pull-right">
         <button className="btn btn-xs btn-primary" onClick={onViewClick}>
           <i className="fa fa-folder-open" aria-hidden="true"></i> View
         </button>
       </div>
     )
   } else {
-    barColorClass = "progress-bar-info"
-    viewButton = (
-      <p> Archiving.. </p>
+    progressElement = (
+      <div className="progress pull-right">
+        <div
+          className="progress-bar progress-bar-info"
+          role="progressbar" aria-valuenow={cloneProgress}
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style={{
+            width: cloneProgress + "%"
+          }}
+        >
+          {cloneProgress}%
+        </div>
+      </div>
     )
   }
-
-  const progressBarClasses = classNames("progress-bar", barColorClass)
 
   return (
     <ItemPanel
@@ -42,24 +45,9 @@ const ItemArchivePanel = ({
       title={username}
       subtitle={displayName}
     >
-      <div className="row" style={containerStyles}>
-        <div className="col-sm-8">
-          <p>{cloneStatus}</p>
-          <div className="progress">
-            <div
-              className={progressBarClasses}
-              role="progressbar" aria-valuenow={cloneProgress}
-              aria-valuemin="0"
-              aria-valuemax="100"
-              style={{
-                width: cloneProgress + "%"
-              }}
-            >
-              {cloneProgress}%
-            </div>
-          </div>
-        </div>
-        {viewButton}
+      <div className="pull-right">
+        <p class="pull-right">{cloneStatus}</p>
+        {progressElement}
       </div>
     </ItemPanel>
   )

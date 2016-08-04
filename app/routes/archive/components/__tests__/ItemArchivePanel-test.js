@@ -39,14 +39,14 @@ describe("ItemArchivePanel", () => {
     expect(itemPanel.prop("subtitle")).toEqual(progressProps.displayName)
   })
 
-  it("renders a 'success' progress bar when the progress is 100", () => {
-    let wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
-    expect(wrapper.find(".progress-bar-success").length).toEqual(1)
-  })
-
   it("renders an 'info' progress bar when the progress is not 100", () => {
     let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
     expect(wrapper.find(".progress-bar-info").length).toEqual(1)
+  })
+
+  it("does not render the progress bar when cloning is finished", () => {
+    let wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
+    expect(wrapper.find(".progress-bar").length).toEqual(0)
   })
 
   it("renders the completion percentage inside the progress bar", () => {

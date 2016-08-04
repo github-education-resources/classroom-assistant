@@ -1,4 +1,5 @@
 import NodeGit from "nodegit"
+import _ from "underscore"
 
 // Public: Clones a public git repository to the specified destination directory,
 // and notifies the caller of clone progress via callback.
@@ -36,12 +37,14 @@ export const clone = (repoURL, destination, progressCallback) => {
     }
 
     if (progressCallback) {
-      options.fetchOpts.callbacks.transferProgress = (progressInfo) => {
+      options.fetchOpts.callbacks.transferProgress = _.throttle((progressInfo) => {
         const percentage = 100 * progressInfo.receivedObjects() / progressInfo.totalObjects()
         if (percentage === 100) progressOnCompletion = true
         progressCallback(percentage)
-      }
+      }, 300, { trailing: false })
     }
+
+    progressCallback(0)
 
     NodeGit.Clone(
       repoURL,
