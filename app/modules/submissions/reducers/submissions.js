@@ -22,7 +22,7 @@ const initialState = [
     username: "StudentMax",
     displayName: "Max",
     avatarUrl: "https://avatars.githubusercontent.com/u/16492576?v=3&size=96",
-    repoUrl: "https://github.com/education/classroom",
+    repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentMax",
     selected: true,
     clonePath: "",
     cloneStatus: "",
