@@ -1,10 +1,8 @@
 jest.unmock("../submission-clone-all")
 
-// Node testing dependencies
 import thunk from "redux-thunk"
 import configureStore from "redux-mock-store"
 
-// SUT
 import { submissionCloneAll } from "../submission-clone-all"
 import { submissionClone } from "../submission-clone"
 import { selected } from "../../selectors"
