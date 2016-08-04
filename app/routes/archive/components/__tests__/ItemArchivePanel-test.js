@@ -57,6 +57,16 @@ describe("ItemArchivePanel", () => {
     expect(wrapper.find(".progress-bar").prop("aria-valuenow")).toEqual(progressProps.progress)
   })
 
+  it("renders a 'view' button when the progress is at 100", () => {
+    let wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
+    expect(wrapper.find("button").text().indexOf("View")).not.toBe(-1)
+  })
+
+  it("does not render a button when the progress is not 100", () => {
+    let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
+    expect(wrapper.find("button").length).toBe(0)
+  })
+
   it("calls handler when the 'view' button is pressed", () => {
     let handler = sinon.spy()
     let wrapper = shallow(<ItemArchivePanel {...completeProps} onViewClick={handler} />)

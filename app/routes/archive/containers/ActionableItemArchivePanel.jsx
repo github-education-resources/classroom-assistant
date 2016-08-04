@@ -1,3 +1,7 @@
+// PUBLIC: Redux container that wraps ItemArchivePanel and maps the
+// "submissionViewDirectory" action to the "View" button dispayed when
+// the item is finished cloning.
+
 import { connect } from "react-redux"
 
 import ItemArchivePanel from "../components/ItemArchivePanel"
