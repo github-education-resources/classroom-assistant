@@ -1,9 +1,16 @@
 jest.unmock("../submissions")
 
 import submissions from "../submissions"
-import { SUBMISSION_SELECT, SUBMISSION_SELECT_ALL, SUBMISSION_SET_PROGRESS, SUBMISSION_SET_CLONE_PATH } from "../../constants"
+import {
+  SUBMISSION_SELECT,
+  SUBMISSION_SELECT_ALL,
+  SUBMISSION_SET_PROGRESS,
+  SUBMISSION_SET_CLONE_PATH,
+  SUBMISSION_SET_CLONE_STATUS
+} from "../../constants"
 
 const TEST_CLONE_PATH = "/some/clone/path"
+const TEST_STATUS = "Some Status"
 
 const evelynSelected = {
   id: 1,
@@ -13,6 +20,7 @@ const evelynSelected = {
   repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
   selected: true,
   clonePath: "",
+  cloneStatus: "",
   progress: 30
 }
 
@@ -24,6 +32,7 @@ const evelynNotSelected = {
   repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
   selected: false,
   clonePath: "",
+  cloneStatus: "",
   progress: 30
 }
 
@@ -35,6 +44,7 @@ const maxSelected = {
   repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentMax",
   selected: true,
   clonePath: "",
+  cloneStatus: "",
   progress: 50
 }
 
@@ -46,6 +56,19 @@ const maxSelectedWithClonePath = {
   repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentMax",
   selected: true,
   clonePath: TEST_CLONE_PATH,
+  cloneStatus: "",
+  progress: 50
+}
+
+const maxSelectedWithCloneStatus = {
+  id: 2,
+  username: "StudentMax",
+  displayName: "Max",
+  avatarUrl: "https://avatars.githubusercontent.com/u/16492576?v=3&size=96",
+  repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentMax",
+  selected: true,
+  clonePath: "",
+  cloneStatus: TEST_STATUS,
   progress: 50
 }
 
@@ -57,6 +80,7 @@ const maxSelectedProgressSixty = {
   repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentMax",
   selected: true,
   clonePath: "",
+  cloneStatus: "",
   progress: 60
 }
 
@@ -68,6 +92,7 @@ const maxNotSelected = {
   repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentMax",
   selected: false,
   clonePath: "",
+  cloneStatus: "",
   progress: 50
 }
 
@@ -163,7 +188,7 @@ describe("submissions", () => {
   })
 
   describe("SUBMISSION_SET_CLONE_PATH", () => {
-    it("sets clone path of targeted submission", () => {
+    it("changes the clone path of targeted submission", () => {
       const action = {
         type: SUBMISSION_SET_CLONE_PATH,
         id: maxSelected.id,
@@ -171,6 +196,18 @@ describe("submissions", () => {
       }
 
       expect(submissions([maxSelected], action)).toEqual([maxSelectedWithClonePath])
+    })
+  })
+
+  describe("SUBMISSION_SET_STATUS", () => {
+    it("changes the status of targeted submission", () => {
+      const action = {
+        type: SUBMISSION_SET_CLONE_STATUS,
+        id: maxSelected.id,
+        cloneStatus: TEST_STATUS
+      }
+
+      expect(submissions([maxSelected], action)).toEqual([maxSelectedWithCloneStatus])
     })
   })
 })

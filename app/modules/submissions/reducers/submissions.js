@@ -1,4 +1,10 @@
-import { SUBMISSION_SELECT, SUBMISSION_SELECT_ALL, SUBMISSION_SET_PROGRESS, SUBMISSION_SET_CLONE_PATH } from "../constants"
+import {
+  SUBMISSION_SELECT,
+  SUBMISSION_SELECT_ALL,
+  SUBMISSION_SET_PROGRESS,
+  SUBMISSION_SET_CLONE_PATH,
+  SUBMISSION_SET_CLONE_STATUS
+} from "../constants"
 
 const initialState = [
   {
@@ -9,6 +15,7 @@ const initialState = [
     repoUrl: "http://github.com/nicktikhonov/dotfiles",
     selected: true,
     clonePath: "",
+    cloneStatus: "",
     progress: 0
   }, {
     id: 2,
@@ -18,6 +25,7 @@ const initialState = [
     repoUrl: "http://github.com/NickTikhonov/hyperterm-hyperline",
     selected: true,
     clonePath: "",
+    cloneStatus: "",
     progress: 0
   }, {
     id: 3,
@@ -27,6 +35,7 @@ const initialState = [
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentZi",
     selected: true,
     clonePath: "",
+    cloneStatus: "",
     progress: 0
   }, {
     id: 4,
@@ -36,6 +45,7 @@ const initialState = [
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentAli",
     selected: true,
     clonePath: "",
+    cloneStatus: "",
     progress: 0
   }, {
     id: 5,
@@ -45,6 +55,7 @@ const initialState = [
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentShay",
     selected: true,
     clonePath: "",
+    cloneStatus: "",
     progress: 0
   }, {
     id: 6,
@@ -54,6 +65,7 @@ const initialState = [
     repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentZara",
     selected: true,
     clonePath: "",
+    cloneStatus: "",
     progress: 0
   }
 ]
@@ -69,6 +81,12 @@ const submission = (state, action) => {
   case SUBMISSION_SET_CLONE_PATH:
     if (action.id === state.id) {
       return Object.assign({}, state, {clonePath: action.clonePath})
+    } else {
+      return state
+    }
+  case SUBMISSION_SET_CLONE_STATUS:
+    if (action.id === state.id) {
+      return Object.assign({}, state, {cloneStatus: action.cloneStatus})
     } else {
       return state
     }
