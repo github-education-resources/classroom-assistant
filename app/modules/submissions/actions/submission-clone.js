@@ -1,6 +1,3 @@
-import { push } from "react-router-redux"
-
-import { selected } from "../selectors"
 import { name } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
@@ -11,55 +8,45 @@ import { submissionSetCloneStatus } from "./submission-set-clone-status"
 import { clone } from "../../../lib/cloneutils"
 import { getClonePath } from "../../../lib/pathutils"
 
-// PUBLIC: Async thunk action for cloning all selected submissions. This creator
-// dispatches PUSH actions to navigate the application the "archive" view and
-// SUBMISSION_SET_CLONE_PROGRESS to update the progress bars.
-export const submissionClone = () => {
+// PUBLIC: Async thunk action for cloning a single submisison. This creator
+// wraps around "clone" from "clone-utils" and dispatches actions to update
+// progress/display errors in the UI
+export const submissionClone = (submissionProps) => {
   return (dispatch, getState) => {
-    dispatch(push("/archive"))
+    const submissionsBaseDirectory = cloneDestination(getState())
+    const assignmentName = name(getState())
+    const submissionAuthorUsername = submissionProps.username
 
-    const selectedSubmissions = selected(getState())
-    const clonePromises = []
+    const destination = getClonePath(
+      submissionsBaseDirectory,
+      assignmentName,
+      submissionAuthorUsername
+    )
 
-    selectedSubmissions.forEach((selectedSubmission) => {
-      const destination = getClonePath(
-        cloneDestination(getState()),
-        name(getState()),
-        selectedSubmission.username
-      )
+    dispatch(submissionSetClonePath(submissionProps.id, destination))
+    dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
 
-      dispatch(submissionSetClonePath(selectedSubmission.id, destination))
-      dispatch(submissionSetCloneStatus(selectedSubmission.id, "Cloning Submission..."))
-
-      clonePromises.push(
-        new Promise((resolve, reject) => {
-          clone(
-            selectedSubmission.repoUrl,
-            destination,
-            (progress) => {
-              dispatch(
-                submissionSetCloneProgress(
-                  selectedSubmission.id,
-                  progress
-                )
-              )
-
-              if (progress === 100) {
-                dispatch(submissionSetCloneStatus(selectedSubmission.id, "Finished Cloning."))
-              }
-            }
+    return new Promise((resolve, reject) => {
+      clone(
+        submissionProps.repoUrl,
+        destination,
+        (progress) => {
+          dispatch(
+            submissionSetCloneProgress(
+              submissionProps.id,
+              progress
+            )
           )
-          .then(resolve)
-          .catch(() => {
-            dispatch(submissionSetCloneStatus(selectedSubmission.id, "Clone failed: an error has occured."))
-            resolve()
-          })
-        })
-      )
 
-      return Promise.all(clonePromises).then().catch((err) => {
-        console.log("An error has occured")
-        console.log(err)
+          if (progress === 100) {
+            dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
+          }
+        }
+      )
+      .then(resolve)
+      .catch(() => {
+        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
+        resolve()
       })
     })
   }

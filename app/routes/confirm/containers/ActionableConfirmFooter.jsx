@@ -1,7 +1,9 @@
+import { push } from "react-router-redux"
+
 import React, { PropTypes } from "react"
 import { Link } from "react-router"
 import { connect } from "react-redux"
-import { submissionClone } from "../../../modules/submissions/actions/submission-clone"
+import { submissionCloneAll } from "../../../modules/submissions/actions/submission-clone-all"
 
 import Footer from "../../shared/components/Footer"
 
@@ -29,7 +31,8 @@ ConfirmFooter.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   confirmClickHandler: () => {
-    dispatch(submissionClone())
+    dispatch(push("/archive"))
+    dispatch(submissionCloneAll())
   }
 })
 
