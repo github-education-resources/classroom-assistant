@@ -1,7 +1,7 @@
 import {
   SUBMISSION_SELECT,
   SUBMISSION_SELECT_ALL,
-  SUBMISSION_SET_PROGRESS,
+  SUBMISSION_SET_CLONE_PROGRESS,
   SUBMISSION_SET_CLONE_PATH,
   SUBMISSION_SET_CLONE_STATUS
 } from "../constants"
@@ -16,7 +16,7 @@ const initialState = [
     selected: true,
     clonePath: "",
     cloneStatus: "",
-    progress: 0
+    cloneProgress: 0
   }, {
     id: 2,
     username: "StudentMax",
@@ -26,7 +26,7 @@ const initialState = [
     selected: true,
     clonePath: "",
     cloneStatus: "",
-    progress: 0
+    cloneProgress: 0
   }, {
     id: 3,
     username: "StudentZi",
@@ -36,7 +36,7 @@ const initialState = [
     selected: true,
     clonePath: "",
     cloneStatus: "",
-    progress: 0
+    cloneProgress: 0
   }, {
     id: 4,
     username: "StudentAli",
@@ -46,7 +46,7 @@ const initialState = [
     selected: true,
     clonePath: "",
     cloneStatus: "",
-    progress: 0
+    cloneProgress: 0
   }, {
     id: 5,
     username: "StudentShay",
@@ -56,7 +56,7 @@ const initialState = [
     selected: true,
     clonePath: "",
     cloneStatus: "",
-    progress: 0
+    cloneProgress: 0
   }, {
     id: 6,
     username: "StudentZara",
@@ -66,7 +66,7 @@ const initialState = [
     selected: true,
     clonePath: "",
     cloneStatus: "",
-    progress: 0
+    cloneProgress: 0
   }
 ]
 
@@ -90,17 +90,17 @@ const submission = (state, action) => {
     } else {
       return state
     }
-  case SUBMISSION_SET_PROGRESS:
+  case SUBMISSION_SET_CLONE_PROGRESS:
     if (action.id === state.id) {
       let newProgress
-      if (action.progress > 100) {
+      if (action.cloneProgress > 100) {
         newProgress = 100
-      } else if (action.progress < 0) {
+      } else if (action.cloneProgress < 0) {
         newProgress = 0
       } else {
-        newProgress = action.progress
+        newProgress = action.cloneProgress
       }
-      return Object.assign({}, state, {progress: newProgress})
+      return Object.assign({}, state, {cloneProgress: newProgress})
     } else {
       return state
     }

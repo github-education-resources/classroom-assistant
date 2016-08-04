@@ -12,12 +12,13 @@ const ItemArchivePanel = ({
   displayName,
   avatarUrl,
   repoUrl,
-  progress,
+  cloneProgress,
+  cloneStatus,
   onViewClick
 }) => {
   let viewButton, barColorClass
 
-  if (progress === 100) {
+  if (cloneProgress === 100) {
     barColorClass = "progress-bar-success"
     viewButton = (
       <div className="col-sm-4">
@@ -43,17 +44,18 @@ const ItemArchivePanel = ({
     >
       <div className="row" style={containerStyles}>
         <div className="col-sm-8">
+          <p>{cloneStatus}</p>
           <div className="progress">
             <div
               className={progressBarClasses}
-              role="progressbar" aria-valuenow={progress}
+              role="progressbar" aria-valuenow={cloneProgress}
               aria-valuemin="0"
               aria-valuemax="100"
               style={{
-                width: progress + "%"
+                width: cloneProgress + "%"
               }}
             >
-              {progress}%
+              {cloneProgress}%
             </div>
           </div>
         </div>
@@ -69,7 +71,8 @@ ItemArchivePanel.propTypes = {
   displayName: PropTypes.string.isRequired,
   avatarUrl: PropTypes.string.isRequired,
   repoUrl: PropTypes.string.isRequired,
-  progress: PropTypes.number.isRequired,
+  cloneProgress: PropTypes.number.isRequired,
+  cloneStatus: PropTypes.string.isRequired,
   onViewClick: PropTypes.func
 }
 

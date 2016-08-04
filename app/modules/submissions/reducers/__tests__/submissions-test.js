@@ -4,7 +4,7 @@ import submissions from "../submissions"
 import {
   SUBMISSION_SELECT,
   SUBMISSION_SELECT_ALL,
-  SUBMISSION_SET_PROGRESS,
+  SUBMISSION_SET_CLONE_PROGRESS,
   SUBMISSION_SET_CLONE_PATH,
   SUBMISSION_SET_CLONE_STATUS
 } from "../../constants"
@@ -21,7 +21,7 @@ const evelynSelected = {
   selected: true,
   clonePath: "",
   cloneStatus: "",
-  progress: 30
+  cloneProgress: 30
 }
 
 const evelynNotSelected = {
@@ -33,7 +33,7 @@ const evelynNotSelected = {
   selected: false,
   clonePath: "",
   cloneStatus: "",
-  progress: 30
+  cloneProgress: 30
 }
 
 const maxSelected = {
@@ -45,7 +45,7 @@ const maxSelected = {
   selected: true,
   clonePath: "",
   cloneStatus: "",
-  progress: 50
+  cloneProgress: 50
 }
 
 const maxSelectedWithClonePath = {
@@ -57,7 +57,7 @@ const maxSelectedWithClonePath = {
   selected: true,
   clonePath: TEST_CLONE_PATH,
   cloneStatus: "",
-  progress: 50
+  cloneProgress: 50
 }
 
 const maxSelectedWithCloneStatus = {
@@ -69,7 +69,7 @@ const maxSelectedWithCloneStatus = {
   selected: true,
   clonePath: "",
   cloneStatus: TEST_STATUS,
-  progress: 50
+  cloneProgress: 50
 }
 
 const maxSelectedProgressSixty = {
@@ -81,7 +81,7 @@ const maxSelectedProgressSixty = {
   selected: true,
   clonePath: "",
   cloneStatus: "",
-  progress: 60
+  cloneProgress: 60
 }
 
 const maxNotSelected = {
@@ -93,16 +93,16 @@ const maxNotSelected = {
   selected: false,
   clonePath: "",
   cloneStatus: "",
-  progress: 50
+  cloneProgress: 50
 }
 
 describe("submissions", () => {
-  describe("SUBMISSION_SET_PROGRESS", () => {
+  describe("SUBMISSION_SET_CLONE_PROGRESS", () => {
     it("changes progress of the right submission", () => {
       const action = {
-        type: SUBMISSION_SET_PROGRESS,
+        type: SUBMISSION_SET_CLONE_PROGRESS,
         id: maxSelected.id,
-        progress: 60
+        cloneProgress: 60
       }
 
       expect(submissions([maxSelected], action)).toEqual([maxSelectedProgressSixty])
@@ -110,9 +110,9 @@ describe("submissions", () => {
 
     it("doesn't change progress of submissions with different ids", () => {
       const action = {
-        type: SUBMISSION_SET_PROGRESS,
+        type: SUBMISSION_SET_CLONE_PROGRESS,
         id: maxSelected.id,
-        progress: 60
+        cloneProgress: 60
       }
 
       expect(submissions([evelynSelected], action)).toEqual([evelynSelected])
@@ -199,7 +199,7 @@ describe("submissions", () => {
     })
   })
 
-  describe("SUBMISSION_SET_STATUS", () => {
+  describe("SUBMISSION_SET_CLONE_STATUS", () => {
     it("changes the status of targeted submission", () => {
       const action = {
         type: SUBMISSION_SET_CLONE_STATUS,

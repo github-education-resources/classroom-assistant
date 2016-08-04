@@ -12,7 +12,8 @@ const completeProps = {
   displayName: "test display name",
   avatarUrl: "/some/path.jpg",
   repoUrl: "http://www.someurl.com",
-  progress: 100
+  cloneProgress: 100,
+  cloneStatus: "Sample Status"
 }
 
 const progressProps = {
@@ -21,7 +22,8 @@ const progressProps = {
   displayName: "test display name",
   avatarUrl: "/some/path.jpg",
   repoUrl: "http://www.someurl.com",
-  progress: 32
+  cloneProgress: 32,
+  cloneStatus: "Sample Status"
 }
 
 describe("ItemArchivePanel", () => {
@@ -49,12 +51,12 @@ describe("ItemArchivePanel", () => {
 
   it("renders the completion percentage inside the progress bar", () => {
     let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
-    expect(wrapper.find(".progress-bar").text()).toEqual(progressProps.progress + "%")
+    expect(wrapper.find(".progress-bar").text()).toEqual(progressProps.cloneProgress + "%")
   })
 
   it("renders the progress bar with the fill corresponding to the percentage", () => {
     let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
-    expect(wrapper.find(".progress-bar").prop("aria-valuenow")).toEqual(progressProps.progress)
+    expect(wrapper.find(".progress-bar").prop("aria-valuenow")).toEqual(progressProps.cloneProgress)
   })
 
   it("renders a 'view' button when the progress is at 100", () => {
