@@ -25,6 +25,16 @@ const progressProps = {
   cloneStatus: "Sample Status"
 }
 
+const noProgressProps = {
+  id: 1,
+  username: "test username",
+  displayName: "test display name",
+  avatarUrl: "/some/path.jpg",
+  repoUrl: "http://www.someurl.com",
+  cloneProgress: 0,
+  cloneStatus: "Sample Status"
+}
+
 describe("ItemArchivePanel", () => {
   it("renders an ItemPanel, correctly passing down properties", () => {
     let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
@@ -38,7 +48,7 @@ describe("ItemArchivePanel", () => {
     expect(itemPanel.prop("subtitle")).toEqual(progressProps.displayName)
   })
 
-  it("renders an 'info' progress bar when the progress is not 100", () => {
+  it("renders a progress bar when the progress is between 0 and 100", () => {
     let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
     expect(wrapper.find(".progress-bar-info").length).toEqual(1)
   })
@@ -74,5 +84,10 @@ describe("ItemArchivePanel", () => {
     wrapper.find("button").simulate("click")
 
     expect(handler.mock.calls.length).toBe(1)
+  })
+
+  it("renders a spinner when the progress is 0", () => {
+    let wrapper = shallow(<ItemArchivePanel {...noProgressProps}/>)
+    expect(wrapper.find("ReactSpinner").length).toBe(1)
   })
 })

@@ -1,4 +1,5 @@
 import React, { PropTypes } from "react"
+import ReactSpinner from "react-spinjs"
 import ItemPanel from "../../shared/components/ItemPanel"
 
 const ItemArchivePanel = ({
@@ -13,20 +14,42 @@ const ItemArchivePanel = ({
 }) => {
   let progressElement
 
-  if (cloneProgress === 100) {
+  if (cloneProgress === 0) {
     progressElement = (
-      <div className="pull-right">
-        <button className="btn btn-xs btn-primary" onClick={onViewClick}>
-          <i className="fa fa-folder-open" aria-hidden="true"></i> View
-        </button>
+      <div style={{
+        width: "20px",
+        height: "20px"
+      }}>
+        <ReactSpinner config={{
+          lines: 11,
+          length: 28,
+          width: 14,
+          radius: 42,
+          scale: 0.15,
+          corners: 1,
+          color: "#000",
+          opacity: 0.25,
+          rotate: 0,
+          direction: 1,
+          speed: 1,
+          trail: 60,
+          fps: 20,
+          zIndex: 1,
+          className: "spinner",
+          top: "10px",
+          left: "0",
+          shadow: false,
+          hwaccel: false,
+          position: "relative"
+        }}/>
       </div>
     )
-  } else {
+  } else if (cloneProgress > 0 && cloneProgress < 100) {
     progressElement = (
       <div
-        className="progress pull-right"
+        className="progress"
         style={{
-          width: "100%"
+          width: "160px"
         }}
       >
         <div
@@ -38,9 +61,15 @@ const ItemArchivePanel = ({
             width: cloneProgress + "%"
           }}
         >
-          {cloneProgress}%
+          {cloneProgress.toFixed(0)}%
         </div>
       </div>
+    )
+  } else {
+    progressElement = (
+      <button className="btn btn-xs btn-primary" onClick={onViewClick}>
+        <i className="fa fa-folder-open" aria-hidden="true"></i> View
+      </button>
     )
   }
 
@@ -51,8 +80,11 @@ const ItemArchivePanel = ({
       subtitle={displayName}
     >
       <div className="pull-right">
-        <p class="pull-right">{cloneStatus}</p>
-        {progressElement}
+        <p className="pull-right">{cloneStatus}</p>
+        <br/>
+        <div className="pull-right">
+          {progressElement}
+        </div>
       </div>
     </ItemPanel>
   )
