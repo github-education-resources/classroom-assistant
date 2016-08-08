@@ -3,7 +3,6 @@ jest.unmock("../../../shared/components/ItemPanel.jsx")
 
 import React from "react"
 import { shallow } from "enzyme"
-import sinon from "sinon"
 
 import Submission from "../Submission.jsx"
 
@@ -57,10 +56,10 @@ describe("Submission", () => {
   })
 
   it("calls handler when checkbox is pressed", () => {
-    let clickHandler = sinon.spy()
+    let clickHandler = jest.fn()
     let wrapper = shallow(<Submission {...testProps} onSelectedChange={clickHandler}/>)
 
     wrapper.find("input").simulate("change")
-    expect(clickHandler.calledWith(!testProps.selected)).toBe(true)
+    expect(clickHandler.mock.calls[0][0]).toBe(!testProps.selected)
   })
 })

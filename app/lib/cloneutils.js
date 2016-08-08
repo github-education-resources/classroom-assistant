@@ -1,18 +1,5 @@
-const NodeGit = require("nodegit")
-
-// Internal: Helper function that constructs the options object used by NodeGit.
-const buildOptions = (progressCallback) => {
-  const callbacks = new NodeGit.RemoteCallbacks()
-  callbacks.transferProgress = progressCallback
-
-  const fetchOptions = new NodeGit.FetchOptions()
-  fetchOptions.callbacks = callbacks
-
-  const options = new NodeGit.CloneOptions()
-  options.fetchOpts = fetchOptions
-
-  return options
-}
+import NodeGit from "nodegit"
+import _ from "underscore"
 
 // Public: Clones a public git repository to the specified destination directory,
 // and notifies the caller of clone progress via callback.
@@ -42,18 +29,29 @@ export const clone = (repoURL, destination, progressCallback) => {
   return new Promise((resolve, reject) => {
     let progressOnCompletion = false
 
-    const options = buildOptions((progressInfo) => {
-      const percentage = 100 * progressInfo.receivedObjects() / progressInfo.totalObjects()
-      if (percentage === 100) progressOnCompletion = true
-      progressCallback(percentage)
-    })
+    const options = {
+      fetchOpts: {
+        callbacks: {
+        }
+      }
+    }
+
+    if (progressCallback) {
+      options.fetchOpts.callbacks.transferProgress = _.throttle((progressInfo) => {
+        const percentage = 100 * progressInfo.receivedObjects() / progressInfo.totalObjects()
+        if (percentage === 100) progressOnCompletion = true
+        progressCallback(percentage)
+      }, 300, { trailing: false })
+    }
+
+    progressCallback(0)
 
     NodeGit.Clone(
       repoURL,
       destination,
       options
-    ).then(() => {
-      if (!progressOnCompletion) {
+    ).then((repo) => {
+      if (!progressOnCompletion && progressCallback) {
         progressCallback(100)
       }
       resolve()

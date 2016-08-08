@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 
 import SelectAllPanel from "../components/SelectAllPanel"
-import { submissionChangeAll } from "../../../modules/submissions/actions/submission-change-all"
+import { submissionSelectAll } from "../../../modules/submissions/actions/submission-select-all"
 import { numSelected, num, areAllSelected } from "../../../modules/submissions/selectors"
 
 const mapStateToProps = (state) => ({
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectAllChange: (newValue) => {
-    dispatch(submissionChangeAll(newValue))
+    dispatch(submissionSelectAll(newValue))
   }
 })
 

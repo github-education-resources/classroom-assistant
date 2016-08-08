@@ -1,10 +1,6 @@
 import React, { PropTypes } from "react"
-import classNames from "classnames"
+import ReactSpinner from "react-spinjs"
 import ItemPanel from "../../shared/components/ItemPanel"
-
-const containerStyles = {
-  marginTop: "10px"
-}
 
 const ItemArchivePanel = ({
   id,
@@ -12,27 +8,70 @@ const ItemArchivePanel = ({
   displayName,
   avatarUrl,
   repoUrl,
-  progress
+  cloneProgress,
+  cloneStatus,
+  onViewClick
 }) => {
-  let viewButton, barColorClass
+  let progressElement
 
-  if (progress === 100) {
-    barColorClass = "progress-bar-success"
-    viewButton = (
-      <div className="col-sm-4">
-        <button className="btn btn-xs btn-primary">
-          <i className="fa fa-folder-open" aria-hidden="true"></i> View
-        </button>
+  if (cloneProgress === 0) {
+    progressElement = (
+      <div style={{
+        width: "20px",
+        height: "20px"
+      }}>
+        <ReactSpinner config={{
+          lines: 11,
+          length: 28,
+          width: 14,
+          radius: 42,
+          scale: 0.15,
+          corners: 1,
+          color: "#000",
+          opacity: 0.25,
+          rotate: 0,
+          direction: 1,
+          speed: 1,
+          trail: 60,
+          fps: 20,
+          zIndex: 1,
+          className: "spinner",
+          top: "10px",
+          left: "0",
+          shadow: false,
+          hwaccel: false,
+          position: "relative"
+        }}/>
+      </div>
+    )
+  } else if (cloneProgress > 0 && cloneProgress < 100) {
+    progressElement = (
+      <div
+        className="progress"
+        style={{
+          width: "160px"
+        }}
+      >
+        <div
+          className="progress-bar progress-bar-info"
+          role="progressbar" aria-valuenow={cloneProgress}
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style={{
+            width: cloneProgress + "%"
+          }}
+        >
+          {cloneProgress.toFixed(0)}%
+        </div>
       </div>
     )
   } else {
-    barColorClass = "progress-bar-info"
-    viewButton = (
-      <p> Archiving.. </p>
+    progressElement = (
+      <button className="btn btn-xs btn-primary" onClick={onViewClick}>
+        <i className="fa fa-folder-open" aria-hidden="true"></i> View
+      </button>
     )
   }
-
-  const progressBarClasses = classNames("progress-bar", barColorClass)
 
   return (
     <ItemPanel
@@ -40,23 +79,12 @@ const ItemArchivePanel = ({
       title={username}
       subtitle={displayName}
     >
-      <div className="row" style={containerStyles}>
-        <div className="col-sm-8">
-          <div className="progress">
-            <div
-              className={progressBarClasses}
-              role="progressbar" aria-valuenow={progress}
-              aria-valuemin="0"
-              aria-valuemax="100"
-              style={{
-                width: progress + "%"
-              }}
-            >
-              {progress}%
-            </div>
-          </div>
+      <div className="pull-right">
+        <p className="pull-right">{cloneStatus}</p>
+        <br/>
+        <div className="pull-right">
+          {progressElement}
         </div>
-        {viewButton}
       </div>
     </ItemPanel>
   )
@@ -68,7 +96,9 @@ ItemArchivePanel.propTypes = {
   displayName: PropTypes.string.isRequired,
   avatarUrl: PropTypes.string.isRequired,
   repoUrl: PropTypes.string.isRequired,
-  progress: PropTypes.number.isRequired
+  cloneProgress: PropTypes.number.isRequired,
+  cloneStatus: PropTypes.string.isRequired,
+  onViewClick: PropTypes.func
 }
 
 export default ItemArchivePanel

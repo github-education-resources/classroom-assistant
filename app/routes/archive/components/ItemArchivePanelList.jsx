@@ -1,7 +1,7 @@
 import React, { PropTypes } from "react"
 import { compose, withHandlers } from "recompose"
 
-import ItemArchivePanel from "./ItemArchivePanel"
+import ActionableItemArchivePanel from "../containers/ActionableItemArchivePanel"
 
 const containerStyles = {
   marginBottom: "100px"
@@ -11,7 +11,7 @@ const enchance = compose(
   withHandlers({
     renderItemArchivePanel: (props) => (submissionProps) => {
       return (
-        <ItemArchivePanel key={submissionProps.id} {...submissionProps}/>
+        <ActionableItemArchivePanel key={submissionProps.id} {...submissionProps}/>
       )
     }
   })

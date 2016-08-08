@@ -17,7 +17,10 @@ function createWindow () {
 
   mainWindow = new BrowserWindow({width: 900, height: 600})
   mainWindow.loadURL(`file://${__dirname}/app/index.html`)
-  mainWindow.webContents.openDevTools()
+
+  if (isDev) {
+    mainWindow.webContents.openDevTools()
+  }
 
   if (!isDev) {
     var msBetweenUpdates = 1000 * 60 * 30

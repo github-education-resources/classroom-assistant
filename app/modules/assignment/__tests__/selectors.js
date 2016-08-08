@@ -1,6 +1,6 @@
 jest.unmock("../selectors.js")
 
-import { all, typeLabel } from "../selectors.js"
+import { all, typeLabel, name } from "../selectors.js"
 
 describe("assignmnet selectors", () => {
   let testIndividualAssignment = {
@@ -43,6 +43,14 @@ describe("assignmnet selectors", () => {
       expect(typeLabel({
         assignment: testInvalidAssignment
       })).toBe("Unknown Assignment Type")
+    })
+  })
+
+  describe("name", () => {
+    it("returns the name of the assignment", () => {
+      expect(name({
+        assignment: testIndividualAssignment
+      })).toBe(testIndividualAssignment.name)
     })
   })
 })
