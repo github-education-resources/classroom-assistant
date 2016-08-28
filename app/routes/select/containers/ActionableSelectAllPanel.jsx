@@ -1,18 +1,17 @@
 import { connect } from "react-redux"
 
 import SelectAllPanel from "../components/SelectAllPanel"
-import { submissionSelectAll } from "../../../modules/submissions/actions/submission-select-all"
-import { numSelected, num, areAllSelected } from "../../../modules/submissions/selectors"
+import submissions from "../../../modules/submissions"
 
 const mapStateToProps = (state) => ({
-  selected: numSelected(state),
-  total: num(state),
-  selectAll: areAllSelected(state)
+  selected: submissions.selectors.numSelected(state),
+  total: submissions.selectors.num(state),
+  selectAll: submissions.selectors.areAllSelected(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectAllChange: (newValue) => {
-    dispatch(submissionSelectAll(newValue))
+    dispatch(submissions.actions.selectAll(newValue))
   }
 })
 
