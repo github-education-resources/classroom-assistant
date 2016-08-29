@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react"
 import ReactSpinner from "react-spinjs"
-import ItemPanel from "../../shared/components/ItemPanel"
+import ItemPanel from "../../common/components/ItemPanel"
 
 const ItemArchivePanel = ({
   id,

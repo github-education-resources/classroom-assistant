@@ -1,5 +1,5 @@
 import React, { PropTypes } from "react"
-import ItemPanel from "../../shared/components/ItemPanel"
+import ItemPanel from "../../common/components/ItemPanel"
 
 import { compose, withHandlers } from "recompose"
 

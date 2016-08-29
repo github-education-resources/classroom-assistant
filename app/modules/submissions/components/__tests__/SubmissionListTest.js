@@ -1,11 +1,10 @@
 jest.unmock("../SubmissionList.jsx")
-jest.unmock("../../../shared/components/ItemPanel.jsx")
 
 import React from "react"
 import { shallow } from "enzyme"
 
-import SubmissionList from "../SubmissionList.jsx"
 import SelectableSubmission from "../../containers/SelectableSubmission.jsx"
+import SubmissionList from "../SubmissionList.jsx"
 
 let testProps = {
   submissions: [{

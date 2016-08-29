@@ -1,17 +1,19 @@
 import { connect } from "react-redux"
 
-import EditItemPanel from "../components/EditItemPanel"
-import settings from "../../../modules/settings"
+import EditItemPanel from "../../common/components/EditItemPanel"
+import * as selectors from "../selectors"
+
+import actions from "../actions"
 
 const mapStateToProps = (state) => ({
   title: "Archive Destination",
   iconPath: "http://placehold.it/48x48",
-  subtitle: settings.selectors.cloneDestination(state)
+  subtitle: selectors.cloneDestination(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onEditClick: () => {
-    dispatch(settings.actions.changeCloneDestinationWithDialog())
+    dispatch(actions.changeCloneDestinationWithDialog())
   }
 })
 

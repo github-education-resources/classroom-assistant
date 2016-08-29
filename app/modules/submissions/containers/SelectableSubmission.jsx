@@ -1,13 +1,13 @@
 import { connect } from "react-redux"
-import Submission from "../components/Submission"
 
-import submissions from "../../../modules/submissions"
+import Submission from "../components/Submission"
+import actions from "../actions"
 
 const mapStateToProps = (state, ownProps) => ownProps
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onSelectedChange: (newValue) => {
-    dispatch(submissions.actions.select(ownProps.id))
+    dispatch(actions.select(ownProps.id))
   }
 })
 

@@ -1,5 +1,5 @@
-import { name } from "../../assignment/selectors"
-import { cloneDestination } from "../../settings/selectors"
+import assignment from "../../assignment"
+import settings from "../../settings"
 
 import setCloneProgress from "./setCloneProgress"
 import setClonePath from "./setClonePath"
@@ -14,8 +14,8 @@ import { getClonePath } from "../../../lib/pathutils"
 // TODO: change this comment at the end of refactoring
 const clone = (submissionProps) => {
   return (dispatch, getState) => {
-    const submissionsBaseDirectory = cloneDestination(getState())
-    const assignmentName = name(getState())
+    const submissionsBaseDirectory = settings.selectors.cloneDestination(getState())
+    const assignmentName = assignment.selectors.name(getState())
     const submissionAuthorUsername = submissionProps.username
 
     const destination = getClonePath(

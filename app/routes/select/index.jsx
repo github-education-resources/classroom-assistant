@@ -1,7 +1,7 @@
 import React from "react"
 
-import AssignmentPanel from "../shared/containers/AssignmentPanel"
-import SelectableSubmissionList from "./containers/SelectableSubmissionList"
+import AssignmentPanel from "../../modules/assignment/containers/AssignmentPanel"
+import SelectableSubmissionList from "./../../modules/submissions/containers/SelectableSubmissionList"
 import NavFooter from "../shared/components/NavFooter"
 
 const SelectPage = () => (

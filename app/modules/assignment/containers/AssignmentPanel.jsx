@@ -1,12 +1,12 @@
 import { connect } from "react-redux"
 
 import Header from "../components/Header"
-import assignment from "../../../modules/assignment"
+import * as selectors from "../selectors"
 
 const mapStateToProps = (state) => {
   return {
-    title: assignment.selectors.all(state).name,
-    subtitle: assignment.selectors.typeLabel(state),
+    title: selectors.all(state).name,
+    subtitle: selectors.typeLabel(state),
     imagePath: "http://placehold.it/48x48"
   }
 }

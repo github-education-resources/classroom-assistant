@@ -11,10 +11,9 @@ import setCloneProgress from "../setCloneProgress"
 import { clone as cloneRepository } from "../../../../lib/cloneutils"
 import { getClonePath } from "../../../../lib/pathutils"
 
-const middlewares = [thunk]
-const mockStore = configureStore(middlewares)
+const mockStore = configureStore([thunk])
 
-describe("clone action", () => {
+describe("Clone Action", () => {
   let mockSubmission
   let mockSetClonePathAction
   let mockSetCloneStatusAction

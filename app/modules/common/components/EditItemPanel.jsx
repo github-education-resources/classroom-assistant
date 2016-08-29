@@ -1,5 +1,5 @@
 import React, { PropTypes } from "react"
-import ItemPanel from "../../shared/components/ItemPanel"
+import ItemPanel from "./ItemPanel"
 
 const editIconStyles = {
   paddingTop: "5px",

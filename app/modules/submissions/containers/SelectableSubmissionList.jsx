@@ -1,11 +1,11 @@
 import { connect } from "react-redux"
 
 import SubmissionList from "../components/SubmissionList"
-import submissions from "../../../modules/submissions"
+import * as selectors from "../selectors"
 
 const mapStateToProps = (state) => {
   return {
-    submissions: submissions.selectors.all(state)
+    submissions: selectors.all(state)
   }
 }
 

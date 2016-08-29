@@ -1,9 +1,11 @@
 import { connect } from "react-redux"
-import EditItemPanel from "../../shared/components/EditItemPanel"
+import EditItemPanel from "../../common/components/EditItemPanel"
+
+import * as selectors from "../selectors"
 
 const mapStateToProps = (state) => {
   return {
-    title: `${state.submissions.filter(each => each.selected).length}/${state.submissions.length}`,
+    title: `${selectors.numSelected(state)}/${selectors.num(state)}`,
     iconPath: "http://placehold.it/48x48",
     subtitle: "Submissions Selected"
   }

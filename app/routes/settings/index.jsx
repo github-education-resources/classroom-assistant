@@ -1,9 +1,8 @@
-
 import React from "react"
 
 import NavFooter from "../shared/components/NavFooter"
-import EditItemPanel from "../shared/components/EditItemPanel"
-import EditDestinationPanel from "../shared/containers/EditDestinationPanel"
+import EditItemPanel from "../../modules/common/components/EditItemPanel"
+import EditDestinationPanel from "../../modules/settings/containers/EditDestinationPanel"
 
 const ConfirmPage = () => (
   <div>
