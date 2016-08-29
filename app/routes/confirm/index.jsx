@@ -1,8 +1,8 @@
 import React from "react"
 
-import AssignmentPanel from "../shared/containers/AssignmentPanel"
-import EditDestinationPanel from "../shared/containers/EditDestinationPanel"
-import SubmissionConfirmPanel from "./containers/SubmissionConfirmPanel"
+import AssignmentPanel from "../../modules/assignment/containers/AssignmentPanel"
+import EditDestinationPanel from "../../modules/settings/containers/EditDestinationPanel"
+import SubmissionConfirmPanel from "./../../modules/submissions/containers/SubmissionConfirmPanel"
 import ActionableConfirmFooter from "./containers/ActionableConfirmFooter"
 
 const ConfirmPage = () => (

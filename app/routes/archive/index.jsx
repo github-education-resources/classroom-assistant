@@ -1,6 +1,6 @@
 import React from "react"
-import AssignmentPanel from "../shared/containers/AssignmentPanel"
-import SubmissionArchivePanelList from "./containers/SubmissionArchivePanelList"
+import AssignmentPanel from "../../modules/assignment/containers/AssignmentPanel"
+import SubmissionArchivePanelList from "./../../modules/submissions/containers/SubmissionArchivePanelList"
 import NavFooter from "../shared/components/NavFooter"
 
 const ArchivePage = () => (

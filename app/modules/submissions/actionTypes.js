@@ -1,0 +1,5 @@
+export const SELECT = "submission/SELECT"
+export const SELECT_ALL = "submission/SELECT_ALL"
+export const SET_CLONE_PROGRESS = "submission/SET_CLONE_PROGRESS"
+export const SET_CLONE_PATH = "submission/SET_CLONE_PATH"
+export const SET_CLONE_STATUS = "submission/SET_CLONE_STATUS"
