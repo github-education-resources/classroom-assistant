@@ -8,7 +8,7 @@ A desktop helper for [GitHub Classroom](https://classroom.github.com/)
 
 A local version is simple to set up:
 
-```
+```sh
 git clone https://github.com/education/classroom-desktop
 cd classroom-desktop
 script/setup
@@ -37,8 +37,8 @@ Once obtained and installed on your machine, reference the identity as the
 `CLASSROOM_DESKTOP_OSX_DEVELOPER_ID` environment variable. This can be done by
 adding the following line to your `.bashrc`:
 
-```
-export CLASSROOM_DESKTOP_OSX_DEVELOPER_ID=<your developer identity>
+```sh
+export CLASSROOM_DESKTOP_OSX_DEVELOPER_ID="<your developer identity>"
 ```
 
 You can retrieve a list of developer identities available in your keychain by running:
