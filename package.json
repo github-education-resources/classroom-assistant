@@ -15,7 +15,14 @@
     "type": "git",
     "url": "git+https://github.com/education/classroom-desktop/"
   },
-  "keywords": [],
+  "keywords": [
+    "GitHub",
+    "Classroom",
+    "Helper",
+    "Education",
+    "School",
+    "Repository"
+  ],
   "author": "GitHub",
   "license": "MIT",
   "bugs": {
