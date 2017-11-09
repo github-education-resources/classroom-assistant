@@ -71,6 +71,7 @@
     "winston": "~2.2.0"
   },
   "engines": {
+    "node": "^6",
     "electron": "1.1.0",
     "atom-shell": "1.1.0"
   }
