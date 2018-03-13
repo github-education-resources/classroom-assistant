@@ -2,10 +2,15 @@ jest.unmock("../SubmissionList.jsx")
 jest.unmock("../../../shared/components/ItemPanel.jsx")
 
 import React from "react"
-import { shallow } from "enzyme"
+import { shallow, configure } from "enzyme"
+import Adapter from "enzyme-adapter-react-16"
 
 import SubmissionList from "../SubmissionList.jsx"
 import SelectableSubmission from "../../containers/SelectableSubmission.jsx"
+
+beforeAll(() => {
+  configure({ adapter: new Adapter() })
+})
 
 let testProps = {
   submissions: [{

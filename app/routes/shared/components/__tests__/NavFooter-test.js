@@ -1,9 +1,14 @@
 jest.unmock("../NavFooter.jsx")
 
 import React from "react"
-import { shallow } from "enzyme"
+import { shallow, configure } from "enzyme"
+import Adapter from "enzyme-adapter-react-16"
 
 import NavFooter from "../NavFooter.jsx"
+
+beforeAll(() => {
+  configure({ adapter: new Adapter() })
+})
 
 describe("NavFooter", () => {
   it("renders no buttons if none are provided", () => {

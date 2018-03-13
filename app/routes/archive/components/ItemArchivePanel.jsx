@@ -1,5 +1,7 @@
-import React, { PropTypes } from "react"
-import ReactSpinner from "react-spinjs"
+import React from "react"
+import PropTypes from "prop-types"
+
+import { RingLoader } from "react-spinners"
 import ItemPanel from "../../shared/components/ItemPanel"
 
 const ItemArchivePanel = ({
@@ -19,8 +21,9 @@ const ItemArchivePanel = ({
       <div style={{
         width: "20px",
         height: "20px"
-      }}>
-        <ReactSpinner config={{
+      }}
+      >
+        <RingLoader config={{
           lines: 11,
           length: 28,
           width: 14,
@@ -41,7 +44,8 @@ const ItemArchivePanel = ({
           shadow: false,
           hwaccel: false,
           position: "relative"
-        }}/>
+        }}
+        />
       </div>
     )
   } else if (cloneProgress > 0 && cloneProgress < 100) {

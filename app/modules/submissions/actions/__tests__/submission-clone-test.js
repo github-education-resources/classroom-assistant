@@ -27,7 +27,16 @@ describe("submissionClone", () => {
       submissionSetCloneStatus,
       getClonePath,
       clone
-    ].forEach(mock => mock.mockClear())
+    ].forEach(mock => {
+      for (var p in mock) {
+        if (typeof mock[p] === "function") {
+          // its a function if you get here
+          console.log(`found function: ${p}`)
+        }
+      }
+
+      mock.mockClear()
+    })
   }
 
   beforeEach(() => {
@@ -94,7 +103,7 @@ describe("submissionClone", () => {
 
   it("dispatches an action to update the clone status when an error occurs", (done) => {
     clone.mockClear()
-    clone.mockReturnValueOnce(new Promise((resolve, reject) => reject()))
+    clone.mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error("something went wrong"))))
 
     store.dispatch(submissionClone(mockSubmission)).then(() => {
       expect(submissionSetCloneStatus.mock.calls.length).toBe(2)

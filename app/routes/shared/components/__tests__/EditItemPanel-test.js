@@ -1,9 +1,14 @@
 jest.unmock("../EditItemPanel.jsx")
 
 import React from "react"
-import { shallow } from "enzyme"
+import { shallow, configure } from "enzyme"
+import Adapter from "enzyme-adapter-react-16"
 
 import EditItemPanel from "../EditItemPanel.jsx"
+
+beforeAll(() => {
+  configure({ adapter: new Adapter() })
+})
 
 describe("EditItemPanel", () => {
   const staticOptions = {

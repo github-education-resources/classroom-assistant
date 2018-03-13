@@ -43,11 +43,11 @@ export const submissionClone = (submissionProps) => {
           }
         }
       )
-      .then(resolve)
-      .catch(() => {
-        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
-        resolve()
-      })
+        .then(resolve)
+        .catch(() => {
+          dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
+          resolve()
+        })
     })
   }
 }
