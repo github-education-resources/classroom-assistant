@@ -7,7 +7,6 @@ module.exports = {
         "jest": true
     },
     "extends": "standard",
-    "installedESLint": true,
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
