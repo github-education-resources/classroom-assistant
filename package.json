@@ -61,7 +61,7 @@
     "react": "~16.2.0",
     "react-dom": "~16.2.0",
     "react-redux": "~5.0.7",
-    "react-router": "~4.2.0",
+    "react-router": "~3.0.2",
     "react-router-redux": "~4.0.5",
     "react-spinners": "^0.2.6",
     "recompose": "~0.26.0",
