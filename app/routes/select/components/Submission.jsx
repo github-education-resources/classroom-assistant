@@ -3,42 +3,37 @@ import PropTypes from "prop-types"
 
 import ItemPanel from "../../shared/components/ItemPanel"
 
-import { compose, withHandlers } from "recompose"
+class Submission extends React.Component {
+  constructor (props) {
+    super(props)
 
-const enchance = compose(
-  withHandlers({
-    onCheckboxChange: (props) => () => {
-      if (props.onSelectedChange) {
-        props.onSelectedChange(!props.selected)
-      }
+    this.onCheckboxChange = this.onCheckboxChange.bind(this)
+  }
+
+  onCheckboxChange () {
+    if (this.props.onSelectedChange) {
+      this.props.onSelectedChange(!this.props.selected)
     }
-  })
-)
+  }
 
-const Submission = enchance(({
-  id,
-  username,
-  displayName,
-  avatarUrl,
-  repoUrl,
-  selected,
-  onSelectedChange,
-  onCheckboxChange
-}) => (
-  <ItemPanel
-    imagePath={avatarUrl}
-    title={displayName}
-    subtitle={username}
-  >
-    <div className="pull-right">
-      <input
-        type="checkbox"
-        checked={selected}
-        onChange={onCheckboxChange}
-      />
-    </div>
-  </ItemPanel>
-))
+  render () {
+    return (
+      <ItemPanel
+        imagePath={this.props.avatarUrl}
+        title={this.props.displayName}
+        subtitle={this.props.username}
+      >
+        <div className="pull-right">
+          <input
+            type="checkbox"
+            checked={this.props.selected}
+            onChange={this.onCheckboxChange}
+          />
+        </div>
+      </ItemPanel>
+    )
+  }
+}
 
 Submission.propTypes = {
   id: PropTypes.number.isRequired,

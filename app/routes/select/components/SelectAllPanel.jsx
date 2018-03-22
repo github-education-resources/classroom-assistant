@@ -1,8 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import { compose, withHandlers } from "recompose"
-
 const styles = {
   paddingLeft: "20px",
   paddingRight: "20px",
@@ -14,39 +12,42 @@ const checkboxStyles = {
   marginLeft: "5px"
 }
 
-const enchance = compose(
-  withHandlers({
-    onSelectAllChange: (props) => () => {
-      props.onSelectAllChange(!props.selectAll)
-    }
-  })
-)
+class SelectAllPanel extends React.Component {
+  constructor (props) {
+    super(props)
 
-const SelectAllPanel = enchance(({
-  selected,
-  total,
-  selectAll,
-  onSelectAllChange
-}) => (
-  <div style={styles}>
-    <div className="row">
-      <div className="col-xs-6">
-        {selected}/{total} selected
-      </div>
-      <div className="col-xs-6">
-        <div className="pull-right">
-          Select All
-          <input
-            style={checkboxStyles}
-            type="checkbox"
-            checked={selectAll}
-            onChange={onSelectAllChange}
-          />
+    this.onCheckboxChange = this.onCheckboxChange.bind(this)
+  }
+
+  onCheckboxChange () {
+    if (this.props.onSelectAllChange) {
+      this.props.onSelectAllChange(!this.props.selectAll)
+    }
+  }
+
+  render () {
+    return (
+      <div style={styles}>
+        <div className="row">
+          <div className="col-xs-6">
+            {this.props.selected}/{this.props.total} selected
+          </div>
+          <div className="col-xs-6">
+            <div className="pull-right">
+              Select All
+              <input
+                style={checkboxStyles}
+                type="checkbox"
+                checked={this.props.selectAll}
+                onChange={this.onCheckboxChange}
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-))
+    )
+  }
+}
 
 SelectAllPanel.propTypes = {
   selected: PropTypes.number.isRequired,

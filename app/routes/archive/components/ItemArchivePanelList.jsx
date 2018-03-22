@@ -1,34 +1,21 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import { compose, withHandlers } from "recompose"
-
 import ActionableItemArchivePanel from "../containers/ActionableItemArchivePanel"
 
 const containerStyles = {
   marginBottom: "100px"
 }
 
-const enchance = compose(
-  withHandlers({
-    renderItemArchivePanel: (props) => (submissionProps) => {
-      return (
-        <ActionableItemArchivePanel key={submissionProps.id} {...submissionProps}/>
-      )
-    }
-  })
-)
-
-const ItemArchivePanelList = enchance(({
-  submissions,
-  renderItemArchivePanel
-}) => {
+const ItemArchivePanelList = function (props, context) {
   return (
     <div style={containerStyles}>
-      {submissions.map(renderItemArchivePanel)}
+      {this.props.submissions.map(submission => {
+        return <ActionableItemArchivePanel key={submission.id} {...submission}/>
+      })}
     </div>
   )
-})
+}
 
 ItemArchivePanelList.propTypes = {
   submissions: PropTypes.array.isRequired

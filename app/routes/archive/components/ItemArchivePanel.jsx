@@ -23,28 +23,9 @@ const ItemArchivePanel = ({
         height: "20px"
       }}
       >
-        <RingLoader config={{
-          lines: 11,
-          length: 28,
-          width: 14,
-          radius: 42,
-          scale: 0.15,
-          corners: 1,
-          color: "#000",
-          opacity: 0.25,
-          rotate: 0,
-          direction: 1,
-          speed: 1,
-          trail: 60,
-          fps: 20,
-          zIndex: 1,
-          className: "spinner",
-          top: "10px",
-          left: "0",
-          shadow: false,
-          hwaccel: false,
-          position: "relative"
-        }}
+        <RingLoader
+          color={"#000"}
+          loading={true}
         />
       </div>
     )
