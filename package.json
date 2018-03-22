@@ -8,7 +8,7 @@
     "start": "node_modules/.bin/electron main.js",
     "test": "npm run lint && npm run test-unit",
     "lint": "node_modules/.bin/eslint --ext .js,.jsx .",
-    "test-unit": "electron-mocha --require babel-core/register app/**/*-test.js",
+    "test-unit": "electron-mocha -t 60000 --require babel-core/register app/**/*-test.js",
     "build-mac": "electron-packager . 'GitHub Classroom' --icon=app/resources/icon.icns --platform=darwin --arch=x64 --out=dist --overwrite"
   },
   "repository": {
@@ -48,7 +48,8 @@
     "mocha": "~5.0.4",
     "redux-devtools": "~3.4.1",
     "redux-devtools-dock-monitor": "~1.1.1",
-    "redux-devtools-log-monitor": "~1.4.0"
+    "redux-devtools-log-monitor": "~1.4.0",
+    "sinon": "^4.4.8"
   },
   "dependencies": {
     "bootstrap": "~3.3.6",
