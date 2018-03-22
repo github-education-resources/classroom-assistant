@@ -45,7 +45,6 @@ module.exports = {
         "react/jsx-uses-react": "error",
         "react/jsx-no-bind": "error",
         "react/jsx-pascal-case": "warn",
-        "react/jsx-closing-bracket-location": "warn",
-        "import/first": "off"
+        "react/jsx-closing-bracket-location": "warn"
     }
 };
