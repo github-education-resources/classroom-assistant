@@ -1,17 +1,10 @@
-jest.unmock("../ItemArchivePanelList.jsx")
-jest.unmock("../ItemArchivePanel.jsx")
-jest.unmock("../../../shared/components/ItemPanel.jsx")
+import { expect } from "chai"
 
 import React from "react"
-import { shallow, configure } from "enzyme"
-import Adapter from "enzyme-adapter-react-16"
+import { shallow } from "enzyme"
 
 import ItemArchivePanelList from "../ItemArchivePanelList"
 import ActionableItemArchivePanel from "../../containers/ActionableItemArchivePanel"
-
-beforeAll(() => {
-  configure({ adapter: new Adapter() })
-})
 
 let testProps = {
   submissions: [{
@@ -34,6 +27,6 @@ let testProps = {
 describe("ItemArchivePanelList", () => {
   it("renders ItemArchivePanel components as children", () => {
     let wrapper = shallow(<ItemArchivePanelList {...testProps} />)
-    expect(wrapper.find(ActionableItemArchivePanel).length).toEqual(2)
+    expect(wrapper.find(ActionableItemArchivePanel).length).to.equal(2)
   })
 })

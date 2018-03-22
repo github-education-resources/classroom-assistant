@@ -1,14 +1,8 @@
-jest.unmock("../ItemPanel.jsx")
-
+import { expect } from "chai"
 import React from "react"
-import { shallow, configure } from "enzyme"
-import Adapter from "enzyme-adapter-react-16"
+import { shallow } from "enzyme"
 
 import ItemPanel from "../ItemPanel.jsx"
-
-beforeAll(() => {
-  configure({ adapter: new Adapter() })
-})
 
 describe("ItemPanel", () => {
   let wrapper
@@ -29,23 +23,23 @@ describe("ItemPanel", () => {
 
   describe("user avatar", () => {
     it("renders with the provided path", () => {
-      expect(wrapper.find("img").prop("src")).toEqual(testOptions.imagePath)
+      expect(wrapper.find("img").prop("src")).to.equal(testOptions.imagePath)
     })
 
     it("uses the title as the alt text", () => {
-      expect(wrapper.find("img").prop("alt")).toEqual(testOptions.title)
+      expect(wrapper.find("img").prop("alt")).to.equal(testOptions.title)
     })
   })
 
   it("renders a title with the provided title prop", () => {
-    expect(wrapper.find("h4").text()).toEqual(testOptions.title)
+    expect(wrapper.find("h4").text()).to.equal(testOptions.title)
   })
 
   it("renders subtitle text with the provided subtitle prop", () => {
-    expect(wrapper.find("h5").text()).toEqual(testOptions.subtitle)
+    expect(wrapper.find("h5").text()).to.equal(testOptions.subtitle)
   })
 
   it("render children passed as props", () => {
-    expect(wrapper.find(".testchild").length).toEqual(3)
+    expect(wrapper.find(".testchild").length).to.equal(3)
   })
 })

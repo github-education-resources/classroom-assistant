@@ -1,4 +1,4 @@
-jest.unmock("../settings-change-clone-destination.js")
+import { expect } from "chai"
 
 import { settingsChangeCloneDestination } from "../settings-change-clone-destination.js"
 import { SETTINGS_CHANGE_CLONE_DESTINATION } from "../../constants.js"
@@ -9,14 +9,12 @@ describe("settingsChangeCloneDestination", () => {
   it("creates an action with the correct type", () => {
     expect(
       settingsChangeCloneDestination(NEW_CLONE_DESTINATION).type
-    ).toEqual(SETTINGS_CHANGE_CLONE_DESTINATION)
+    ).to.equal(SETTINGS_CHANGE_CLONE_DESTINATION)
   })
 
   it("creates an action with the correct destination", () => {
     expect(
       settingsChangeCloneDestination(NEW_CLONE_DESTINATION).destination
-    ).toEqual(NEW_CLONE_DESTINATION)
+    ).to.equal(NEW_CLONE_DESTINATION)
   })
-
-  it("creates an action with the correct destination")
 })

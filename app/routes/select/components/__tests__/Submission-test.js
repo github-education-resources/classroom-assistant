@@ -1,15 +1,8 @@
-jest.unmock("../Submission.jsx")
-jest.unmock("../../../shared/components/ItemPanel.jsx")
-
+import { expect } from "chai"
 import React from "react"
-import { shallow, configure } from "enzyme"
-import Adapter from "enzyme-adapter-react-16"
+import { shallow } from "enzyme"
 
 import Submission from "../Submission.jsx"
-
-beforeAll(() => {
-  configure({ adapter: new Adapter() })
-})
 
 describe("Submission", () => {
   const testProps = {
@@ -34,37 +27,42 @@ describe("Submission", () => {
     let wrapper = shallow(<Submission {...testProps} />)
 
     const itemPanels = wrapper.find("ItemPanel")
-    expect(itemPanels.length).toBe(1)
+    expect(itemPanels.length).to.equal(1)
 
     const itemPanel = itemPanels.first()
-    expect(itemPanel.prop("imagePath")).toEqual(testProps.avatarUrl)
-    expect(itemPanel.prop("title")).toEqual(testProps.displayName)
-    expect(itemPanel.prop("subtitle")).toEqual(testProps.username)
+    expect(itemPanel.prop("imagePath")).to.equal(testProps.avatarUrl)
+    expect(itemPanel.prop("title")).to.equal(testProps.displayName)
+    expect(itemPanel.prop("subtitle")).to.equal(testProps.username)
   })
 
   it("renders a checked checkbox when it is selected", () => {
     let wrapper = shallow(<Submission {...testPropsSelected} />)
 
     const input = wrapper.find("input")
-    expect(input).toBeDefined()
-    expect(input.prop("type")).toEqual("checkbox")
-    expect(input.prop("checked")).toEqual(true)
+    // eslint-disable-next-line no-unused-expressions
+    expect(input).is.not.null
+    expect(input.prop("type")).to.equal("checkbox")
+    expect(input.prop("checked")).to.equal(true)
   })
 
   it("renders an unchecked checkbox when it is not selected", () => {
     let wrapper = shallow(<Submission {...testProps} />)
 
     const input = wrapper.find("input")
-    expect(input).toBeDefined()
-    expect(input.prop("type")).toEqual("checkbox")
-    expect(input.prop("checked")).toEqual(false)
+    // eslint-disable-next-line no-unused-expressions
+    expect(input).is.not.null
+    expect(input.prop("type")).to.equal("checkbox")
+    expect(input.prop("checked")).to.equal(false)
   })
 
   it("calls handler when checkbox is pressed", () => {
-    let clickHandler = jest.fn()
+    let calledArg = null
+    let clickHandler = (arg) => {
+      calledArg = arg
+    }
     let wrapper = shallow(<Submission {...testProps} onSelectedChange={clickHandler}/>)
 
     wrapper.find("input").simulate("change")
-    expect(clickHandler.mock.calls[0][0]).toBe(!testProps.selected)
+    expect(calledArg).to.equal(!testProps.selected)
   })
 })

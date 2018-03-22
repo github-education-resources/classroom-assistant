@@ -1,14 +1,8 @@
-jest.unmock("../EditItemPanel.jsx")
-
+import { expect } from "chai"
 import React from "react"
-import { shallow, configure } from "enzyme"
-import Adapter from "enzyme-adapter-react-16"
+import { shallow } from "enzyme"
 
 import EditItemPanel from "../EditItemPanel.jsx"
-
-beforeAll(() => {
-  configure({ adapter: new Adapter() })
-})
 
 describe("EditItemPanel", () => {
   const staticOptions = {
@@ -18,11 +12,14 @@ describe("EditItemPanel", () => {
   }
 
   it("calls onEditClick when pencil is clicked", () => {
-    let clickHandler = jest.fn()
+    let wasCalled = false
+    let clickHandler = () => {
+      wasCalled = true
+    }
     let wrapper = shallow(<EditItemPanel {...staticOptions} onEditClick={clickHandler}/>)
 
     wrapper.find("i").simulate("click")
-    expect(clickHandler.mock.calls.length).toBe(1)
+    expect(wasCalled).to.equal(true)
   })
 
   it("renders an ItemPanel, correctly passing down properties", () => {
@@ -30,11 +27,11 @@ describe("EditItemPanel", () => {
     let wrapper = shallow(<EditItemPanel {...staticOptions} onEditClick={noop}/>)
 
     const itemPanels = wrapper.find("ItemPanel")
-    expect(itemPanels.length).toBe(1)
+    expect(itemPanels.length).to.equal(1)
 
     const itemPanel = itemPanels.first()
-    expect(itemPanel.prop("imagePath")).toEqual(staticOptions.iconPath)
-    expect(itemPanel.prop("title")).toEqual(staticOptions.title)
-    expect(itemPanel.prop("subtitle")).toEqual(staticOptions.subtitle)
+    expect(itemPanel.prop("imagePath")).to.equal(staticOptions.iconPath)
+    expect(itemPanel.prop("title")).to.equal(staticOptions.title)
+    expect(itemPanel.prop("subtitle")).to.equal(staticOptions.subtitle)
   })
 })
