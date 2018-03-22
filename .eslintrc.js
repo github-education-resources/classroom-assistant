@@ -3,8 +3,7 @@ module.exports = {
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "jasmine": true,
-        "jest": true
+        "mocha": true
     },
     "extends": "standard",
     "parserOptions": {
