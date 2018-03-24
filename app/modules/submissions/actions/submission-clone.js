@@ -42,7 +42,9 @@ export function submissionCloneFunc (clone) {
             if (progress === 100) {
               dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
             }
-          }
+          },
+          // TODO: the example app requires some credentials, where should I get these?
+          null
         )
           .then(resolve)
           .catch(() => {
