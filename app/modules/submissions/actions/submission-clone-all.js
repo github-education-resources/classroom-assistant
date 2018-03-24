@@ -6,7 +6,7 @@ import { clone } from "../../../lib/cloneutils"
 const submissionClone = submissionCloneFunc(clone)
 
 // PUBLIC: Async thunk action for cloning all selected submissions.
-export const submissionCloneAllFunc = () => {
+export const submissionCloneAll = () => {
   return (dispatch, getState) => {
     const selectedSubmissions = selected(getState())
     const promises = []

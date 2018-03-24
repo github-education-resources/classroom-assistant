@@ -1,7 +1,7 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
 
-import { submissionCloneAllFunc } from "../submission-clone-all"
+import { submissionCloneAll } from "../submission-clone-all"
 
 describe("submissionCloneAll", () => {
   it.skip("dispatches submissionClone for every selected submission", async () => {
@@ -22,8 +22,6 @@ describe("submissionCloneAll", () => {
     const cloneMock = sinon.spy(() => {
       return Promise.reject(new Error("something went wrong"))
     })
-
-    const submissionCloneAll = submissionCloneAllFunc()
 
     const getState = () => ({ submissions: [ mockSubmission ] })
     const dispatch = sinon.spy()

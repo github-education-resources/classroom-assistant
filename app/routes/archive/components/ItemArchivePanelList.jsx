@@ -10,7 +10,7 @@ const containerStyles = {
 const ItemArchivePanelList = function (props, context) {
   return (
     <div style={containerStyles}>
-      {this.props.submissions.map(submission => {
+      {props.submissions.map(submission => {
         return <ActionableItemArchivePanel key={submission.id} {...submission}/>
       })}
     </div>
