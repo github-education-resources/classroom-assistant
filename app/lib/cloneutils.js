@@ -32,6 +32,10 @@ export const clone = (repoURL, destination, progressCallback) => {
     const options = {
       fetchOpts: {
         callbacks: {
+          credentials: function () {
+            // TODO: the example app requires some credentials, where should I get these?
+            return NodeGit.Cred.userpassPlaintextNew("foo", "x-oauth-basic")
+          }
         }
       }
     }
