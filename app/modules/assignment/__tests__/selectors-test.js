@@ -1,8 +1,8 @@
-jest.unmock("../selectors.js")
+import { expect } from "chai"
 
 import { all, typeLabel, name } from "../selectors.js"
 
-describe("assignmnet selectors", () => {
+describe("assignment selectors", () => {
   let testIndividualAssignment = {
     name: "Assignment 1: Introduction to Programming",
     type: "individual"
@@ -22,7 +22,7 @@ describe("assignmnet selectors", () => {
     it("returns whole assignment object given state", () => {
       expect(all({
         assignment: testIndividualAssignment
-      })).toBe(testIndividualAssignment)
+      })).eql(testIndividualAssignment)
     })
   })
 
@@ -30,19 +30,19 @@ describe("assignmnet selectors", () => {
     it("returns correct label for individual assignment", () => {
       expect(typeLabel({
         assignment: testIndividualAssignment
-      })).toBe("Individual Assignment")
+      })).to.equal("Individual Assignment")
     })
 
     it("returns correct label for group assignment", () => {
       expect(typeLabel({
         assignment: testGroupAssignment
-      })).toBe("Group Assignment")
+      })).to.equal("Group Assignment")
     })
 
     it("returns default label for invalid assignment types", () => {
       expect(typeLabel({
         assignment: testInvalidAssignment
-      })).toBe("Unknown Assignment Type")
+      })).to.equal("Unknown Assignment Type")
     })
   })
 
@@ -50,7 +50,7 @@ describe("assignmnet selectors", () => {
     it("returns the name of the assignment", () => {
       expect(name({
         assignment: testIndividualAssignment
-      })).toBe(testIndividualAssignment.name)
+      })).to.equal(testIndividualAssignment.name)
     })
   })
 })

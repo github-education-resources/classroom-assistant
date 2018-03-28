@@ -1,5 +1,5 @@
-import React, { PropTypes } from "react"
-import { compose, withHandlers } from "recompose"
+import React from "react"
+import PropTypes from "prop-types"
 
 import SelectableSubmission from "../containers/SelectableSubmission"
 import ActionableSelectAllPanel from "../containers/ActionableSelectAllPanel"
@@ -8,28 +8,16 @@ const containerStyles = {
   marginBottom: "100px"
 }
 
-const enchance = compose(
-  withHandlers({
-    renderSubmission: (props) => (submissionProps) => {
-      return (
-        <SelectableSubmission key={submissionProps.id} {...submissionProps}/>
-      )
-    }
-  })
-)
-
-const SubmissionList = enchance(({
-  submissions,
-  renderSubmission,
-  numSelectedSubmissions
-}) => {
+const SubmissionList = function (props, context) {
   return (
     <div style={containerStyles}>
       <ActionableSelectAllPanel />
-      {submissions.map(renderSubmission)}
+      { props.submissions.map(submission => {
+        return <SelectableSubmission key={submission.id} {...submission}/>
+      }) }
     </div>
   )
-})
+}
 
 SubmissionList.propTypes = {
   submissions: PropTypes.array.isRequired
