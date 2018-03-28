@@ -1,4 +1,4 @@
-jest.unmock("../submissions")
+import { expect } from "chai"
 
 import submissions from "../submissions"
 import {
@@ -105,7 +105,7 @@ describe("submissions", () => {
         cloneProgress: 60
       }
 
-      expect(submissions([maxSelected], action)).toEqual([maxSelectedProgressSixty])
+      expect(submissions([maxSelected], action)).eql([maxSelectedProgressSixty])
     })
 
     it("doesn't change progress of submissions with different ids", () => {
@@ -115,7 +115,7 @@ describe("submissions", () => {
         cloneProgress: 60
       }
 
-      expect(submissions([evelynSelected], action)).toEqual([evelynSelected])
+      expect(submissions([evelynSelected], action)).eql([evelynSelected])
     })
   })
 
@@ -126,7 +126,7 @@ describe("submissions", () => {
         id: evelynSelected.id
       }
 
-      expect(submissions([evelynNotSelected], action)).toEqual([evelynSelected])
+      expect(submissions([evelynNotSelected], action)).eql([evelynSelected])
     })
 
     it("unselects a selected submission given SUBMISSION_SELECT", () => {
@@ -135,7 +135,7 @@ describe("submissions", () => {
         id: evelynSelected.id
       }
 
-      expect(submissions([evelynNotSelected], action)).toEqual([evelynSelected])
+      expect(submissions([evelynNotSelected], action)).eql([evelynSelected])
     })
 
     it("does not change the state of a submission with non-matching id", () => {
@@ -144,8 +144,8 @@ describe("submissions", () => {
         id: evelynSelected.id
       }
 
-      expect(submissions([maxSelected], action)).toEqual([maxSelected])
-      expect(submissions([maxNotSelected], action)).toEqual([maxNotSelected])
+      expect(submissions([maxSelected], action)).eql([maxSelected])
+      expect(submissions([maxNotSelected], action)).eql([maxNotSelected])
     })
   })
 
@@ -156,7 +156,7 @@ describe("submissions", () => {
         newValue: true
       }
 
-      expect(submissions([evelynNotSelected, maxNotSelected], action)).toEqual([evelynSelected, maxSelected])
+      expect(submissions([evelynNotSelected, maxNotSelected], action)).eql([evelynSelected, maxSelected])
     })
 
     it("selects all already-selected submissions when newValue is true", () => {
@@ -165,7 +165,7 @@ describe("submissions", () => {
         newValue: true
       }
 
-      expect(submissions([evelynSelected, maxSelected], action)).toEqual([evelynSelected, maxSelected])
+      expect(submissions([evelynSelected, maxSelected], action)).eql([evelynSelected, maxSelected])
     })
 
     it("deselects all selected submissions when newValue is false", () => {
@@ -174,7 +174,7 @@ describe("submissions", () => {
         newValue: false
       }
 
-      expect(submissions([evelynSelected, maxSelected], action)).toEqual([evelynNotSelected, maxNotSelected])
+      expect(submissions([evelynSelected, maxSelected], action)).eql([evelynNotSelected, maxNotSelected])
     })
 
     it("deselects all already non-selected submissions when newValue is false", () => {
@@ -183,7 +183,7 @@ describe("submissions", () => {
         newValue: false
       }
 
-      expect(submissions([evelynNotSelected, maxNotSelected], action)).toEqual([evelynNotSelected, maxNotSelected])
+      expect(submissions([evelynNotSelected, maxNotSelected], action)).eql([evelynNotSelected, maxNotSelected])
     })
   })
 
@@ -195,7 +195,7 @@ describe("submissions", () => {
         clonePath: TEST_CLONE_PATH
       }
 
-      expect(submissions([maxSelected], action)).toEqual([maxSelectedWithClonePath])
+      expect(submissions([maxSelected], action)).eql([maxSelectedWithClonePath])
     })
   })
 
@@ -207,7 +207,7 @@ describe("submissions", () => {
         cloneStatus: TEST_STATUS
       }
 
-      expect(submissions([maxSelected], action)).toEqual([maxSelectedWithCloneStatus])
+      expect(submissions([maxSelected], action)).eql([maxSelectedWithCloneStatus])
     })
   })
 })
