@@ -1,4 +1,4 @@
-jest.unmock("../selectors.js")
+import { expect } from "chai"
 
 import { all, num, selected, numSelected, areAllSelected } from "../selectors.js"
 
@@ -40,7 +40,7 @@ describe("selectors", () => {
     it("extracts the submissions object from the state", () => {
       expect(all({
         submissions: mixedList
-      })).toBe(mixedList)
+      })).eql(mixedList)
     })
   })
 
@@ -48,7 +48,7 @@ describe("selectors", () => {
     it("returns the number of submissions", () => {
       expect(num({
         submissions: mixedList
-      })).toBe(2)
+      })).to.equal(2)
     })
   })
 
@@ -56,7 +56,7 @@ describe("selectors", () => {
     it("filters out nonselected submissions", () => {
       expect(selected({
         submissions: mixedList
-      })).toEqual([evelyn])
+      })).eql([evelyn])
     })
   })
 
@@ -64,7 +64,7 @@ describe("selectors", () => {
     it("returns the number of selected submissions", () => {
       expect(numSelected({
         submissions: mixedList
-      })).toBe(1)
+      })).to.equal(1)
     })
   })
 
@@ -72,13 +72,13 @@ describe("selectors", () => {
     it("returns true when all submissions are selected", () => {
       expect(areAllSelected({
         submissions: allSelectedList
-      })).toBe(true)
+      })).to.equal(true)
     })
 
     it("returns true when all submissions are selected", () => {
       expect(areAllSelected({
         submissions: mixedList
-      })).toBe(false)
+      })).to.equal(false)
     })
   })
 })

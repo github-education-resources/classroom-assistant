@@ -1,5 +1,4 @@
-jest.unmock("../Header.jsx")
-
+import { expect } from "chai"
 import React from "react"
 import { shallow } from "enzyme"
 
@@ -25,22 +24,22 @@ describe("Header", () => {
   })
 
   it("renders an image using path from props", () => {
-    expect(wrapper.find("img").prop("src")).toEqual(testProps.imagePath)
+    expect(wrapper.find("img").prop("src")).to.equal(testProps.imagePath)
   })
 
   it("uses the title as the alt text", () => {
-    expect(wrapper.find("img").prop("alt")).toEqual(testProps.title)
+    expect(wrapper.find("img").prop("alt")).to.equal(testProps.title)
   })
 
   it("renders a title with the provided title prop", () => {
-    expect(wrapper.find("h4").text()).toEqual(testProps.title)
+    expect(wrapper.find("h4").text()).to.equal(testProps.title)
   })
 
   it("renders subtitle text with the provided subtitle prop", () => {
-    expect(wrapper.text().indexOf(testProps.subtitle)).not.toBe(-1)
+    expect(wrapper.text().indexOf(testProps.subtitle)).to.not.equal(-1)
   })
 
   it("render children passed as props", () => {
-    expect(wrapper.find(".testchild").length).toEqual(3)
+    expect(wrapper.find(".testchild").length).to.equal(3)
   })
 })

@@ -1,4 +1,5 @@
-jest.unmock("../SelectAllPanel.jsx")
+import { expect } from "chai"
+import * as sinon from "sinon"
 
 import React from "react"
 import { shallow } from "enzyme"
@@ -21,22 +22,23 @@ describe("SelectAllPanel", () => {
 
     it("has a checkbox for selecting all submissions", () => {
       const checkbox = wrapper.find("input")
-      expect(checkbox).toBeDefined()
-      expect(checkbox.prop("type")).toEqual("checkbox")
+      // eslint-disable-next-line no-unused-expressions
+      expect(checkbox).to.not.be.null
+      expect(checkbox.prop("type")).to.equal("checkbox")
     })
 
     it("shows the number of selected items and the total number of items", () => {
-      expect(wrapper.text().indexOf(`${testProps.selected}/${testProps.total} selected`)).not.toBe(-1)
+      expect(wrapper.text().indexOf(`${testProps.selected}/${testProps.total} selected`)).does.not.equal(-1)
     })
   })
 
   it("calls handler function with false when the checkbox is unchecked by user", () => {
-    let handler = jest.fn()
+    let handler = sinon.spy()
     let wrapper = shallow(<SelectAllPanel {...testProps} onSelectAllChange={handler} />)
     wrapper.find("input").simulate("change")
 
-    expect(handler.mock.calls.length).toBe(1)
-    expect(handler.mock.calls[0][0]).toBe(false)
+    expect(handler.callCount).to.equal(1)
+    expect(handler.calledWith(false)).to.equal(true)
   })
 
   it("calls handler function with true when the checkbox is checked by user", () => {
@@ -46,11 +48,11 @@ describe("SelectAllPanel", () => {
       selectAll: false
     }
 
-    let handler = jest.fn()
+    let handler = sinon.spy()
     let wrapper = shallow(<SelectAllPanel {...testPropsChecked} onSelectAllChange={handler} />)
     wrapper.find("input").simulate("change")
 
-    expect(handler.mock.calls.length).toBe(1)
-    expect(handler.mock.calls[0][0]).toBe(true)
+    expect(handler.callCount).to.equal(1)
+    expect(handler.calledWith(true)).to.equal(true)
   })
 })
