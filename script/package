@@ -5,7 +5,7 @@ set -e
 COL='\033[1;32m'
 NC='\033[0m' # No Color
 
-function echo_status {
+echo_status() {
   echo "${COL}==> $1${NC}"
 }
 
