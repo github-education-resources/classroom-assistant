@@ -3,11 +3,9 @@ module.exports = {
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "jasmine": true,
-        "jest": true
+        "mocha": true
     },
     "extends": "standard",
-    "installedESLint": true,
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -47,6 +45,6 @@ module.exports = {
         "react/jsx-uses-react": "error",
         "react/jsx-no-bind": "error",
         "react/jsx-pascal-case": "warn",
-        "react/jsx-closing-bracket-location": "warn",
+        "react/jsx-closing-bracket-location": "warn"
     }
 };
