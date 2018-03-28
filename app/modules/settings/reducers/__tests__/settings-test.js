@@ -1,4 +1,4 @@
-jest.unmock("../settings.js")
+import { expect } from "chai"
 
 import settings from "../settings.js"
 import { SETTINGS_CHANGE_CLONE_DESTINATION } from "../../constants"
@@ -21,6 +21,6 @@ describe("settings reducer", () => {
       cloneDestination: FINAL_DESTINATION
     }
 
-    expect(settings(initialState, action)).toEqual(expectedState)
+    expect(settings(initialState, action)).eql(expectedState)
   })
 })

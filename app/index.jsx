@@ -37,7 +37,7 @@ const render = () => {
         {devToolsInstance}
       </div>
     </Provider>
-  , document.getElementById("app"))
+    , document.getElementById("app"))
 }
 
 store.subscribe(render)

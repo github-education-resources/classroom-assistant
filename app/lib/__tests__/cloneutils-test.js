@@ -1,6 +1,6 @@
-jest.unmock("../cloneutils.js")
-
+import { expect } from "chai"
 import { clone } from "../cloneutils.js"
+import * as sinon from "sinon"
 import rmdir from "rimraf"
 
 const fs = require("fs")
@@ -21,74 +21,62 @@ describe("Clone Utilities", () => {
     beforeEach(removeTestDir)
     afterEach(removeTestDir)
 
-    it("clones the repository to the correct destination", (done) => {
-      clone(
-        TEST_REPO,
-        DESTINATION,
-        (percentage) => {}
-      ).then(() => {
-        const stats = fs.lstatSync(DESTINATION)
-        expect(stats.isDirectory()).toBe(true)
-        done()
-      })
-    })
-
-    it("notifies when the repo is 0% downloaded", (done) => {
-      const statusCallback = jest.fn()
-
-      clone(
-        TEST_REPO,
-        DESTINATION,
-        statusCallback
-      ).then(() => {
-        expect(statusCallback.mock.calls[0][0]).toBe(0)
-        done()
-      })
-    })
-
-    it("notifies when the repo is 100% downloaded", (done) => {
-      const statusCallback = jest.fn()
-
-      clone(
-        TEST_REPO,
-        DESTINATION,
-        statusCallback
-      ).then(() => {
-        expect(statusCallback.mock.calls[statusCallback.mock.calls.length - 1][0]).toBe(100)
-        done()
-      })
-    })
-
-    it("throws an error when cloning a repo that doesn't exist", (done) => {
-      clone(
-        TEST_FAKE_REPO,
-        DESTINATION,
-        () => {}
-      ).then(() => {
-        fail("Clone should not succeed")
-      }).catch((err) => {
-        console.log(err)
-        done()
-      })
-    })
-
-    it("throws an error when cloning a repo to an existing non-empty directory", (done) => {
-      clone(
+    it("clones the repository to the correct destination", async () => {
+      await clone(
         TEST_REPO,
         DESTINATION,
         () => {}
-      ).then(() => {
-        return clone(
+      )
+
+      const stats = fs.lstatSync(DESTINATION)
+      expect(stats.isDirectory()).is.equal(true)
+    })
+
+    it("reports progress to the callback during the clone", async () => {
+      const callback = sinon.spy()
+
+      await clone(
+        TEST_REPO,
+        DESTINATION,
+        callback
+      )
+
+      expect(callback.calledWith(0)).equals(true)
+      expect(callback.calledWith(100)).equals(true)
+    })
+
+    it("throws an error when cloning a repo that doesn't exist", async () => {
+      try {
+        await clone(
+          TEST_FAKE_REPO,
+          DESTINATION,
+          () => {}
+        )
+      } catch (err) {
+        return
+      }
+
+      throw new Error("Clone when repository doesn't exist should not succeed")
+    })
+
+    it("throws an error when cloning a repo to an existing non-empty directory", async () => {
+      await clone(
+        TEST_REPO,
+        DESTINATION,
+        () => {}
+      )
+
+      try {
+        await clone(
           TEST_REPO,
           DESTINATION,
           () => {}
         )
-      }).then(() => {
-        fail("Clone should not succeed")
-      }).catch((err) => {
-        console.log(err)
-        done()
-      })
+      } catch (err) {
+        return
+      }
+
+      throw new Error("Clone to existing directory should not succeed")
     })
   })
 })

@@ -1,7 +1,7 @@
+import { settingsChangeCloneDestination } from "./settings-change-clone-destination"
+
 import { remote } from "electron"
 const dialog = remote.dialog
-
-import { settingsChangeCloneDestination } from "./settings-change-clone-destination"
 
 const showPickDestinationDialog = () => {
   return new Promise((resolve, reject) => {

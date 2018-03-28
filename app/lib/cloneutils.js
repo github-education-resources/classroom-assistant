@@ -25,13 +25,14 @@ import _ from "underscore"
 //    })
 //
 // Returns a Promise
-export const clone = (repoURL, destination, progressCallback) => {
+export const clone = (repoURL, destination, progressCallback, token) => {
   return new Promise((resolve, reject) => {
     let progressOnCompletion = false
 
     const options = {
       fetchOpts: {
         callbacks: {
+
         }
       }
     }
@@ -42,6 +43,12 @@ export const clone = (repoURL, destination, progressCallback) => {
         if (percentage === 100) progressOnCompletion = true
         progressCallback(percentage)
       }, 300, { trailing: false })
+    }
+
+    if (token) {
+      options.fetchOpts.callbacks.credentials = function () {
+        return NodeGit.Cred.userpassPlaintextNew(token, "x-oauth-basic")
+      }
     }
 
     progressCallback(0)
