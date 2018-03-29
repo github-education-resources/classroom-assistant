@@ -1,4 +1,5 @@
 # GitHub Classroom Desktop
+[![Build Status](https://travis-ci.org/education/classroom-desktop.svg?branch=master)](https://travis-ci.org/education/classroom-desktop)
 
 A desktop helper for [GitHub Classroom](https://classroom.github.com/)
 
