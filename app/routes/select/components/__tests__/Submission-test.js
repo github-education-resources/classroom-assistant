@@ -2,7 +2,7 @@ import { expect } from "chai"
 import React from "react"
 import { shallow } from "enzyme"
 
-import Submission from "../Submission.jsx"
+import Submission from "../Submission"
 
 describe("Submission", () => {
   const testProps = {

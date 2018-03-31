@@ -2,8 +2,8 @@ import { expect } from "chai"
 import React from "react"
 import { shallow } from "enzyme"
 
-import SubmissionList from "../SubmissionList.jsx"
-import SelectableSubmission from "../../containers/SelectableSubmission.jsx"
+import SubmissionList from "../SubmissionList"
+import SelectableSubmission from "../../containers/SelectableSubmission"
 
 describe("SubmissionList", () => {
   let testProps = {

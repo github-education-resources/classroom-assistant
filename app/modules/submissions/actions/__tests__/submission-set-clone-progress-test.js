@@ -1,6 +1,6 @@
 import { expect } from "chai"
 
-import { submissionSetCloneProgress } from "../submission-set-clone-progress.js"
+import { submissionSetCloneProgress } from "../submission-set-clone-progress"
 import { SUBMISSION_SET_CLONE_PROGRESS } from "../../constants"
 
 describe("submissionSetCloneProgress", () => {

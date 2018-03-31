@@ -1,6 +1,6 @@
 import { expect } from "chai"
 
-import { all, typeLabel, name } from "../selectors.js"
+import { all, typeLabel, name } from "../selectors"
 
 describe("assignment selectors", () => {
   let testIndividualAssignment = {

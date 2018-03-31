@@ -4,7 +4,7 @@ import * as sinon from "sinon"
 import React from "react"
 import { shallow } from "enzyme"
 
-import SelectAllPanel from "../SelectAllPanel.jsx"
+import SelectAllPanel from "../SelectAllPanel"
 
 describe("SelectAllPanel", () => {
   let testProps = {

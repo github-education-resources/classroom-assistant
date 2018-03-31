@@ -2,7 +2,7 @@ import { expect } from "chai"
 import React from "react"
 import { shallow } from "enzyme"
 
-import NavFooter from "../NavFooter.jsx"
+import NavFooter from "../NavFooter"
 
 describe("NavFooter", () => {
   it("renders no buttons if none are provided", () => {

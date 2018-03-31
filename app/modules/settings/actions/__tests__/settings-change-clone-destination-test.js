@@ -1,7 +1,7 @@
 import { expect } from "chai"
 
-import { settingsChangeCloneDestination } from "../settings-change-clone-destination.js"
-import { SETTINGS_CHANGE_CLONE_DESTINATION } from "../../constants.js"
+import { settingsChangeCloneDestination } from "../settings-change-clone-destination"
+import { SETTINGS_CHANGE_CLONE_DESTINATION } from "../../constants"
 
 const NEW_CLONE_DESTINATION = "/tmp/some/path/through/the/filesystem"
 
