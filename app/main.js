@@ -16,7 +16,8 @@ function createWindow () {
   logger.info("creating app window")
 
   mainWindow = new BrowserWindow({width: 900, height: 600})
-  mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+  const url = `file://${__dirname}/index.html`
+  mainWindow.loadURL(url)
 
   if (isDev) {
     mainWindow.webContents.openDevTools()

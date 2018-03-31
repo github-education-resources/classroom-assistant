@@ -7,7 +7,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import isDev from "electron-is-dev"
 
-import DevTools from "./devtools"
+import DevTools from "./DevTools"
 import reducer from "./modules/reducers"
 import Routes from "./routes"
 
@@ -42,3 +42,7 @@ const render = () => {
 
 store.subscribe(render)
 render()
+
+if (module.hot) {
+  module.hot.accept(render)
+}

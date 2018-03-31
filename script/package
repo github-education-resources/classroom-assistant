@@ -11,8 +11,8 @@ echo_status() {
 
 cd "$(dirname "$0")/.."
 
-echo_status "Building Mac app"
-npm run build-mac
+echo_status "Building and packaging app"
+npm run package
 
 if [ -z "$CLASSROOM_DESKTOP_OSX_DEVELOPER_ID" ]; then
   echo_status "CLASSROOM_DESKTOP_OSX_DEVELOPER_ID not set, the app will not be signed"

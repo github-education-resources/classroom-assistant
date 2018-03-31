@@ -1,5 +1,5 @@
 import { expect } from "chai"
-import { clone } from "../cloneutils.js"
+import { clone } from "../cloneutils"
 import * as sinon from "sinon"
 import rmdir from "rimraf"
 

@@ -1,6 +1,6 @@
 import { expect } from "chai"
 
-import { all, num, selected, numSelected, areAllSelected } from "../selectors.js"
+import { all, num, selected, numSelected, areAllSelected } from "../selectors"
 
 describe("selectors", () => {
   let evelyn = {

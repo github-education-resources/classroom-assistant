@@ -4,7 +4,7 @@ import { shallow } from "enzyme"
 
 import { RingLoader } from "react-spinners"
 
-import ItemArchivePanel from "../ItemArchivePanel.jsx"
+import ItemArchivePanel from "../ItemArchivePanel"
 
 const completeProps = {
   id: 1,

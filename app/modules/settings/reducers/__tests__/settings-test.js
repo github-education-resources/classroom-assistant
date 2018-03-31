@@ -1,6 +1,6 @@
 import { expect } from "chai"
 
-import settings from "../settings.js"
+import settings from "../settings"
 import { SETTINGS_CHANGE_CLONE_DESTINATION } from "../../constants"
 
 const START_DESTINATION = "/tmp/some/path"
