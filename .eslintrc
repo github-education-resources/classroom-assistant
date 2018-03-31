@@ -1,0 +1,43 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6":true,
+        "mocha": true
+    },
+    "extends": [ "standard"],
+    "plugins": [
+      "react"
+    ],
+    "rules": {
+      "import/extensions": 0,
+      "import/no-extraneous-dependencies": 0,
+      "linebreak-style": 0,
+      "react/prefer-stateless-function": "error",
+      "indent": [
+        "error",
+        2
+      ],
+      "comma-dangle": "off",
+      "quotes": [
+        "error",
+        "double"
+      ],
+      "semi": [
+        "error",
+        "never"
+      ],
+      "jsx-quotes": [
+        "error",
+        "prefer-double"
+      ],
+      "react/prop-types": "error",
+      "react/jsx-indent": ["warn", 2],
+      "react/jsx-key": "error",
+      "react/jsx-uses-vars": "error",
+      "react/jsx-uses-react": "error",
+      "react/jsx-no-bind": "error",
+      "react/jsx-pascal-case": "warn",
+      "react/jsx-closing-bracket-location": "warn"
+    }
+  }
