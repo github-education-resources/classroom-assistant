@@ -18,4 +18,4 @@ node_js:
   - "8.10.0"
 
 script:
-  - ./script/test
+  - ./script/test && ./script/package
