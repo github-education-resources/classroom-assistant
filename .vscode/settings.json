@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "node_modules": true,
+        "dist": true,
+        ".eslintcache": true,
+        "yarn-error.log": true,
+        "app.log": true
+    }
+}
