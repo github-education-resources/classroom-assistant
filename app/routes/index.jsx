@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import { Router } from "react-router"
 
+import RootContainer from "./RootContainer"
 import IndexPage from "./index/index"
 import SelectPage from "./select/index"
 import ConfirmPage from "./confirm/index"
@@ -10,6 +11,7 @@ import ArchivePage from "./archive/index"
 import SettingsPage from "./settings/index"
 
 const routeConfig = {
+  component: RootContainer,
   childRoutes: [
     {
       path: "/",

@@ -3,7 +3,8 @@ import {
   SUBMISSION_SELECT_ALL,
   SUBMISSION_SET_CLONE_PROGRESS,
   SUBMISSION_SET_CLONE_PATH,
-  SUBMISSION_SET_CLONE_STATUS
+  SUBMISSION_SET_CLONE_STATUS,
+  SUBMISSION_CREATE
 } from "../constants"
 
 const initialState = []
@@ -53,10 +54,17 @@ const submissions = (state, action) => {
   if (typeof state === "undefined") {
     return initialState
   }
-
-  return state.map((each) => {
-    return submission(each, action)
-  })
+  switch (action.type){
+    case SUBMISSION_CREATE:
+      return [
+        ...state,
+        action.data
+      ]
+    default:
+      return state.map((each) => {
+        return submission(each, action)
+      })
+  }
 }
 
 export default submissions

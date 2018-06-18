@@ -3,8 +3,6 @@ import { Link } from "react-router"
 
 import NavFooter from "../shared/components/NavFooter"
 
-const remote = require('electron').remote;
-
 const containerStyles = {
   paddingTop: "100px"
 }
@@ -17,7 +15,6 @@ const IndexPage = () => (
   <div style={containerStyles}>
     <div className="row">
       <div className="col-sm-6 col-sm-offset-3">
-        <p>{remote.getGlobal('sharedObj').urlToOpen}</p>
         <h1 className="text-center">GitHub Classroom Desktop</h1>
         <p className="lead text-center">
           GitHub Classroom Desktop lets you archive assignments submitted on GitHub
@@ -29,6 +26,7 @@ const IndexPage = () => (
           </Link>
         </div>
       </div>
+      
     </div>
     <NavFooter
       left={{

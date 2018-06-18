@@ -7,6 +7,7 @@ const isDev = require("electron-is-dev")
 
 const updater = require("./updater")
 const logger = require("./logger")
+const { URL } = require('url')
 
 let mainWindow
 
@@ -41,7 +42,16 @@ function createWindow () {
 
 app.on('open-url', function(event, urlToOpen) {
    event.preventDefault();
-   global.sharedObj = {urlToOpen: urlToOpen};
+   if(mainWindow){
+      var parsed = new URL(urlToOpen);
+      var usernames = parsed.searchParams.get("usernames").split(",")
+      var urls = parsed.searchParams.get("urls").split(",")
+      var title = parsed.searchParams.get("title")
+      global.sharedObj = {usernames: usernames, urls: urls, title: title}
+      console.log(global.sharedObj)
+      mainWindow.webContents.send('open-url')
+   }
+  //  console.log(urlToOpen)
 });
 
 app.on("ready", createWindow)

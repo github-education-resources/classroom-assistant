@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import SelectableSubmission from "../containers/SelectableSubmission"
 import ActionableSelectAllPanel from "../containers/ActionableSelectAllPanel"
+import ActionableInsertSubmissionPanel from "../containers/ActionableInsertSubmissionPanel"
 
 const containerStyles = {
   marginBottom: "100px"
@@ -12,6 +13,7 @@ const SubmissionList = function (props, context) {
   return (
     <div style={containerStyles}>
       <ActionableSelectAllPanel />
+      <ActionableInsertSubmissionPanel />
       { props.submissions.map(submission => {
         return <SelectableSubmission key={submission.id} {...submission}/>
       }) }
