@@ -46,6 +46,9 @@ export const clone = (repoURL, destination, progressCallback, token) => {
     }
 
     if (token) {
+      options.fetchOpts.callbacks.certificate_check = function(){
+          return 1
+      }
       options.fetchOpts.callbacks.credentials = function () {
         return NodeGit.Cred.userpassPlaintextNew(token, "x-oauth-basic")
       }
@@ -63,6 +66,7 @@ export const clone = (repoURL, destination, progressCallback, token) => {
       }
       resolve()
     }).catch((err) => {
+      console.log(err)
       reject(err)
     })
   })

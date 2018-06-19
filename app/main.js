@@ -1,15 +1,16 @@
 /* eslint-env node */
 
 const electron = require("electron")
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
+const {app, BrowserWindow, ipcMain} = electron
 const isDev = require("electron-is-dev")
+const { URL } = require('url')
 
 const updater = require("./updater")
 const logger = require("./logger")
-const { URL } = require('url')
+const http = require('http')
 
-let mainWindow
+
+let mainWindow, authWindow
 
 logger.init()
 
@@ -41,17 +42,26 @@ function createWindow () {
 }
 
 app.on('open-url', function(event, urlToOpen) {
-   event.preventDefault();
-   if(mainWindow){
-      var parsed = new URL(urlToOpen);
-      var usernames = parsed.searchParams.get("usernames").split(",")
-      var urls = parsed.searchParams.get("urls").split(",")
-      var title = parsed.searchParams.get("title")
-      global.sharedObj = {usernames: usernames, urls: urls, title: title}
-      console.log(global.sharedObj)
-      mainWindow.webContents.send('open-url')
-   }
-  //  console.log(urlToOpen)
+  event.preventDefault();
+  if(authWindow){
+    authWindow.close()
+    authWindow = null
+  }
+  if(!mainWindow){
+    createWindow()
+  }
+  console.log(urlToOpen)
+  var parsed = new URL(urlToOpen);
+  var usernames = parsed.searchParams.get("usernames").split(",")
+  var urls = parsed.searchParams.get("urls").split(",")
+  var title = parsed.searchParams.get("title")
+  var token = parsed.searchParams.get("token")
+  var type = parsed.searchParams.get("type")
+  
+  global.sharedObj = {usernames: usernames, urls: urls, title: title, token:token, type:type}
+  console.log(global.sharedObj)
+  mainWindow.webContents.send('open-url')
+   
 });
 
 app.on("ready", createWindow)
@@ -66,4 +76,18 @@ app.on("activate", function () {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+ipcMain.on('populate', (event, arg) => {
+  console.log('populate') // prints "ping"
+  authWindow = new BrowserWindow({
+    width: 400,
+    height: 600,
+    webPreferences: {
+      nativeWindowOpen: true
+    }
+  })
+  authWindow.loadURL(arg)
+  for(var i = 5000; i> 0; i--);
+  console.log(authWindow.webContents.getURL)
 })

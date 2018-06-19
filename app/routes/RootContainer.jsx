@@ -3,17 +3,21 @@ import { connect } from "react-redux"
 import React, { Component } from 'react'
 import { submissionCreate } from "../modules/submissions/actions/submission-create"
 import { num } from "../modules/submissions/selectors"
+import {setAssignmentTitle} from "../modules/assignment/actions/assignment-set-title"
+import {setAssignmentType} from "../modules/assignment/actions/assignment-set-type"
 import { ipcRenderer, remote } from "electron"
 
 class RootContainer extends Component {
 
     constructor (props){
         super(props);
-
         ipcRenderer.on('open-url', () => {
-                if(remote.getGlobal('sharedObj').urls && remote.getGlobal('sharedObj').usernames){
-                var urls = remote.getGlobal('sharedObj').urls
-                var usernames = remote.getGlobal('sharedObj').usernames
+            var params = remote.getGlobal('sharedObj');
+            if(params.urls && params.usernames){
+                this.props.setAssignmentTitle(params.title)
+                this.props.setAssignmentType(params.type)
+                var urls = params.urls
+                var usernames = params.usernames
                 for(var i = 0; i<urls.length; i++){
                     this.props.onCreate(
                     {
@@ -43,11 +47,17 @@ class RootContainer extends Component {
 
 const mapStateToProps = (state) => ({
     total: num(state)
-  })
+})
   
 const mapDispatchToProps = (dispatch) => ({
     onCreate: (data) => {
         dispatch(submissionCreate(data))
+    },
+    setAssignmentTitle: (title) => {
+        dispatch(setAssignmentTitle(title))
+    },
+    setAssignmentType: (type) => {
+        dispatch(setAssignmentType(type))
     }
 })
 

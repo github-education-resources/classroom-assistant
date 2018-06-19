@@ -14,7 +14,7 @@ const NavFooter = ({
   if (left !== undefined) {
     children.push(
       <Link to={left.route} key={0}>
-        <button className="btn btn-danger">{left.label}</button>
+        <button onClick={left.click} className="btn btn-danger">{left.label}</button>
       </Link>
     )
   }
@@ -22,7 +22,7 @@ const NavFooter = ({
   if (right !== undefined) {
     children.push(
       <Link to={right.route} key={1}>
-        <button className="btn btn-success pull-right">{right.label}</button>
+        <button onClick={right.click} className="btn btn-success pull-right">{right.label}</button>
       </Link>
     )
   }
@@ -37,11 +37,13 @@ const NavFooter = ({
 NavFooter.propTypes = {
   left: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    route: PropTypes.string.isRequired
+    route: PropTypes.string.isRequired,
+    click: PropTypes.func
   }),
   right: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    route: PropTypes.string.isRequired
+    route: PropTypes.string.isRequired,
+    click: PropTypes.func
   })
 }
 

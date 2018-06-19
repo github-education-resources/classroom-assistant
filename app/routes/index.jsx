@@ -9,6 +9,7 @@ import SelectPage from "./select/index"
 import ConfirmPage from "./confirm/index"
 import ArchivePage from "./archive/index"
 import SettingsPage from "./settings/index"
+import PopulatePage from "./populate/populate";
 
 const routeConfig = {
   component: RootContainer,
@@ -16,6 +17,10 @@ const routeConfig = {
     {
       path: "/",
       component: IndexPage
+    },
+    {
+      path: "/populate",
+      component: PopulatePage
     },
     {
       path: "/select",

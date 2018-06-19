@@ -6,6 +6,7 @@ import { submissionSetClonePath } from "./submission-set-clone-path"
 import { submissionSetCloneStatus } from "./submission-set-clone-status"
 
 import { getClonePath } from "../../../lib/pathutils"
+import { remote } from "electron"
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update
@@ -44,10 +45,12 @@ export function submissionCloneFunc (clone) {
             }
           },
           // TODO: the example app requires some credentials, where should I get these?
-          null
+          // null
+          remote.getGlobal('sharedObj').token
         )
           .then(resolve)
-          .catch(() => {
+          .catch((e) => {
+            console.log(e)
             dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
             resolve()
           })

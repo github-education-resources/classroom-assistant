@@ -13,7 +13,6 @@ const SubmissionList = function (props, context) {
   return (
     <div style={containerStyles}>
       <ActionableSelectAllPanel />
-      <ActionableInsertSubmissionPanel />
       { props.submissions.map(submission => {
         return <SelectableSubmission key={submission.id} {...submission}/>
       }) }
