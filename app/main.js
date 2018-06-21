@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 const electron = require("electron")
-const {app, BrowserWindow, ipcMain, net} = electron
+const {app, BrowserWindow, ipcMain, net, session} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require('url')
 
@@ -10,7 +10,7 @@ const logger = require("./logger")
 const https = require('https')
 
 
-let mainWindow, authWindow, lastRedirectURL
+let mainWindow, authWindow, sess
 
 logger.init()
 
@@ -47,23 +47,54 @@ function openAuthWindow(desktop_url){
     width: 400,
     height: 600,
     webPreferences: {
-      nativeWindowOpen: true
+      nativeWindowOpen: true,
+      session: session.defaultSession
     }
   })
   authWindow.loadURL(desktop_url)
 
-  authWindow.webContents.on('did-navigate-in-page', function(e, url, isMainFrame, frameProcessId, frameRoutingId){
-    console.log("navigated!")
-    console.log(url)
+  authWindow.webContents.on('did-start-navigation', function(url, isInPlace, isMainFrame, frameProcessId, frameRoutingId){
+  // authWindow.webContents.on('dom-ready', function(e){
+    if(url.indexOf("classrooms")!=-1){
+      console.log("navigated!")
+    // console.log(url)
+    
+      session.defaultSession.cookies.get({}, (error, cookies) => {
+        console.log("default session")
+        console.log(error, cookies)
+      })
+      session.defaultSession.flushStorageData()
+      var req = net.request({url: desktop_url, session: session.defaultSession})
+      req.on('response', function(resp){
+        console.log("got response")
+        resp.on('data', (chunk) => {
+          console.log(`BODY: ${chunk}`)
+        })
+      })
+      req.end()
+    }
+    
+    // if(url.indexOf('classrooms') !== -1){
+    //   
+
+    //   sess.cookies.get({}, (error, cookies) => {
+    //     console.log("sess")
+    //     console.log(error, cookies)
+    //   })
+      
+    // }
   })
+}
+
+function loadAssignments(desktop_url){
+  // sess = session.fromPartition("persist:classroom")
+  session.defaultSession.clearStorageData()
+  openAuthWindow(desktop_url)
 }
 
 app.on('open-url', function(event, urlToOpen) {
   event.preventDefault();
-  if(authWindow){
-    authWindow.close()
-    authWindow = null
-  }
+
   if(!mainWindow){
     createWindow()
   }
@@ -72,7 +103,8 @@ app.on('open-url', function(event, urlToOpen) {
   var assignment_path = parsed.searchParams.get("assignment")
   var root_url = parsed.searchParams.get("host")
   
-  openAuthWindow(root_url + assignment_path + "/desktop")  
+  loadAssignments(root_url + assignment_path + "/desktop")
+
   
   // global.sharedObj = {usernames: usernames, urls: urls, title: title, token:token, type:type}
   // console.log(global.sharedObj)
