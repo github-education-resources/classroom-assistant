@@ -67,6 +67,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "~3.3.6",
     "dateformat": "^3.0.3",
     "electron-compile": "^6.4.2",

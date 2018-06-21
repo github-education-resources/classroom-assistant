@@ -4,13 +4,14 @@ const electron = require("electron")
 const {app, BrowserWindow, ipcMain, net, session} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require('url')
+const axios = require("axios")
 
 const updater = require("./updater")
 const logger = require("./logger")
 const https = require('https')
 
 
-let mainWindow, authWindow, sess
+let mainWindow, authWindow, sess, lastRedirectURL
 
 logger.init()
 
@@ -41,55 +42,44 @@ function createWindow () {
   })
 }
 
-function openAuthWindow(desktop_url){
+function openAuthWindow(login_url, desktop_url){
   console.log("open Auth window")
   authWindow = new BrowserWindow({
     width: 400,
     height: 600,
     webPreferences: {
       nativeWindowOpen: true,
-      session: session.defaultSession
+      session: sess
     }
   })
-  authWindow.loadURL(desktop_url)
 
-  authWindow.webContents.on('did-start-navigation', function(url, isInPlace, isMainFrame, frameProcessId, frameRoutingId){
-  // authWindow.webContents.on('dom-ready', function(e){
-    if(url.indexOf("classrooms")!=-1){
-      console.log("navigated!")
-    // console.log(url)
-    
-      session.defaultSession.cookies.get({}, (error, cookies) => {
-        console.log("default session")
-        console.log(error, cookies)
-      })
-      session.defaultSession.flushStorageData()
-      var req = net.request({url: desktop_url, session: session.defaultSession})
+  authWindow.loadURL(login_url) //Load login path to classroom
+
+  authWindow.webContents.on('did-navigate-in-page', function(e, url, isMainFrame, frameProcessId, frameRoutingId){
+    console.log("navigated!")
+    console.log(url)
+    if(url.indexOf("/classrooms") != -1){ //Authentication is finished
+      console.log("Logged in!")
+      sess.flushStorageData() //flush session to disk
+
+      var req = net.request({url: desktop_url, session: sess}) //use session to make request
       req.on('response', function(resp){
-        console.log("got response")
+        console.log("Got desktop response!")
         resp.on('data', (chunk) => {
           console.log(`BODY: ${chunk}`)
         })
       })
       req.end()
     }
-    
-    // if(url.indexOf('classrooms') !== -1){
-    //   
-
-    //   sess.cookies.get({}, (error, cookies) => {
-    //     console.log("sess")
-    //     console.log(error, cookies)
-    //   })
-      
-    // }
   })
 }
 
-function loadAssignments(desktop_url){
-  // sess = session.fromPartition("persist:classroom")
-  session.defaultSession.clearStorageData()
-  openAuthWindow(desktop_url)
+
+function loadAssignments(login_url,assignment_url){
+  console.log("getting assignments " + assignment_url)
+  sess = session.fromPartition("classroom")
+  sess.clearStorageData()
+  openAuthWindow(login_url, assignment_url)
 }
 
 app.on('open-url', function(event, urlToOpen) {
@@ -103,7 +93,7 @@ app.on('open-url', function(event, urlToOpen) {
   var assignment_path = parsed.searchParams.get("assignment")
   var root_url = parsed.searchParams.get("host")
   
-  loadAssignments(root_url + assignment_path + "/desktop")
+  loadAssignments(root_url+"/login", root_url + assignment_path + "/desktop")
 
   
   // global.sharedObj = {usernames: usernames, urls: urls, title: title, token:token, type:type}
