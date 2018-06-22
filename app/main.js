@@ -4,7 +4,7 @@ const electron = require("electron")
 const {app, BrowserWindow, ipcMain, net, session} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require('url')
-const axios = require('axios')
+import fetch from 'electron-fetch'
 
 const updater = require("./updater")
 const logger = require("./logger")
@@ -62,45 +62,9 @@ function openAuthWindow(login_url, desktop_url){
       console.log("Logged in!")
       sess.flushStorageData() //flush session to disk
 
-      var req = net.request({
-        protocol: "https:",
-        hostname: "localhost",
-        path:"classrooms/32609287-srinjoy-org/assignments/a2/desktop",
-        port:5000,
-        session: sess,
-        redirect: "manual",
-        
-      }) //use session to make request
-
-      req.on('response', function(resp){
-        console.log("!!!!!!!!!Got response!!!!!!!!")
-        console.log(resp.headers)
-        console.log("---------Session Cookies----------")
-         // Query all cookies associated with a specific url.
-        sess.cookies.get({}, (error, cookies) => {
-          console.log(error, cookies)
-        })
-
-        // resp.on('data', (chunk) => {
-        //   console.log(`BODY: ${chunk}`)
-        // })
-        // console.log(JSON.parse(data))
+      fetch(desktop_url, {session:sess}).then(response => {
+        console.log(response.headers.raw())
       })
-
-      req.on('redirect', function(statusCode, method, url, headers){
-        console.log("!!!!!!!!!Got redirect!!!!!!!!")
-        console.log("-----URL--------")
-        console.log(url)
-        console.log("-------Headers:-------")
-        console.log(headers)
-        console.log("---------Session Cookies----------")
-         // Query all cookies associated with a specific url.
-        sess.cookies.get({}, (error, cookies) => {
-          console.log(error, cookies)
-        })
-        req.followRedirect()
-      })
-      req.end()
     }
   })
 }
@@ -108,7 +72,7 @@ function openAuthWindow(login_url, desktop_url){
 
 function loadAssignments(login_url,assignment_url){
   console.log("getting assignments " + assignment_url)
-  sess = session.fromPartition("classroom")
+  sess = session.defaultSession
   sess.clearStorageData()
   openAuthWindow(login_url, assignment_url)
   const filter = {
@@ -119,8 +83,6 @@ function loadAssignments(login_url,assignment_url){
     console.log(details.requestHeaders)
     callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
-
-  
 }
 
 

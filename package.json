@@ -72,6 +72,7 @@
     "dateformat": "^3.0.3",
     "electron-compile": "^6.4.2",
     "electron-devtools-installer": "^2.1.0",
+    "electron-fetch": "^1.1.0",
     "electron-is-dev": "~0.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "font-awesome": "~4.7.0",
