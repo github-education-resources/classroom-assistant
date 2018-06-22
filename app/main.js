@@ -4,12 +4,11 @@ const electron = require("electron")
 const {app, BrowserWindow, ipcMain, net, session} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require('url')
-const axios = require("axios")
+const axios = require('axios')
 
 const updater = require("./updater")
 const logger = require("./logger")
 const https = require('https')
-
 
 let mainWindow, authWindow, sess, lastRedirectURL
 
@@ -58,16 +57,39 @@ function openAuthWindow(login_url, desktop_url){
   authWindow.webContents.on('did-navigate-in-page', function(e, url, isMainFrame, frameProcessId, frameRoutingId){
     console.log("navigated!")
     console.log(url)
-    if(url.indexOf("/classrooms") != -1){ //Authentication is finished
+    if(url.indexOf("/classrooms" !== -1) ){ //Authentication is finished
       console.log("Logged in!")
       sess.flushStorageData() //flush session to disk
 
-      var req = net.request({url: desktop_url, session: sess}) //use session to make request
+      var req = net.request({url: desktop_url, session: sess, redirect: "manual"}) //use session to make request
+
       req.on('response', function(resp){
-        console.log("Got desktop response!")
-        resp.on('data', (chunk) => {
-          console.log(`BODY: ${chunk}`)
+        console.log("!!!!!!!!!Got response!!!!!!!!")
+        console.log(resp.headers)
+        console.log("---------Session Cookies----------")
+         // Query all cookies associated with a specific url.
+        sess.cookies.get({}, (error, cookies) => {
+          console.log(error, cookies)
         })
+
+        // resp.on('data', (chunk) => {
+        //   console.log(`BODY: ${chunk}`)
+        // })
+        // console.log(JSON.parse(data))
+      })
+
+      req.on('redirect', function(statusCode, method, url, headers){
+        console.log("!!!!!!!!!Got redirect!!!!!!!!")
+        console.log("-----URL--------")
+        console.log(url)
+        console.log("-------Headers:-------")
+        console.log(headers)
+        console.log("---------Session Cookies----------")
+         // Query all cookies associated with a specific url.
+        sess.cookies.get({}, (error, cookies) => {
+          console.log(error, cookies)
+        })
+        req.followRedirect()
       })
       req.end()
     }
@@ -80,7 +102,20 @@ function loadAssignments(login_url,assignment_url){
   sess = session.fromPartition("classroom")
   sess.clearStorageData()
   openAuthWindow(login_url, assignment_url)
+  const filter = {
+      urls: ["http://github.com/*","https://github.com/*", "http://www.github.com/*", "https://www.github.com/*"]
+  }
+  sess.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+    console.log("++++++++sending headers!++++++++++")
+    console.log(details.requestHeaders)
+    
+    callback({ cancel: false, requestHeaders: details.requestHeaders })
+  })
+
+  
 }
+
+
 
 app.on('open-url', function(event, urlToOpen) {
   event.preventDefault();
