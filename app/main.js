@@ -10,6 +10,7 @@ const updater = require("./updater")
 const logger = require("./logger")
 const https = require('https')
 
+
 let mainWindow, authWindow, sess, lastRedirectURL
 
 logger.init()
@@ -61,7 +62,15 @@ function openAuthWindow(login_url, desktop_url){
       console.log("Logged in!")
       sess.flushStorageData() //flush session to disk
 
-      var req = net.request({url: desktop_url, session: sess, redirect: "manual"}) //use session to make request
+      var req = net.request({
+        protocol: "https:",
+        hostname: "localhost",
+        path:"classrooms/32609287-srinjoy-org/assignments/a2/desktop",
+        port:5000,
+        session: sess,
+        redirect: "manual",
+        
+      }) //use session to make request
 
       req.on('response', function(resp){
         console.log("!!!!!!!!!Got response!!!!!!!!")
@@ -108,7 +117,6 @@ function loadAssignments(login_url,assignment_url){
   sess.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
     console.log("++++++++sending headers!++++++++++")
     console.log(details.requestHeaders)
-    
     callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
 
