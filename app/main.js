@@ -46,7 +46,6 @@ function getCookieString(callback){
     cookies.forEach(cookie => {
       cookieString += ` ${cookie.name}=${cookie.value};`
     })
-    console.log(`Cookie String: ${cookieString}`)
     callback(cookieString)
   })
 }
@@ -67,6 +66,7 @@ function openAuthWindow(login_url, desktop_url){
 function loadAssignmentRepos(login_url, assignment_url, callback){
   console.log("getting assignments " + assignment_url)
   sess = session.defaultSession
+
   openAuthWindow(login_url, assignment_url)  
   
   const loginFilter = { //Assumes we redirect to /classrooms route on login, might need a better solution later
@@ -74,10 +74,9 @@ function loadAssignmentRepos(login_url, assignment_url, callback){
   } 
   sess.webRequest.onResponseStarted(loginFilter, (details) => {
     authWindow.close()
-  
+    var req = net.request({url: assignment_url})
     getCookieString((cookieString)=> {
-      var req = net.request({url: assignment_url, redirect: "manual"})
-      
+      req.setHeader("Cookie", cookieString)
       req.on('response', (resp) => {
         var raw_params = ""
         resp.on('data', (chunk) => {
@@ -87,12 +86,6 @@ function loadAssignmentRepos(login_url, assignment_url, callback){
           callback(JSON.parse(raw_params))
         })
       })
-
-      req.on("redirect", (statusCode, method, redirectUrl, responseHeaders) => {
-        req.setHeader("Cookie", cookieString)
-        req.followRedirect()
-      })
-
       req.end()
     })
   })
