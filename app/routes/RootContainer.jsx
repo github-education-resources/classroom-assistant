@@ -13,28 +13,27 @@ class RootContainer extends Component {
         super(props);
         ipcRenderer.on('open-url', () => {
             var params = remote.getGlobal('sharedObj');
-            if(params.urls && params.usernames){
-                this.props.setAssignmentTitle(params.title)
-                this.props.setAssignmentType(params.type)
-                var urls = params.urls
-                var usernames = params.usernames
-                for(var i = 0; i<urls.length; i++){
-                    this.props.onCreate(
-                    {
-                        id: this.props.total,	
-                        username: usernames[i],		
-                        displayName: usernames[i],		
-                        avatarUrl: `https://avatars.githubusercontent.com/${usernames[i]}?v=3&size=96`,		
-                        repoUrl: urls[i],		
-                        selected: true,		
-                        clonePath: "",		
-                        cloneStatus: "",		
-                        cloneProgress: 0
-                    });
-                }
-                this.props.router.push("/select")
-            }
-        });
+            var title = params.title, type = params.type, repos = params.repos
+
+            this.props.setAssignmentTitle(title)
+            this.props.setAssignmentType(type)
+            
+            repos.forEach((repo) => {
+                this.props.addRepo({
+                    id: this.props.total,	
+                    username: repo["username"],		
+                    displayName: repo["username"],		
+                    avatarUrl: `https://avatars.githubusercontent.com/${repo["username"]}?v=3&size=96`,		
+                    repoUrl: repo["repo_url"],		
+                    selected: true,		
+                    clonePath: "",		
+                    cloneStatus: "",		
+                    cloneProgress: 0
+                })
+                
+            })
+            this.props.router.push("/select")
+        })
     }
     render() {
         return (
@@ -50,7 +49,7 @@ const mapStateToProps = (state) => ({
 })
   
 const mapDispatchToProps = (dispatch) => ({
-    onCreate: (data) => {
+    addRepo: (data) => {
         dispatch(submissionCreate(data))
     },
     setAssignmentTitle: (title) => {
