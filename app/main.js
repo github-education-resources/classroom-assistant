@@ -1,16 +1,16 @@
 /* eslint-env node */
 
 const electron = require("electron")
-const {app, BrowserWindow, ipcMain, net, session} = electron
+const {app, BrowserWindow, ipcMain} = electron
 const isDev = require("electron-is-dev")
-const { URL } = require('url')
-const axios = require('axios')
+const { URL } = require("url")
 
 const updater = require("./updater")
 const logger = require("./logger")
-const https = require('https')
 
-let mainWindow, authWindow, sess, lastRedirectURL
+const {loadAssignmentRepos} = require("./assignmentLoader")
+
+let mainWindow
 
 logger.init()
 
@@ -39,76 +39,18 @@ function createWindow () {
     mainWindow = null
   })
 }
+app.on("open-url", function (event, urlToOpen) {
+  event.preventDefault()
 
-function getCookieString(callback){
-  var cookieString = ""
-  sess.cookies.get({}, (error, cookies) => {
-    cookies.forEach(cookie => {
-      cookieString += ` ${cookie.name}=${cookie.value};`
-    })
-    callback(cookieString)
-  })
-}
-
-function openAuthWindow(login_url, desktop_url){
-  console.log("Open Auth window")
-  authWindow = new BrowserWindow({
-    width: 400,
-    height: 600,
-    webPreferences: {
-      nativeWindowOpen: true,
-      session: sess
-    }
-  })
-  authWindow.loadURL(login_url) //Load login path to classroom
-}
-
-function loadAssignmentRepos(login_url, assignment_url, callback){
-  console.log("getting assignments " + assignment_url)
-  sess = session.defaultSession
-
-  openAuthWindow(login_url, assignment_url)  
-  
-  const loginFilter = { //Assumes we redirect to /classrooms route on login, might need a better solution later
-    urls: ['*://*./classrooms']
-  } 
-  sess.webRequest.onResponseStarted(loginFilter, (details) => {
-    authWindow.close()
-    var req = net.request({url: assignment_url})
-    getCookieString((cookieString)=> {
-      req.setHeader("Cookie", cookieString)
-      req.on('response', (resp) => {
-        var raw_params = ""
-        resp.on('data', (chunk) => {
-          raw_params += chunk  
-        })
-        resp.on('end', () => {
-          callback(JSON.parse(raw_params))
-        })
-      })
-      req.end()
-    })
-  })
-}
-
-app.on('open-url', function(event, urlToOpen) {
-  event.preventDefault();
-
-  if(!mainWindow){
+  if (!mainWindow) {
     createWindow()
   }
-  console.log(urlToOpen)
-  var parsed = new URL(urlToOpen);
-  var assignment_path = parsed.searchParams.get("assignment")
-  var root_url = parsed.searchParams.get("host")
-  
-  loadAssignmentRepos(root_url+"/login", root_url + assignment_path + "/desktop", (params) => {
-    console.log("Final Params!")
-    console.log(params)
-    global.sharedObj = {repos: params.repos, title: params.title, type: "individual"}
-    mainWindow.webContents.send('open-url')
-  })
-});
+
+  var parsed = new URL(urlToOpen)
+  var assignmentURL = parsed.searchParams.get("assignment_url")
+
+  loadAssignmentRepos(mainWindow, assignmentURL)
+})
 
 app.on("ready", createWindow)
 
@@ -124,14 +66,7 @@ app.on("activate", function () {
   }
 })
 
-ipcMain.on('populate', (event, arg) => {
-  console.log('populate') // prints "ping"
-  authWindow = new BrowserWindow({
-    width: 400,
-    height: 600,
-    webPreferences: {
-      nativeWindowOpen: true
-    }
-  })
-  authWindow.loadURL(arg)
+ipcMain.on("populate", (event, arg) => {
+  console.log("populate") // prints "ping"
+  loadAssignmentRepos(mainWindow, arg)
 })
