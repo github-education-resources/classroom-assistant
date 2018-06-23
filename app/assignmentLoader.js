@@ -54,7 +54,8 @@ function openAuthWindow (loginURL, desktopURL) {
   authWindow = new BrowserWindow({
     parent: mainWindow,
     modal: true,
-    height: 200,
+    height: 500,
+    width: 400,
     webPreferences: {
       session: session.defaultSession,
     }
@@ -64,7 +65,13 @@ function openAuthWindow (loginURL, desktopURL) {
 
 function sendParamsToRenderer (rawParams) {
   var params = JSON.parse(rawParams)
-  global.sharedObj = {repos: params.repos, title: params.title, type: params.type}
+  console.log(params)
+  global.sharedObj = {
+    repos: params.repos,
+    title: params.title,
+    type: params.type,
+    access_token: params.access_token,
+  }
   mainWindow.webContents.send("open-url")
 }
 

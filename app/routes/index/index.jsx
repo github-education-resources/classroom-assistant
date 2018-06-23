@@ -26,7 +26,6 @@ const IndexPage = () => (
           </Link>
         </div>
       </div>
-      
     </div>
     <NavFooter
       left={{

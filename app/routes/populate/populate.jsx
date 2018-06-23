@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import NavFooter from "../shared/components/NavFooter"
-import { Link } from "react-router"
 
 import { ipcRenderer } from "electron"
 
@@ -8,46 +7,39 @@ const containerStyles = {
   paddingTop: "100px"
 }
 
-const buttonWrapperStyles = {
-  margin: "5px"
-}
-
 class PopulatePage extends Component {
-
   constructor (props) {
     super(props)
-
     this.loadRepos = this.loadRepos.bind(this)
   }
 
-  loadRepos(){
-    ipcRenderer.send('populate', this.refs.url.value+"/desktop")
-    
+  loadRepos () {
+    ipcRenderer.send("populate", this.refs.url.value)
   }
 
-  render() {
+  render () {
     return (
       <div style={containerStyles}>
-      <div className="row">
-        <div className="col-sm-8 col-sm-offset-2">
-          <p className="lead text-center">
-            Enter Assignment URL
-          </p>
-          <input ref="url" className="form-control form-control-lg" type="text" placeholder="http://classroom.github.com/classrooms/sample-org/assignments/sample-assignment"/>
+        <div className="row">
+          <div className="col-sm-8 col-sm-offset-2">
+            <p className="lead text-center">
+              Enter Assignment URL
+            </p>
+            <input ref="url" className="form-control form-control-lg" type="text" placeholder="http://classroom.github.com/classrooms/sample-org/assignments/sample-assignment"/>
+          </div>
         </div>
+        <NavFooter
+          left={{
+            label: "Cancel",
+            route: "/"
+          }}
+          right={{
+            label: "Next: Choose Repositories",
+            route: "/select",
+            click: this.loadRepos
+          }}
+        />
       </div>
-      <NavFooter
-        left={{
-          label: "Cancel",
-          route: "/"
-        }}
-        right={{
-          label: "Next: Choose Repositories",
-          route: "/select",
-          click: this.loadRepos
-        }}
-      />
-    </div>
     )
   }
 }

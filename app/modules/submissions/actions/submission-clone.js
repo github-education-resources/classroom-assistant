@@ -44,13 +44,10 @@ export function submissionCloneFunc (clone) {
               dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
             }
           },
-          // TODO: the example app requires some credentials, where should I get these?
-          // null
-          remote.getGlobal('sharedObj').token
+          remote.getGlobal("sharedObj").access_token
         )
           .then(resolve)
           .catch((e) => {
-            console.log(e)
             dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
             resolve()
           })

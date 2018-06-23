@@ -9,7 +9,7 @@ import SelectPage from "./select/index"
 import ConfirmPage from "./confirm/index"
 import ArchivePage from "./archive/index"
 import SettingsPage from "./settings/index"
-import PopulatePage from "./populate/populate";
+import PopulatePage from "./populate/populate"
 
 const routeConfig = {
   component: RootContainer,

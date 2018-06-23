@@ -67,6 +67,5 @@ app.on("activate", function () {
 })
 
 ipcMain.on("populate", (event, arg) => {
-  console.log("populate") // prints "ping"
   loadAssignmentRepos(mainWindow, arg)
 })

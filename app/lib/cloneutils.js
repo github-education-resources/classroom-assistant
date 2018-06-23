@@ -46,10 +46,10 @@ export const clone = (repoURL, destination, progressCallback, token) => {
     }
 
     if (token) {
-      options.fetchOpts.callbacks.certificate_check = function(){
-          return 1
+      options.fetchOpts.callbacks.certificate_check = () => { // for libgit2 problem
+        return 1
       }
-      options.fetchOpts.callbacks.credentials = function () {
+      options.fetchOpts.callbacks.credentials = () => {
         return NodeGit.Cred.userpassPlaintextNew(token, "x-oauth-basic")
       }
     }
@@ -66,7 +66,6 @@ export const clone = (repoURL, destination, progressCallback, token) => {
       }
       resolve()
     }).catch((err) => {
-      console.log(err)
       reject(err)
     })
   })
