@@ -1,10 +1,16 @@
-const initialState = {
-  name: "Assignment 1: Introduction to Programming",
-  type: "individual"
-}
+import { ASSIGNMENT_SET_TITLE, ASSIGNMENT_SET_TYPE } from "../constants"
 
-const assignment = (state, action) => {
-  return initialState
+const initialState = {}
+
+const assignment = (state = initialState, action) => {
+  switch (action.type) {
+  case ASSIGNMENT_SET_TITLE:
+    return Object.assign({}, state, {name: action.payload})
+  case ASSIGNMENT_SET_TYPE:
+    return Object.assign({}, state, {type: action.payload})
+  default:
+    return state
+  }
 }
 
 export default assignment
