@@ -54,16 +54,16 @@ const submissions = (state, action) => {
   if (typeof state === "undefined") {
     return initialState
   }
-  switch (action.type){
-    case SUBMISSION_CREATE:
-      return [
-        ...state,
-        action.data
-      ]
-    default:
-      return state.map((each) => {
-        return submission(each, action)
-      })
+  switch (action.type) {
+  case SUBMISSION_CREATE:
+    return [
+      ...state,
+      action.data
+    ]
+  default:
+    return state.map((each) => {
+      return submission(each, action)
+    })
   }
 }
 
