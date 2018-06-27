@@ -1,0 +1,3 @@
+export const REQUEST_PAGE = "REQUEST PAGE"
+export const RECEIVE_PAGE = "RECEIVE_PAGE"
+export const RECEIVE_METADATA = "RECEIVE_METADATA"

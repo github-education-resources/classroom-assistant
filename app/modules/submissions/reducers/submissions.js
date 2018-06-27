@@ -8,6 +8,10 @@ import {
 } from "../constants"
 
 const initialState = []
+// const initialSubmissionState = {
+  
+// }
+
 
 const submission = (state, action) => {
   switch (action.type) {

@@ -13,7 +13,7 @@ const NavFooter = ({
 
   if (left !== undefined) {
     children.push(
-      <Link to={left.route} key={0}>
+      <Link to={{pathname: left.route, state: {params: left.params}}} key={0}>
         <button onClick={left.click} className="btn btn-danger">{left.label}</button>
       </Link>
     )
@@ -21,7 +21,7 @@ const NavFooter = ({
 
   if (right !== undefined) {
     children.push(
-      <Link to={right.route} key={1}>
+      <Link to={{pathname: right.route, state: {params: right.params}}} key={1}>
         <button onClick={right.click} className="btn btn-success pull-right">{right.label}</button>
       </Link>
     )

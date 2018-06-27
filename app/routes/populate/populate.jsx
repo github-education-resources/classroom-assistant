@@ -1,20 +1,51 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 import NavFooter from "../shared/components/NavFooter"
 
-import { ipcRenderer } from "electron"
+import {fetchAssignmentInfo} from "../../modules/assignment/actions/assignment-fetch-info"   
+
 
 const containerStyles = {
   paddingTop: "100px"
 }
 
+const placeholderURL = "http://classroom.github.com/classrooms/sample-org/assignments/sample-assignment"
+
 class PopulatePage extends Component {
   constructor (props) {
     super(props)
-    this.loadRepos = this.loadRepos.bind(this)
+    this.loadAssignmentInfo = this.loadAssignmentInfo.bind(this)
+    this.updateInput = this.updateInput.bind(this)
+    var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL: null
+    if (assignmentURLMessage) {
+      this.state = {
+        assignmentURL: assignmentURLMessage
+      }
+    } else {
+      this.state = {
+        assignmentURL: ""
+      }
+    }
   }
 
-  loadRepos () {
-    ipcRenderer.send("populate", this.refs.url.value)
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname){
+      var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL: null
+      if(assignmentURLMessage){
+        this.setState({assignmentURL: assignmentURLMessage})
+      }
+    }
+  }
+
+  loadAssignmentInfo () {
+    var urlObj = new URL(this.state.assignmentURL)
+    var infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
+    console.log(infoURL);
+    this.props.dispatchAssignmentInfo(infoURL)
+  }
+  
+  updateInput(e){
+    this.setState({assignmentURL: e.target.value})
   }
 
   render () {
@@ -25,7 +56,11 @@ class PopulatePage extends Component {
             <p className="lead text-center">
               Enter Assignment URL
             </p>
-            <input ref="url" className="form-control form-control-lg" type="text" placeholder="http://classroom.github.com/classrooms/sample-org/assignments/sample-assignment"/>
+            <input value={this.state.assignmentURL} 
+                   onChange={this.updateInput} 
+                   className="form-control form-control-lg" 
+                   type="text" 
+                   placeholder={placeholderURL}/>
           </div>
         </div>
         <NavFooter
@@ -36,7 +71,8 @@ class PopulatePage extends Component {
           right={{
             label: "Next: Choose Repositories",
             route: "/select",
-            click: this.loadRepos
+            click: this.loadAssignmentInfo,
+            params: this.state.assignmentURL,
           }}
         />
       </div>
@@ -44,4 +80,10 @@ class PopulatePage extends Component {
   }
 }
 
-export default PopulatePage
+const mapDispatchToProps = (dispatch) => ({
+  dispatchAssignmentInfo: (assignment_url) => {
+    dispatch(fetchAssignmentInfo(assignment_url))
+  },
+})
+
+export default connect(null, mapDispatchToProps)(PopulatePage)

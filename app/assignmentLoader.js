@@ -4,15 +4,16 @@ const { URL } = require("url")
 
 const logger = require("./logger")
 
-let mainWindow, authWindow, loginURL, desktopURL
+let mainWindow, authWindow, assignmentURL
+
+global.sharedObj = {}
 
 module.exports = {
   loadAssignmentRepos (mainWindowRef, assignmentURLString) {
     mainWindow = mainWindowRef
-    parseURL(assignmentURLString)
-    logger.info(`Loading assignment repos from ${desktopURL}`)
-    openAuthWindow(loginURL, desktopURL)
-
+    assignmentURL = assignmentURLString
+    var loginURL = parseLoginURL()
+    openAuthWindow(loginURL)
     const loginFilter = { // Assumes we redirect to /classrooms route on login, might need a better solution later
       urls: ["*://*./classrooms"]
     }
@@ -22,39 +23,16 @@ module.exports = {
 
 function fetchRepos (details) {
   authWindow.close()
-  var req = net.request({url: desktopURL})
-  getCookieString((cookieString) => {
-    req.setHeader("Cookie", cookieString) // manually send cookies
-    req.on("response", (resp) => {
-      var rawParams = ""
-      resp.on("data", (chunk) => {
-        rawParams += chunk // Combine all chunks to parse JSON
-      })
-      resp.on("end", () => {
-        sendParamsToRenderer(rawParams)
-      })
-    })
-    req.end()
-  })
+  console.log(assignmentURL)
+  mainWindow.webContents.send("open-url", assignmentURL)
 }
 
-function getCookieString (callback) {
-  var cookieString = ""
-  session.defaultSession.cookies.get({}, (error, cookies) => {
-    if (error) console.error(error)
-    cookies.forEach(cookie => {
-      cookieString += ` ${cookie.name}=${cookie.value};`
-    })
-    callback(cookieString)
-  })
-}
-
-function openAuthWindow (loginURL, desktopURL) {
+function openAuthWindow (loginURL) {
   console.log("Open Auth window")
   authWindow = new BrowserWindow({
     parent: mainWindow,
     modal: true,
-    height: 500,
+    height: 600,
     width: 400,
     webPreferences: {
       session: session.defaultSession,
@@ -63,20 +41,9 @@ function openAuthWindow (loginURL, desktopURL) {
   authWindow.loadURL(loginURL) // Load login path to classroom
 }
 
-function sendParamsToRenderer (rawParams) {
-  var params = JSON.parse(rawParams)
-  console.log(params)
-  global.sharedObj = {
-    repos: params.repos,
-    title: params.title,
-    type: params.type,
-    access_token: params.access_token,
-  }
-  mainWindow.webContents.send("open-url")
-}
-
-function parseURL (url) {
-  var urlObj = new URL(url)
-  loginURL = `${urlObj.origin}/login`
-  desktopURL = `${url}/desktop`
+function parseLoginURL () {
+  var urlObj = new URL(assignmentURL)
+  return `${urlObj.origin}/login`
+  // infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
+  // repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
 }
