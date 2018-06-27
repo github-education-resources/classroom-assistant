@@ -4,6 +4,8 @@ export const receivePage = (page, data) => {
   return {
     type: RECEIVE_PAGE,
     id: page,
-    payload: data
+    repoIds: data.map((repo) => {
+      return repo.id
+    })
   }
 }

@@ -9,14 +9,12 @@ export const fetchPage = (page, repoURL) => {
     dispatch(requestPage(page))
     return fetch(`${repoURL}?page=${page}&per_page=1`, {
       credentials: "include"
-
     }).then(response => {
-      // dispatch(receiveMetadata(page, ))
       if (response.headers.get("Link")) {
         var link = LinkHeader.parse(response.headers.get("Link"))
         console.log(link)
-        if (link.has("rel", "next")) {
-          dispatch(receiveMetadata(page, link.get("rel", "next")[0].uri))
+        if (link.has("rel", "next") && link.get("rel", "next").length > 0) {
+          dispatch(receiveMetadata(page, link.get("rel", "next")[0]))
         }
       }
       return response.json()

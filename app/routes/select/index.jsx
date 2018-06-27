@@ -4,28 +4,24 @@ import PropTypes from "prop-types"
 
 import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import SelectableSubmissionList from "./containers/SelectableSubmissionList"
-import Pagination from "./components/Pagination"
-
 import NavFooter from "../shared/components/NavFooter"
 
-import {fetchPage} from "../../modules/pagination/actions/pagination-fetch-page"
+import {fetchAllPages} from "../../modules/pagination/actions/pagination-fetch-all"
 
 class SelectPage extends Component {
-
-  componentDidMount(){
+  componentDidMount () {
     var assignmentURL = this.props.location.state ? this.props.location.state.params : null
-    console.log(assignmentURL);
+    console.log(assignmentURL)
     var urlObj = new URL(assignmentURL)
     var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
-    this.props.fetchPage(1, repoURL)
+    this.props.fetchAllPages(repoURL)
   }
-  
-  render(){
-    return(
+
+  render () {
+    return (
       <div>
         <AssignmentPanel />
         <SelectableSubmissionList />
-        <Pagination />
         <NavFooter
           left={{
             label: "Cancel",
@@ -37,17 +33,19 @@ class SelectPage extends Component {
           }}
         />
       </div>
-    )}
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPage: (page, repoURL) => {
-    dispatch(fetchPage(page, repoURL))
+  fetchAllPages: (repoURL) => {
+    dispatch(fetchAllPages(repoURL))
   },
 })
 
 SelectPage.propTypes = {
-  fetchPage: PropTypes.func.isRequired,
+  fetchAllPages: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export default connect(null, mapDispatchToProps)(SelectPage)

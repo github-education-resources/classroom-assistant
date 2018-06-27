@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import NavFooter from "../shared/components/NavFooter"
+import PropTypes from "prop-types"
 
 import {fetchAssignmentInfo} from "../../modules/assignment/actions/assignment-fetch-info"   
-
 
 const containerStyles = {
   paddingTop: "100px"
@@ -28,10 +28,10 @@ class PopulatePage extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname){
+  componentDidUpdate (prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL: null
-      if(assignmentURLMessage){
+      if (assignmentURLMessage) {
         this.setState({assignmentURL: assignmentURLMessage})
       }
     }
@@ -40,11 +40,11 @@ class PopulatePage extends Component {
   loadAssignmentInfo () {
     var urlObj = new URL(this.state.assignmentURL)
     var infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
-    console.log(infoURL);
+    console.log(infoURL)
     this.props.dispatchAssignmentInfo(infoURL)
   }
-  
-  updateInput(e){
+
+  updateInput (e) {
     this.setState({assignmentURL: e.target.value})
   }
 
@@ -56,11 +56,12 @@ class PopulatePage extends Component {
             <p className="lead text-center">
               Enter Assignment URL
             </p>
-            <input value={this.state.assignmentURL} 
-                   onChange={this.updateInput} 
-                   className="form-control form-control-lg" 
-                   type="text" 
-                   placeholder={placeholderURL}/>
+            <input value={this.state.assignmentURL}
+              onChange={this.updateInput}
+              className="form-control form-control-lg"
+              type="text"
+              placeholder={placeholderURL}
+            />
           </div>
         </div>
         <NavFooter
@@ -81,9 +82,14 @@ class PopulatePage extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchAssignmentInfo: (assignment_url) => {
-    dispatch(fetchAssignmentInfo(assignment_url))
+  dispatchAssignmentInfo: (assignmentURL) => {
+    dispatch(fetchAssignmentInfo(assignmentURL))
   },
 })
+
+PopulatePage.propTypes = {
+  dispatchAssignmentInfo: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+}
 
 export default connect(null, mapDispatchToProps)(PopulatePage)

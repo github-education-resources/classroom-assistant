@@ -6,11 +6,11 @@ import { ipcRenderer } from "electron"
 class RootContainer extends Component {
   constructor (props) {
     super(props)
-  
+
     ipcRenderer.on("open-url", (event, assignmentURL) => {
       console.log(assignmentURL)
       this.props.router.push({
-        pathname:"/populate",
+        pathname: "/populate",
         state: { assignmentURL: assignmentURL }
       })
     })

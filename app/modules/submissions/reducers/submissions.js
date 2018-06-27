@@ -7,11 +7,19 @@ import {
   SUBMISSION_CREATE
 } from "../constants"
 
-const initialState = []
-// const initialSubmissionState = {
-  
-// }
+const initialSubmissionState = {
+  id: null,
+  username: "",
+  displayName: "",
+  avatarUrl: "",
+  repoUrl: "",
+  selected: true,
+  clonePath: "",
+  cloneStatus: "",
+  cloneProgress: 0
+}
 
+const initialState = []
 
 const submission = (state, action) => {
   switch (action.type) {
@@ -62,7 +70,7 @@ const submissions = (state, action) => {
   case SUBMISSION_CREATE:
     return [
       ...state,
-      action.data
+      Object.assign({}, initialSubmissionState, action.data)
     ]
   default:
     return state.map((each) => {
