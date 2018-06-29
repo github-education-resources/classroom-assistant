@@ -11,7 +11,6 @@ import {fetchAllPages} from "../../modules/pagination/actions/pagination-fetch-a
 class SelectPage extends Component {
   componentDidMount () {
     var assignmentURL = this.props.location.state ? this.props.location.state.params : null
-    console.log(assignmentURL)
     var urlObj = new URL(assignmentURL)
     var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
     this.props.fetchAllPages(repoURL)

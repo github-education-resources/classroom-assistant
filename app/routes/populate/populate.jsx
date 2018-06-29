@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import NavFooter from "../shared/components/NavFooter"
 import PropTypes from "prop-types"
 
-import {fetchAssignmentInfo} from "../../modules/assignment/actions/assignment-fetch-info"   
+import {fetchAssignmentInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 
 const containerStyles = {
   paddingTop: "100px"
@@ -16,7 +16,7 @@ class PopulatePage extends Component {
     super(props)
     this.loadAssignmentInfo = this.loadAssignmentInfo.bind(this)
     this.updateInput = this.updateInput.bind(this)
-    var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL: null
+    var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL : null
     if (assignmentURLMessage) {
       this.state = {
         assignmentURL: assignmentURLMessage
@@ -30,7 +30,7 @@ class PopulatePage extends Component {
 
   componentDidUpdate (prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
-      var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL: null
+      var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL : null
       if (assignmentURLMessage) {
         this.setState({assignmentURL: assignmentURLMessage})
       }

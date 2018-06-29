@@ -1,8 +1,8 @@
 import {ASSIGNMENT_RECEIVE_INFO} from "../constants"
 
-export const receiveInfo = (data) => {
+export const receiveInfo = (name, type) => {
   return {
     type: ASSIGNMENT_RECEIVE_INFO,
-    payload: data,
+    payload: {name: name, type: type},
   }
 }

@@ -1,12 +1,10 @@
 const electron = require("electron")
-const {BrowserWindow, net, session} = electron
+const {BrowserWindow, session} = electron
 const { URL } = require("url")
-
-const logger = require("./logger")
 
 let mainWindow, authWindow, assignmentURL
 
-global.sharedObj = {}
+global.sharedObj = {accessToken: null}
 
 module.exports = {
   loadAssignmentRepos (mainWindowRef, assignmentURLString) {
@@ -34,16 +32,19 @@ function openAuthWindow (loginURL) {
     modal: true,
     height: 600,
     width: 400,
+    show: false,
     webPreferences: {
       session: session.defaultSession,
     }
   })
   authWindow.loadURL(loginURL) // Load login path to classroom
+
+  authWindow.once("ready-to-show", () => {
+    authWindow.show()
+  })
 }
 
 function parseLoginURL () {
   var urlObj = new URL(assignmentURL)
   return `${urlObj.origin}/login`
-  // infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
-  // repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
 }

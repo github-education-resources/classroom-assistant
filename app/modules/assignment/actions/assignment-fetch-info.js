@@ -1,5 +1,6 @@
 import {receiveInfo} from "./assignment-receive-info"
 import {requestInfo} from "./assignment-request-info"
+import {remote} from "electron"
 
 export const fetchAssignmentInfo = (assignmentInfoURL) => {
   return dispatch => {
@@ -8,8 +9,8 @@ export const fetchAssignmentInfo = (assignmentInfoURL) => {
       credentials: "include"
     }).then(response => response.json())
       .then((data) => {
-        dispatch(receiveInfo(data))
-        console.log(data)
+        dispatch(receiveInfo(data.name, data.type))
+        remote.getGlobal("sharedObj").accessToken = data.accessToken
       })
   }
 }
