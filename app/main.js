@@ -16,7 +16,7 @@ logger.init()
 
 function createWindow () {
   logger.info("creating app window")
-  app.setAsDefaultProtocolClient("ghclassroom")
+  app.setAsDefaultProtocolClient("github-classroom")
 
   mainWindow = new BrowserWindow({width: 900, height: 600})
   const url = `file://${__dirname}/index.html`

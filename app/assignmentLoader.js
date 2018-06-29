@@ -21,12 +21,10 @@ module.exports = {
 
 function fetchRepos (details) {
   authWindow.close()
-  console.log(assignmentURL)
   mainWindow.webContents.send("open-url", assignmentURL)
 }
 
 function openAuthWindow (loginURL) {
-  console.log("Open Auth window")
   authWindow = new BrowserWindow({
     parent: mainWindow,
     modal: true,
