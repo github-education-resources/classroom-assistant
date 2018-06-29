@@ -19,3 +19,8 @@ export const name = createSelector(
   all,
   (assignment) => assignment.name
 )
+
+export const url = createSelector(
+  all,
+  (assignment) => assignment.url
+)

@@ -7,11 +7,11 @@ import SelectableSubmissionList from "./containers/SelectableSubmissionList"
 import NavFooter from "../shared/components/NavFooter"
 
 import {fetchAllPages} from "../../modules/pagination/actions/pagination-fetch-all"
+import {url} from "../../modules/assignment/selectors"
 
 class SelectPage extends Component {
   componentDidMount () {
-    var assignmentURL = this.props.location.state ? this.props.location.state.params : null
-    var urlObj = new URL(assignmentURL)
+    var urlObj = new URL(this.props.assignmentURL)
     var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
     this.props.fetchAllPages(repoURL)
   }
@@ -36,6 +36,10 @@ class SelectPage extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  assignmentURL: url(state),
+})
+
 const mapDispatchToProps = (dispatch) => ({
   fetchAllPages: (repoURL) => {
     dispatch(fetchAllPages(repoURL))
@@ -44,7 +48,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 SelectPage.propTypes = {
   fetchAllPages: PropTypes.func.isRequired,
+  assignmentURL: PropTypes.string.isRequired,
   location: PropTypes.object.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(SelectPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SelectPage)

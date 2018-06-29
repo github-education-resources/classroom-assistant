@@ -4,6 +4,8 @@ import NavFooter from "../shared/components/NavFooter"
 import PropTypes from "prop-types"
 
 import {fetchAssignmentInfo} from "../../modules/assignment/actions/assignment-fetch-info"
+import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
+import {url} from "../../modules/assignment/selectors"
 
 const containerStyles = {
   paddingTop: "100px"
@@ -18,22 +20,7 @@ class PopulatePage extends Component {
     this.updateInput = this.updateInput.bind(this)
     var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL : null
     if (assignmentURLMessage) {
-      this.state = {
-        assignmentURL: assignmentURLMessage
-      }
-    } else {
-      this.state = {
-        assignmentURL: ""
-      }
-    }
-  }
-
-  componentDidUpdate (prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL : null
-      if (assignmentURLMessage) {
-        this.setState({assignmentURL: assignmentURLMessage})
-      }
+      this.props.dispatchAssignmentURL(assignmentURLMessage)
     }
   }
 
@@ -45,7 +32,7 @@ class PopulatePage extends Component {
   }
 
   updateInput (e) {
-    this.setState({assignmentURL: e.target.value})
+    this.props.dispatchAssignmentURL(e.target.value)
   }
 
   render () {
@@ -56,7 +43,7 @@ class PopulatePage extends Component {
             <p className="lead text-center">
               Enter Assignment URL
             </p>
-            <input value={this.state.assignmentURL}
+            <input value={this.props.assignmentURL}
               onChange={this.updateInput}
               className="form-control form-control-lg"
               type="text"
@@ -73,7 +60,6 @@ class PopulatePage extends Component {
             label: "Next: Choose Repositories",
             route: "/select",
             click: this.loadAssignmentInfo,
-            params: this.state.assignmentURL,
           }}
         />
       </div>
@@ -85,11 +71,20 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchAssignmentInfo: (assignmentURL) => {
     dispatch(fetchAssignmentInfo(assignmentURL))
   },
+  dispatchAssignmentURL: (assignmentURL) => {
+    dispatch(setAssignmentURL(assignmentURL))
+  }
+})
+
+const mapStateToProps = (state) => ({
+  assignmentURL: url(state),
 })
 
 PopulatePage.propTypes = {
   dispatchAssignmentInfo: PropTypes.func.isRequired,
+  dispatchAssignmentURL: PropTypes.func.isRequired,
+  assignmentURL: PropTypes.string.isRequired,
   location: PropTypes.object.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(PopulatePage)
+export default connect(mapStateToProps, mapDispatchToProps)(PopulatePage)
