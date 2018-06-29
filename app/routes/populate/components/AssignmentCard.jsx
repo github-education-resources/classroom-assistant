@@ -11,8 +11,17 @@ const AssignmentCard = ({
       <h5 className="text-center">Found Assignment!</h5>
       <div className="card text-green border-success">
         <div className="card-body">
-          <h4 className="card-title">{name}</h4>
-          <p className="card-text">{type}</p>
+          <div className="media w-100">
+            <img className="mr-3" src={imagePath} alt={name} />
+            <div className="media-body">
+              <div className="row">
+                <div className="col-sm-6">
+                  <h4 className="card-title my-0">{name}</h4>
+                  {type}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

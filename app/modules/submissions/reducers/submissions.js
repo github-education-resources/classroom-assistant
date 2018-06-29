@@ -4,7 +4,8 @@ import {
   SUBMISSION_SET_CLONE_PROGRESS,
   SUBMISSION_SET_CLONE_PATH,
   SUBMISSION_SET_CLONE_STATUS,
-  SUBMISSION_CREATE
+  SUBMISSION_CREATE,
+  SUBMISSION_RESET
 } from "../constants"
 
 const initialSubmissionState = {
@@ -67,6 +68,8 @@ const submissions = (state, action) => {
     return initialState
   }
   switch (action.type) {
+  case SUBMISSION_RESET:
+    return initialState
   case SUBMISSION_CREATE:
     return [
       ...state,

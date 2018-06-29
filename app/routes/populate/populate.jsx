@@ -28,6 +28,7 @@ class PopulatePage extends Component {
     var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL : null
     if (assignmentURLMessage) {
       this.props.dispatchAssignmentURL(assignmentURLMessage)
+      this.loadAssignmentInfo()
     }
   }
 

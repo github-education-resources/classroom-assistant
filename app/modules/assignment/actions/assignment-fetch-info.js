@@ -24,7 +24,7 @@ export const fetchAssignmentInfo = () => {
         remote.getGlobal("sharedObj").accessToken = data.accessToken
       })
       .catch((e) => {
-        dispatch(errorInfo(e.toString()))
+        dispatch(errorInfo("Could not find assignment."))
       })
   }
 }

@@ -7,13 +7,18 @@ import SelectableSubmissionList from "./containers/SelectableSubmissionList"
 import NavFooter from "../shared/components/NavFooter"
 
 import {fetchAllPages} from "../../modules/pagination/actions/pagination-fetch-all"
+import {submissionReset} from "../../modules/submissions/actions/submission-reset"
+import {paginationReset} from "../../modules/pagination/actions/pagination-reset"
 import {url} from "../../modules/assignment/selectors"
+import {outOfDate, fetchedAll} from "../../modules/pagination/selectors"
 
 class SelectPage extends Component {
   componentDidMount () {
-    var urlObj = new URL(this.props.assignmentURL)
-    var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
-    this.props.fetchAllPages(repoURL)
+    if (this.props.outOfDate || !this.props.fetchedAll) {
+      this.props.paginationReset()
+      this.props.submissionReset()
+      this.props.fetchAllPages(this.props.assignmentURL)
+    }
   }
 
   render () {
@@ -24,11 +29,12 @@ class SelectPage extends Component {
         <NavFooter
           left={{
             label: "Cancel",
-            route: "/"
+            route: "/",
           }}
           right={{
             label: "Next: Choose Destination",
-            route: "/confirm"
+            route: "/confirm",
+
           }}
         />
       </div>
@@ -38,17 +44,29 @@ class SelectPage extends Component {
 
 const mapStateToProps = (state) => ({
   assignmentURL: url(state),
+  outOfDate: outOfDate(state),
+  fetchedAll: fetchedAll(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAllPages: (repoURL) => {
     dispatch(fetchAllPages(repoURL))
   },
+  paginationReset: () => {
+    dispatch(paginationReset())
+  },
+  submissionReset: () => {
+    dispatch(submissionReset())
+  },
 })
 
 SelectPage.propTypes = {
   fetchAllPages: PropTypes.func.isRequired,
+  paginationReset: PropTypes.func.isRequired,
+  submissionReset: PropTypes.func.isRequired,
   assignmentURL: PropTypes.string.isRequired,
+  outOfDate: PropTypes.bool.isRequired,
+  fetchedAll: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
 }
 

@@ -1,4 +1,4 @@
-import {RECEIVE_METADATA} from "../constants"
+import {PAGINATION_RECEIVE_METADATA} from "../constants"
 
 export const receiveMetadata = (page, link) => {
   var nextPageId = null
@@ -6,7 +6,7 @@ export const receiveMetadata = (page, link) => {
     nextPageId = link.params.page
   }
   return {
-    type: RECEIVE_METADATA,
+    type: PAGINATION_RECEIVE_METADATA,
     id: page,
     nextPageId: nextPageId,
   }

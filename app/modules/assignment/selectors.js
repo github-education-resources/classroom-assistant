@@ -32,7 +32,5 @@ export const error = createSelector(
 
 export const valid = createSelector(
   all,
-  (assignment) => {
-    return !assignment.error && assignment.name && assignment.type
-  }
+  (assignment) => !assignment.error && assignment.name && assignment.type
 )

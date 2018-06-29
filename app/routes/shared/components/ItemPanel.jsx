@@ -18,7 +18,7 @@ const ItemPanel = ({
         width="48px"
         height="48px"
         src={imagePath}
-        className="mr-3"
+        className="mr-3 rounded-circle"
         alt={title}
       />
       <div className="media-body">

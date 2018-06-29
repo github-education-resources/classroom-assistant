@@ -1,8 +1,8 @@
-import {RECEIVE_PAGE} from "../constants"
+import {PAGINATION_RECEIVE} from "../constants"
 
 export const receivePage = (page, data) => {
   return {
-    type: RECEIVE_PAGE,
+    type: PAGINATION_RECEIVE,
     id: page,
     repoIds: data.map((repo) => {
       return repo.id
