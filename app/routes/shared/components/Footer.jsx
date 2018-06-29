@@ -11,7 +11,7 @@ const Footer = ({
   children
 }) => {
   return (
-    <div className="navbar-fixed-bottom" style={containerStyles}>
+    <div className="navbar fixed-bottom" style={containerStyles}>
       {children}
     </div>
   )

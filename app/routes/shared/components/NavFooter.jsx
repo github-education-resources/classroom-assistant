@@ -5,6 +5,19 @@ import { Link } from "react-router"
 
 import Footer from "./Footer"
 
+const linkElement = (id, obj, className) => {
+  return (
+    <Link to={{pathname: obj.route, state: {params: obj.params}}} key={id}>
+      <button onClick={obj.onClick}
+        className={className}
+        disabled={obj.disabled}
+      >
+        {obj.label}
+      </button>
+    </Link>
+  )
+}
+
 const NavFooter = ({
   left,
   right
@@ -13,17 +26,13 @@ const NavFooter = ({
 
   if (left !== undefined) {
     children.push(
-      <Link to={{pathname: left.route, state: {params: left.params}}} key={0}>
-        <button onClick={left.click} className="btn btn-danger">{left.label}</button>
-      </Link>
+      linkElement(0, left, "btn btn-danger")
     )
   }
 
   if (right !== undefined) {
     children.push(
-      <Link to={{pathname: right.route, state: {params: right.params}}} key={1}>
-        <button onClick={right.click} className="btn btn-success pull-right">{right.label}</button>
-      </Link>
+      linkElement(1, right, "btn btn-success pull-right")
     )
   }
 
@@ -38,12 +47,12 @@ NavFooter.propTypes = {
   left: PropTypes.shape({
     label: PropTypes.string.isRequired,
     route: PropTypes.string.isRequired,
-    click: PropTypes.func
+    onClick: PropTypes.func
   }),
   right: PropTypes.shape({
     label: PropTypes.string.isRequired,
     route: PropTypes.string.isRequired,
-    click: PropTypes.func
+    onClick: PropTypes.func
   })
 }
 

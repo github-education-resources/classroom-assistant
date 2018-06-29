@@ -13,7 +13,7 @@ const buttonWrapperStyles = {
 
 const IndexPage = () => (
   <div style={containerStyles}>
-    <div className="row">
+    <div className="row justify-content-center">
       <div className="col-sm-6 col-sm-offset-3">
         <h1 className="text-center">GitHub Classroom Desktop</h1>
         <p className="lead text-center">

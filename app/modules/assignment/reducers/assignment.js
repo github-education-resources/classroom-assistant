@@ -9,9 +9,9 @@ const assignment = (state = initialState, action) => {
   case ASSIGNMENT_REQUEST_INFO:
     return Object.assign({}, state, {isFetching: true})
   case ASSIGNMENT_RECEIVE_INFO:
-    return Object.assign({}, state, action.payload, {isFetching: false, validURL: true})
+    return Object.assign({}, state, action.payload, {isFetching: false, error: null})
   case ASSIGNMENT_ERROR_INFO:
-    return Object.assign({}, state, {isFetching: false, validURL: false})
+    return Object.assign({}, state, {isFetching: false, error: action.error})
   case ASSIGNMENT_SET_TITLE:
     return Object.assign({}, state, {name: action.payload})
   case ASSIGNMENT_SET_TYPE:

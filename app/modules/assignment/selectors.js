@@ -24,3 +24,15 @@ export const url = createSelector(
   all,
   (assignment) => assignment.url
 )
+
+export const error = createSelector(
+  all,
+  (assignment) => assignment.error
+)
+
+export const valid = createSelector(
+  all,
+  (assignment) => {
+    return !assignment.error && assignment.name && assignment.type
+  }
+)

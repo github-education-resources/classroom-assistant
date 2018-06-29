@@ -3,18 +3,28 @@ import {requestInfo} from "./assignment-request-info"
 import {errorInfo} from "./assignment-error-info"
 import {remote} from "electron"
 
-export const fetchAssignmentInfo = (assignmentInfoURL) => {
-  return dispatch => {
+import {url} from "../selectors"
+
+export const fetchAssignmentInfo = () => {
+  return (dispatch, getState) => {
+    try {
+      var urlObj = new URL(url(getState()))
+      var infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
+    } catch (e) {
+      dispatch(errorInfo("URL is invalid ¯\\_(ツ)_/¯"))
+      return
+    }
+
     dispatch(requestInfo())
-    return fetch(assignmentInfoURL, {
+    return fetch(infoURL, {
       credentials: "include"
     }).then(response => response.json())
       .then((data) => {
         dispatch(receiveInfo(data.name, data.type))
         remote.getGlobal("sharedObj").accessToken = data.accessToken
       })
-      .catch(() => {
-        dispatch(errorInfo())
+      .catch((e) => {
+        dispatch(errorInfo(e.toString()))
       })
   }
 }
