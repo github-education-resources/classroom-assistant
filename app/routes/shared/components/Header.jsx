@@ -14,15 +14,13 @@ const Header = ({
   children
 }) => {
   return (
-    <div style={mediaContainerStyles}>
-      <div className="media">
-        <a className="media-left" href="#">
-          <img src={imagePath} className="media-object" alt={title} />
-        </a>
+    <div className="navbar" style={mediaContainerStyles}>
+      <div className="media w-100">
+        <img className="mr-3" src={imagePath} alt={title} />
         <div className="media-body">
           <div className="row">
             <div className="col-sm-6">
-              <h4 className="media-heading">{title}</h4>
+              <h4 className="my-0">{title}</h4>
               {subtitle}
             </div>
             <div className="col-sm-6">

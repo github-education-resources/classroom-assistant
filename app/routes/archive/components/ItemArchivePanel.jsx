@@ -38,7 +38,7 @@ const ItemArchivePanel = ({
         }}
       >
         <div
-          className="progress-bar progress-bar-info"
+          className="progress-bar progress-bar-info mt-0"
           role="progressbar" aria-valuenow={cloneProgress}
           aria-valuemin="0"
           aria-valuemax="100"
@@ -52,7 +52,7 @@ const ItemArchivePanel = ({
     )
   } else {
     progressElement = (
-      <button className="btn btn-xs btn-primary" onClick={onViewClick}>
+      <button className="btn btn-sm btn-primary my-0" onClick={onViewClick}>
         <i className="fa fa-folder-open" aria-hidden="true"></i> View
       </button>
     )
@@ -65,7 +65,7 @@ const ItemArchivePanel = ({
       subtitle={displayName}
     >
       <div className="pull-right">
-        <p className="pull-right">{cloneStatus}</p>
+        <p className="pull-right my-0">{cloneStatus}</p>
         <br/>
         <div className="pull-right">
           {progressElement}

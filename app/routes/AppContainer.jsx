@@ -18,7 +18,7 @@ class AppContainer extends Component {
 
   render () {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid px-0">
         {this.props.children}
       </div>
     )

@@ -16,7 +16,6 @@ const AssignmentCard = ({
         </div>
       </div>
     </div>
-    
   )
 }
 
