@@ -67,6 +67,7 @@
     }
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "bootstrap": "~4.1.1",
     "classnames": "^2.2.6",
     "dateformat": "^3.0.3",

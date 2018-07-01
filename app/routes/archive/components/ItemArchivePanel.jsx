@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import { RingLoader } from "react-spinners"
 import ItemPanel from "../../shared/components/ItemPanel"
+import ProgressBar from "../../shared/components/ProgressBar"
 
 const ItemArchivePanel = ({
   id,
@@ -26,28 +27,17 @@ const ItemArchivePanel = ({
         <RingLoader
           color={"#000"}
           loading={true}
+          size={30}
         />
       </div>
     )
   } else if (cloneProgress > 0 && cloneProgress < 100) {
     progressElement = (
-      <div
-        className="progress"
-        style={{
-          width: "160px"
-        }}
+      <div style = {{
+        width: "160px"
+      }}
       >
-        <div
-          className="progress-bar progress-bar-info mt-0"
-          role="progressbar" aria-valuenow={cloneProgress}
-          aria-valuemin="0"
-          aria-valuemax="100"
-          style={{
-            width: cloneProgress + "%"
-          }}
-        >
-          {cloneProgress.toFixed(0)}%
-        </div>
+        <ProgressBar cloneProgress={cloneProgress}/>
       </div>
     )
   } else {
