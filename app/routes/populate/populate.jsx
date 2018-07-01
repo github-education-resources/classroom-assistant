@@ -22,23 +22,11 @@ const placeholderURL = "http://classroom.github.com/classrooms/your-org/assignme
 class PopulatePage extends Component {
   constructor (props) {
     super(props)
-    this.loadAssignmentInfo = this.loadAssignmentInfo.bind(this)
     this.updateInput = this.updateInput.bind(this)
-
-    var assignmentURLMessage = this.props.location.state ? this.props.location.state.assignmentURL : null
-    if (assignmentURLMessage) {
-      this.props.dispatchAssignmentURL(assignmentURLMessage)
-      this.loadAssignmentInfo()
-    }
-  }
-
-  loadAssignmentInfo () {
-    this.props.dispatchAssignmentInfo()
   }
 
   updateInput (e) {
-    this.props.dispatchAssignmentURL(e.target.value)
-    this.loadAssignmentInfo() // Might get into race condition here, need to test
+    this.props.fetchAssignment(e.target.value)
   }
 
   render () {
@@ -82,11 +70,9 @@ class PopulatePage extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchAssignmentInfo: () => {
-    dispatch(fetchAssignmentInfo())
-  },
-  dispatchAssignmentURL: (assignmentURL) => {
+  fetchAssignment: (assignmentURL) => {
     dispatch(setAssignmentURL(assignmentURL))
+    dispatch(fetchAssignmentInfo())
   }
 })
 
@@ -99,8 +85,7 @@ const mapStateToProps = (state) => ({
 })
 
 PopulatePage.propTypes = {
-  dispatchAssignmentInfo: PropTypes.func.isRequired,
-  dispatchAssignmentURL: PropTypes.func.isRequired,
+  fetchAssignment: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   assignmentURL: PropTypes.string,
   error: PropTypes.string,

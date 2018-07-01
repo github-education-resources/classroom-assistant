@@ -4,22 +4,26 @@ const { URL } = require("url")
 
 let mainWindow, authWindow, assignmentURL
 
-global.sharedObj = {accessToken: null}
+global.sharedObj = {
+  accessToken: null,
+  assignmentURL: null,
+}
 
 module.exports = {
-  loadAssignmentRepos (mainWindowRef, assignmentURLString) {
+  loadAssignmentRepos (mainWindowRef, assignmentURLRef) {
     mainWindow = mainWindowRef
-    assignmentURL = assignmentURLString
+    assignmentURL = assignmentURLRef
+
     var loginURL = parseLoginURL()
     openAuthWindow(loginURL)
     const loginFilter = { // Assumes we redirect to /classrooms route on login, might need a better solution later
       urls: ["*://*./classrooms"]
     }
-    session.defaultSession.webRequest.onResponseStarted(loginFilter, fetchRepos)
+    session.defaultSession.webRequest.onResponseStarted(loginFilter, sendRendererMessage)
   }
 }
 
-function fetchRepos (details) {
+function sendRendererMessage () {
   authWindow.close()
   mainWindow.webContents.send("open-url", assignmentURL)
 }

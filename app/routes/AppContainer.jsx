@@ -1,17 +1,18 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-
+import { connect } from "react-redux"
 import { ipcRenderer } from "electron"
+
+import {fetchAssignmentInfo} from "../modules/assignment/actions/assignment-fetch-info"
+import {setAssignmentURL} from "../modules/assignment/actions/assignment-set-url"
 
 class AppContainer extends Component {
   constructor (props) {
     super(props)
-
     ipcRenderer.on("open-url", (event, assignmentURL) => {
-      console.log(assignmentURL)
+      this.props.fetchAssignment(assignmentURL)
       this.props.router.push({
         pathname: "/populate",
-        state: { assignmentURL: assignmentURL },
       })
     })
   }
@@ -25,9 +26,17 @@ class AppContainer extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchAssignment: (assignmentURL) => {
+    dispatch(setAssignmentURL(assignmentURL))
+    dispatch(fetchAssignmentInfo())
+  }
+})
+
 AppContainer.propTypes = {
+  fetchAssignment: PropTypes.func.isRequired,
   router: PropTypes.any.isRequired,
   children: PropTypes.any
 }
 
-export default AppContainer
+export default connect(null, mapDispatchToProps)(AppContainer)
