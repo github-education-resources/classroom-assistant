@@ -5,6 +5,7 @@ import PropTypes from "prop-types"
 import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import SelectableSubmissionList from "./containers/SelectableSubmissionList"
 import NavFooter from "../shared/components/NavFooter"
+import LoadingPanel from "../shared/components/LoadingPanel"
 
 import {fetchAllPages} from "../../modules/pagination/actions/pagination-fetch-all"
 import {submissionReset} from "../../modules/submissions/actions/submission-reset"
@@ -14,7 +15,7 @@ import {outOfDate, fetchedAll} from "../../modules/pagination/selectors"
 
 class SelectPage extends Component {
   componentDidMount () {
-    if (this.props.outOfDate || !this.props.fetchedAll) {
+    if (this.props.needFetch) {
       this.props.paginationReset()
       this.props.submissionReset()
       this.props.fetchAllPages(this.props.assignmentURL)
@@ -25,7 +26,7 @@ class SelectPage extends Component {
     return (
       <div>
         <AssignmentPanel />
-        <SelectableSubmissionList />
+        {this.props.needFetch ? <LoadingPanel message="Loading Assignment Repositories"/> : <SelectableSubmissionList />}
         <NavFooter
           left={{
             label: "Cancel",
@@ -44,8 +45,7 @@ class SelectPage extends Component {
 
 const mapStateToProps = (state) => ({
   assignmentURL: url(state),
-  outOfDate: outOfDate(state),
-  fetchedAll: fetchedAll(state),
+  needFetch: outOfDate(state) || !fetchedAll(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -65,8 +65,7 @@ SelectPage.propTypes = {
   paginationReset: PropTypes.func.isRequired,
   submissionReset: PropTypes.func.isRequired,
   assignmentURL: PropTypes.string.isRequired,
-  outOfDate: PropTypes.bool.isRequired,
-  fetchedAll: PropTypes.bool.isRequired,
+  needFetch: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
 }
 

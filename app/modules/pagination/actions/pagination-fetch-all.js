@@ -9,13 +9,14 @@ export const fetchAllPages = (assignmentURL) => {
     var urlObj = new URL(assignmentURL)
     var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
     dispatch(setURL(assignmentURL))
-    chainFetchPage(dispatch, getState, repoURL)
-    dispatch(paginationSetFetchedAll())
+    chainFetchPage(dispatch, getState, repoURL).then(() => {
+      dispatch(paginationSetFetchedAll())
+    })
   }
 }
 
 const chainFetchPage = (dispatch, getState, repoURL) => {
-  dispatch(fetchPage(nextPageId(getState()), repoURL)).then(() => {
+  return dispatch(fetchPage(nextPageId(getState()), repoURL)).then(() => {
     if (isPageLeft(getState())) {
       chainFetchPage(dispatch, getState, repoURL)
     }
