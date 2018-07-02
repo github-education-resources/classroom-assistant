@@ -1,21 +1,35 @@
 import { expect } from "chai"
 
-import { all, typeLabel, name } from "../selectors"
+import { all, typeLabel, name, url, error, valid } from "../selectors"
 
 describe("assignment selectors", () => {
   let testIndividualAssignment = {
     name: "Assignment 1: Introduction to Programming",
-    type: "individual"
+    type: "individual",
+    url: "",
+    isFetching: false,
   }
 
   let testGroupAssignment = {
     name: "Assignment 1: Introduction to Programming",
-    type: "group"
+    type: "group",
+    url: "",
+    isFetching: false,
   }
 
-  let testInvalidAssignment = {
+  let testInvalidTypeAssignment = {
     name: "Assignment 1: Introduction to Programming",
     type: "somethingelse"
+  }
+
+  let testInvalidNameAssignment = {
+    type: "individual",
+  }
+
+  let testErrorAssignment = {
+    name: "Assignment 1: Introduction to Programming",
+    type: "individual",
+    error: "Test Error",
   }
 
   describe("all", () => {
@@ -41,7 +55,7 @@ describe("assignment selectors", () => {
 
     it("returns default label for invalid assignment types", () => {
       expect(typeLabel({
-        assignment: testInvalidAssignment
+        assignment: testInvalidTypeAssignment
       })).to.equal("Unknown Assignment Type")
     })
   })
@@ -51,6 +65,30 @@ describe("assignment selectors", () => {
       expect(name({
         assignment: testIndividualAssignment
       })).to.equal(testIndividualAssignment.name)
+    })
+  })
+
+  describe("url", () => {
+    it("returns the url of the assignment", () => {
+      expect(url({
+        assignment: testIndividualAssignment
+      })).to.equal(testIndividualAssignment.url)
+    })
+  })
+
+  describe("error", () => {
+    it("returns the error message of the assignment", () => {
+      expect(error({
+        assignment: testErrorAssignment
+      })).to.equal(testErrorAssignment.error)
+    })
+  })
+
+  describe("invalid assignment", () => {
+    it("returns false for invalid", () => {
+      expect(valid({
+        assignment: testInvalidNameAssignment
+      })).to.equal(false)
     })
   })
 })

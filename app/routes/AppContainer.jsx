@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { ipcRenderer } from "electron"
 
-import {fetchAssignmentInfo} from "../modules/assignment/actions/assignment-fetch-info"
+import {assignmentFetchInfo} from "../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../modules/assignment/actions/assignment-set-url"
 
 class AppContainer extends Component {
@@ -29,7 +29,7 @@ class AppContainer extends Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchAssignment: (assignmentURL) => {
     dispatch(setAssignmentURL(assignmentURL))
-    dispatch(fetchAssignmentInfo())
+    dispatch(assignmentFetchInfo())
   }
 })
 

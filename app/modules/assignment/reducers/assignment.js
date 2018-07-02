@@ -1,6 +1,12 @@
 import { ASSIGNMENT_SET_TITLE, ASSIGNMENT_SET_TYPE, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO, ASSIGNMENT_ERROR_INFO, ASSIGNMENT_SET_URL } from "../constants"
 
-const initialState = {}
+const initialState = {
+  name: "",
+  type: "",
+  url: "",
+  isFetching: false,
+  error: null,
+}
 
 const assignment = (state = initialState, action) => {
   switch (action.type) {

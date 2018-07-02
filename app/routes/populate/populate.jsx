@@ -5,7 +5,7 @@ import PropTypes from "prop-types"
 import classNames from "classnames"
 import AssignmentCard from "./components/AssignmentCard"
 
-import {fetchAssignmentInfo} from "../../modules/assignment/actions/assignment-fetch-info"
+import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
 import {url, error, valid, name, typeLabel} from "../../modules/assignment/selectors"
 
@@ -72,7 +72,7 @@ class PopulatePage extends Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchAssignment: (assignmentURL) => {
     dispatch(setAssignmentURL(assignmentURL))
-    dispatch(fetchAssignmentInfo())
+    dispatch(assignmentFetchInfo())
   }
 })
 

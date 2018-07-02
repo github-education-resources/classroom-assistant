@@ -32,11 +32,11 @@ describe("ItemPanel", () => {
   })
 
   it("renders a title with the provided title prop", () => {
-    expect(wrapper.find("h4").text()).to.equal(testOptions.title)
+    expect(wrapper.find("h5").text()).to.equal(testOptions.title)
   })
 
   it("renders subtitle text with the provided subtitle prop", () => {
-    expect(wrapper.find("h5").text()).to.equal(testOptions.subtitle)
+    expect(wrapper.find("h6").text()).to.equal(testOptions.subtitle)
   })
 
   it("render children passed as props", () => {

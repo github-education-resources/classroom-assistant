@@ -5,7 +5,7 @@ import {remote} from "electron"
 
 import {url} from "../selectors"
 
-export const fetchAssignmentInfo = () => {
+export const assignmentFetchInfo = () => {
   return (dispatch, getState) => {
     try {
       var urlObj = new URL(url(getState()))
@@ -16,12 +16,16 @@ export const fetchAssignmentInfo = () => {
     }
 
     dispatch(requestInfo())
-    return fetch(infoURL, {
+    return window.fetch(infoURL, {
       credentials: "include"
-    }).then(response => response.json())
+    }).then(response => {
+      return response.json()
+    })
       .then((data) => {
         dispatch(receiveInfo(data.name, data.type))
-        remote.getGlobal("sharedObj").accessToken = data.accessToken
+        if (remote.getGlobal("sharedObj")) {
+          remote.getGlobal("sharedObj").accessToken = data.accessToken
+        }
       })
       .catch((e) => {
         dispatch(errorInfo("Could not find assignment."))
