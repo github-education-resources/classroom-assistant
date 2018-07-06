@@ -8,9 +8,9 @@ const { URL } = require("url")
 const updater = require("./updater")
 const logger = require("./logger")
 
-const {loadAssignmentRepos} = require("./assignmentLoader")
+const {authorizeUser} = require("./assignmentLoader")
 
-let mainWindow
+let mainWindow, deepLinkURL
 
 logger.init()
 
@@ -21,6 +21,10 @@ function createWindow () {
   mainWindow = new BrowserWindow({width: 900, height: 600})
   const url = `file://${__dirname}/index.html`
   mainWindow.loadURL(url)
+
+  if (deepLinkURL) {
+    loadPopulatePage(deepLinkURL)
+  }
 
   if (isDev) {
     mainWindow.webContents.openDevTools()
@@ -38,18 +42,25 @@ function createWindow () {
   mainWindow.on("closed", function () {
     mainWindow = null
   })
+
+  ipcMain.on("requestAuthorization", (e, assignmentURL) => {
+    authorizeUser(mainWindow, assignmentURL)
+  })
 }
+
+function loadPopulatePage (assignmentURL) {
+  mainWindow.webContents.send("open-url", assignmentURL)
+}
+
 app.on("open-url", function (event, urlToOpen) {
   event.preventDefault()
-
-  if (!mainWindow) {
-    createWindow()
+  var parsedURL = new URL(urlToOpen)
+  var assignmentURL = parsedURL.searchParams.get("assignment_url")
+  if (app.isReady()) {
+    loadPopulatePage(assignmentURL)
+  } else {
+    deepLinkURL = assignmentURL
   }
-
-  var parsed = new URL(urlToOpen)
-  var assignmentURL = parsed.searchParams.get("assignment_url")
-
-  loadAssignmentRepos(mainWindow, assignmentURL)
 })
 
 app.on("ready", createWindow)
@@ -64,8 +75,4 @@ app.on("activate", function () {
   if (mainWindow === null) {
     createWindow()
   }
-})
-
-ipcMain.on("populate", (event, arg) => {
-  loadAssignmentRepos(mainWindow, arg)
 })

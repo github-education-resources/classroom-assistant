@@ -49,6 +49,7 @@ export function submissionCloneFunc (clone) {
         )
           .then(resolve)
           .catch((e) => {
+            console.log(e)
             dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
             resolve()
           })

@@ -11,16 +11,9 @@ export const isPageLeft = createSelector(
   }
 )
 
-export const nextPageId = createSelector(
+export const nextPage = createSelector(
   paginationSelector,
-  (pagination) => {
-    var pages = pagination.pages
-    if (pages.length === 0) {
-      return 1
-    } else {
-      return pages[pages.length - 1].nextPageId
-    }
-  }
+  (pagination) => pagination.nextPage
 )
 
 export const outOfDate = createSelector(
@@ -33,7 +26,7 @@ export const outOfDate = createSelector(
   }
 )
 
-export const fetchedAll = createSelector(
+export const fetching = createSelector(
   paginationSelector,
-  (pagination) => pagination.fetchedAll
+  (pagination) => pagination.fetching
 )

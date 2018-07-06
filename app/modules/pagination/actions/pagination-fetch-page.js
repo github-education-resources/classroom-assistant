@@ -1,29 +1,25 @@
-import {receivePage} from "./pagination-receive-page"
-import {requestPage} from "./pagination-request-page"
-import {receiveMetadata} from "./pagination-receive-metadata"
+import {paginationReceivePage} from "./pagination-receive-page"
+import {paginationSetNextPage} from "./pagination-set-next-page"
 import {submissionCreate} from "../../submissions/actions/submission-create"
 import LinkHeader from "http-link-header"
 
-export const fetchPage = (page, repoURL) => {
+export const fetchPage = (repoURL, page) => {
   return dispatch => {
-    dispatch(requestPage(page))
-    return fetch(`${repoURL}?page=${page}&per_page=1`, {
+    return fetch(`${repoURL}?page=${page}&per_page=2`, {
       credentials: "include"
     }).then(response => {
       if (response.headers.get("Link")) {
         var link = LinkHeader.parse(response.headers.get("Link"))
-        console.log(link)
         if (link.has("rel", "next") && link.get("rel", "next").length > 0) {
-          dispatch(receiveMetadata(page, link.get("rel", "next")[0]))
+          dispatch(paginationSetNextPage(link.get("rel", "next")[0].params.page))
+        } else {
+          dispatch(paginationSetNextPage(null))
         }
       }
       return response.json()
-    }).then((data) => {
-      dispatch(receivePage(page, data))
-      data.forEach((repo) => {
-        dispatch(submissionCreate(repo))
-      })
-      console.log(data)
+    }).then((json) => {
+      dispatch(paginationReceivePage(page, json))
+      dispatch(submissionCreate(json))
     })
   }
 }

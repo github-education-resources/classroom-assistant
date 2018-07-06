@@ -9,6 +9,7 @@ const initialState = {
   url: "",
   isFetching: false,
   error: null,
+  authorized: false,
 }
 
 const populatedState = {

@@ -1,9 +1,9 @@
 import {receiveInfo} from "./assignment-receive-info"
 import {requestInfo} from "./assignment-request-info"
 import {errorInfo} from "./assignment-error-info"
-import {remote} from "electron"
+import {remote, ipcRenderer} from "electron"
 
-import {url} from "../selectors"
+import {url, authorized} from "../selectors"
 
 export const assignmentFetchInfo = () => {
   return (dispatch, getState) => {
@@ -15,20 +15,29 @@ export const assignmentFetchInfo = () => {
       return
     }
 
-    dispatch(requestInfo())
-    return window.fetch(infoURL, {
-      credentials: "include"
-    }).then(response => {
-      return response.json()
+    if (!authorized(getState())) {
+      console.log("Sent authorize user message!")
+      ipcRenderer.send("requestAuthorization", url(getState()))
+    }
+
+    ipcRenderer.on("receivedAuthorization", () => {
+      dispatch(requestInfo())
+      return window.fetch(infoURL, {
+        credentials: "include"
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then((data) => {
+          dispatch(receiveInfo(data.name, data.type))
+          if (remote.getGlobal("sharedObj")) {
+            remote.getGlobal("sharedObj").accessToken = data.accessToken
+          }
+        })
+        .catch((e) => {
+          console.log(e)
+          dispatch(errorInfo("Could not find assignment."))
+        })
     })
-      .then((data) => {
-        dispatch(receiveInfo(data.name, data.type))
-        if (remote.getGlobal("sharedObj")) {
-          remote.getGlobal("sharedObj").accessToken = data.accessToken
-        }
-      })
-      .catch((e) => {
-        dispatch(errorInfo("Could not find assignment."))
-      })
   }
 }

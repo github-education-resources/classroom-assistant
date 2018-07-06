@@ -2,30 +2,26 @@ const electron = require("electron")
 const {BrowserWindow, session} = electron
 const { URL } = require("url")
 
-let mainWindow, authWindow, assignmentURL
+let mainWindow, authWindow
 
 global.sharedObj = {
   accessToken: null,
-  assignmentURL: null,
 }
 
 module.exports = {
-  loadAssignmentRepos (mainWindowRef, assignmentURLRef) {
+  authorizeUser (mainWindowRef, assignmentURL) {
     mainWindow = mainWindowRef
-    assignmentURL = assignmentURLRef
-
-    var loginURL = parseLoginURL()
-    openAuthWindow(loginURL)
+    openAuthWindow(parseLoginURL(assignmentURL))
     const loginFilter = { // Assumes we redirect to /classrooms route on login, might need a better solution later
       urls: ["*://*./classrooms"]
     }
-    session.defaultSession.webRequest.onResponseStarted(loginFilter, sendRendererMessage)
+    session.defaultSession.webRequest.onResponseStarted(loginFilter, closeWindow)
   }
 }
 
-function sendRendererMessage () {
+function closeWindow () {
   authWindow.close()
-  mainWindow.webContents.send("open-url", assignmentURL)
+  mainWindow.webContents.send("receivedAuthorization")
 }
 
 function openAuthWindow (loginURL) {
@@ -46,7 +42,8 @@ function openAuthWindow (loginURL) {
   })
 }
 
-function parseLoginURL () {
+function parseLoginURL (assignmentURL) {
   var urlObj = new URL(assignmentURL)
+  console.log(`${urlObj.origin}/login`)
   return `${urlObj.origin}/login`
 }

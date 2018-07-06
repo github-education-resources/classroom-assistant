@@ -60,7 +60,6 @@ class PopulatePage extends Component {
           right={{
             label: "Next: Choose Repositories",
             route: "/select",
-            onClick: this.loadAssignmentInfo,
             disabled: this.props.error
           }}
         />

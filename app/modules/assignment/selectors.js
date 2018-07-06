@@ -34,3 +34,8 @@ export const valid = createSelector(
   all,
   (assignment) => Boolean(!assignment.error && assignment.name && assignment.type)
 )
+
+export const authorized = createSelector(
+  all,
+  (assignment) => assignment.authorized
+)

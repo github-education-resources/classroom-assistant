@@ -1,24 +1,25 @@
 import {fetchPage} from "./pagination-fetch-page"
-import {paginationSetFetchedAll} from "./pagination-set-fetched-all"
-import {setURL} from "./pagination-set-url"
-import {isPageLeft, nextPageId} from "../selectors"
+import {paginationSetFetching} from "./pagination-set-fetching"
+import {paginationSetAssignmentURL} from "./pagination-set-assignment-url"
+import {nextPage} from "../selectors"
 
 // PUBLIC: Async thunk action for fetching all pages of repos
 export const fetchAllPages = (assignmentURL) => {
   return (dispatch, getState) => {
     var urlObj = new URL(assignmentURL)
     var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
-    dispatch(setURL(assignmentURL))
+    dispatch(paginationSetAssignmentURL(assignmentURL))
+    dispatch(paginationSetFetching(true))
     chainFetchPage(dispatch, getState, repoURL).then(() => {
-      dispatch(paginationSetFetchedAll())
+      dispatch(paginationSetFetching(false))
     })
   }
 }
 
 const chainFetchPage = (dispatch, getState, repoURL) => {
-  return dispatch(fetchPage(nextPageId(getState()), repoURL)).then(() => {
-    if (isPageLeft(getState())) {
-      chainFetchPage(dispatch, getState, repoURL)
+  return dispatch(fetchPage(repoURL, nextPage(getState()))).then(() => {
+    if (nextPage(getState())) {
+      return chainFetchPage(dispatch, getState, repoURL)
     }
   })
 }
