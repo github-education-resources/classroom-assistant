@@ -71,5 +71,6 @@ describe("assignmentFetchInfo", () => {
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_REQUEST_INFO })).is.true
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_RECEIVE_INFO, payload: response })).is.true
     /* eslint-enable no-unused-expressions */
+    window.fetch.restore()
   })
 })

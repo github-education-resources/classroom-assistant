@@ -1,41 +1,80 @@
-// import { expect } from "chai"
-// import * as sinon from "sinon"
+import { expect } from "chai"
+import * as sinon from "sinon"
 
-// import { fetchPage } from "../pagination-fetch-page"
-// import {PAGINATION_RECEIVE, PAGINATION_RECEIVE_METADATA, PAGINATION_REQUEST} from "../../constants"
-// import {SUBMISSION_CREATE} from "../../../submissions/constants"
+import { fetchPage } from "../pagination-fetch-page"
+import { PAGINATION_SET_NEXT_PAGE, PAGINATION_RECEIVE_PAGE } from "../../constants"
+import { SUBMISSION_CREATE } from "../../../submissions/constants"
+import LinkHeader from "http-link-header"
 
-// const jsonOK = (body) => {
-//   const mockResponse = new window.Response(JSON.stringify(body), {
-//     status: 200,
-//     headers: {
-//       "Content-type": "application/json"
-//     }
-//   })
-//   return Promise.resolve(mockResponse)
-// }
+const jsonOK = (body, headers) => {
+  const mockResponse = new window.Response(JSON.stringify(body), {
+    status: 200,
+    headers: headers
+  })
+  return Promise.resolve(mockResponse)
+}
 
-// describe("paginationFetchPage", () => {
-//   let assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+const sampleSubmission = (id) => {
+  return {
+    id: id,
+    username: `test${id}`,
+    avatarUrl: `test-avatar${id}`
+  }
+}
 
-//   it("dispatches request page", async () => {
-//     const dispatch = sinon.spy()
-//     await fetchPage(1, assignmentURL)(dispatch)
+describe("paginationFetchPage", () => {
+  let sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
-//     // eslint-disable-next-line no-unused-expressions
-//     expect(dispatch.calledWithMatch({ type: PAGINATION_REQUEST, id: 1 })).is.true
-//   })
+  let dispatch, getState
 
-//   it("dispatches request info and receive info action after fetch", async () => {
-//     const response = {name: "Test Assignment", type: "individual"}
-//     const getState = () => ({ assignment: validAssignment })
-//     const dispatch = sinon.spy()
-//     sinon.stub(window, "fetch")
-//     window.fetch.returns(jsonOK(response))
-//     await assignmentFetchInfo()(dispatch, getState)
-//     /* eslint-disable no-unused-expressions */
-//     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_REQUEST_INFO })).is.true
-//     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_RECEIVE_INFO, payload: response })).is.true
-//     /* eslint-enable no-unused-expressions */
-//   })
-// })
+  let defaultHeaders = {
+    "Content-Type": "application/json",
+  }
+
+  let middlePageResponseHeaders = {
+    "Link": LinkHeader.parse("").set({
+      rel: "next",
+      uri: "sample-next.com?page=2"
+    })
+  }
+
+  let sampleSubmissionIds = [1, 2]
+  let populatePageResponse = sampleSubmissionIds.map((id) => sampleSubmission(id))
+
+  beforeEach(() => {
+    dispatch = sinon.spy()
+    sinon.stub(window, "fetch")
+  })
+
+  afterEach(() => {
+    window.fetch.restore()
+  })
+
+  it("dispatches set next page to null if there is no link header", async () => {
+    window.fetch.returns(jsonOK({}, {}))
+    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    // eslint-disable-next-line no-unused-expressions
+    expect(dispatch.calledWithMatch({type: PAGINATION_SET_NEXT_PAGE, nextPage: null})).is.true
+  })
+
+  it("dispatches set next page to Link header value", async () => {
+    window.fetch.returns(jsonOK({}, middlePageResponseHeaders))
+    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    // eslint-disable-next-line no-unused-expressions
+    expect(dispatch.calledWithMatch({type: PAGINATION_SET_NEXT_PAGE, nextPage: "2"})).is.true
+  })
+
+  it("dispatches receive page when response is received", async () => {
+    window.fetch.returns(jsonOK(populatePageResponse, defaultHeaders))
+    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    // eslint-disable-next-line no-unused-expressions
+    expect(dispatch.calledWithMatch({type: PAGINATION_RECEIVE_PAGE, repoIds: sampleSubmissionIds})).is.true
+  })
+
+  it("dispatches create submission when response is received", async () => {
+    window.fetch.returns(jsonOK(populatePageResponse, defaultHeaders))
+    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    // eslint-disable-next-line no-unused-expressions
+    expect(dispatch.calledWithMatch({type: SUBMISSION_CREATE, submissions: populatePageResponse})).is.true
+  })
+})

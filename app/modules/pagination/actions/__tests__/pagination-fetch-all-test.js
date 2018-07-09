@@ -1,28 +1,45 @@
-// import { expect } from "chai"
-// import * as sinon from "sinon"
+import { expect } from "chai"
+import * as sinon from "sinon"
 
-// import { paginationFetchAll } from "../pagination-fetch-all"
+import { fetchAllPages } from "../pagination-fetch-all"
+import { PAGINATION_SET_ASSIGNMENT_URL, PAGINATION_SET_FETCHING } from "../../constants"
 
-// const jsonOK = (body) => {
-//   const mockResponse = new window.Response(JSON.stringify(body), {
-//     status: 200,
-//     headers: {
-//       "Content-type": "application/json"
-//     }
-//   })
-//   return Promise.resolve(mockResponse)
-// }
+describe("paginationFetchAll", () => {
+  let sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
-// describe("paginationFetchAll", () => {
-//   it("dispatches fetchPage for every page", () => {
-//     sinon.stub(window, "fetch")
-//     window.fetch.returns(jsonOK(response))
+  let dispatch, getState
 
-//     const getState = () => ({ submissions: [ mockSubmission ] })
-//     const dispatch = sinon.spy()
-//     await submissionCloneAll()(dispatch, getState)
+  beforeEach(() => {
+    dispatch = sinon.stub()
+    dispatch.resolves("")
+    getState = sinon.stub()
+    getState.onFirstCall().returns({
+      pagination: {
+        nextPage: 2
+      }
+    })
+    getState.returns({
+      pagination: {
+        nextPage: null
+      }
+    })
+  })
 
-//     // eslint-disable-next-line no-unused-expressions
-//     expect(cloneMock.calledWithMatch("http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn")).is.true
-//   })
-// })
+  it("dispatches set assignment URL", async () => {
+    await fetchAllPages(sampleAssignmentURL)(dispatch, getState)
+    // eslint-disable-next-line no-unused-expressions
+    expect(dispatch.calledWithMatch({type: PAGINATION_SET_ASSIGNMENT_URL, url: sampleAssignmentURL})).is.true
+  })
+
+  it("dispatches set fetching to true when starting fetch", async () => {
+    await fetchAllPages(sampleAssignmentURL)(dispatch, getState)
+    // eslint-disable-next-line no-unused-expressions
+    expect(dispatch.calledWithMatch({type: PAGINATION_SET_FETCHING, payload: true})).is.true
+  })
+
+  it("dispatches set fetching to false when ending fetch", async () => {
+    await fetchAllPages(sampleAssignmentURL)(dispatch, getState)
+    // eslint-disable-next-line no-unused-expressions
+    expect(dispatch.calledWithMatch({type: PAGINATION_SET_FETCHING, payload: false})).is.true
+  })
+})

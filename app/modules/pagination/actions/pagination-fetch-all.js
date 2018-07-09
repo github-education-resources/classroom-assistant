@@ -10,7 +10,7 @@ export const fetchAllPages = (assignmentURL) => {
     var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
     dispatch(paginationSetAssignmentURL(assignmentURL))
     dispatch(paginationSetFetching(true))
-    chainFetchPage(dispatch, getState, repoURL).then(() => {
+    return chainFetchPage(dispatch, getState, repoURL).then(() => {
       dispatch(paginationSetFetching(false))
     })
   }

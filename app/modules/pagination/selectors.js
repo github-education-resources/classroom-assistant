@@ -5,7 +5,9 @@ export const assignmentSelector = (state) => state.assignment
 
 export const nextPage = createSelector(
   paginationSelector,
-  (pagination) => pagination.nextPage
+  (pagination) => {
+    return pagination.nextPage
+  }
 )
 
 export const outOfDate = createSelector(

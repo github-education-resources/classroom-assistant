@@ -5,7 +5,7 @@ import LinkHeader from "http-link-header"
 
 export const fetchPage = (repoURL, page) => {
   return dispatch => {
-    return fetch(`${repoURL}?page=${page}&per_page=2`, {
+    return fetch(`${repoURL}?page=${page}`, {
       credentials: "include"
     }).then(response => {
       dispatch(paginationSetNextPage(null)) // Set next page to null, unless we get header
@@ -19,6 +19,8 @@ export const fetchPage = (repoURL, page) => {
     }).then((json) => {
       dispatch(paginationReceivePage(json))
       dispatch(submissionCreate(json))
+    }).catch((e) => {
+      console.log(e)
     })
   }
 }
