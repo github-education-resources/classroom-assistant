@@ -25,6 +25,7 @@ const ConfirmPage = () => (
   </div>
 )
 
+// Need to implement full user log support
 const logout = () => {
   session.defaultSession.clearStorageData()
 }

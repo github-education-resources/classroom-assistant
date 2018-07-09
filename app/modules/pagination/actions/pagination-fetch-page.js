@@ -8,9 +8,9 @@ export const fetchPage = (repoURL, page) => {
     return fetch(`${repoURL}?page=${page}&per_page=2`, {
       credentials: "include"
     }).then(response => {
+      dispatch(paginationSetNextPage(null)) // Set next page to null, unless we get header
       if (response.headers.get("Link")) {
         var link = LinkHeader.parse(response.headers.get("Link"))
-        dispatch(paginationSetNextPage(null))
         if (link.has("rel", "next") && link.get("rel", "next").length > 0) {
           dispatch(paginationSetNextPage(link.get("rel", "next")[0].params.page))
         }
