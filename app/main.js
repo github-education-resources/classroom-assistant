@@ -1,22 +1,27 @@
 /* eslint-env node */
 
 const electron = require("electron")
-const {app, BrowserWindow, ipcMain} = electron
+const {app, BrowserWindow, ipcMain, Menu, shell} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require("url")
+const defaultMenu = require("electron-default-menu")
 
 const updater = require("./updater")
 const logger = require("./logger")
 
 const {authorizeUser} = require("./assignmentLoader")
 
-let mainWindow, deepLinkURL
+let mainWindow
+let deepLinkURL = null
 
 logger.init()
 
 function createWindow () {
   logger.info("creating app window")
   app.setAsDefaultProtocolClient("github-classroom")
+
+  const menu = defaultMenu(app, shell)
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 
   mainWindow = new BrowserWindow({width: 900, height: 600})
   const url = `file://${__dirname}/index.html`

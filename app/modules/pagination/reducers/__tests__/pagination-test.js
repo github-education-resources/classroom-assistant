@@ -2,47 +2,23 @@ import { expect } from "chai"
 
 import pagination from "../pagination"
 import {
-  PAGINATION_RESET, PAGINATION_REQUEST, PAGINATION_RECEIVE, PAGINATION_RECEIVE_METADATA,
+  PAGINATION_RESET, PAGINATION_SET_NEXT_PAGE, PAGINATION_RECEIVE_PAGE,
 } from "../../constants"
 
 let assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
-let nextPageId = "http://classroom.github.com/api/internal/classrooms/test-org/assignments/test-assignment/repos?page=2"
 
 const initialPaginationState = {
-  pages: [],
-  fetchedAll: false,
-  url: "",
-}
-
-const initialFetchingPageState = {
-  id: 1,
-  repoIds: [],
-  isFetching: true,
-}
-
-const initialFetchingPaginationState = {
-  pages: [initialFetchingPageState],
-  fetchedAll: false,
-  url: assignmentURL,
-}
-
-const repoIdPageState = {
-  id: 1,
-  repoIds: [1, 2, 3],
-  isFetching: false,
-}
-
-const nextPageIdState = {
-  id: 1,
-  repoIds: [],
-  nextPageId: nextPageId,
-  isFetching: true,
+  assignmentURL: "",
+  fetching: false,
+  nextPage: 1,
+  submissionIds: [],
 }
 
 const populatedPaginationState = {
-  pages: [repoIdPageState],
-  fetchedAll: true,
-  url: assignmentURL
+  assignmentURL: assignmentURL,
+  fetching: false,
+  nextPage: null,
+  submissionIds: [1, 2],
 }
 
 describe("pagination", () => {
@@ -55,35 +31,23 @@ describe("pagination", () => {
     })
   })
 
-  describe("PAGINATION_REQUEST", () => {
-    it("adds initialized page to pages", () => {
+  describe("PAGINATION_RECEIVE_PAGE", () => {
+    it("adds repo ids to submissionIds", () => {
       const action = {
-        type: PAGINATION_REQUEST,
-        id: 1
-      }
-      expect(pagination(initialPaginationState, action).pages[0]).eql(initialFetchingPageState)
-    })
-  })
-
-  describe("PAGINATION_RECEIVE", () => {
-    it("adds repoIds and sets isFetching to false for the right page", () => {
-      const action = {
-        type: PAGINATION_RECEIVE,
-        id: 1,
+        type: PAGINATION_RECEIVE_PAGE,
         repoIds: [1, 2, 3]
       }
-      expect(pagination(initialFetchingPaginationState, action).pages[0]).eql(repoIdPageState)
+      expect(pagination(initialPaginationState, action).submissionIds).eql([1, 2, 3])
     })
   })
 
-  describe("PAGINATION_RECEIVE_METADATA", () => {
-    it("sets nextPageId for right page", () => {
+  describe("PAGINATION_SET_NEXT_PAGE", () => {
+    it("sets nextPage to correct value", () => {
       const action = {
-        type: PAGINATION_RECEIVE_METADATA,
-        id: 1,
-        nextPageId: nextPageId
+        type: PAGINATION_SET_NEXT_PAGE,
+        nextPage: 2
       }
-      expect(pagination(initialFetchingPaginationState, action).pages[0]).eql(nextPageIdState)
+      expect(pagination(initialPaginationState, action).nextPage).eql(2)
     })
   })
 })

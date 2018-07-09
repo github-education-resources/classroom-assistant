@@ -18,6 +18,7 @@ const populatedState = {
   url: "",
   isFetching: false,
   error: null,
+  authorized: false,
 }
 
 describe("assignments reducer", () => {

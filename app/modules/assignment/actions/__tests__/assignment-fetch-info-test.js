@@ -21,6 +21,7 @@ describe("assignmentFetchInfo", () => {
     url: "invalidURL",
     isFetching: false,
     error: null,
+    authorized: true,
   }
 
   let validAssignment = {
@@ -29,6 +30,7 @@ describe("assignmentFetchInfo", () => {
     url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
     isFetching: false,
     error: null,
+    authorized: true,
   }
 
   it("dispatches error action on invalid URL", async () => {
@@ -37,7 +39,7 @@ describe("assignmentFetchInfo", () => {
     await assignmentFetchInfo()(dispatch, getState)
 
     // eslint-disable-next-line no-unused-expressions
-    expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid ¯\\_(ツ)_/¯" })).is.true
+    expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid!" })).is.true
   })
 
   it("dispatches request info action", async () => {

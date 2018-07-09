@@ -10,15 +10,14 @@ export const fetchPage = (repoURL, page) => {
     }).then(response => {
       if (response.headers.get("Link")) {
         var link = LinkHeader.parse(response.headers.get("Link"))
+        dispatch(paginationSetNextPage(null))
         if (link.has("rel", "next") && link.get("rel", "next").length > 0) {
           dispatch(paginationSetNextPage(link.get("rel", "next")[0].params.page))
-        } else {
-          dispatch(paginationSetNextPage(null))
         }
       }
       return response.json()
     }).then((json) => {
-      dispatch(paginationReceivePage(page, json))
+      dispatch(paginationReceivePage(json))
       dispatch(submissionCreate(json))
     })
   }

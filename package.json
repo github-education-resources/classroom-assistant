@@ -72,6 +72,7 @@
     "classnames": "^2.2.6",
     "dateformat": "^3.0.3",
     "electron-compile": "^6.4.2",
+    "electron-default-menu": "^1.0.1",
     "electron-devtools-installer": "^2.1.0",
     "electron-is-dev": "~0.3.0",
     "electron-squirrel-startup": "^1.0.0",

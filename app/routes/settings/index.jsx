@@ -9,10 +9,11 @@ const {session} = require("electron").remote
 const ConfirmPage = () => (
   <div>
     <EditItemPanel
-      iconPath="https://avatars.githubusercontent.com/u/16492679?v=3&size=96"
+      imagePath="https://avatars.githubusercontent.com/u/16492679?v=3&size=96"
       title="Account"
       subtitle="You are signed in as StudentEvelyn"
       onEditClick={logout}
+      iconName="fa-sign-out"
     />
     <EditDestinationPanel />
     <NavFooter
