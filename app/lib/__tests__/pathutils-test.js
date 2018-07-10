@@ -15,7 +15,7 @@ describe("Path Utilities", () => {
         TEST_STUDENT_USERNAME
       )
 
-      const regex = /\/some\/base\/path\/SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}\/SomeStudentUsername/g
+      const regex = /\/some\/base\/path\/SomeAssignment-\d{2}-\d{2}-\d{4}\/SomeStudentUsername/g
 
       expect(regex.test(folderPath)).equals(true)
     })
