@@ -9,9 +9,9 @@ import {
 } from "../constants"
 
 const initialState = {
-  name: "",
-  type: "",
-  url: "",
+  name: null,
+  type: null,
+  url: null,
   isFetching: false,
   error: null,
 }

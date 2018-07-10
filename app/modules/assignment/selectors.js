@@ -30,6 +30,11 @@ export const error = createSelector(
   (assignment) => assignment.error
 )
 
+export const fetching = createSelector(
+  all,
+  (assignment) => assignment.isFetching
+)
+
 export const valid = createSelector(
   all,
   (assignment) => Boolean(!assignment.error && assignment.name && assignment.type)

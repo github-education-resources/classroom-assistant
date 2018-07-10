@@ -8,7 +8,8 @@ import AssignmentCard from "./components/AssignmentCard"
 import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
 import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
-import {url, error, valid, name, typeLabel} from "../../modules/assignment/selectors"
+import {url, error, valid, name, typeLabel, fetching} from "../../modules/assignment/selectors"
+import LoadingPanel from "../shared/components/LoadingPanel"
 
 const containerStyles = {
   paddingTop: "100px"
@@ -43,8 +44,11 @@ class PopulatePage extends Component {
               placeholder={placeholderURL}
               className={inputClasses}
             />
-            {this.props.error && <p className="text-danger">{this.props.error}</p>}
+            {this.props.error && !this.props.fetching && <p className="text-danger">{this.props.error}</p>}
             <br/><br/><br/>
+            {this.props.fetching &&
+              <LoadingPanel message = "Loading Assignment Information"/>
+            }
             {this.props.valid &&
               <AssignmentCard name={this.props.name}
                 type={this.props.typeLabel}
@@ -61,7 +65,7 @@ class PopulatePage extends Component {
           right={{
             label: "Next: Choose Repositories",
             route: "/select",
-            disabled: this.props.error
+            disabled: !this.props.valid || this.props.fetching
           }}
         />
       </div>
@@ -85,6 +89,7 @@ const mapStateToProps = (state) => ({
   name: name(state),
   typeLabel: typeLabel(state),
   valid: valid(state),
+  fetching: fetching(state),
 })
 
 PopulatePage.propTypes = {
@@ -95,6 +100,7 @@ PopulatePage.propTypes = {
   valid: PropTypes.bool,
   name: PropTypes.string,
   typeLabel: PropTypes.string,
+  fetching: PropTypes.bool,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopulatePage)

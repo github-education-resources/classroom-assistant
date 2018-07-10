@@ -32,9 +32,7 @@ const loadAssignment = (dispatch, getState, infoURL) => {
   return window.fetch(infoURL, {
     credentials: "include"
   })
-    .then(response => {
-      return response.json()
-    })
+    .then(response => response.json())
     .then((data) => {
       dispatch(receiveInfo(data.name, data.type))
       if (remote.getGlobal("sharedObj")) {
