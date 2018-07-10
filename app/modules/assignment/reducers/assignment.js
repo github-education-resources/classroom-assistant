@@ -1,4 +1,12 @@
-import { ASSIGNMENT_SET_TITLE, ASSIGNMENT_SET_TYPE, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO, ASSIGNMENT_ERROR_INFO, ASSIGNMENT_SET_URL } from "../constants"
+import {
+  ASSIGNMENT_SET_TITLE,
+  ASSIGNMENT_SET_TYPE,
+  ASSIGNMENT_REQUEST_INFO,
+  ASSIGNMENT_RECEIVE_INFO,
+  ASSIGNMENT_ERROR_INFO,
+  ASSIGNMENT_SET_URL,
+  ASSIGNMENT_RESET,
+} from "../constants"
 
 const initialState = {
   name: "",
@@ -22,6 +30,8 @@ const assignment = (state = initialState, action) => {
     return Object.assign({}, state, {name: action.payload})
   case ASSIGNMENT_SET_TYPE:
     return Object.assign({}, state, {type: action.payload})
+  case ASSIGNMENT_RESET:
+    return initialState
   default:
     return state
   }

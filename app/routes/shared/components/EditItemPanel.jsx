@@ -5,7 +5,8 @@ import ItemPanel from "../../shared/components/ItemPanel"
 
 const editIconStyles = {
   paddingTop: "5px",
-  paddingRight: "5px"
+  paddingRight: "5px",
+  fontSize: 20
 }
 
 const EditItemPanel = ({
@@ -30,11 +31,11 @@ const EditItemPanel = ({
 )
 
 EditItemPanel.propTypes = {
-  imagePath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   onEditClick: PropTypes.func,
   iconName: PropTypes.string,
+  imagePath: PropTypes.string,
 }
 
 EditItemPanel.defaultProps = {

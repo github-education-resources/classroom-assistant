@@ -33,8 +33,12 @@ describe("assignmentFetchInfo", () => {
     authorized: true,
   }
 
+  let validSettings = {
+    username: "testUser",
+  }
+
   it("dispatches error action on invalid URL", async () => {
-    const getState = () => ({ assignment: invalidURLAssignment })
+    const getState = () => ({ assignment: invalidURLAssignment, settings: validSettings })
     const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
 
@@ -43,7 +47,7 @@ describe("assignmentFetchInfo", () => {
   })
 
   it("dispatches request info action", async () => {
-    const getState = () => ({ assignment: validAssignment })
+    const getState = () => ({ assignment: validAssignment, settings: validSettings })
     const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
 
@@ -52,7 +56,7 @@ describe("assignmentFetchInfo", () => {
   })
 
   it("dispatches error action on cannot find assignment", async () => {
-    const getState = () => ({ assignment: validAssignment })
+    const getState = () => ({ assignment: validAssignment, settings: validSettings })
     const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
 
@@ -62,7 +66,7 @@ describe("assignmentFetchInfo", () => {
 
   it("dispatches request info and receive info action after fetch", async () => {
     const response = {name: "Test Assignment", type: "individual"}
-    const getState = () => ({ assignment: validAssignment })
+    const getState = () => ({ assignment: validAssignment, settings: validSettings })
     const dispatch = sinon.spy()
     sinon.stub(window, "fetch")
     window.fetch.returns(jsonOK(response))

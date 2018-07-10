@@ -20,8 +20,7 @@ module.exports = {
 }
 
 function closeWindow () {
-  authWindow.close()
-  authWindow = null
+  authWindow.destroy()
   mainWindow.webContents.send("receivedAuthorization")
 }
 

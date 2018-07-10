@@ -9,7 +9,7 @@ const defaultMenu = require("electron-default-menu")
 const updater = require("./updater")
 const logger = require("./logger")
 
-const {authorizeUser} = require("./assignmentLoader")
+const {authorizeUser} = require("./userAuthentication")
 
 let mainWindow
 let deepLinkURLOnReady = null
@@ -18,7 +18,7 @@ logger.init()
 
 function createWindow () {
   logger.info("creating app window")
-  app.setAsDefaultProtocolClient("github-classroom")
+  app.setAsDefaultProtocolClient("x-github-classroom")
 
   const menu = defaultMenu(app, shell)
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu))

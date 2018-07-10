@@ -18,7 +18,7 @@ const ItemPanel = ({
         width="48px"
         height="48px"
         src={imagePath}
-        className="mr-3 rounded-circle"
+        className={`mr-3 rounded-circle ${imagePath ? "d-block" : "d-none"}`}
         alt={title}
       />
       <div className="media-body">
@@ -37,9 +37,9 @@ const ItemPanel = ({
 )
 
 ItemPanel.propTypes = {
-  imagePath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  imagePath: PropTypes.string,
   children: PropTypes.any
 }
 

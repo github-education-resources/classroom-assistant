@@ -7,6 +7,7 @@ import AssignmentCard from "./components/AssignmentCard"
 
 import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
+import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
 import {url, error, valid, name, typeLabel} from "../../modules/assignment/selectors"
 
 const containerStyles = {
@@ -72,7 +73,10 @@ const mapDispatchToProps = (dispatch) => ({
   fetchAssignment: (assignmentURL) => {
     dispatch(setAssignmentURL(assignmentURL))
     dispatch(assignmentFetchInfo())
-  }
+  },
+  loginUser: () => {
+    dispatch(settingsLoginUser())
+  },
 })
 
 const mapStateToProps = (state) => ({

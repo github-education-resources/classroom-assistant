@@ -1,33 +1,36 @@
-
 import React from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
 import NavFooter from "../shared/components/NavFooter"
-import EditItemPanel from "../shared/components/EditItemPanel"
 import EditDestinationPanel from "../shared/containers/EditDestinationPanel"
-const {session} = require("electron").remote
+import LogoutPanel from "./components/LogoutPanel"
+import LoginPanel from "./components/LoginPanel"
+import {username} from "../../modules/settings/selectors"
 
-const ConfirmPage = () => (
-  <div>
-    <EditItemPanel
-      imagePath="https://avatars.githubusercontent.com/u/16492679?v=3&size=96"
-      title="Account"
-      subtitle="You are signed in as StudentEvelyn"
-      onEditClick={logout}
-      iconName="fa-sign-out"
-    />
-    <EditDestinationPanel />
-    <NavFooter
-      left={{
-        label: "Back",
-        route: "/"
-      }}
-    />
-  </div>
-)
-
-// Need to implement full user log support
-const logout = () => {
-  session.defaultSession.clearStorageData()
+const ConfirmPage = ({
+  username
+}) => {
+  return (
+    <div>
+      {username ? <LogoutPanel username = {username}/> : <LoginPanel/>}
+      <EditDestinationPanel />
+      <NavFooter
+        left={{
+          label: "Back",
+          route: "/"
+        }}
+      />
+    </div>
+  )
 }
 
-export default ConfirmPage
+const mapStateToProps = (state) => ({
+  username: username(state)
+})
+
+ConfirmPage.propTypes = {
+  username: PropTypes.string.isRequired,
+}
+
+export default connect(mapStateToProps, null)(ConfirmPage)

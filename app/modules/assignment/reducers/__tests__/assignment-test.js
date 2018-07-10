@@ -9,7 +9,6 @@ const initialState = {
   url: "",
   isFetching: false,
   error: null,
-  authorized: false,
 }
 
 const populatedState = {
@@ -18,7 +17,6 @@ const populatedState = {
   url: "",
   isFetching: false,
   error: null,
-  authorized: false,
 }
 
 describe("assignments reducer", () => {

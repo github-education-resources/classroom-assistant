@@ -4,7 +4,8 @@ import {errorInfo} from "./assignment-error-info"
 import {settingsLoginUser} from "../../settings/actions/settings-login-user"
 
 import {remote} from "electron"
-import {url, authorized} from "../selectors"
+import {url} from "../selectors"
+import {userAuthorized} from "../../settings/selectors"
 
 export const assignmentFetchInfo = () => {
   return (dispatch, getState) => {
@@ -16,7 +17,7 @@ export const assignmentFetchInfo = () => {
       return
     }
 
-    if (!authorized(getState())) {
+    if (!userAuthorized(getState())) {
       dispatch(settingsLoginUser(url(getState()))).then(() => {
         return loadAssignment(dispatch, getState, infoURL)
       })

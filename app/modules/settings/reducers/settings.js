@@ -1,16 +1,16 @@
-import { SETTINGS_CHANGE_CLONE_DESTINATION, SETTINGS_AUTHORIZE_USER } from "../constants"
+import { SETTINGS_CHANGE_CLONE_DESTINATION, SETTINGS_SET_USERNAME } from "../constants"
 
 const initialState = {
   cloneDestination: "/tmp",
-  userAuthorized: false,
+  username: null,
 }
 
 const settings = (state = initialState, action) => {
   switch (action.type) {
   case SETTINGS_CHANGE_CLONE_DESTINATION:
     return Object.assign({}, state, {cloneDestination: action.destination})
-  case SETTINGS_AUTHORIZE_USER:
-    return Object.assign({}, state, {userAuthorized: action.payload})
+  case SETTINGS_SET_USERNAME:
+    return Object.assign({}, state, {username: action.payload})
   default:
     return state
   }

@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router"
 
+import NavFooter from "../shared/components/NavFooter"
+
 const containerStyles = {
   paddingTop: "100px"
 }
@@ -25,6 +27,12 @@ const IndexPage = () => (
         </div>
       </div>
     </div>
+    <NavFooter
+      left={{
+        label: "Settings",
+        route: "/settings"
+      }}
+    />
   </div>
 )
 
