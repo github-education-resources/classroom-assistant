@@ -21,6 +21,7 @@ module.exports = {
 
 function closeWindow () {
   authWindow.close()
+  authWindow = null
   mainWindow.webContents.send("receivedAuthorization")
 }
 

@@ -12,7 +12,7 @@ const logger = require("./logger")
 const {authorizeUser} = require("./assignmentLoader")
 
 let mainWindow
-let deepLinkURL = null
+let deepLinkURLOnReady = null
 
 logger.init()
 
@@ -26,10 +26,6 @@ function createWindow () {
   mainWindow = new BrowserWindow({width: 900, height: 600})
   const url = `file://${__dirname}/index.html`
   mainWindow.loadURL(url)
-
-  if (deepLinkURL) {
-    loadPopulatePage(deepLinkURL)
-  }
 
   if (isDev) {
     mainWindow.webContents.openDevTools()
@@ -48,6 +44,12 @@ function createWindow () {
     mainWindow = null
   })
 
+  ipcMain.on("initialized", () => {
+    if (deepLinkURLOnReady != null) {
+      loadPopulatePage(deepLinkURLOnReady)
+    }
+  })
+
   ipcMain.on("requestAuthorization", (e, assignmentURL) => {
     authorizeUser(mainWindow, assignmentURL)
   })
@@ -64,7 +66,7 @@ app.on("open-url", function (event, urlToOpen) {
   if (app.isReady()) {
     loadPopulatePage(assignmentURL)
   } else {
-    deepLinkURL = assignmentURL
+    deepLinkURLOnReady = assignmentURL
   }
 })
 

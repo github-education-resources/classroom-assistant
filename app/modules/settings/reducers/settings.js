@@ -1,7 +1,7 @@
 import { SETTINGS_CHANGE_CLONE_DESTINATION } from "../constants"
 
 const initialState = {
-  cloneDestination: "/tmp"
+  cloneDestination: "/tmp",
 }
 
 const settings = (state = initialState, action) => {

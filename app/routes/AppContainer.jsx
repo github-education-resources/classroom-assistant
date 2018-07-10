@@ -16,6 +16,7 @@ class AppContainer extends Component {
         pathname: "/populate",
       })
     })
+    ipcRenderer.send("initialized")
   }
 
   render () {

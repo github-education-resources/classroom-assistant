@@ -27,7 +27,8 @@ const ItemArchivePanel = ({
         <RingLoader
           color={"#000"}
           loading={true}
-          size={30}
+          size={20}
+          margin={"0px"}
         />
       </div>
     )
