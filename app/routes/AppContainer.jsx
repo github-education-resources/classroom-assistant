@@ -5,7 +5,6 @@ import { ipcRenderer } from "electron"
 
 import {assignmentFetchInfo} from "../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../modules/assignment/actions/assignment-set-url"
-import {assignmentAuthorizeUser} from "../modules/assignment/actions/assignment-authorize-user"
 
 class AppContainer extends Component {
   constructor (props) {
@@ -33,14 +32,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setAssignmentURL(assignmentURL))
     dispatch(assignmentFetchInfo())
   },
-  setUserAuthorize: (value) => {
-    dispatch(assignmentAuthorizeUser(value))
-  },
 })
 
 AppContainer.propTypes = {
   fetchAssignment: PropTypes.func.isRequired,
-  setUserAuthorize: PropTypes.func.isRequired,
   router: PropTypes.any.isRequired,
   children: PropTypes.any
 }

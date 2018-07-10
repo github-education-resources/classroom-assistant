@@ -1,9 +1,9 @@
 import {receiveInfo} from "./assignment-receive-info"
 import {requestInfo} from "./assignment-request-info"
 import {errorInfo} from "./assignment-error-info"
-import {assignmentAuthorizeUser} from "./assignment-authorize-user"
-import {remote, ipcRenderer} from "electron"
+import {settingsLoginUser} from "../../settings/actions/settings-login-user"
 
+import {remote} from "electron"
 import {url, authorized} from "../selectors"
 
 export const assignmentFetchInfo = () => {
@@ -17,9 +17,7 @@ export const assignmentFetchInfo = () => {
     }
 
     if (!authorized(getState())) {
-      ipcRenderer.send("requestAuthorization", url(getState()))
-      ipcRenderer.on("receivedAuthorization", () => {
-        dispatch(assignmentAuthorizeUser(true))
+      dispatch(settingsLoginUser(url(getState()))).then(() => {
         return loadAssignment(dispatch, getState, infoURL)
       })
     } else {

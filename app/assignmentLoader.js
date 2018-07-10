@@ -39,7 +39,9 @@ function openAuthWindow (loginURL) {
   authWindow.loadURL(loginURL) // Load login path to classroom
 
   authWindow.once("ready-to-show", () => {
-    authWindow.show()
+    if (authWindow) {
+      authWindow.show()
+    }
   })
 }
 
