@@ -1,15 +1,13 @@
 /* eslint-env node */
-
 const electron = require("electron")
 const {app, BrowserWindow, ipcMain, Menu, shell} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const defaultMenu = require("electron-default-menu")
-
 const updater = require("./updater")
 const logger = require("./logger")
 
-const {authorizeUser} = require("./userAuthentication")
+const {authorizeUser, fetchAccessToken} = require("./userAuthentication")
 
 let mainWindow
 let deepLinkURLOnReady = null
@@ -18,8 +16,8 @@ logger.init()
 
 function createWindow () {
   logger.info("creating app window")
-  app.setAsDefaultProtocolClient("x-github-classroom")
 
+  app.setAsDefaultProtocolClient("x-github-classroom")
   const menu = defaultMenu(app, shell)
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 
@@ -61,12 +59,16 @@ function loadPopulatePage (assignmentURL) {
 
 app.on("open-url", function (event, urlToOpen) {
   event.preventDefault()
-  var parsedURL = new URL(urlToOpen)
-  var assignmentURL = parsedURL.searchParams.get("assignment_url")
-  if (app.isReady()) {
-    loadPopulatePage(assignmentURL)
+  var urlParams = new URL(urlToOpen).searchParams
+  if (urlParams.has("assignment_url")) {
+    var assignmentURL = urlParams.get("assignment_url")
+    if (app.isReady()) {
+      loadPopulatePage(assignmentURL)
+    } else {
+      deepLinkURLOnReady = assignmentURL
+    }
   } else {
-    deepLinkURLOnReady = assignmentURL
+    fetchAccessToken(urlParams.get("code"))
   }
 })
 

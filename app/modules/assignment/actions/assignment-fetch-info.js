@@ -1,11 +1,8 @@
 import {receiveInfo} from "./assignment-receive-info"
 import {requestInfo} from "./assignment-request-info"
 import {errorInfo} from "./assignment-error-info"
-import {settingsLoginUser} from "../../settings/actions/settings-login-user"
 
-import {remote} from "electron"
 import {url} from "../selectors"
-import {userAuthorized} from "../../settings/selectors"
 
 export const assignmentFetchInfo = () => {
   return (dispatch, getState) => {
@@ -16,31 +13,17 @@ export const assignmentFetchInfo = () => {
       dispatch(errorInfo("URL is invalid!"))
       return
     }
-
-    if (!userAuthorized(getState())) {
-      dispatch(settingsLoginUser(url(getState()))).then(() => {
-        return loadAssignment(dispatch, getState, infoURL)
+    dispatch(requestInfo())
+    return window.fetch(infoURL, {
+      credentials: "include"
+    })
+      .then(response => response.json())
+      .then((data) => {
+        dispatch(receiveInfo(data.name, data.type))
       })
-    } else {
-      return loadAssignment(dispatch, getState, infoURL)
-    }
+      .catch((e) => {
+        console.log(e)
+        dispatch(errorInfo("Could not find assignment."))
+      })
   }
-}
-
-const loadAssignment = (dispatch, getState, infoURL) => {
-  dispatch(requestInfo())
-  return window.fetch(infoURL, {
-    credentials: "include"
-  })
-    .then(response => response.json())
-    .then((data) => {
-      dispatch(receiveInfo(data.name, data.type))
-      if (remote.getGlobal("sharedObj")) {
-        remote.getGlobal("sharedObj").accessToken = data.accessToken
-      }
-    })
-    .catch((e) => {
-      console.log(e)
-      dispatch(errorInfo("Could not find assignment."))
-    })
 }

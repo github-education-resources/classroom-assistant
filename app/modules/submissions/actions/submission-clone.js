@@ -1,3 +1,5 @@
+import keytar from "keytar"
+
 import { name } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
@@ -6,7 +8,6 @@ import { submissionSetClonePath } from "./submission-set-clone-path"
 import { submissionSetCloneStatus } from "./submission-set-clone-status"
 
 import { getClonePath } from "../../../lib/pathutils"
-import { remote } from "electron"
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update
@@ -14,12 +15,11 @@ import { remote } from "electron"
 
 export function submissionCloneFunc (clone) {
   return (submissionProps) => {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
       const submissionsBaseDirectory = cloneDestination(getState())
       const assignmentName = name(getState())
       const submissionAuthorUsername = submissionProps.username
-      const accessToken = remote.getGlobal("sharedObj") ? remote.getGlobal("sharedObj").accessToken : null
-
+      const accessToken = await keytar.findPassword("Classroom-Desktop")
       const destination = getClonePath(
         submissionsBaseDirectory,
         assignmentName,

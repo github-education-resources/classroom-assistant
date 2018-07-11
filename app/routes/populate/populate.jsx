@@ -4,12 +4,13 @@ import NavFooter from "../shared/components/NavFooter"
 import PropTypes from "prop-types"
 import classNames from "classnames"
 import AssignmentCard from "./components/AssignmentCard"
+import LoadingPanel from "../shared/components/LoadingPanel"
 
 import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
 import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
 import {url, error, valid, name, typeLabel, fetching} from "../../modules/assignment/selectors"
-import LoadingPanel from "../shared/components/LoadingPanel"
+import {userAuthorized} from "../../modules/settings/selectors"
 
 const containerStyles = {
   paddingTop: "100px"
@@ -25,6 +26,12 @@ class PopulatePage extends Component {
   constructor (props) {
     super(props)
     this.updateInput = this.updateInput.bind(this)
+  }
+
+  componentDidMount () {
+    if (!this.props.loggedIn) {
+      this.props.loginUser()
+    }
   }
 
   updateInput (e) {
@@ -90,6 +97,7 @@ const mapStateToProps = (state) => ({
   typeLabel: typeLabel(state),
   valid: valid(state),
   fetching: fetching(state),
+  loggedIn: userAuthorized(state),
 })
 
 PopulatePage.propTypes = {
@@ -101,6 +109,8 @@ PopulatePage.propTypes = {
   name: PropTypes.string,
   typeLabel: PropTypes.string,
   fetching: PropTypes.bool,
+  loggedIn: PropTypes.bool.isRequired,
+  loginUser: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopulatePage)
