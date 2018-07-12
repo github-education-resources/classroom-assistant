@@ -5,14 +5,19 @@ import {settingsLoginUser} from "../settings-login-user"
 import {settingsUpdateUserState} from "../settings-update-user-state"
 
 describe("settingsLoginUser", () => {
-  let dispatch, ipcRenderer, sendStub
+  let dispatch, ipcRenderer, sendStub, onStub
 
   before(() => {
     dispatch = sinon.stub()
     dispatch.resolves("")
     ipcRenderer = require("electron").ipcRenderer
     sendStub = sinon.stub(ipcRenderer, "send")
-    sinon.stub(ipcRenderer, "on").yields()
+    onStub = sinon.stub(ipcRenderer, "on").yields()
+  })
+
+  after(() => {
+    sendStub.restore()
+    onStub.restore()
   })
 
   it("sends request authorization ipc message to main process", async () => {
