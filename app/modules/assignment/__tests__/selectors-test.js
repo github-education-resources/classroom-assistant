@@ -1,6 +1,6 @@
 import { expect } from "chai"
 
-import { all, typeLabel, name, url, error, valid } from "../selectors"
+import { all, typeLabel, name, url, error, valid, fetching } from "../selectors"
 
 describe("assignment selectors", () => {
   let testIndividualAssignment = {
@@ -73,6 +73,14 @@ describe("assignment selectors", () => {
       expect(url({
         assignment: testIndividualAssignment
       })).to.equal(testIndividualAssignment.url)
+    })
+  })
+
+  describe("fetching", () => {
+    it("returns the fetching state of the assignment", () => {
+      expect(fetching({
+        assignment: testIndividualAssignment
+      })).to.equal(testIndividualAssignment.isFetching)
     })
   })
 

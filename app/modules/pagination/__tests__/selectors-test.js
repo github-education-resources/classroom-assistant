@@ -1,8 +1,8 @@
 import { expect } from "chai"
 
-import { nextPage, outOfDate } from "../selectors"
+import { nextPage, outOfDate, fetching } from "../selectors"
 
-describe("selectors", () => {
+describe("pagination selectors", () => {
   let assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
   let initialPaginationState = {
@@ -61,7 +61,17 @@ describe("selectors", () => {
     })
   })
 
-  describe("fetchedAll", () => {
+  describe("fetching", () => {
+    it("returns false if pagination is not fetching", () => {
+      expect(fetching({
+        pagination: initialPaginationState,
+      })).eql(false)
+    })
 
+    it("returns true if pagination is fetching", () => {
+      expect(fetching({
+        pagination: paginationWithNext,
+      })).eql(true)
+    })
   })
 })

@@ -51,28 +51,28 @@ describe("paginationFetchPage", () => {
   })
 
   it("dispatches set next page to null if there is no link header", async () => {
-    window.fetch.returns(jsonOK({}, {}))
+    window.fetch.resolves(jsonOK([], {}))
     await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
     // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({type: PAGINATION_SET_NEXT_PAGE, nextPage: null})).is.true
   })
 
   it("dispatches set next page to Link header value", async () => {
-    window.fetch.returns(jsonOK({}, middlePageResponseHeaders))
+    window.fetch.resolves(jsonOK([], middlePageResponseHeaders))
     await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
     // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({type: PAGINATION_SET_NEXT_PAGE, nextPage: "2"})).is.true
   })
 
   it("dispatches receive page when response is received", async () => {
-    window.fetch.returns(jsonOK(populatePageResponse, defaultHeaders))
+    window.fetch.resolves(jsonOK(populatePageResponse, defaultHeaders))
     await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
     // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({type: PAGINATION_RECEIVE_PAGE, repoIds: sampleSubmissionIds})).is.true
   })
 
   it("dispatches create submission when response is received", async () => {
-    window.fetch.returns(jsonOK(populatePageResponse, defaultHeaders))
+    window.fetch.resolves(jsonOK(populatePageResponse, defaultHeaders))
     await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
     // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({type: SUBMISSION_CREATE, submissions: populatePageResponse})).is.true

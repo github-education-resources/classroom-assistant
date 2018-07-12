@@ -1,12 +1,12 @@
 import { expect } from "chai"
 
 import assignment from "../assignment"
-import {ASSIGNMENT_RECEIVE_INFO} from "../../constants"
+import {ASSIGNMENT_RECEIVE_INFO, ASSIGNMENT_RESET} from "../../constants"
 
 const initialState = {
-  name: "",
-  type: "",
-  url: "",
+  name: null,
+  type: null,
+  url: null,
   isFetching: false,
   error: null,
 }
@@ -14,7 +14,7 @@ const initialState = {
 const populatedState = {
   name: "Test Assignment",
   type: "individual",
-  url: "",
+  url: null,
   isFetching: false,
   error: null,
 }
@@ -34,5 +34,12 @@ describe("assignments reducer", () => {
         }
     }
     expect(assignment(initialState, receiveAction)).to.eql(populatedState)
+  })
+
+  it("returns initial state on reset", () => {
+    const resetAction = {
+      type: ASSIGNMENT_RESET,
+    }
+    expect(assignment(populatedState, resetAction)).to.eql(initialState)
   })
 })

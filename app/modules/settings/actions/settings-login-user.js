@@ -1,5 +1,6 @@
-import {ipcRenderer} from "electron"
 import { settingsUpdateUserState } from "./settings-update-user-state"
+
+const ipcRenderer = require("electron").ipcRenderer
 
 export const settingsLoginUser = (assignmentURL) => {
   return dispatch => {

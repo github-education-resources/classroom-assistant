@@ -19,8 +19,6 @@ export const fetchPage = (repoURL, page) => {
     }).then((json) => {
       dispatch(paginationReceivePage(json))
       dispatch(submissionCreate(json))
-    }).catch((e) => {
-      console.log(e)
     })
   }
 }

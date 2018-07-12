@@ -31,18 +31,11 @@ export function fetchAccessToken (code) {
   })
     .then(response => response.json())
     .then(data => {
-      // dispatchUsernameToRenderer(data.access_token)
       keytar.setPassword("Classroom-Desktop", "token", data.access_token)
       mainWindow.webContents.send("receivedAuthorization")
     })
     .catch((error) => console.log(error))
 }
-
-// function dispatchUsernameToRenderer (token) {
-//   const apiBaseURL = "https://api.github.com"
-//   const query = "/user"
-//   fetch(`${apiBaseURL}${query}`).then()
-// }
 
 function openAuthWindow () {
   authWindow = new BrowserWindow({

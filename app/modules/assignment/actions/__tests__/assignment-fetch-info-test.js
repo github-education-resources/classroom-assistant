@@ -21,7 +21,6 @@ describe("assignmentFetchInfo", () => {
     url: "invalidURL",
     isFetching: false,
     error: null,
-    authorized: true,
   }
 
   let validAssignment = {
@@ -30,7 +29,6 @@ describe("assignmentFetchInfo", () => {
     url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
     isFetching: false,
     error: null,
-    authorized: true,
   }
 
   let validSettings = {
@@ -64,7 +62,7 @@ describe("assignmentFetchInfo", () => {
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "Could not find assignment." })).is.true
   })
 
-  it("dispatches request info and receive info action after fetch", async () => {
+  it("dispatches receive info action after fetch", async () => {
     const response = {name: "Test Assignment", type: "individual"}
     const getState = () => ({ assignment: validAssignment, settings: validSettings })
     const dispatch = sinon.spy()
@@ -72,7 +70,6 @@ describe("assignmentFetchInfo", () => {
     window.fetch.returns(jsonOK(response))
     await assignmentFetchInfo()(dispatch, getState)
     /* eslint-disable no-unused-expressions */
-    expect(dispatch.calledWithMatch({ type: ASSIGNMENT_REQUEST_INFO })).is.true
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_RECEIVE_INFO, payload: response })).is.true
     /* eslint-enable no-unused-expressions */
     window.fetch.restore()

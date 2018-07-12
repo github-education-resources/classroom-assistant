@@ -26,6 +26,7 @@ module.exports = {
   },
   electronPackagerConfig: {
     packageManager: "npm",
+    icon: "./app/resources/icon.icns",
     protocols: [
       {
         name: "Classroom Desktop",

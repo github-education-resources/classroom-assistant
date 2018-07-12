@@ -10,7 +10,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js .",
-    "test-unit": "cross-env TEST_ENV=1 ELECTRON_NO_ATTACH_CONSOLE=1 xvfb-maybe --auto-servernum -- electron-mocha --renderer -t 15000 --require babel-core/register --require ./test/setup app/**/*-test.js",
+    "test-unit": "cross-env TEST_ENV=1 ELECTRON_NO_ATTACH_CONSOLE=1 xvfb-maybe --auto-servernum -- electron-mocha --renderer --debug --interactive -t 15000 --require babel-core/register --require ./test/setup app/**/*-test.js",
     "test": "npm run lint && npm run test-unit"
   },
   "repository": {
@@ -75,10 +75,12 @@
     "electron-compile": "^6.4.2",
     "electron-default-menu": "^1.0.1",
     "electron-devtools-installer": "^2.1.0",
+    "electron-fetch": "^1.2.0",
     "electron-is-dev": "~0.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "font-awesome": "~4.7.0",
     "http-link-header": "^0.8.0",
+    "keytar": "^4.2.1",
     "nodegit": "^0.21.2",
     "opener": "^1.4.1",
     "prop-types": "^15.6.1",

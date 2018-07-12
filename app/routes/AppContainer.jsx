@@ -35,7 +35,7 @@ class AppContainer extends Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchAssignment: (assignmentURL) => {
     dispatch(setAssignmentURL(assignmentURL))
-    // dispatch(assignmentFetchInfo())
+    dispatch(assignmentFetchInfo())
   },
   updateUserState: () => dispatch(settingsUpdateUserState())
 })
