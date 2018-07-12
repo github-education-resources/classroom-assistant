@@ -23,7 +23,7 @@ class Submission extends React.Component {
         title={this.props.displayName}
         subtitle={this.props.username}
       >
-        <div className="pull-right">
+        <div className="float-right">
           <input
             type="checkbox"
             checked={this.props.selected}

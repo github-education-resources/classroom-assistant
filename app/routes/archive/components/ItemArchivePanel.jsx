@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 
 import { RingLoader } from "react-spinners"
 import ItemPanel from "../../shared/components/ItemPanel"
+import ProgressBar from "../../shared/components/ProgressBar"
 
 const ItemArchivePanel = ({
   id,
@@ -26,33 +27,23 @@ const ItemArchivePanel = ({
         <RingLoader
           color={"#000"}
           loading={true}
+          size={20}
+          margin={"0px"}
         />
       </div>
     )
   } else if (cloneProgress > 0 && cloneProgress < 100) {
     progressElement = (
-      <div
-        className="progress"
-        style={{
-          width: "160px"
-        }}
+      <div style = {{
+        width: "160px"
+      }}
       >
-        <div
-          className="progress-bar progress-bar-info"
-          role="progressbar" aria-valuenow={cloneProgress}
-          aria-valuemin="0"
-          aria-valuemax="100"
-          style={{
-            width: cloneProgress + "%"
-          }}
-        >
-          {cloneProgress.toFixed(0)}%
-        </div>
+        <ProgressBar cloneProgress={cloneProgress}/>
       </div>
     )
   } else {
     progressElement = (
-      <button className="btn btn-xs btn-primary" onClick={onViewClick}>
+      <button className="btn btn-sm btn-primary my-0" onClick={onViewClick}>
         <i className="fa fa-folder-open" aria-hidden="true"></i> View
       </button>
     )
@@ -65,7 +56,7 @@ const ItemArchivePanel = ({
       subtitle={displayName}
     >
       <div className="pull-right">
-        <p className="pull-right">{cloneStatus}</p>
+        <p className="pull-right my-0">{cloneStatus}</p>
         <br/>
         <div className="pull-right">
           {progressElement}

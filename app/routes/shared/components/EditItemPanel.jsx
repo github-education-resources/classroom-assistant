@@ -5,22 +5,24 @@ import ItemPanel from "../../shared/components/ItemPanel"
 
 const editIconStyles = {
   paddingTop: "5px",
-  paddingRight: "5px"
+  paddingRight: "5px",
+  fontSize: 20
 }
 
 const EditItemPanel = ({
-  iconPath,
+  imagePath,
   title,
   subtitle,
-  onEditClick
+  onEditClick,
+  iconName,
 }) => (
   <ItemPanel
-    imagePath={iconPath}
+    imagePath={imagePath}
     title={title}
     subtitle={subtitle}
   >
     <i
-      className="fa fa-pencil fa-2x pull-right"
+      className={`fa ${iconName} pull-right`}
       aria-hidden="true"
       style={editIconStyles}
       onClick={onEditClick}
@@ -29,10 +31,15 @@ const EditItemPanel = ({
 )
 
 EditItemPanel.propTypes = {
-  iconPath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  onEditClick: PropTypes.func
+  onEditClick: PropTypes.func,
+  iconName: PropTypes.string,
+  imagePath: PropTypes.string,
+}
+
+EditItemPanel.defaultProps = {
+  iconName: "fa-pencil"
 }
 
 export default EditItemPanel

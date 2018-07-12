@@ -4,7 +4,7 @@ import EditItemPanel from "../../shared/components/EditItemPanel"
 const mapStateToProps = (state) => {
   return {
     title: `${state.submissions.filter(each => each.selected).length}/${state.submissions.length}`,
-    iconPath: "http://placehold.it/48x48",
+    imagePath: "http://placehold.it/48x48",
     subtitle: "Submissions Selected"
   }
 }
