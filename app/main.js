@@ -44,6 +44,7 @@ function createWindow () {
 
   ipcMain.on("initialized", () => {
     if (deepLinkURLOnReady != null) {
+      // If open-url event was fired before app was ready
       loadPopulatePage(deepLinkURLOnReady)
     }
   })
@@ -60,14 +61,14 @@ function loadPopulatePage (assignmentURL) {
 app.on("open-url", function (event, urlToOpen) {
   event.preventDefault()
   var urlParams = new URL(urlToOpen).searchParams
-  if (urlParams.has("assignment_url")) {
+  if (urlParams.has("assignment_url")) { // Classroom sent deep link
     var assignmentURL = urlParams.get("assignment_url")
     if (app.isReady()) {
       loadPopulatePage(assignmentURL)
     } else {
       deepLinkURLOnReady = assignmentURL
     }
-  } else {
+  } else { // Return from OAuth on github
     fetchAccessToken(urlParams.get("code"))
   }
 })
