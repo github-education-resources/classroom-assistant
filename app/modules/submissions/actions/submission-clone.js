@@ -1,3 +1,5 @@
+import keytar from "keytar"
+
 import { name } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
@@ -13,11 +15,11 @@ import { getClonePath } from "../../../lib/pathutils"
 
 export function submissionCloneFunc (clone) {
   return (submissionProps) => {
-    return (dispatch, getState) => {
+    return async (dispatch, getState) => {
       const submissionsBaseDirectory = cloneDestination(getState())
       const assignmentName = name(getState())
       const submissionAuthorUsername = submissionProps.username
-
+      const accessToken = await keytar.findPassword("Classroom-Desktop")
       const destination = getClonePath(
         submissionsBaseDirectory,
         assignmentName,
@@ -43,11 +45,11 @@ export function submissionCloneFunc (clone) {
               dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
             }
           },
-          // TODO: the example app requires some credentials, where should I get these?
-          null
+          accessToken
         )
           .then(resolve)
-          .catch(() => {
+          .catch((e) => {
+            console.log(e)
             dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
             resolve()
           })
