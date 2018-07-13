@@ -3,6 +3,11 @@ import {paginationSetNextPage} from "./pagination-set-next-page"
 import {submissionCreate} from "../../submissions/actions/submission-create"
 import LinkHeader from "http-link-header"
 
+/**
+ * PUBLIC: Fetch single page of assignments given page number and assignment repo url
+ *
+ * @return An asynchronous thunk action
+ */
 export const fetchPage = (repoURL, page) => {
   return dispatch => {
     return fetch(`${repoURL}?page=${page}`, {

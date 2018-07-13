@@ -4,6 +4,12 @@ import {errorInfo} from "./assignment-error-info"
 
 import {url} from "../selectors"
 
+/**
+ * PUBLIC: Fetch information about assignment from URL in state
+ *
+ * @return An async thunk action which resolves once assigment info has been
+ * fetched or if has errored
+ */
 export const assignmentFetchInfo = () => {
   return (dispatch, getState) => {
     try {
