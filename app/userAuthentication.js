@@ -16,7 +16,7 @@ export function authorizeUser (mainWindowRef) {
 
 export function fetchAccessToken (code) {
   authWindow.destroy()
-  var data = {
+  let data = {
     client_id: clientId,
     client_secret: clientSecret,
     code: code,
@@ -30,8 +30,8 @@ export function fetchAccessToken (code) {
     body: JSON.stringify(data),
   })
     .then(response => response.json())
-    .then(data => {
-      keytar.setPassword("Classroom-Desktop", "token", data.access_token)
+    .then(async data => {
+      await keytar.setPassword("Classroom-Desktop", "token", data.access_token)
       mainWindow.webContents.send("receivedAuthorization")
     })
     .catch((error) => console.log(error))

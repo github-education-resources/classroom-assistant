@@ -30,7 +30,7 @@ function createWindow () {
   }
 
   if (!isDev) {
-    var msBetweenUpdates = 1000 * 60 * 30
+    let msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates, () => {
       mainWindow.webContents.send("info", {msg: "update found"})
     }, (err) => {
@@ -60,9 +60,9 @@ function loadPopulatePage (assignmentURL) {
 
 app.on("open-url", function (event, urlToOpen) {
   event.preventDefault()
-  var urlParams = new URL(urlToOpen).searchParams
+  let urlParams = new URL(urlToOpen).searchParams
   if (urlParams.has("assignment_url")) { // Classroom sent deep link
-    var assignmentURL = urlParams.get("assignment_url")
+    let assignmentURL = urlParams.get("assignment_url")
     if (app.isReady()) {
       loadPopulatePage(assignmentURL)
     } else {
