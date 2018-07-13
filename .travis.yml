@@ -19,8 +19,12 @@ node_js:
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
+      - xvfb
+      - gnome-keyring
       - libsecret-1-dev
-
+      - python-gnomekeyring
 script:
   - ./script/test && ./script/package
