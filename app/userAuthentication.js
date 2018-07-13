@@ -34,6 +34,7 @@ export function fetchAccessToken (code) {
       await keytar.setPassword("Classroom-Desktop", "token", data.access_token)
       mainWindow.webContents.send("receivedAuthorization")
     })
+    // TODO: Send IPC Message to close window and show error message
     .catch((error) => console.log(error))
 }
 
