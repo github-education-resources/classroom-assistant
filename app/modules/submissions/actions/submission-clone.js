@@ -19,7 +19,12 @@ export function submissionCloneFunc (clone) {
       const submissionsBaseDirectory = cloneDestination(getState())
       const assignmentName = name(getState())
       const submissionAuthorUsername = submissionProps.username
+
+      // Sets to null if password cannot be found
+      // TODO: Add specific error message/ask for reauthorization if clone
+      // fails
       const accessToken = await keytar.findPassword("Classroom-Desktop")
+
       const destination = getClonePath(
         submissionsBaseDirectory,
         assignmentName,
@@ -49,7 +54,6 @@ export function submissionCloneFunc (clone) {
         )
           .then(resolve)
           .catch((e) => {
-            console.log(e)
             dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
             resolve()
           })
