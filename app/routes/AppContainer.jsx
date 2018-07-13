@@ -11,7 +11,9 @@ class AppContainer extends Component {
   constructor (props) {
     super(props)
 
-    this.props.updateUserState() // Get user if already logged in from previous session
+    // TODO: Rename to populateUserSession
+    // Update username in store from session
+    this.props.updateUserState()
 
     ipcRenderer.on("open-url", (event, assignmentURL) => {
       this.props.fetchAssignment(assignmentURL)
@@ -19,7 +21,11 @@ class AppContainer extends Component {
         pathname: "/populate",
       })
     })
+  }
 
+  componentDidMount () {
+    // Send initialized message to Main process so we can open
+    // the populate page if deep link was opened
     ipcRenderer.send("initialized")
   }
 
