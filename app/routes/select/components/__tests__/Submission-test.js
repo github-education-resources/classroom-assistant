@@ -39,7 +39,7 @@ describe("Submission", () => {
     let wrapper = shallow(<Submission {...testPropsSelected} />)
 
     const input = wrapper.find("input")
-
+    // eslint-disable-next-line no-unused-expressions
     expect(input).is.not.null
     expect(input.prop("type")).to.equal("checkbox")
     expect(input.prop("checked")).to.equal(true)
@@ -49,7 +49,7 @@ describe("Submission", () => {
     let wrapper = shallow(<Submission {...testProps} />)
 
     const input = wrapper.find("input")
-
+    // eslint-disable-next-line no-unused-expressions
     expect(input).is.not.null
     expect(input.prop("type")).to.equal("checkbox")
     expect(input.prop("checked")).to.equal(false)
