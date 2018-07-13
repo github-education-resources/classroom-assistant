@@ -28,7 +28,6 @@ export const assignmentFetchInfo = () => {
         dispatch(receiveInfo(data.name, data.type))
       })
       .catch((e) => {
-        console.log(e)
         dispatch(errorInfo("Could not find assignment."))
       })
   }

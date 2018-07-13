@@ -30,7 +30,7 @@ const submission = (state, action) => {
     } else {
       return state
     }
-  // Move out to global state
+  // TODO: Move out to global state with pathutils fix
   case SUBMISSION_SET_CLONE_PATH:
     if (action.id === state.id) {
       return Object.assign({}, state, {clonePath: action.clonePath})
@@ -57,7 +57,6 @@ const submission = (state, action) => {
     } else {
       return state
     }
-  // Track select all in global state
   case SUBMISSION_SELECT_ALL:
     return Object.assign({}, state, {selected: action.newValue})
   default:

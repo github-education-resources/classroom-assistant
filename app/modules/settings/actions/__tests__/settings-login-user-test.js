@@ -7,7 +7,7 @@ import {settingsUpdateUserState} from "../settings-update-user-state"
 describe("settingsLoginUser", () => {
   let dispatch, ipcRenderer, sendStub, onStub
 
-  before(() => {
+  beforeEach(() => {
     dispatch = sinon.stub()
     dispatch.resolves("")
     ipcRenderer = require("electron").ipcRenderer
@@ -15,7 +15,7 @@ describe("settingsLoginUser", () => {
     onStub = sinon.stub(ipcRenderer, "on").yields()
   })
 
-  after(() => {
+  afterEach(() => {
     sendStub.restore()
     onStub.restore()
   })
