@@ -13,13 +13,17 @@ export const fetchPage = (repoURL, page) => {
     return fetch(`${repoURL}?page=${page}`, {
       credentials: "include"
     }).then(response => {
-      dispatch(paginationSetNextPage(null)) // Set next page to null, unless we get header
+      // Set next page to null, unless we got the header
+      let nextPage = null
+
       if (response.headers.get("Link")) {
         var link = LinkHeader.parse(response.headers.get("Link"))
         if (link.has("rel", "next") && link.get("rel", "next").length > 0) {
-          dispatch(paginationSetNextPage(link.get("rel", "next")[0].params.page))
+          nextPage = link.get("rel", "next")[0].params.page
         }
       }
+
+      dispatch(paginationSetNextPage(nextPage))
       return response.json()
     }).then((json) => {
       dispatch(paginationReceivePage(json))
