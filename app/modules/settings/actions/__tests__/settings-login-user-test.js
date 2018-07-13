@@ -22,13 +22,13 @@ describe("settingsLoginUser", () => {
 
   it("sends request authorization ipc message to main process", async () => {
     await settingsLoginUser("testURL")(dispatch)
-    // eslint-disable-next-line no-unused-expressions
+
     expect(sendStub.calledWithMatch("requestAuthorization", "testURL")).is.true
   })
 
   it("dispatches update user state on received authorization", async () => {
     await settingsLoginUser("testURL")(dispatch)
-    // eslint-disable-next-line no-unused-expressions
+
     expect(dispatch.calledWithMatch(settingsUpdateUserState)).is.true
   })
 })

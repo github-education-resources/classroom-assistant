@@ -25,26 +25,26 @@ describe("settingsLogoutUser", () => {
   context(("It clears application state"), () => {
     it("resets assignment", async () => {
       await settingsLogoutUser()(dispatch)
-      // eslint-disable-next-line no-unused-expressions
+
       expect(dispatch.calledWithMatch(assignmentReset)).is.true
     })
 
     it("resets submissions", async () => {
       await settingsLogoutUser()(dispatch)
-      // eslint-disable-next-line no-unused-expressions
+
       expect(dispatch.calledWithMatch(submissionReset)).is.true
     })
 
     it("resets pagination", async () => {
       await settingsLogoutUser()(dispatch)
-      // eslint-disable-next-line no-unused-expressions
+
       expect(dispatch.calledWithMatch(paginationReset)).is.true
     })
   })
 
   it("dispatches update user state", async () => {
     await settingsLogoutUser()(dispatch)
-    // eslint-disable-next-line no-unused-expressions
+
     expect(dispatch.calledWithMatch(settingsUpdateUserState)).is.true
   })
 
@@ -52,7 +52,7 @@ describe("settingsLogoutUser", () => {
     var sessionSpy = sinon.spy()
     session.defaultSession.clearStorageData = sessionSpy
     await settingsLogoutUser()(dispatch)
-    // eslint-disable-next-line no-unused-expressions
+
     expect(sessionSpy.calledOnce).is.true
   })
 
@@ -60,7 +60,7 @@ describe("settingsLogoutUser", () => {
   it("calls node keytar delete password", async () => {
     var keytarStub = sinon.stub(keytar, "deletePassword")
     await settingsLogoutUser()(dispatch)
-    // eslint-disable-next-line no-unused-expressions
+
     expect(keytarStub.calledOnce).is.true
   })
 })

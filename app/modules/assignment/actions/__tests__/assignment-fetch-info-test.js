@@ -40,7 +40,6 @@ describe("assignmentFetchInfo", () => {
     const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
 
-    // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid!" })).is.true
   })
 
@@ -49,7 +48,6 @@ describe("assignmentFetchInfo", () => {
     const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
 
-    // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_REQUEST_INFO })).is.true
   })
 
@@ -58,7 +56,6 @@ describe("assignmentFetchInfo", () => {
     const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
 
-    // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "Could not find assignment." })).is.true
   })
 
@@ -69,9 +66,8 @@ describe("assignmentFetchInfo", () => {
     sinon.stub(window, "fetch")
     window.fetch.returns(jsonOK(response))
     await assignmentFetchInfo()(dispatch, getState)
-    /* eslint-disable no-unused-expressions */
+
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_RECEIVE_INFO, payload: response })).is.true
-    /* eslint-enable no-unused-expressions */
     window.fetch.restore()
   })
 })

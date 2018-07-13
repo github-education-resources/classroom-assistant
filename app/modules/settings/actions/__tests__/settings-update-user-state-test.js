@@ -28,14 +28,14 @@ describe("settingsUpdateUserState", () => {
     it("sets username to null if there is an error", async () => {
       cookieStub.yields(true, [sampleCookie]) // Error set to true
       await settingsUpdateUserState()(dispatchStub)
-      // eslint-disable-next-line no-unused-expressions
+
       expect(dispatchStub.calledWithMatch(settingsSetUsername(null))).is.true
     })
 
     it("sets username to value of first cookie if there is no error", async () => {
       cookieStub.yields(false, [sampleCookie]) // Error set to false
       await settingsUpdateUserState()(dispatchStub)
-      // eslint-disable-next-line no-unused-expressions
+
       expect(dispatchStub.calledWithMatch(settingsSetUsername("TestUsername"))).is.true
     })
   })
@@ -44,7 +44,7 @@ describe("settingsUpdateUserState", () => {
     it("sets username to null", async () => {
       cookieStub.yields(false, [])
       await settingsUpdateUserState()(dispatchStub)
-      // eslint-disable-next-line no-unused-expressions
+
       expect(dispatchStub.calledWithMatch(settingsSetUsername(null))).is.true
     })
   })
