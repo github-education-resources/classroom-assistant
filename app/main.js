@@ -46,6 +46,7 @@ function createWindow () {
     if (deepLinkURLOnReady != null) {
       // If open-url event was fired before app was ready
       loadPopulatePage(deepLinkURLOnReady)
+      deepLinkURLOnReady = null
     }
   })
 
@@ -61,15 +62,19 @@ function loadPopulatePage (assignmentURL) {
 app.on("open-url", function (event, urlToOpen) {
   event.preventDefault()
   let urlParams = new URL(urlToOpen).searchParams
-  if (urlParams.has("assignment_url")) { // Classroom sent deep link
+  let isClassroomDeeplink = urlParams.has("assignment_url")
+  let isOAuthDeeplink = urlParams.has("code")
+
+  if (isClassroomDeeplink) {
     let assignmentURL = urlParams.get("assignment_url")
     if (app.isReady()) {
       loadPopulatePage(assignmentURL)
     } else {
       deepLinkURLOnReady = assignmentURL
     }
-  } else { // Return from OAuth on github
-    fetchAccessToken(urlParams.get("code"))
+  } else if (isOAuthDeeplink) {
+    let oauthCode = urlParams.get("code")
+    fetchAccessToken(oauthCode)
   }
 })
 
