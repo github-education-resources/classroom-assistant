@@ -39,5 +39,13 @@
       "react/jsx-no-bind": "error",
       "react/jsx-pascal-case": "warn",
       "react/jsx-closing-bracket-location": "warn"
-    }
-  }
+    },
+    "overrides": [
+      {
+          "files": "*-test.js",
+          "rules": {
+              "no-unused-expressions": "off"
+          }
+      }
+    ]
+}

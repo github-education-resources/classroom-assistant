@@ -6,7 +6,7 @@ import EditItemPanel from "../EditItemPanel"
 
 describe("EditItemPanel", () => {
   const staticOptions = {
-    iconPath: "some/path.jpg",
+    imagePath: "some/path.jpg",
     title: "some title",
     subtitle: "some subtitle"
   }
@@ -30,7 +30,7 @@ describe("EditItemPanel", () => {
     expect(itemPanels.length).to.equal(1)
 
     const itemPanel = itemPanels.first()
-    expect(itemPanel.prop("imagePath")).to.equal(staticOptions.iconPath)
+    expect(itemPanel.prop("imagePath")).to.equal(staticOptions.imagePath)
     expect(itemPanel.prop("title")).to.equal(staticOptions.title)
     expect(itemPanel.prop("subtitle")).to.equal(staticOptions.subtitle)
   })

@@ -22,7 +22,7 @@ describe("SelectAllPanel", () => {
 
     it("has a checkbox for selecting all submissions", () => {
       const checkbox = wrapper.find("input")
-      // eslint-disable-next-line no-unused-expressions
+
       expect(checkbox).to.not.be.null
       expect(checkbox.prop("type")).to.equal("checkbox")
     })

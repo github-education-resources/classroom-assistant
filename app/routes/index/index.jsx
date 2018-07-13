@@ -13,7 +13,7 @@ const buttonWrapperStyles = {
 
 const IndexPage = () => (
   <div style={containerStyles}>
-    <div className="row">
+    <div className="row justify-content-center">
       <div className="col-sm-6 col-sm-offset-3">
         <h1 className="text-center">GitHub Classroom Desktop</h1>
         <p className="lead text-center">
@@ -21,7 +21,7 @@ const IndexPage = () => (
           Classroom with a click of a button.
         </p>
         <div className="text-center">
-          <Link to="select" style={buttonWrapperStyles}>
+          <Link to="populate" style={buttonWrapperStyles}>
             <button className="btn btn-primary btn-lg">Get started on GitHub Classroom</button>
           </Link>
         </div>

@@ -17,5 +17,14 @@ language: node_js
 node_js:
   - "8.10.0"
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - xvfb
+      - gnome-keyring
+      - libsecret-1-dev
+      - python-gnomekeyring
 script:
   - ./script/test && ./script/package
