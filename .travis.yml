@@ -5,7 +5,6 @@ dist: trusty
 
 sudo: false
 
-
 matrix:
   include:
     - os: linux
@@ -26,5 +25,15 @@ addons:
       - gnome-keyring
       - libsecret-1-dev
       - python-gnomekeyring
+
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login); fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start); fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      dbus-launch /usr/bin/python -c \
+        "import gnomekeyring;gnomekeyring.create_sync('login', '');"
+    fi
+
 script:
   - ./script/test && ./script/package
