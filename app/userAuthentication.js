@@ -49,9 +49,8 @@ function openAuthWindow () {
       session: session.defaultSession,
     }
   })
-  console.log(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${requiredScopes}`)
-  authWindow.loadURL(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${requiredScopes}`)
 
+  authWindow.loadURL(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${requiredScopes}`)
   authWindow.once("ready-to-show", () => {
     if (authWindow) {
       authWindow.show()
