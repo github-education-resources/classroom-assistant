@@ -18,7 +18,7 @@ if [ -z "$CLASSROOM_DESKTOP_OSX_DEVELOPER_ID" ]; then
   echo_status "CLASSROOM_DESKTOP_OSX_DEVELOPER_ID not set, the app will not be signed"
 else
   echo_status "Signing Mac app"
-  codesign --deep --force --verbose --sign "$CLASSROOM_DESKTOP_OSX_DEVELOPER_ID" dist/GitHub\ Classroom-darwin-x64/GitHub\ Classroom.app
+  codesign --deep --force --verbose --sign "$CLASSROOM_DESKTOP_OSX_DEVELOPER_ID" out/GitHub\ Classroom-darwin-x64/GitHub\ Classroom.app
 fi
 
 echo_status "Done!"

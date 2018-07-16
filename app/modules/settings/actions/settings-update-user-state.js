@@ -15,7 +15,7 @@ const sessionCookieParams = {
  */
 export const settingsUpdateUserState = () => {
   return dispatch => {
-    var username = null
+    let username = null
     session.defaultSession.cookies.get(sessionCookieParams, (error, cookies) => {
       if (cookies.length > 0 && !error) {
         username = cookies[0].value

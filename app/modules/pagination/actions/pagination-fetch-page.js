@@ -17,7 +17,7 @@ export const fetchPage = (repoURL, page) => {
       let nextPage = null
 
       if (response.headers.get("Link")) {
-        var link = LinkHeader.parse(response.headers.get("Link"))
+        const link = LinkHeader.parse(response.headers.get("Link"))
         if (link.has("rel", "next") && link.get("rel", "next").length > 0) {
           nextPage = link.get("rel", "next")[0].params.page
         }
