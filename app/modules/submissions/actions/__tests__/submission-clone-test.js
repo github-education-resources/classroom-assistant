@@ -31,7 +31,6 @@ describe("submissionClone", () => {
     const submissionClone = submissionCloneFunc(clone)
     await submissionClone(mockSubmission)(dispatch, getState)
 
-    // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", id: 1 })).is.true
   })
 
@@ -41,7 +40,6 @@ describe("submissionClone", () => {
     const submissionClone = submissionCloneFunc(clone)
     await submissionClone(mockSubmission)(dispatch, getState)
 
-    // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_STATUS", id: 1 })).is.true
   })
 
@@ -57,7 +55,6 @@ describe("submissionClone", () => {
     await submissionClone(mockSubmission)(dispatch, getState)
 
     // ignoring the second argument because we no longer mock the current Date
-    // eslint-disable-next-line no-unused-expressions
     expect(cloneMock.calledWithMatch("http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn")).is.true
   })
 
@@ -67,7 +64,6 @@ describe("submissionClone", () => {
     const submissionClone = submissionCloneFunc(clone)
     await submissionClone(mockSubmission)(dispatch, getState)
 
-    // eslint-disable-next-line no-unused-expressions
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_STATUS", id: 1, cloneStatus: "Clone failed: an error has occured." })).is.true
   })
 
@@ -86,10 +82,8 @@ describe("submissionClone", () => {
     const submissionClone = submissionCloneFunc(cloneMock)
     await submissionClone(mockSubmission)(dispatch, getState)
 
-    /* eslint-disable no-unused-expressions */
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PROGRESS", id: 1, cloneProgress: 0 })).is.true
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PROGRESS", id: 1, cloneProgress: 30 })).is.true
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PROGRESS", id: 1, cloneProgress: 100 })).is.true
-    /* eslint-enable no-unused-expressions */
   })
 })

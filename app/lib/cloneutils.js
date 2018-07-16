@@ -46,7 +46,13 @@ export const clone = (repoURL, destination, progressCallback, token) => {
     }
 
     if (token) {
-      options.fetchOpts.callbacks.credentials = function () {
+      // Skipping Certificate check because libgit2 is unable to look up GitHub
+      // certificates correctly, this issue is documented here:
+      // https://github.com/nodegit/nodegit/tree/master/guides/cloning/gh-two-factor#github-certificate-issue-in-os-x
+      options.fetchOpts.callbacks.certificate_check = () => {
+        return 1
+      }
+      options.fetchOpts.callbacks.credentials = () => {
         return NodeGit.Cred.userpassPlaintextNew(token, "x-oauth-basic")
       }
     }
