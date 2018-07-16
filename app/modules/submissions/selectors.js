@@ -22,3 +22,19 @@ export const areAllSelected = createSelector(
   num,
   (numSelected, num) => numSelected === num
 )
+
+export const progress = createSelector(
+  selected,
+  numSelected,
+  (submissions, numSelected) => {
+    var totalProgress = 0
+    submissions.forEach(submission => {
+      totalProgress += submission.cloneProgress
+    })
+    if (numSelected > 0) {
+      return totalProgress / numSelected
+    } else {
+      return 100
+    }
+  }
+)
