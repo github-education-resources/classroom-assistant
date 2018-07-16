@@ -1,5 +1,3 @@
-import keytar from "keytar"
-
 import { name } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
@@ -8,6 +6,8 @@ import { submissionSetClonePath } from "./submission-set-clone-path"
 import { submissionSetCloneStatus } from "./submission-set-clone-status"
 
 import { getClonePath } from "../../../lib/pathutils"
+
+const keytar = require("keytar")
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update
