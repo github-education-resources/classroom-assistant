@@ -17,7 +17,6 @@ logger.init()
 function createWindow () {
   logger.info("creating app window")
 
-  app.setAsDefaultProtocolClient("x-github-classroom")
   const menu = defaultMenu(app, shell)
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 
@@ -78,7 +77,10 @@ app.on("open-url", function (event, urlToOpen) {
   }
 })
 
-app.on("ready", createWindow)
+app.on("ready", () => {
+  app.setAsDefaultProtocolClient("x-github-classroom")
+  createWindow()
+})
 
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") {
