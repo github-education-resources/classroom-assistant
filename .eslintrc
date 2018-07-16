@@ -28,6 +28,7 @@
         "never"
       ],
       "no-var": "error",
+      "prefer-const": "error",
       "jsx-quotes": [
         "error",
         "prefer-double"
