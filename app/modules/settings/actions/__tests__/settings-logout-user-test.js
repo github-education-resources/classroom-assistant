@@ -49,7 +49,7 @@ describe("settingsLogoutUser", () => {
   })
 
   it("clears session storage", async () => {
-    var sessionSpy = sinon.spy()
+    let sessionSpy = sinon.spy()
     session.defaultSession.clearStorageData = sessionSpy
     await settingsLogoutUser()(dispatch)
 
@@ -58,7 +58,7 @@ describe("settingsLogoutUser", () => {
 
   // TODO: Make this test more specific after keytar config is finalized
   it("calls node keytar delete password", async () => {
-    var keytarStub = sinon.stub(keytar, "deletePassword")
+    let keytarStub = sinon.stub(keytar, "deletePassword")
     await settingsLogoutUser()(dispatch)
 
     expect(keytarStub.calledOnce).is.true

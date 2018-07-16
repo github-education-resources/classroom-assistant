@@ -10,8 +10,8 @@ import {nextPage} from "../selectors"
  */
 export const fetchAllPages = (assignmentURL) => {
   return (dispatch, getState) => {
-    var urlObj = new URL(assignmentURL)
-    var repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
+    const urlObj = new URL(assignmentURL)
+    const repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
     dispatch(paginationSetAssignmentURL(assignmentURL))
     dispatch(paginationSetFetching(true))
     return chainFetchPage(dispatch, getState, repoURL).then(() => {

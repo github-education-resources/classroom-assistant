@@ -27,7 +27,7 @@ export const progress = createSelector(
   selected,
   numSelected,
   (submissions, numSelected) => {
-    var totalProgress = 0
+    let totalProgress = 0
     submissions.forEach(submission => {
       totalProgress += submission.cloneProgress
     })

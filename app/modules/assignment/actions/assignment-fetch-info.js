@@ -12,9 +12,10 @@ import {url} from "../selectors"
  */
 export const assignmentFetchInfo = () => {
   return (dispatch, getState) => {
+    let urlObj, infoURL
     try {
-      var urlObj = new URL(url(getState()))
-      var infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
+      urlObj = new URL(url(getState()))
+      infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
     } catch (e) {
       dispatch(errorInfo("URL is invalid!"))
       return
