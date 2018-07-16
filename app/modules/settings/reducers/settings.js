@@ -1,6 +1,7 @@
 import { SETTINGS_CHANGE_CLONE_DESTINATION, SETTINGS_SET_USERNAME } from "../constants"
 
 const initialState = {
+  // TODO: change this to use os.tmpdir()
   cloneDestination: "/tmp",
   username: null,
 }
