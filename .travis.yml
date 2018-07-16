@@ -44,4 +44,4 @@ before_script:
     fi
 
 script:
-  - ./script/test && ./script/package
+  - ./script/test
