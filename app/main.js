@@ -29,7 +29,7 @@ function createWindow () {
   }
 
   if (!isDev) {
-    let msBetweenUpdates = 1000 * 60 * 30
+    const msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates, () => {
       mainWindow.webContents.send("info", {msg: "update found"})
     }, (err) => {
@@ -60,19 +60,19 @@ function loadPopulatePage (assignmentURL) {
 
 app.on("open-url", function (event, urlToOpen) {
   event.preventDefault()
-  let urlParams = new URL(urlToOpen).searchParams
-  let isClassroomDeeplink = urlParams.has("assignment_url")
-  let isOAuthDeeplink = urlParams.has("code")
+  const urlParams = new URL(urlToOpen).searchParams
+  const isClassroomDeeplink = urlParams.has("assignment_url")
+  const isOAuthDeeplink = urlParams.has("code")
 
   if (isClassroomDeeplink) {
-    let assignmentURL = urlParams.get("assignment_url")
+    const assignmentURL = urlParams.get("assignment_url")
     if (app.isReady()) {
       loadPopulatePage(assignmentURL)
     } else {
       deepLinkURLOnReady = assignmentURL
     }
   } else if (isOAuthDeeplink) {
-    let oauthCode = urlParams.get("code")
+    const oauthCode = urlParams.get("code")
     fetchAccessToken(oauthCode)
   }
 })

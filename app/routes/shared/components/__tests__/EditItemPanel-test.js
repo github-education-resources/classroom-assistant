@@ -13,18 +13,18 @@ describe("EditItemPanel", () => {
 
   it("calls onEditClick when pencil is clicked", () => {
     let wasCalled = false
-    let clickHandler = () => {
+    const clickHandler = () => {
       wasCalled = true
     }
-    let wrapper = shallow(<EditItemPanel {...staticOptions} onEditClick={clickHandler}/>)
+    const wrapper = shallow(<EditItemPanel {...staticOptions} onEditClick={clickHandler}/>)
 
     wrapper.find("i").simulate("click")
     expect(wasCalled).to.equal(true)
   })
 
   it("renders an ItemPanel, correctly passing down properties", () => {
-    let noop = () => {}
-    let wrapper = shallow(<EditItemPanel {...staticOptions} onEditClick={noop}/>)
+    const noop = () => {}
+    const wrapper = shallow(<EditItemPanel {...staticOptions} onEditClick={noop}/>)
 
     const itemPanels = wrapper.find("ItemPanel")
     expect(itemPanels.length).to.equal(1)

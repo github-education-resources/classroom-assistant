@@ -7,7 +7,7 @@ import ItemPanel from "../ItemPanel"
 describe("ItemPanel", () => {
   let wrapper
 
-  let testOptions = {
+  const testOptions = {
     imagePath: "/some/path.jpg",
     title: "test title",
     subtitle: "test subtitle"

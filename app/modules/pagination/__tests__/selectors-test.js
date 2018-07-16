@@ -3,31 +3,31 @@ import { expect } from "chai"
 import { nextPage, outOfDate, fetching } from "../selectors"
 
 describe("pagination selectors", () => {
-  let assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+  const assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
-  let initialPaginationState = {
+  const initialPaginationState = {
     assignmentURL: "",
     fetching: false,
     nextPage: 1,
     submissionIds: [],
   }
 
-  let paginationWithNext = {
+  const paginationWithNext = {
     assignmentURL: "",
     fetching: true,
     nextPage: 2,
     submissionIds: [1],
   }
 
-  let paginationWithURL = {
+  const paginationWithURL = {
     assignmentURL: assignmentURL,
   }
 
-  let assignmentWithLatestURL = {
+  const assignmentWithLatestURL = {
     url: assignmentURL,
   }
 
-  let assignmentWithDifferentURL = {
+  const assignmentWithDifferentURL = {
     url: "different url"
   }
 
