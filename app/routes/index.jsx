@@ -3,17 +3,24 @@ import PropTypes from "prop-types"
 
 import { Router } from "react-router"
 
+import AppContainer from "./AppContainer"
 import IndexPage from "./index/index"
 import SelectPage from "./select/index"
 import ConfirmPage from "./confirm/index"
 import ArchivePage from "./archive/index"
 import SettingsPage from "./settings/index"
+import PopulatePage from "./populate/populate"
 
 const routeConfig = {
+  component: AppContainer,
   childRoutes: [
     {
       path: "/",
       component: IndexPage
+    },
+    {
+      path: "/populate",
+      component: PopulatePage
     },
     {
       path: "/select",

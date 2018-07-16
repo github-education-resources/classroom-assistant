@@ -3,6 +3,7 @@ import React from "react"
 import { shallow } from "enzyme"
 
 import { RingLoader } from "react-spinners"
+import ProgressBar from "../../../shared/components/ProgressBar"
 
 import ItemArchivePanel from "../ItemArchivePanel"
 
@@ -51,22 +52,12 @@ describe("ItemArchivePanel", () => {
 
   it("renders a progress bar when the progress is between 0 and 100", () => {
     let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
-    expect(wrapper.find(".progress-bar-info").length).equals(1)
+    expect(wrapper.find(ProgressBar).length).equals(1)
   })
 
   it("does not render the progress bar when cloning is finished", () => {
     let wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
-    expect(wrapper.find(".progress-bar").length).equals(0)
-  })
-
-  it("renders the completion percentage inside the progress bar", () => {
-    let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
-    expect(wrapper.find(".progress-bar").text()).equals(progressProps.cloneProgress + "%")
-  })
-
-  it("renders the progress bar with the fill corresponding to the percentage", () => {
-    let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
-    expect(wrapper.find(".progress-bar").prop("aria-valuenow")).equals(progressProps.cloneProgress)
+    expect(wrapper.find(ProgressBar).length).equals(0)
   })
 
   it("renders a 'view' button when the progress is at 100", () => {

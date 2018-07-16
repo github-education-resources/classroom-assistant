@@ -14,22 +14,20 @@ const ItemPanel = ({
 }) => (
   <div style={panelStyles}>
     <div className="media">
-      <div className="media-left">
-        <img
-          width="48px"
-          height="48px"
-          src={imagePath}
-          className="media-object"
-          alt={title}
-        />
-      </div>
+      <img
+        width="48px"
+        height="48px"
+        src={imagePath}
+        className={`mr-3 rounded-circle ${imagePath ? "d-block" : "d-none"}`}
+        alt={title}
+      />
       <div className="media-body">
         <div className="row">
-          <div className="col-xs-7">
-            <h4 className="media-heading">{title}</h4>
-            <h5>{subtitle}</h5>
+          <div className="col-7">
+            <h5>{title}</h5>
+            <h6>{subtitle}</h6>
           </div>
-          <div className="col-xs-5">
+          <div className="col-5">
             {children}
           </div>
         </div>
@@ -39,9 +37,9 @@ const ItemPanel = ({
 )
 
 ItemPanel.propTypes = {
-  imagePath: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  imagePath: PropTypes.string,
   children: PropTypes.any
 }
 

@@ -29,11 +29,11 @@ class SelectAllPanel extends React.Component {
     return (
       <div style={styles}>
         <div className="row">
-          <div className="col-xs-6">
+          <div className="col-6">
             {this.props.selected}/{this.props.total} selected
           </div>
-          <div className="col-xs-6">
-            <div className="pull-right">
+          <div className="col-6">
+            <div className="float-right">
               Select All
               <input
                 style={checkboxStyles}
