@@ -15,7 +15,7 @@ export const assignmentFetchInfo = () => {
     let urlObj, infoURL
     try {
       urlObj = new URL(url(getState()))
-      infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/info`
+      infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}`
     } catch (e) {
       dispatch(errorInfo("URL is invalid!"))
       return

@@ -2,7 +2,7 @@ import {fetchPage} from "./pagination-fetch-page"
 import {paginationSetFetching} from "./pagination-set-fetching"
 import {paginationSetAssignmentURL} from "./pagination-set-assignment-url"
 import {nextPage} from "../selectors"
-
+import {all} from "../../assignment/selectors"
 /**
  * PUBLIC: Fetch all pages of repositories associated with an assignment
  *
@@ -11,7 +11,12 @@ import {nextPage} from "../selectors"
 export const fetchAllPages = (assignmentURL) => {
   return (dispatch, getState) => {
     const urlObj = new URL(assignmentURL)
-    const repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/repos`
+    let repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/`
+    if (all(getState()).type === "individual") {
+      repoURL += "assignment_repositories"
+    } else {
+      repoURL += "group_assignment_repositories"
+    }
     dispatch(paginationSetAssignmentURL(assignmentURL))
     dispatch(paginationSetFetching(true))
     return chainFetchPage(dispatch, getState, repoURL).then(() => {
