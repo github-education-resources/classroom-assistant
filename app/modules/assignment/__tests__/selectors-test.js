@@ -3,30 +3,30 @@ import { expect } from "chai"
 import { all, typeLabel, name, url, error, valid, fetching } from "../selectors"
 
 describe("assignment selectors", () => {
-  let testIndividualAssignment = {
+  const testIndividualAssignment = {
     name: "Assignment 1: Introduction to Programming",
     type: "individual",
     url: "",
     isFetching: false,
   }
 
-  let testGroupAssignment = {
+  const testGroupAssignment = {
     name: "Assignment 1: Introduction to Programming",
     type: "group",
     url: "",
     isFetching: false,
   }
 
-  let testInvalidTypeAssignment = {
+  const testInvalidTypeAssignment = {
     name: "Assignment 1: Introduction to Programming",
     type: "somethingelse"
   }
 
-  let testInvalidNameAssignment = {
+  const testInvalidNameAssignment = {
     type: "individual",
   }
 
-  let testErrorAssignment = {
+  const testErrorAssignment = {
     name: "Assignment 1: Introduction to Programming",
     type: "individual",
     error: "Test Error",

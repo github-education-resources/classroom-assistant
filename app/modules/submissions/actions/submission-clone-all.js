@@ -8,7 +8,7 @@ const submissionClone = submissionCloneFunc(clone)
 // PUBLIC: Async thunk action for cloning all selected submissions.
 export const submissionCloneAll = () => {
   return (dispatch, getState) => {
-    let selectedSubmissions = selected(getState())
+    const selectedSubmissions = selected(getState())
     return Promise.map(selectedSubmissions, submission => {
       return dispatch(submissionClone(submission))
     },

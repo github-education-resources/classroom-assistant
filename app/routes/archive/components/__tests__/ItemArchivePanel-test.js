@@ -39,7 +39,7 @@ const noProgressProps = {
 
 describe("ItemArchivePanel", () => {
   it("renders an ItemPanel, correctly passing down properties", () => {
-    let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
+    const wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
 
     const itemPanels = wrapper.find("ItemPanel")
     expect(itemPanels.length).equals(1)
@@ -51,39 +51,39 @@ describe("ItemArchivePanel", () => {
   })
 
   it("renders a progress bar when the progress is between 0 and 100", () => {
-    let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
+    const wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
     expect(wrapper.find(ProgressBar).length).equals(1)
   })
 
   it("does not render the progress bar when cloning is finished", () => {
-    let wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
+    const wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
     expect(wrapper.find(ProgressBar).length).equals(0)
   })
 
   it("renders a 'view' button when the progress is at 100", () => {
-    let wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
+    const wrapper = shallow(<ItemArchivePanel {...completeProps}/>)
     expect(wrapper.find("button").text().indexOf("View")).does.not.equal(-1)
   })
 
   it("does not render a button when the progress is not 100", () => {
-    let wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
+    const wrapper = shallow(<ItemArchivePanel {...progressProps}/>)
     expect(wrapper.find("button").length).equals(0)
   })
 
   it("calls handler when the 'view' button is pressed", () => {
     let wasCalled = false
 
-    let handler = () => {
+    const handler = () => {
       wasCalled = true
     }
-    let wrapper = shallow(<ItemArchivePanel {...completeProps} onViewClick={handler} />)
+    const wrapper = shallow(<ItemArchivePanel {...completeProps} onViewClick={handler} />)
     wrapper.find("button").simulate("click")
 
     expect(wasCalled).equals(true)
   })
 
   it("renders a spinner when the progress is 0", () => {
-    let wrapper = shallow(<ItemArchivePanel {...noProgressProps}/>)
+    const wrapper = shallow(<ItemArchivePanel {...noProgressProps}/>)
     expect(wrapper.find(RingLoader).length).equals(1)
   })
 })

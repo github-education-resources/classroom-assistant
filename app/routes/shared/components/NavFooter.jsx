@@ -22,7 +22,7 @@ const NavFooter = ({
   left,
   right
 }) => {
-  let children = []
+  const children = []
 
   if (left !== undefined) {
     children.push(

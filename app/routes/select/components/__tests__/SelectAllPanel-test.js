@@ -7,7 +7,7 @@ import { shallow } from "enzyme"
 import SelectAllPanel from "../SelectAllPanel"
 
 describe("SelectAllPanel", () => {
-  let testProps = {
+  const testProps = {
     selected: 3,
     total: 10,
     selectAll: true
@@ -33,8 +33,8 @@ describe("SelectAllPanel", () => {
   })
 
   it("calls handler function with false when the checkbox is unchecked by user", () => {
-    let handler = sinon.spy()
-    let wrapper = shallow(<SelectAllPanel {...testProps} onSelectAllChange={handler} />)
+    const handler = sinon.spy()
+    const wrapper = shallow(<SelectAllPanel {...testProps} onSelectAllChange={handler} />)
     wrapper.find("input").simulate("change")
 
     expect(handler.callCount).to.equal(1)
@@ -42,14 +42,14 @@ describe("SelectAllPanel", () => {
   })
 
   it("calls handler function with true when the checkbox is checked by user", () => {
-    let testPropsChecked = {
+    const testPropsChecked = {
       selected: 3,
       total: 10,
       selectAll: false
     }
 
-    let handler = sinon.spy()
-    let wrapper = shallow(<SelectAllPanel {...testPropsChecked} onSelectAllChange={handler} />)
+    const handler = sinon.spy()
+    const wrapper = shallow(<SelectAllPanel {...testPropsChecked} onSelectAllChange={handler} />)
     wrapper.find("input").simulate("change")
 
     expect(handler.callCount).to.equal(1)

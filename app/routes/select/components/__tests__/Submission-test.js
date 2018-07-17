@@ -24,7 +24,7 @@ describe("Submission", () => {
   }
 
   it("renders an ItemPanel, correctly passing down properties", () => {
-    let wrapper = shallow(<Submission {...testProps} />)
+    const wrapper = shallow(<Submission {...testProps} />)
 
     const itemPanels = wrapper.find("ItemPanel")
     expect(itemPanels.length).to.equal(1)
@@ -36,7 +36,7 @@ describe("Submission", () => {
   })
 
   it("renders a checked checkbox when it is selected", () => {
-    let wrapper = shallow(<Submission {...testPropsSelected} />)
+    const wrapper = shallow(<Submission {...testPropsSelected} />)
 
     const input = wrapper.find("input")
 
@@ -46,7 +46,7 @@ describe("Submission", () => {
   })
 
   it("renders an unchecked checkbox when it is not selected", () => {
-    let wrapper = shallow(<Submission {...testProps} />)
+    const wrapper = shallow(<Submission {...testProps} />)
 
     const input = wrapper.find("input")
 
@@ -57,10 +57,10 @@ describe("Submission", () => {
 
   it("calls handler when checkbox is pressed", () => {
     let calledArg = null
-    let clickHandler = (arg) => {
+    const clickHandler = (arg) => {
       calledArg = arg
     }
-    let wrapper = shallow(<Submission {...testProps} onSelectedChange={clickHandler}/>)
+    const wrapper = shallow(<Submission {...testProps} onSelectedChange={clickHandler}/>)
 
     wrapper.find("input").simulate("change")
     expect(calledArg).to.equal(!testProps.selected)

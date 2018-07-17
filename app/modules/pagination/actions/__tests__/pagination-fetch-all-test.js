@@ -5,7 +5,7 @@ import { fetchAllPages } from "../pagination-fetch-all"
 import { PAGINATION_SET_ASSIGNMENT_URL, PAGINATION_SET_FETCHING } from "../../constants"
 
 describe("paginationFetchAll", () => {
-  let sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+  const sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
   let dispatch, getState
 
