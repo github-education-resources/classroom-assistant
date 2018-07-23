@@ -1,41 +1,21 @@
-import fetch from "electron-fetch/lib"
-import appInfo from "./app-info.json"
-import keytar from "keytar"
 import {BrowserWindow, session} from "electron"
 
 let mainWindow, authWindow
 
-const clientId = appInfo["client_id"]
-const clientSecret = appInfo["client_secret"]
-const requiredScopes = ["repo"].join("%20")
-
 export function authorizeUser (mainWindowRef) {
   mainWindow = mainWindowRef
   openAuthWindow()
+
+  const loginFilter = { // Assumes we redirect to /classrooms route on login, might need a better solution later
+    urls: ["*://*./classrooms"]
+  }
+  session.defaultSession.webRequest.onResponseStarted(loginFilter, receivedAuthorization)
 }
 
-export function fetchAccessToken (code) {
+function receivedAuthorization () {
   authWindow.destroy()
-  let data = {
-    client_id: clientId,
-    client_secret: clientSecret,
-    code: code,
-  }
-  fetch("https://github.com/login/oauth/access_token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then(response => response.json())
-    .then(async data => {
-      await keytar.setPassword("Classroom-Desktop", "token", data.access_token)
-      mainWindow.webContents.send("receivedAuthorization")
-    })
-    // TODO: Send IPC Message to close window and show error message
-    .catch((error) => console.log(error))
+  mainWindow.webContents.send("receivedAuthorization")
+  // TODO: Save session in keytar and clear session on close?
 }
 
 function openAuthWindow () {
@@ -50,7 +30,7 @@ function openAuthWindow () {
     }
   })
 
-  authWindow.loadURL(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${requiredScopes}`)
+  authWindow.loadURL("http://localhost:5000/login") // FOR TESTING SWITCH TO CLASSROOM URL IN PROD
   authWindow.once("ready-to-show", () => {
     if (authWindow) {
       authWindow.show()
