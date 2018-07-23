@@ -13,9 +13,9 @@ export const fetchAllPages = (assignmentURL) => {
     const urlObj = new URL(assignmentURL)
     let repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/`
     if (all(getState()).type === "individual") {
-      repoURL += "assignment_repositories"
+      repoURL += "assignment_repos"
     } else {
-      repoURL += "group_assignment_repositories"
+      repoURL += "group_assignment_repos"
     }
     dispatch(paginationSetAssignmentURL(assignmentURL))
     dispatch(paginationSetFetching(true))
