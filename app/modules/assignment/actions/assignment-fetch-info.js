@@ -26,7 +26,7 @@ export const assignmentFetchInfo = () => {
     })
       .then(response => response.json())
       .then((data) => {
-        dispatch(receiveInfo(data.name, data.type))
+        dispatch(receiveInfo(data.title, data.type))
       })
       .catch((e) => {
         dispatch(errorInfo("Could not find assignment."))
