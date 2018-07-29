@@ -1,0 +1,28 @@
+.index-container {
+  height: 100vh;
+  .row {
+    height: 100%;
+  }
+}
+
+.index-get-started-button {
+  margin: 5px;
+}
+
+.index-left-pane {
+  img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+}
+
+.index-right-pane {
+  background: #5fb27b;
+  color: white;
+  height: 100%;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
