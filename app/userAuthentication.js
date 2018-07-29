@@ -1,36 +1,54 @@
+import fetch from "electron-fetch/lib"
+import keytar from "keytar"
 import {BrowserWindow, session} from "electron"
+
+const { URL } = require("url")
 
 let mainWindow, authWindow
 
-export function authorizeUser (mainWindowRef) {
+export function authorizeUser (mainWindowRef, protocolHandler) {
   mainWindow = mainWindowRef
-  openAuthWindow()
+  openAuthWindow(protocolHandler)
+}
 
-  const loginFilter = { // Assumes we redirect to /classrooms route on login, might need a better solution later
-    urls: ["*://*./classrooms"]
+export async function fetchAccessToken (code) {
+  if (authWindow) {
+    authWindow.destroy()
   }
-  session.defaultSession.webRequest.onResponseStarted(loginFilter, receivedAuthorization)
+
+  fetch(`http://localhost:5000/login/oauth/access_token?code=${code}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+    },
+  })
+    .then(response => response.json())
+    .then(async data => {
+      console.log(data)
+      await keytar.setPassword("Classroom-Desktop", "token", data.access_token)
+      mainWindow.webContents.send("receivedAuthorization")
+    })
+    // TODO: Send IPC Message to close window and show error message
+    .catch((error) => console.log(error))
 }
 
-function receivedAuthorization () {
-  authWindow.destroy()
-  mainWindow.webContents.send("receivedAuthorization")
-  // TODO: Save session in keytar and clear session on close?
-}
-
-function openAuthWindow () {
+function openAuthWindow (protocolHandler) {
   authWindow = new BrowserWindow({
-    parent: mainWindow,
-    modal: true,
-    height: 600,
+    height: 650,
     width: 400,
+    titleBarStyle: "hidden",
     show: false,
     webPreferences: {
       session: session.defaultSession,
-    }
+      nodeIntegration: false,
+    },
   })
 
-  authWindow.loadURL("http://localhost:5000/login") // FOR TESTING SWITCH TO CLASSROOM URL IN PROD
+  const authURL = new URL("http://localhost:5000/login/oauth/authorize")
+  authURL.searchParams.set("redirect_uri", `${protocolHandler}://`)
+  authWindow.loadURL(authURL.toString())
+
   authWindow.once("ready-to-show", () => {
     if (authWindow) {
       authWindow.show()

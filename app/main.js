@@ -7,10 +7,12 @@ const defaultMenu = require("electron-default-menu")
 const updater = require("./updater")
 const logger = require("./logger")
 
-const { authorizeUser } = require("./userAuthentication")
+const {authorizeUser, fetchAccessToken} = require("./userAuthentication")
 
 let mainWindow
 let deepLinkURLOnReady = null
+
+const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
 
 logger.init()
 
@@ -20,7 +22,7 @@ function createWindow () {
   const menu = defaultMenu(app, shell)
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 
-  mainWindow = new BrowserWindow({width: 900, height: 600})
+  mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden"})
   const url = `file://${__dirname}/index.html`
   mainWindow.loadURL(url)
 
@@ -49,8 +51,8 @@ function createWindow () {
     }
   })
 
-  ipcMain.on("requestAuthorization", (e, assignmentURL) => {
-    authorizeUser(mainWindow, assignmentURL)
+  ipcMain.on("requestAuthorization", () => {
+    authorizeUser(mainWindow, DEFAULT_PROTOCOL_HANDLER)
   })
 }
 
@@ -61,7 +63,12 @@ function loadPopulatePage (assignmentURL) {
 app.on("open-url", function (event, urlToOpen) {
   event.preventDefault()
   let urlParams = new URL(urlToOpen).searchParams
+
+  console.log(urlToOpen)
+  console.log(urlParams)
+
   let isClassroomDeeplink = urlParams.has("assignment_url")
+  let isOAuthDeeplink = urlParams.has("code")
 
   if (isClassroomDeeplink) {
     let assignmentURL = urlParams.get("assignment_url")
@@ -70,11 +77,15 @@ app.on("open-url", function (event, urlToOpen) {
     } else {
       deepLinkURLOnReady = assignmentURL
     }
+  } else if (isOAuthDeeplink) {
+    const oauthCode = urlParams.get("code")
+    fetchAccessToken(oauthCode)
+    loadPopulatePage("")
   }
 })
 
 app.on("ready", () => {
-  app.setAsDefaultProtocolClient("x-github-classroom")
+  app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
   createWindow()
 })
 
