@@ -4,6 +4,8 @@ import {errorInfo} from "./assignment-error-info"
 
 import {url} from "../selectors"
 
+const keytar = require("keytar")
+
 /**
  * PUBLIC: Fetch information about assignment from URL in state
  *
@@ -11,11 +13,14 @@ import {url} from "../selectors"
  * fetched or if has errored
  */
 export const assignmentFetchInfo = () => {
-  return (dispatch, getState) => {
-    let urlObj, infoURL
+  return async (dispatch, getState) => {
+    let urlObj, infoURL, accessToken
+
+    accessToken = await keytar.findPassword("Classroom-Desktop")
+
     try {
       urlObj = new URL(url(getState()))
-      infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}`
+      infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}?access_token=${accessToken}`
     } catch (e) {
       dispatch(errorInfo("URL is invalid!"))
       return

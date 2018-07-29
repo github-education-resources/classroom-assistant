@@ -8,9 +8,9 @@ import LinkHeader from "http-link-header"
  *
  * @return An asynchronous thunk action
  */
-export const fetchPage = (repoURL, page) => {
+export const fetchPage = (repoURL, page, accessToken) => {
   return dispatch => {
-    return fetch(`${repoURL}?page=${page}`, {
+    return fetch(`${repoURL}?page=${page}&access_token=${accessToken}`, {
       credentials: "include"
     }).then(response => {
       // Set next page to null, unless we got the header
