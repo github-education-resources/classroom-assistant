@@ -60,27 +60,28 @@ function loadPopulatePage (assignmentURL) {
   mainWindow.webContents.send("open-url", assignmentURL)
 }
 
-app.on("open-url", function (event, urlToOpen) {
+app.on("open-url", async function (event, urlToOpen) {
   event.preventDefault()
+  let assignmentURL = ""
   let urlParams = new URL(urlToOpen).searchParams
-
-  console.log(urlToOpen)
-  console.log(urlParams)
-
   let isClassroomDeeplink = urlParams.has("assignment_url")
   let isOAuthDeeplink = urlParams.has("code")
 
-  if (isClassroomDeeplink) {
-    let assignmentURL = urlParams.get("assignment_url")
+  console.log(urlToOpen)
+  if (isOAuthDeeplink) {
+    const oauthCode = urlParams.get("code")
+
+    // TODO: Handle rejected promise
+    await fetchAccessToken(oauthCode, mainWindow)
+
+    if (isClassroomDeeplink) {
+      assignmentURL = urlParams.get("assignment_url")
+    }
     if (app.isReady()) {
       loadPopulatePage(assignmentURL)
     } else {
       deepLinkURLOnReady = assignmentURL
     }
-  } else if (isOAuthDeeplink) {
-    const oauthCode = urlParams.get("code")
-    fetchAccessToken(oauthCode)
-    loadPopulatePage("")
   }
 })
 

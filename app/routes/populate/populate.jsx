@@ -9,8 +9,8 @@ import LoadingPanel from "../shared/components/LoadingPanel"
 import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
 import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
-import {url, error, valid, name, typeLabel, fetching} from "../../modules/assignment/selectors"
-import {userAuthorized} from "../../modules/settings/selectors"
+import {url, error, valid, name, typeLabel, fetching, all} from "../../modules/assignment/selectors"
+import {loggedIn} from "../../modules/settings/selectors"
 
 const containerStyles = {
   paddingTop: "100px"
@@ -97,7 +97,8 @@ const mapStateToProps = (state) => ({
   typeLabel: typeLabel(state),
   valid: valid(state),
   fetching: fetching(state),
-  loggedIn: userAuthorized(state),
+  loggedIn: loggedIn(state),
+  type: all(state).type,
 })
 
 PopulatePage.propTypes = {

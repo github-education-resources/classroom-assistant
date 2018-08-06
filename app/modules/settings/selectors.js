@@ -6,6 +6,6 @@ export const username = (state) => {
   return state.settings.username
 }
 
-export const userAuthorized = (state) => {
+export const loggedIn = (state) => {
   return Boolean(state.settings.username)
 }
