@@ -3,28 +3,21 @@ import PropTypes from "prop-types"
 
 import ItemPanel from "../../shared/components/ItemPanel"
 
-const editIconStyles = {
-  paddingTop: "5px",
-  paddingRight: "5px",
-  fontSize: 20
-}
-
 const EditItemPanel = ({
-  imagePath,
+  leftIconName,
+  rightIconName,
   title,
   subtitle,
   onEditClick,
-  iconName,
 }) => (
   <ItemPanel
-    imagePath={imagePath}
     title={title}
     subtitle={subtitle}
+    iconName={leftIconName}
   >
     <i
-      className={`fa ${iconName} pull-right`}
+      className={`fa ${rightIconName} pull-right shared-edit-item-panel-icon`}
       aria-hidden="true"
-      style={editIconStyles}
       onClick={onEditClick}
     />
   </ItemPanel>
@@ -34,7 +27,8 @@ EditItemPanel.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   onEditClick: PropTypes.func,
-  iconName: PropTypes.string,
+  leftIconName: PropTypes.string,
+  rightIconName: PropTypes.string,
   imagePath: PropTypes.string,
 }
 
