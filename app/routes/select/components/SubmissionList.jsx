@@ -4,13 +4,9 @@ import PropTypes from "prop-types"
 import SelectableSubmission from "../containers/SelectableSubmission"
 import ActionableSelectAllPanel from "../containers/ActionableSelectAllPanel"
 
-const containerStyles = {
-  marginBottom: "100px"
-}
-
 const SubmissionList = function (props, context) {
   return (
-    <div style={containerStyles}>
+    <div className="select-submission-list-container">
       <ActionableSelectAllPanel />
       { props.submissions.map(submission => {
         return <SelectableSubmission key={submission.id} {...submission}/>
