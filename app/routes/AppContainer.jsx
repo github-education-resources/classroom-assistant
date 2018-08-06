@@ -16,7 +16,9 @@ class AppContainer extends Component {
     this.props.updateUserState()
 
     ipcRenderer.on("open-url", (event, assignmentURL) => {
-      this.props.fetchAssignment(assignmentURL)
+      if (assignmentURL) {
+        this.props.fetchAssignment(assignmentURL)
+      }
       this.props.router.push({
         pathname: "/populate",
       })

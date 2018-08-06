@@ -47,9 +47,7 @@ function openAuthWindow (protocolHandler) {
   })
 
   const authURL = new URL("http://localhost:5000/login/oauth/authorize")
-  authURL.searchParams.set("redirect_uri", `${protocolHandler}://`)
 
-  console.log(authURL.toString())
   authWindow.webContents.loadURL(authURL.toString())
 
   authWindow.once("ready-to-show", () => {
