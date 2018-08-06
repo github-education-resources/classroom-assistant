@@ -50,7 +50,7 @@ class PopulatePage extends Component {
             {this.props.fetching &&
               <LoadingPanel message = "Loading Assignment Information"/>
             }
-            {this.props.valid &&
+            {this.props.valid && !this.props.fetching &&
               <AssignmentCard
                 name={this.props.name}
                 typeLabel={this.props.typeLabel}
