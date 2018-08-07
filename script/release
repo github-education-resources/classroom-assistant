@@ -1,0 +1,18 @@
+#!/bin/sh
+# Usage: script/package
+set -e
+
+COL='\033[1;32m'
+NC='\033[0m' # No Color
+
+echo_status() {
+  echo "${COL}==> $1${NC}"
+}
+
+cd "$(dirname "$0")/.."
+
+echo_status "Deploying Application"
+npm run deploy
+
+echo_status "Done!"
+

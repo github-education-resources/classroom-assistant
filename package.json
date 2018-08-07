@@ -1,12 +1,12 @@
 {
   "name": "classroom-desktop",
   "productName": "GitHub Classroom",
-  "version": "0.5.0",
+  "version": "0.4.0",
   "description": "Desktop helper for GitHub Classroom",
   "main": "app/main.js",
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package",
+    "package": "electron-forge package --platform=win32,darwin,linux",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js .",
@@ -35,36 +35,7 @@
     "node": ">= 8"
   },
   "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "npm"
-      },
-      "electronWinstallerConfig": {
-        "name": "classroom-desktop"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "",
-        "name": ""
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "classroom-desktop"
-      }
-    }
+    "forge": "./forge.config.js"
   },
   "dependencies": {
     "bluebird": "^3.5.1",

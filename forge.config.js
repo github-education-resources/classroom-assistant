@@ -1,14 +1,15 @@
-const fs = require("fs")
+function getOSXSigningIdentity () {
+  if (process.platform !== "darwin") {
+    return
+  }
 
-const devClientId = "e56ae4a7249b39454ea5"
-const devClientSecret = "c00b3a34ca123c1e0870007aec67e91d5618bc46"
-
-const s = JSON.stringify
-
-const appInfo = s({
-  client_id: process.env.CLASSROOM_DESKTOP_OAUTH_CLIENT_ID || devClientId,
-  client_secret: process.env.CLASSROOM_DESKTOP_OAUTH_CLIENT_SECRET || devClientSecret,
-})
+  if (process.env.CLASSROOM_DESKTOP_OSX_DEVELOPER_ID) {
+    console.log(process.env.CLASSROOM_DESKTOP_OSX_DEVELOPER_ID)
+    return process.env.CLASSROOM_DESKTOP_OSX_DEVELOPER_ID
+  } else {
+    console.log("CLASSROOM_DESKTOP_OSX_DEVELOPER_ID not set, the app will not be signed")
+  }
+}
 
 module.exports = {
   // other config here
@@ -26,6 +27,9 @@ module.exports = {
   },
   electronPackagerConfig: {
     packageManager: "npm",
+    osxSign: {
+      identity: getOSXSigningIdentity()
+    },
     icon: "./app/resources/icon.icns",
     protocols: [
       {
@@ -42,21 +46,12 @@ module.exports = {
   electronInstallerDebian: {},
   electronInstallerRedhat: {},
   github_repository: {
-    owner: "",
-    name: ""
+    owner: "education",
+    name: "classroom-desktop"
   },
+  prerelease: true,
   windowsStoreConfig: {
     packageName: "",
     name: "classroom-desktop"
   },
-  hooks: {
-    generateAssets: async () => {
-      return new Promise((resolve, reject) =>
-        fs.writeFile("./app/app-info.json", appInfo, (e) => {
-          if (e) reject(e)
-          else resolve()
-        })
-      )
-    }
-  }
 }
