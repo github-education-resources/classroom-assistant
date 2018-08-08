@@ -7,7 +7,7 @@ const defaultMenu = require("electron-default-menu")
 const updater = require("./updater")
 const logger = require("./logger")
 
-const {authorizeUser, fetchAccessToken} = require("./userAuthentication")
+const {authorizeUser, setAccessToken} = require("./userAuthentication")
 
 let mainWindow
 let deepLinkURLOnReady = null
@@ -22,7 +22,7 @@ function createWindow () {
   const menu = defaultMenu(app, shell)
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 
-  mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden"})
+  mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden", show: false})
   const url = `file://${__dirname}/index.html`
   mainWindow.loadURL(url)
 
@@ -49,6 +49,8 @@ function createWindow () {
       loadPopulatePage(deepLinkURLOnReady)
       deepLinkURLOnReady = null
     }
+
+    mainWindow.show()
   })
 
   ipcMain.on("requestAuthorization", () => {
@@ -67,12 +69,10 @@ app.on("open-url", async function (event, urlToOpen) {
   let isClassroomDeeplink = urlParams.has("assignment_url")
   let isOAuthDeeplink = urlParams.has("code")
 
-  console.log(urlToOpen)
   if (isOAuthDeeplink) {
     const oauthCode = urlParams.get("code")
-
     // TODO: Handle rejected promise
-    await fetchAccessToken(oauthCode, mainWindow)
+    await setAccessToken(oauthCode, mainWindow)
 
     if (isClassroomDeeplink) {
       assignmentURL = urlParams.get("assignment_url")
@@ -85,7 +85,7 @@ app.on("open-url", async function (event, urlToOpen) {
   }
 })
 
-app.on("ready", () => {
+app.on("ready", async () => {
   app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
   createWindow()
 })

@@ -10,28 +10,14 @@ export function authorizeUser (mainWindowRef, protocolHandler) {
   openAuthWindow(protocolHandler)
 }
 
-export async function fetchAccessToken (code, mainWindow) {
-  return new Promise((resolve, reject) => {
-    if (authWindow) {
-      authWindow.destroy()
-    }
-
-    fetch(`http://localhost:5000/login/oauth/access_token?code=${code}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Accept": "application/json",
-      },
-    })
-      .then(response => response.json())
-      .then(async data => {
-        await keytar.setPassword("Classroom-Desktop", "token", data.access_token)
-        mainWindow.webContents.send("receivedAuthorization")
-        resolve()
-      })
-      // TODO: Send IPC Message to close window and show error message
-      .catch((error) => reject(error))
-  })
+export async function setAccessToken (code, mainWindow) {
+  if (authWindow) {
+    authWindow.destroy()
+  }
+  // TODO: Error handling
+  const data = await fetchAccessToken(code)
+  await keytar.setPassword("Classroom-Desktop", "x-access-token", data.access_token)
+  mainWindow.webContents.send("receivedAuthorization")
 }
 
 function openAuthWindow (protocolHandler) {
@@ -41,7 +27,7 @@ function openAuthWindow (protocolHandler) {
     frame: false,
     show: false,
     webPreferences: {
-      session: session.defaultSession,
+      session: session.fromPartition("auth:session"),
       nodeIntegration: false,
     },
   })
@@ -55,4 +41,14 @@ function openAuthWindow (protocolHandler) {
       authWindow.show()
     }
   })
+}
+
+function fetchAccessToken (code) {
+  return fetch(`http://localhost:5000/login/oauth/access_token?code=${code}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+    },
+  }).then(response => response.json())
 }

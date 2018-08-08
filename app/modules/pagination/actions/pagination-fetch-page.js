@@ -13,7 +13,7 @@ import LinkHeader from "http-link-header"
 export const fetchPage = (repoURL, page, accessToken) => {
   return dispatch => {
     return new Promise((resolve, reject) => {
-      http.get(`${repoURL}?page=${page}&access_token=${accessToken}&per_page=2`, (response) => {
+      http.get(`${repoURL}?page=${page}&access_token=${accessToken}`, (response) => {
         // Set next page to null, unless we got the header
         let nextPage = null
         let body = ""
