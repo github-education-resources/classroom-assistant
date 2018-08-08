@@ -4,7 +4,6 @@ function getOSXSigningIdentity () {
   }
 
   if (process.env.CLASSROOM_DESKTOP_OSX_DEVELOPER_ID) {
-    console.log(process.env.CLASSROOM_DESKTOP_OSX_DEVELOPER_ID)
     return process.env.CLASSROOM_DESKTOP_OSX_DEVELOPER_ID
   } else {
     console.log("CLASSROOM_DESKTOP_OSX_DEVELOPER_ID not set, the app will not be signed")

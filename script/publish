@@ -11,8 +11,7 @@ echo_status() {
 
 cd "$(dirname "$0")/.."
 
-echo_status "Deploying Application"
-npm run deploy
+echo_status "Building and packaging app"
+npm run publish
 
 echo_status "Done!"
-

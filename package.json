@@ -6,7 +6,7 @@
   "main": "app/main.js",
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package --platform=win32,darwin,linux",
+    "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js .",
