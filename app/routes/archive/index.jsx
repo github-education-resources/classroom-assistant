@@ -1,11 +1,13 @@
 import React from "react"
-import LoadingAssignmentPanel from "./containers/LoadingAssignmentPanel"
+import AssignmentPanel from "../shared/containers/AssignmentPanel"
 import SubmissionArchivePanelList from "./containers/SubmissionArchivePanelList"
 import NavFooter from "../shared/components/NavFooter"
+import ArchiveProgressPanel from "./containers/ArchiveProgressPanel"
 
 const ArchivePage = () => (
   <div>
-    <LoadingAssignmentPanel/>
+    <AssignmentPanel/>
+    <ArchiveProgressPanel/>
     <SubmissionArchivePanelList />
     <NavFooter
       left={{

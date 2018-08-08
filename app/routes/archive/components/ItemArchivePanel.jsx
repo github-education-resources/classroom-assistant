@@ -23,7 +23,11 @@ const ItemArchivePanel = ({
     )
   } else if (cloneProgress > 0 && cloneProgress < 100) {
     progressElement = (
-      <ProgressBar className="archive-item-archive-panel-progress-bar" cloneProgress={cloneProgress}/>
+      <ProgressBar
+        className="archive-item-archive-panel-progress-bar"
+        cloneProgress={cloneProgress}
+        showPercentage={false}
+      />
     )
   } else {
     progressElement = (
@@ -39,7 +43,7 @@ const ItemArchivePanel = ({
       title={username}
       subtitle={displayName}
     >
-      <div className="pull-right archive-item-archive-panel-container">
+      <div className="pull-right archive-item-archive-panel-container align-self-center">
         { cloneStatus &&
           <div>
             <p className="archive-item-archive-panel-status">{cloneStatus}</p>

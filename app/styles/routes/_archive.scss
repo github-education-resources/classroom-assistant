@@ -10,7 +10,7 @@
 }
 
 .archive-item-archive-panel-progress-bar {
-  width: 160px;
+  height: 5px;
 }
 
 .archive-item-archive-panel-status {
@@ -27,4 +27,12 @@
   margin-bottom: 0;
   margin-top: 0;
   margin-left: 4rem;
+  padding: 5px 10px;
+  font-size: 10px;
+  border-radius: 5px;
+}
+
+.archive-progress-panel-wrapper {
+  padding: 10px;
+  border-bottom: solid 1px #e3e3e3;
 }
