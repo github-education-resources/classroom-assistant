@@ -12,7 +12,7 @@ const ArchivePage = () => (
     <NavFooter
       left={{
         label: "Quit",
-        route: "/"
+        route: "/populate"
       }}
     />
   </div>
