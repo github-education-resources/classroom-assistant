@@ -27,9 +27,16 @@ class LogoutButton extends React.Component {
             src={`https://avatars.githubusercontent.com/${this.props.username}?v=3&size=96`}
           />
           <i className="fa fa-caret-down shared-logout-icon"/>
-          <div className="dropdown-menu dropdown-menu-right"
+          <div className="dropdown-menu dropdown-menu-right shared-logout-dropdown-menu"
             style= {{ display: this.state.toggled ? "block" : "none" }}
           >
+            {this.props.loggedIn &&
+              <span class="dropdown-item-text">
+                Signed in as <strong>{this.props.username}</strong>
+              </span>
+            }
+
+            <div class="dropdown-divider"></div>
             <a className="dropdown-item" onClick={this.props.logout}>Sign Out</a>
           </div>
         </div>
