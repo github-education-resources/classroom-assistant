@@ -1,6 +1,7 @@
 .shared-item-panel-wrapper {
   padding: 20px;
   border-bottom: solid 1px #e3e3e3;
+  height: 105px;
 }
 
 .shared-item-panel-icon {
@@ -21,4 +22,8 @@
   }
 
   background-color: rgba(216, 216, 216, 0.3);
+}
+
+.shared-item-panel-subtitle {
+  margin-top: 0.5rem;
 }

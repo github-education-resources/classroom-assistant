@@ -12,7 +12,10 @@ const IndexPage = ({
   <div className="index-container">
     <div className="row">
       <div className="col-5 align-self-center index-left-pane">
-        <img src={ Path.join(__dirname, "../../resources/icon.iconset/icon_256x256.png") } />
+        <img
+          className="index-logo"
+          src={ Path.join(__dirname, "../../resources/images/classroom-logo.png") }
+        />
       </div>
       <div className="col-7 index-right-pane">
         <div className = "index-right-pane-content">

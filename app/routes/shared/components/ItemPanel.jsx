@@ -16,7 +16,7 @@ const ItemPanel = ({
             width="48px"
             height="48px"
             src={imagePath}
-            className={`mr-3 rounded-circle ${imagePath ? "d-block" : "d-none"}`}
+            className={`mr-3 rounded-circle mt-1 ${imagePath ? "d-block" : "d-none"}`}
             alt={title}
           />
         }
@@ -26,13 +26,13 @@ const ItemPanel = ({
           </span>
         }
 
-        <div className="media-body">
-          <div className="row">
-            <div className="col-7">
+        <div className="media-body h-100">
+          <div className="row h-100">
+            <div className="col-7 h-100 align-self-center">
               <h5>{title}</h5>
-              <h6>{subtitle}</h6>
+              <h6 className="shared-item-panel-subtitle">{subtitle}</h6>
             </div>
-            <div className="col-5">
+            <div className="col-5 h-100">
               {children}
             </div>
           </div>
