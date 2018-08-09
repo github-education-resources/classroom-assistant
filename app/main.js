@@ -65,9 +65,9 @@ function loadPopulatePage (assignmentURL) {
 app.on("open-url", async function (event, urlToOpen) {
   event.preventDefault()
   let assignmentURL = ""
-  let urlParams = new URL(urlToOpen).searchParams
-  let isClassroomDeeplink = urlParams.has("assignment_url")
-  let isOAuthDeeplink = urlParams.has("code")
+  const urlParams = new URL(urlToOpen).searchParams
+  const isClassroomDeeplink = urlParams.has("assignment_url")
+  const isOAuthDeeplink = urlParams.has("code")
 
   if (isOAuthDeeplink) {
     const oauthCode = urlParams.get("code")

@@ -1,4 +1,5 @@
-import { name } from "../../assignment/selectors"
+import * as http from "http"
+import { name, url, all } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
 import { submissionSetCloneProgress } from "./submission-set-clone-progress"
@@ -35,29 +36,62 @@ export function submissionCloneFunc (clone) {
       dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
 
       return new Promise((resolve, reject) => {
-        clone(
-          submissionProps.repoUrl,
-          destination,
-          (progress) => {
-            dispatch(
-              submissionSetCloneProgress(
-                submissionProps.id,
-                progress
+        fetchCloneURL(accessToken, submissionProps.id, getState).then((cloneURL) => {
+          clone(
+            cloneURL,
+            destination,
+            (progress) => {
+              dispatch(
+                submissionSetCloneProgress(
+                  submissionProps.id,
+                  progress
+                )
               )
-            )
 
-            if (progress === 100) {
-              dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
+              if (progress === 100) {
+                dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
+              }
             }
-          },
-          accessToken
-        )
-          .then(resolve)
-          .catch((e) => {
-            dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
-            resolve()
-          })
+          )
+            .then(resolve)
+            .catch((e) => {
+              dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
+              resolve()
+            })
+        })
       })
     }
   }
+}
+
+function fetchCloneURL (accessToken, id, getState) {
+  const typeLabel = all(getState()).type === "individual" ? "assignment_repos" : "group-assignment-repos"
+
+  const urlObj = new URL(url(getState()))
+  const cloneURLPath = `${urlObj.origin}/api/internal/${urlObj.pathname}/${typeLabel}/${id}/clone_url`
+  return new Promise((resolve, reject) => {
+    http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
+      // Set next page to null, unless we got the header
+      let body = ""
+
+      response.on("data", (chunk) => {
+        body += chunk.toString()
+      })
+
+      response.on("end", () => {
+        const json = JSON.parse(body)
+        console.log(json)
+        if (json.temp_clone_url) {
+          console.log(`Received temp cloning URL! ${json.temp_clone_url}`)
+          resolve(json.temp_clone_url)
+        } else {
+          reject(new Error("Failed to fetch temporary cloning URL."))
+        }
+      })
+
+      response.on("error", function (err) {
+        reject(err)
+      })
+    })
+  })
 }

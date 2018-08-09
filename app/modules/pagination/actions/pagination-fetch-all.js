@@ -23,7 +23,7 @@ export const fetchAllPages = (assignmentURL) => {
     if (all(getState()).type === "individual") {
       repoURL += "assignment_repos"
     } else {
-      repoURL += "group_assignment_repos"
+      repoURL += "group-assignment-repos"
     }
     dispatch(paginationSetAssignmentURL(assignmentURL))
     dispatch(paginationSetFetching(true))

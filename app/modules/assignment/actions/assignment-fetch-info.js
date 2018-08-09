@@ -14,9 +14,9 @@ const keytar = require("keytar")
  */
 export const assignmentFetchInfo = () => {
   return async (dispatch, getState) => {
-    let urlObj, infoURL, accessToken
+    let urlObj, infoURL
 
-    accessToken = await keytar.findPassword("Classroom-Desktop")
+    const accessToken = await keytar.findPassword("Classroom-Desktop")
 
     try {
       urlObj = new URL(url(getState()))
