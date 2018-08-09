@@ -1,5 +1,15 @@
-import NodeGit from "nodegit"
 import _ from "underscore"
+import { GitProcess } from "dugite"
+
+const byline = require("byline")
+
+const steps = [
+  { title: "remote: Compressing objects", weight: 0.1 },
+  { title: "Receiving objects", weight: 0.6 },
+  { title: "Resolving deltas", weight: 0.3 },
+]
+
+let progressCallback, repoURL
 
 // Public: Clones a public git repository to the specified destination directory,
 // and notifies the caller of clone progress via callback.
@@ -25,51 +35,55 @@ import _ from "underscore"
 //    })
 //
 // Returns a Promise
-export const clone = (repoURL, destination, progressCallback, token) => {
-  return new Promise((resolve, reject) => {
-    let progressOnCompletion = false
+export const clone = async (repoURLVar, destination, progressCallbackFunc, token) => {
+  const progressOnCompletion = false
+  progressCallback = progressCallbackFunc
+  repoURL = repoURLVar
 
-    const options = {
-      fetchOpts: {
-        callbacks: {
+  const options = { }
 
-        }
-      }
-    }
+  if (progressCallback) {
+    options.processCallback = parseProgressFromProcess
+  }
 
-    if (progressCallback) {
-      options.fetchOpts.callbacks.transferProgress = _.throttle((progressInfo) => {
-        const percentage = 100 * progressInfo.receivedObjects() / progressInfo.totalObjects()
-        if (percentage === 100) progressOnCompletion = true
-        progressCallback(percentage)
-      }, 300, { trailing: false })
-    }
+  progressCallback(0)
 
-    if (token) {
-      // Skipping Certificate check because libgit2 is unable to look up GitHub
-      // certificates correctly, this issue is documented here:
-      // https://github.com/nodegit/nodegit/tree/master/guides/cloning/gh-two-factor#github-certificate-issue-in-os-x
-      options.fetchOpts.callbacks.certificate_check = () => {
-        return 1
-      }
-      options.fetchOpts.callbacks.credentials = () => {
-        return NodeGit.Cred.userpassPlaintextNew(token, "x-oauth-basic")
-      }
-    }
+  const result = await GitProcess.exec(
+    ["clone", repoURL, "--progress"],
+    "/Users/srinjoym/temp_clone",
+    options
+  )
 
-    progressCallback(0)
+  // TODO Add Error handling
+  if (result.exitCode === 0) {
+    progressCallback(100)
+  }
+}
 
-    NodeGit.Clone(
-      repoURL,
-      destination,
-      options
-    ).then((repo) => {
-      if (!progressOnCompletion && progressCallback) {
-        progressCallback(100)
-      }
-      resolve()
-    }).catch((err) => {
-      reject(err)
-    })
+const parseProgressFromProcess = _.throttle((process) => {
+  byline(process.stderr).on("data", (chunk) => {
+    console.log(repoURL)
+    console.log(chunk)
+    // steps.forEach((step, index) => {
+    //   if (chunk.startsWith(step.title)) {
+    //     const percentOfStep = tryParse(chunk)
+    //     if (percentOfStep) {
+    //       let percent = steps.slice(0, index).reduce((sum, step) => sum + step.weight, 0)
+    //       percent += (percentOfStep / 100) * step.weight
+    //       progressCallback(percent * 100)
+    //     }
+    //   }
+    // })
   })
+}, 500, { trailing: false })
+
+const tryParse = (str) => {
+  const value = /(\d+)\%/.exec(str)
+  if (value) {
+    const percentValue = value[1]
+    const percent = parseInt(percentValue, 10)
+    if (!isNaN(percent)) {
+      return percent
+    }
+  }
 }

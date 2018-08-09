@@ -69,8 +69,11 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "bootstrap": "~4.1.1",
+    "byline": "^5.0.0",
+    "childprocess": "^2.0.2",
     "classnames": "^2.2.6",
     "dateformat": "^3.0.3",
+    "dugite": "^1.69.0",
     "electron-compile": "^6.4.2",
     "electron-default-menu": "^1.0.1",
     "electron-devtools-installer": "^2.1.0",
