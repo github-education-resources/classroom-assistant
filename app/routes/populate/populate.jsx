@@ -38,7 +38,7 @@ class PopulatePage extends Component {
       <div>
         <ClassroomPanel/>
         <div className="row justify-content-center populate-content">
-          <div className="col-sm-8 col-sm-offset-2">
+          <div className="col-8">
             <p className="lead text-center">Enter Assignment URL</p>
             <input value={this.props.assignmentURL}
               onChange={this.updateInput}
@@ -46,9 +46,8 @@ class PopulatePage extends Component {
               className={inputClasses}
             />
             {this.props.error && !this.props.fetching && <p className="text-danger">{this.props.error}</p>}
-            <br/><br/><br/>
             {this.props.fetching &&
-              <LoadingPanel message = "Loading Assignment Information"/>
+              <LoadingPanel className = "populate-loading-panel" message = "Loading Assignment Information"/>
             }
             {this.props.valid && !this.props.fetching &&
               <AssignmentCard

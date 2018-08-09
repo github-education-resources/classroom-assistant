@@ -6,9 +6,10 @@ const AssignmentCard = ({
   name,
   type,
   typeLabel,
+  className,
 }) => {
   return (
-    <div>
+    <div className = {className}>
       <h5 className="text-center">Found Assignment!</h5>
       <div className="card text-green border-success">
         <div className="card-body">
@@ -33,6 +34,7 @@ AssignmentCard.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   typeLabel: PropTypes.string.isRequired,
+  className: PropTypes.string,
 }
 
 export default AssignmentCard
