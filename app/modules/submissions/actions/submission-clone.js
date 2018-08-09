@@ -80,10 +80,13 @@ function fetchCloneURL (accessToken, id, getState) {
 
       response.on("end", () => {
         const json = JSON.parse(body)
-        console.log(json)
-        if (json.temp_clone_url) {
-          console.log(`Received temp cloning URL! ${json.temp_clone_url}`)
-          resolve(json.temp_clone_url)
+        const tempCloneURL = json.temp_clone_url
+        if (tempCloneURL) {
+          const cloneURL = new URL(tempCloneURL)
+          if (!cloneURL.password) {
+            cloneURL.username = ""
+          }
+          resolve(cloneURL.toString())
         } else {
           reject(new Error("Failed to fetch temporary cloning URL."))
         }
