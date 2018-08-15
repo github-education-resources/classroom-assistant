@@ -7,7 +7,7 @@ const { URL } = require("url")
 let authWindow
 
 export function authorizeUser (mainWindowRef, protocolHandler) {
-  openAuthWindow(protocolHandler)
+  openAuthWindow(mainWindowRef, protocolHandler)
 }
 
 export async function setAccessToken (code, mainWindow) {
@@ -20,12 +20,13 @@ export async function setAccessToken (code, mainWindow) {
   mainWindow.webContents.send("receivedAuthorization")
 }
 
-function openAuthWindow (protocolHandler) {
+function openAuthWindow (mainWindow, protocolHandler) {
   authWindow = new BrowserWindow({
     height: 650,
     width: 400,
     frame: false,
     show: false,
+    parent: mainWindow,
     webPreferences: {
       session: session.fromPartition("auth:session"),
       nodeIntegration: false,

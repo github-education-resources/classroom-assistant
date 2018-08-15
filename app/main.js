@@ -10,7 +10,7 @@ const logger = require("./logger")
 const {authorizeUser, setAccessToken} = require("./userAuthentication")
 
 let mainWindow
-let deepLinkURLOnReady = null
+let loadOnReady = null
 
 const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
 
@@ -43,11 +43,12 @@ function createWindow () {
     mainWindow = null
   })
 
-  ipcMain.on("initialized", () => {
-    if (deepLinkURLOnReady != null) {
+  ipcMain.on("initialized", async () => {
+    if (loadOnReady != null) {
       // If open-url event was fired before app was ready
-      loadPopulatePage(deepLinkURLOnReady)
-      deepLinkURLOnReady = null
+      await setAccessToken(loadOnReady.code, mainWindow)
+      loadPopulatePage(loadOnReady.assignmentURL)
+      loadOnReady = null
     }
 
     mainWindow.show()
@@ -71,16 +72,19 @@ app.on("open-url", async function (event, urlToOpen) {
 
   if (isOAuthDeeplink) {
     const oauthCode = urlParams.get("code")
-    // TODO: Handle rejected promise
-    await setAccessToken(oauthCode, mainWindow)
 
     if (isClassroomDeeplink) {
       assignmentURL = urlParams.get("assignment_url")
     }
     if (app.isReady()) {
+      // TODO: Handle rejected promise
+      await setAccessToken(oauthCode, mainWindow)
       loadPopulatePage(assignmentURL)
     } else {
-      deepLinkURLOnReady = assignmentURL
+      loadOnReady = {
+        assignmentURL: assignmentURL,
+        code: oauthCode
+      }
     }
   }
 })
