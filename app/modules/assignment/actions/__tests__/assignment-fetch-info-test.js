@@ -4,6 +4,8 @@ import * as sinon from "sinon"
 import { assignmentFetchInfo } from "../assignment-fetch-info"
 import {ASSIGNMENT_ERROR_INFO, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO} from "../../constants"
 
+const keytar = require("keytar")
+
 const jsonOK = (body) => {
   const mockResponse = new window.Response(JSON.stringify(body), {
     status: 200,
@@ -16,7 +18,7 @@ const jsonOK = (body) => {
 
 describe("assignmentFetchInfo", () => {
   let invalidURLAssignment = {
-    name: "Test Assignment",
+    title: "Test Assignment",
     type: "individual",
     url: "invalidURL",
     isFetching: false,
@@ -24,9 +26,9 @@ describe("assignmentFetchInfo", () => {
   }
 
   let validAssignment = {
-    name: "Test Assignment",
+    title: "Test Assignment",
     type: "individual",
-    url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
+    url: "http://this-is-a-valid-url.com/assignments/a1",
     isFetching: false,
     error: null,
   }
@@ -34,6 +36,15 @@ describe("assignmentFetchInfo", () => {
   let validSettings = {
     username: "testUser",
   }
+
+  before(() => {
+    const passwordStub = sinon.stub(keytar, "findPassword")
+    passwordStub.returns("token")
+  })
+
+  after(() => {
+    keytar.findPassword.restore()
+  })
 
   it("dispatches error action on invalid URL", async () => {
     const getState = () => ({ assignment: invalidURLAssignment, settings: validSettings })
@@ -60,7 +71,7 @@ describe("assignmentFetchInfo", () => {
   })
 
   it("dispatches receive info action after fetch", async () => {
-    const response = {name: "Test Assignment", type: "individual"}
+    const response = {title: "Test Assignment", type: "individual"}
     const getState = () => ({ assignment: validAssignment, settings: validSettings })
     const dispatch = sinon.spy()
     sinon.stub(window, "fetch")
