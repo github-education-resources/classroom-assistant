@@ -1,7 +1,10 @@
-os: Visual Studio 2017
+os: Visual Studio 2015
 
 platform:
   - x64
+
+configuration:
+  - Release
 
 environment:
   nodejs_version: '8.11'
