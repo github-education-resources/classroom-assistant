@@ -4,21 +4,21 @@ import { all, typeLabel, name, url, error, valid, fetching } from "../selectors"
 
 describe("assignment selectors", () => {
   let testIndividualAssignment = {
-    name: "Assignment 1: Introduction to Programming",
+    title: "Assignment 1: Introduction to Programming",
     type: "individual",
     url: "",
     isFetching: false,
   }
 
   let testGroupAssignment = {
-    name: "Assignment 1: Introduction to Programming",
+    title: "Assignment 1: Introduction to Programming",
     type: "group",
     url: "",
     isFetching: false,
   }
 
   let testInvalidTypeAssignment = {
-    name: "Assignment 1: Introduction to Programming",
+    title: "Assignment 1: Introduction to Programming",
     type: "somethingelse"
   }
 
@@ -27,7 +27,7 @@ describe("assignment selectors", () => {
   }
 
   let testErrorAssignment = {
-    name: "Assignment 1: Introduction to Programming",
+    title: "Assignment 1: Introduction to Programming",
     type: "individual",
     error: "Test Error",
   }
@@ -64,7 +64,7 @@ describe("assignment selectors", () => {
     it("returns the name of the assignment", () => {
       expect(name({
         assignment: testIndividualAssignment
-      })).to.equal(testIndividualAssignment.name)
+      })).to.equal(testIndividualAssignment.title)
     })
   })
 
