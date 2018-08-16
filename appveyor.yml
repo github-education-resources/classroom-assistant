@@ -1,0 +1,30 @@
+os: Visual Studio 2015
+
+platform:
+  - x64
+
+environment:
+  nodejs_version: '8.10.0'
+
+cache:
+  - .eslintcache
+  - node_modules
+  - '%USERPROFILE%\.electron'
+  - '%LOCALAPPDATA%\Yarn'
+
+branches:
+  only:
+    - auto-updater
+
+skip_tags: true
+
+version: '{build}'
+
+install:
+  - npm install --force
+
+test_script:
+  - ./script/test
+
+on_success:
+  - ./script/publish
