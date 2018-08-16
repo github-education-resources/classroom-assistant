@@ -12,6 +12,6 @@ echo_status() {
 cd "$(dirname "$0")/.."
 
 echo_status "Building and packaging app"
-npm run package
+yarn run package
 
 echo_status "Done!"

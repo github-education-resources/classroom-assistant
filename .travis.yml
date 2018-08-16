@@ -14,7 +14,7 @@ matrix:
 
 language: node_js
 node_js:
-  - "8.10.0"
+  - "8.11.3"
 
 
 # this ensures PRs based on a local branch are not built twice
