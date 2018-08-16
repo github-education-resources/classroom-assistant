@@ -25,7 +25,6 @@ install:
   - yarn install --force
 
 test_script:
-  - yarn test
   - yarn run make
 
 on_success:
