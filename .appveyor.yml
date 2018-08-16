@@ -28,6 +28,7 @@ install:
 
 test_script:
   - ./script/test
+  - yarn run make
 
 on_success:
-  - ./script/publish
+  - yarn run publish
