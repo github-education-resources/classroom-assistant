@@ -1,10 +1,12 @@
-os: Visual Studio 2015
+os: Visual Studio 2017
 
 platform:
   - x64
 
 environment:
   nodejs_version: '8.11'
+  matrix:
+  - node_installer: yarn
 
 cache:
   - .eslintcache
