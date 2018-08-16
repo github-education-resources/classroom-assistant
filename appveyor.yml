@@ -21,6 +21,9 @@ skip_tags: true
 version: '{build}'
 
 install:
+  - cmd: regedit /s script\default-to-tls12-on-appveyor.reg
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - git submodule update --init --recursive
   - yarn install --force
 
 test_script:
