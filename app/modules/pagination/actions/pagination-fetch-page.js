@@ -1,9 +1,9 @@
-import * as http from "http"
-
 import {paginationReceivePage} from "./pagination-receive-page"
 import {paginationSetNextPage} from "./pagination-set-next-page"
 import {submissionCreate} from "../../submissions/actions/submission-create"
 import LinkHeader from "http-link-header"
+
+const http = require("http")
 
 /**
  * PUBLIC: Fetch single page of assignments given page number and assignment repo url

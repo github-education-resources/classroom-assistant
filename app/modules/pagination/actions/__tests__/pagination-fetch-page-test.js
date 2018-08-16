@@ -6,13 +6,7 @@ import { PAGINATION_SET_NEXT_PAGE, PAGINATION_RECEIVE_PAGE } from "../../constan
 import { SUBMISSION_CREATE } from "../../../submissions/constants"
 import LinkHeader from "http-link-header"
 
-const jsonOK = (body, headers) => {
-  const mockResponse = new window.Response(JSON.stringify(body), {
-    status: 200,
-    headers: headers
-  })
-  return Promise.resolve(mockResponse)
-}
+const nock = require("nock")
 
 const sampleSubmission = (id) => {
   return {
@@ -25,7 +19,7 @@ const sampleSubmission = (id) => {
 describe("paginationFetchPage", () => {
   let sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
-  let dispatch, getState
+  let dispatch, assignmentStub
 
   let defaultHeaders = {
     "Content-Type": "application/json",
@@ -35,7 +29,7 @@ describe("paginationFetchPage", () => {
     "Link": LinkHeader.parse("").set({
       rel: "next",
       uri: "sample-next.com?page=2"
-    })
+    }).toString()
   }
 
   let sampleSubmissionIds = [1, 2]
@@ -43,37 +37,51 @@ describe("paginationFetchPage", () => {
 
   beforeEach(() => {
     dispatch = sinon.spy()
-    sinon.stub(window, "fetch")
+    assignmentStub = nock("http://classroom.github.com")
+      .defaultReplyHeaders(defaultHeaders)
+      .get("/classrooms/test-org/assignments/test-assignment")
   })
 
   afterEach(() => {
-    window.fetch.restore()
+
   })
 
   it("dispatches set next page to null if there is no link header", async () => {
-    window.fetch.resolves(jsonOK([], {}))
-    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    assignmentStub
+      .query({page: "1", access_token: "token"})
+      .reply(200, [])
+
+    await fetchPage(sampleAssignmentURL, 1, "token")(dispatch)
 
     expect(dispatch.calledWithMatch({type: PAGINATION_SET_NEXT_PAGE, nextPage: null})).is.true
   })
 
   it("dispatches set next page to Link header value", async () => {
-    window.fetch.resolves(jsonOK([], middlePageResponseHeaders))
-    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    assignmentStub
+      .query({page: "1", access_token: "token"})
+      .reply(200, [], middlePageResponseHeaders)
+
+    await fetchPage(sampleAssignmentURL, 1, "token")(dispatch)
 
     expect(dispatch.calledWithMatch({type: PAGINATION_SET_NEXT_PAGE, nextPage: "2"})).is.true
   })
 
   it("dispatches receive page when response is received", async () => {
-    window.fetch.resolves(jsonOK(populatePageResponse, defaultHeaders))
-    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    assignmentStub
+      .query({page: "1", access_token: "token"})
+      .reply(200, populatePageResponse)
+
+    await fetchPage(sampleAssignmentURL, 1, "token")(dispatch)
 
     expect(dispatch.calledWithMatch({type: PAGINATION_RECEIVE_PAGE, repoIds: sampleSubmissionIds})).is.true
   })
 
   it("dispatches create submission when response is received", async () => {
-    window.fetch.resolves(jsonOK(populatePageResponse, defaultHeaders))
-    await fetchPage(sampleAssignmentURL, 1)(dispatch, getState)
+    assignmentStub
+      .query({page: "1", access_token: "token"})
+      .reply(200, populatePageResponse)
+
+    await fetchPage(sampleAssignmentURL, 1, "token")(dispatch)
 
     expect(dispatch.calledWithMatch({type: SUBMISSION_CREATE, submissions: populatePageResponse})).is.true
   })

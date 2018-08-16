@@ -68,7 +68,7 @@ function fetchCloneURL (accessToken, id, getState) {
   const typeLabel = all(getState()).type === "individual" ? "assignment_repos" : "group-assignment-repos"
 
   const urlObj = new URL(url(getState()))
-  const cloneURLPath = `${urlObj.origin}/api/internal/${urlObj.pathname}/${typeLabel}/${id}/clone_url`
+  const cloneURLPath = `${urlObj.origin}/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
   return new Promise((resolve, reject) => {
     http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
       // Set next page to null, unless we got the header
