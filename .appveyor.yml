@@ -1,7 +1,7 @@
 os: Visual Studio 2015
 
 platform:
-  - x64
+  - Any CPU
 
 environment:
   nodejs_version: '8.11.3'
