@@ -42,7 +42,7 @@ describe("settingsLogoutUser", () => {
     })
   })
 
-  it("dispatches update user state", async () => {
+  it("dispatches set username null", async () => {
     await settingsLogoutUser()(dispatch)
 
     expect(dispatch.calledWithMatch(settingsSetUsername(null))).is.true
@@ -50,7 +50,7 @@ describe("settingsLogoutUser", () => {
 
   it("clears session storage", async () => {
     let sessionSpy = sinon.spy()
-    session.defaultSession.clearStorageData = sessionSpy
+    session.fromPartition("auth:session").clearStorageData = sessionSpy
     await settingsLogoutUser()(dispatch)
 
     expect(sessionSpy.calledOnce).is.true
@@ -62,5 +62,7 @@ describe("settingsLogoutUser", () => {
     await settingsLogoutUser()(dispatch)
 
     expect(keytarStub.calledOnce).is.true
+
+    keytar.deletePassword.restore()
   })
 })
