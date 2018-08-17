@@ -26,8 +26,8 @@ install:
   - git submodule update --init --recursive
   - npm install --prune
 
-test_script:
-  - npm run test
+# test_script:
+#   - npm run test
 
 on_success:
   - npm run publish
