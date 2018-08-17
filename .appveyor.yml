@@ -4,6 +4,8 @@ environment:
   nodejs_version: '8.11'
   matrix:
   - node_installer: npm
+  GITHUB_TOKEN:
+    secure: Ny4K0l6RB6+fckzK0mgIzafemr4hwDnuNmwXK3XI/hw6HC1nGbRYtdKbqWyPVLq6
 
 cache:
   - .eslintcache
