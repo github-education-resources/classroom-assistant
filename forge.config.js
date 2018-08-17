@@ -40,7 +40,8 @@ module.exports = {
     ]
   },
   electronWinstallerConfig: {
-    name: "classroom-desktop"
+    name: "classroom-desktop",
+    iconUrl: "./app/resources/icon.ico",
   },
   electronInstallerDebian: {},
   electronInstallerRedhat: {},
