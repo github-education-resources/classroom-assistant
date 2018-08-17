@@ -51,7 +51,7 @@
     "font-awesome": "~4.7.0",
     "http-link-header": "^0.8.0",
     "keytar": "^4.2.1",
-    "nodegit": "^0.22.2",
+    "nodegit": "^0.21.2",
     "opener": "^1.4.1",
     "prop-types": "^15.6.1",
     "react": "~16.2.0",

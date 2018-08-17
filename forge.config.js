@@ -25,7 +25,7 @@ module.exports = {
     ]
   },
   electronPackagerConfig: {
-    packageManager: "yarn",
+    packageManager: "npm",
     osxSign: {
       identity: getOSXSigningIdentity()
     },

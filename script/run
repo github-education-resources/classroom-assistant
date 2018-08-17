@@ -6,4 +6,4 @@ set -e
 cd "$(dirname "$0")/.."
 
 script/bootstrap
-yarn start
+npm start

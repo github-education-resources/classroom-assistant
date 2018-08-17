@@ -17,4 +17,4 @@ fi
 
 # Update npm modules
 echo "==> Installing/Updating NPM dependencies.."
-yarn install
+npm install
