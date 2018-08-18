@@ -2,7 +2,7 @@ import {expect} from "chai"
 import React from "react"
 import { shallow } from "enzyme"
 
-import { RingLoader } from "react-spinners"
+import Spinner from "../../../shared/components/Spinner"
 import ProgressBar from "../../../shared/components/ProgressBar"
 
 import ItemArchivePanel from "../ItemArchivePanel"
@@ -84,6 +84,6 @@ describe("ItemArchivePanel", () => {
 
   it("renders a spinner when the progress is 0", () => {
     const wrapper = shallow(<ItemArchivePanel {...noProgressProps}/>)
-    expect(wrapper.find(RingLoader).length).equals(1)
+    expect(wrapper.find(Spinner).length).equals(1)
   })
 })

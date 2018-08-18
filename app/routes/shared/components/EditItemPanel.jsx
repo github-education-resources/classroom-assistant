@@ -29,7 +29,6 @@ EditItemPanel.propTypes = {
   onEditClick: PropTypes.func,
   leftIconName: PropTypes.string,
   rightIconName: PropTypes.string,
-  imagePath: PropTypes.string,
 }
 
 EditItemPanel.defaultProps = {
