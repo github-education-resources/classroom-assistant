@@ -10,8 +10,8 @@ import {
 
 const initialState = {
   name: null,
-  type: null,
-  url: null,
+  type: "individual",
+  url: "http://localhost:5000/classrooms/32609287-srinjoy-org-classroom-1/assignments/a1",
   isFetching: false,
   error: null,
 }

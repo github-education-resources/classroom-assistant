@@ -11,6 +11,8 @@ const steps = [
 
 let progressCallback, repoURL
 
+let callBackCount = 0
+
 // Public: Clones a public git repository to the specified destination directory,
 // and notifies the caller of clone progress via callback.
 //
@@ -40,7 +42,13 @@ export const clone = async (repoURLVar, destination, progressCallbackFunc, token
   progressCallback = progressCallbackFunc
   repoURL = repoURLVar
 
-  const options = { }
+  const options = {
+    env: {
+      "GIT_HTTP_USER_AGENT": "dugite/2.12.0",
+      "GIT_TRACE": "1",
+      "GIT_CURL_VERBOSE": "1"
+    },
+  }
 
   if (progressCallback) {
     options.processCallback = parseProgressFromProcess
@@ -48,34 +56,38 @@ export const clone = async (repoURLVar, destination, progressCallbackFunc, token
 
   progressCallback(0)
 
+  callBackCount = 0
+  console.log(`Clone started for ${repoURL}`)
   const result = await GitProcess.exec(
     ["clone", repoURL, "--progress"],
     "/Users/srinjoym/temp_clone",
     options
   )
-
+  console.log(`Clone finished for ${repoURL}`)
   // TODO Add Error handling
   if (result.exitCode === 0) {
     progressCallback(100)
   }
 }
 
-const parseProgressFromProcess = _.throttle((process) => {
+const parseProgressFromProcess = (process) => {
   byline(process.stderr).on("data", (chunk) => {
-    console.log(repoURL)
-    console.log(chunk)
-    // steps.forEach((step, index) => {
-    //   if (chunk.startsWith(step.title)) {
-    //     const percentOfStep = tryParse(chunk)
-    //     if (percentOfStep) {
-    //       let percent = steps.slice(0, index).reduce((sum, step) => sum + step.weight, 0)
-    //       percent += (percentOfStep / 100) * step.weight
-    //       progressCallback(percent * 100)
-    //     }
-    //   }
-    // })
+    console.log(`Callback Count ${callBackCount++}`)
+    console.log(process)
+    steps.forEach((step, index) => {
+      if (chunk.startsWith(step.title)) {
+        const percentOfStep = tryParse(chunk)
+        if (percentOfStep) {
+          let percent = steps.slice(0, index).reduce((sum, step) => sum + step.weight, 0)
+          percent += (percentOfStep / 100) * step.weight
+          console.log(`Callback Count ${callBackCount} Percentage: ${percent * 100}`)
+          progressCallback(percent * 100)
+        }
+      }
+    })
+    console.log(`Callback Count ${callBackCount} Finished`)
   })
-}, 500, { trailing: false })
+}
 
 const tryParse = (str) => {
   const value = /(\d+)\%/.exec(str)
