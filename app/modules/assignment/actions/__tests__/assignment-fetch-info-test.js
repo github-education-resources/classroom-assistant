@@ -33,7 +33,7 @@ describe("assignmentFetchInfo", () => {
     error: null,
   }
 
-  let validSettings = {
+  const validSettings = {
     username: "testUser",
   }
 

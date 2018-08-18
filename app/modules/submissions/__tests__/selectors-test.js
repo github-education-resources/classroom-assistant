@@ -3,7 +3,7 @@ import { expect } from "chai"
 import { all, num, selected, numSelected, areAllSelected } from "../selectors"
 
 describe("selectors", () => {
-  let evelyn = {
+  const evelyn = {
     id: 1,
     username: "StudentEvelyn",
     displayName: "Evelyn",
@@ -13,7 +13,7 @@ describe("selectors", () => {
     progress: 30
   }
 
-  let max = {
+  const max = {
     id: 2,
     username: "StudentMax",
     displayName: "Max",
@@ -23,7 +23,7 @@ describe("selectors", () => {
     progress: 50
   }
 
-  let ali = {
+  const ali = {
     id: 4,
     username: "StudentAli",
     displayName: "Ali",
@@ -33,8 +33,8 @@ describe("selectors", () => {
     progress: 100
   }
 
-  let mixedList = [evelyn, max]
-  let allSelectedList = [evelyn, ali]
+  const mixedList = [evelyn, max]
+  const allSelectedList = [evelyn, ali]
 
   describe("all", () => {
     it("extracts the submissions object from the state", () => {

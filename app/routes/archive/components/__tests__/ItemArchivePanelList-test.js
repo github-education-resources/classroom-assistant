@@ -6,7 +6,7 @@ import { shallow } from "enzyme"
 import ItemArchivePanelList from "../ItemArchivePanelList"
 import ActionableItemArchivePanel from "../../containers/ActionableItemArchivePanel"
 
-let testProps = {
+const testProps = {
   submissions: [{
     id: 1,
     username: "test username",
@@ -26,7 +26,7 @@ let testProps = {
 
 describe("ItemArchivePanelList", () => {
   it("renders ItemArchivePanel components as children", () => {
-    let wrapper = shallow(<ItemArchivePanelList {...testProps} />)
+    const wrapper = shallow(<ItemArchivePanelList {...testProps} />)
     expect(wrapper.find(ActionableItemArchivePanel).length).to.equal(2)
   })
 })

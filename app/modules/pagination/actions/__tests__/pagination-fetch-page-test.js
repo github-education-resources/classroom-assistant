@@ -17,23 +17,23 @@ const sampleSubmission = (id) => {
 }
 
 describe("paginationFetchPage", () => {
-  let sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+  const sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
   let dispatch, assignmentStub
 
-  let defaultHeaders = {
+  const defaultHeaders = {
     "Content-Type": "application/json",
   }
 
-  let middlePageResponseHeaders = {
+  const middlePageResponseHeaders = {
     "Link": LinkHeader.parse("").set({
       rel: "next",
       uri: "sample-next.com?page=2"
     }).toString()
   }
 
-  let sampleSubmissionIds = [1, 2]
-  let populatePageResponse = sampleSubmissionIds.map((id) => sampleSubmission(id))
+  const sampleSubmissionIds = [1, 2]
+  const populatePageResponse = sampleSubmissionIds.map((id) => sampleSubmission(id))
 
   beforeEach(() => {
     dispatch = sinon.spy()

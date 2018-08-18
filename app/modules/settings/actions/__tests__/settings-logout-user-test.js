@@ -58,7 +58,7 @@ describe("settingsLogoutUser", () => {
 
   // TODO: Make this test more specific after keytar config is finalized
   it("calls node keytar delete password", async () => {
-    let keytarStub = sinon.stub(keytar, "deletePassword")
+    const keytarStub = sinon.stub(keytar, "deletePassword")
     await settingsLogoutUser()(dispatch)
 
     expect(keytarStub.calledOnce).is.true

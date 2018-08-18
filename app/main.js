@@ -31,7 +31,7 @@ function createWindow () {
   }
 
   if (!isDev) {
-    let msBetweenUpdates = 1000 * 60 * 30
+    const msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates, () => {
       mainWindow.webContents.send("info", {msg: "update found"})
     }, (err) => {

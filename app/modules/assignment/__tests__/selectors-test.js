@@ -22,7 +22,7 @@ describe("assignment selectors", () => {
     type: "somethingelse"
   }
 
-  let testInvalidNameAssignment = {
+  const testInvalidNameAssignment = {
     type: "individual",
   }
 
