@@ -14,26 +14,29 @@ export const settingsFetchUserFromKeychain = () => {
   return dispatch => {
     return new Promise(async resolve => {
       const token = await tokenInKeychain()
-      if (!token) {
-        dispatch(settingsLogoutUser())
-        resolve(null)
+      if (token) {
+        return fetchUsername(token).then(username => {
+          if (username) {
+            dispatch(settingsSetUsername(username))
+            resolve(username)
+          }
+        })
       }
-      return fetchUser(token).then(username => {
-        if (username) {
-          dispatch(settingsSetUsername(username))
-          resolve(username)
-        }
-        resolve(null)
-      })
+      dispatch(settingsLogoutUser())
+      resolve(null)
     })
   }
 }
 
-function fetchUser (token) {
-  console.log(token)
+export const fetchUsername = (token) => {
   return new Promise(resolve => {
-    http.get(`http://localhost:5000/api/internal/user?access_token=${token}`, (response) => {
+    http.get(`http://classroom.github.com/api/internal/user?access_token=${token}`, (response) => {
       let body = ""
+
+      if (response.statusCode !== 200) {
+        resolve(null)
+        return
+      }
 
       response.on("data", (chunk) => {
         body += chunk.toString()
@@ -46,10 +49,8 @@ function fetchUser (token) {
         }
         resolve(null)
       })
-
-      response.on("error", () => {
-        resolve(null)
-      })
+    }).on("error", () => {
+      resolve(null)
     })
   })
 }
