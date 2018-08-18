@@ -1,55 +1,82 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
 
-import { submissionCloneFunc } from "../submission-clone"
+import { submissionCloneFunc, fetchCloneURL } from "../submission-clone"
 import { clone } from "../../../../lib/cloneutils"
 
 const nock = require("nock")
 const keytar = require("keytar")
 
+const ACCESS_TOKEN = "token"
+
 describe("submissionClone", () => {
-  describe("#submissionCloneFunc", () => {
-    let getState, dispatch
+  let getState, dispatch, cloneURLMock
 
-    const mockSubmission = {
-      id: 1,
-      username: "StudentEvelyn",
-      displayName: "Evelyn",
-      cloneStatus: "",
-      cloneProgress: 0
-    }
+  const mockSubmission = {
+    id: 1,
+    username: "StudentEvelyn",
+    displayName: "Evelyn",
+    cloneStatus: "",
+    cloneProgress: 0
+  }
 
-    const mockAssignment = {
-      title: "Test Assignment",
-      type: "individual",
-      url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
-      isFetching: false,
-      error: null,
-    }
+  const mockAssignment = {
+    title: "Test Assignment",
+    type: "individual",
+    url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
+    isFetching: false,
+    error: null,
+  }
 
-    const mockSettings = {
-      cloneDestination: "/some/clone/path"
-    }
+  const mockSettings = {
+    cloneDestination: "/some/clone/path"
+  }
 
-    beforeEach(() => {
-      dispatch = sinon.spy()
-      sinon.stub(keytar, "findPassword").returns("token")
+  beforeEach(() => {
+    dispatch = sinon.spy()
+    sinon.stub(keytar, "findPassword").returns(ACCESS_TOKEN)
 
-      getState = () => ({
-        settings: mockSettings,
-        assignment: mockAssignment,
-      })
-
-      nock("http://classroom.github.com")
-        .get("/api/internal/classrooms/test-org/assignments/test-assignment/assignment_repos/1/clone_url")
-        .query({access_token: "token"})
-        .reply(200, {
-          temp_clone_url: "https://testuser:@github.com/test-org/test-assignment"
-        })
+    getState = () => ({
+      settings: mockSettings,
+      assignment: mockAssignment,
     })
 
-    afterEach(() => {
-      keytar.findPassword.restore()
+    cloneURLMock = nock("http://classroom.github.com")
+      .get("/api/internal/classrooms/test-org/assignments/test-assignment/assignment_repos/1/clone_url")
+      .query({access_token: ACCESS_TOKEN})
+  })
+
+  afterEach(() => {
+    keytar.findPassword.restore()
+  })
+
+  describe("#fetchCloneURL", () => {
+    it("returns same temp clone url if both password are present", async () => {
+      const url = "https://testuser:testpassword@github.com/test-org/test-assignment"
+      cloneURLMock.reply(200, {
+        temp_clone_url: url
+      })
+
+      const response = await fetchCloneURL(ACCESS_TOKEN, 1)(getState)
+      expect(response).to.eq(url)
+    })
+
+    it("removes user if password is missing (public repo)", async () => {
+      const url = "https://testuser:@github.com/test-org/test-assignment"
+      cloneURLMock.reply(200, {
+        temp_clone_url: url
+      })
+
+      const response = await fetchCloneURL(ACCESS_TOKEN, 1)(getState)
+      expect(response).to.eq("https://github.com/test-org/test-assignment")
+    })
+  })
+
+  describe("#submissionCloneFunc", () => {
+    beforeEach(() => {
+      cloneURLMock.reply(200, {
+        temp_clone_url: "https://testuser:@github.com/test-org/test-assignment"
+      })
     })
 
     it("dispatches an action to set the clone path of a submission", async () => {

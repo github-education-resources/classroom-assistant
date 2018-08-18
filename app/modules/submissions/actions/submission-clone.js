@@ -36,7 +36,7 @@ export function submissionCloneFunc (clone) {
       dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
 
       return new Promise((resolve, reject) => {
-        fetchCloneURL(accessToken, submissionProps.id, getState).then((cloneURL) => {
+        fetchCloneURL(accessToken, submissionProps.id)(getState).then((cloneURL) => {
           clone(
             cloneURL,
             destination,
@@ -64,37 +64,41 @@ export function submissionCloneFunc (clone) {
   }
 }
 
-function fetchCloneURL (accessToken, id, getState) {
-  const typeLabel = all(getState()).type === "individual" ? "assignment_repos" : "group-assignment-repos"
+// PUBLIC: Async thunk action for fetching the clone URL for an assignment
 
-  const urlObj = new URL(url(getState()))
-  const cloneURLPath = `${urlObj.origin}/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
-  return new Promise((resolve, reject) => {
-    http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
-      // Set next page to null, unless we got the header
-      let body = ""
+export function fetchCloneURL (accessToken, id) {
+  return getState => {
+    const typeLabel = all(getState()).type === "individual" ? "assignment_repos" : "group-assignment-repos"
 
-      response.on("data", (chunk) => {
-        body += chunk.toString()
-      })
+    const urlObj = new URL(url(getState()))
+    const cloneURLPath = `${urlObj.origin}/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
+    return new Promise((resolve, reject) => {
+      http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
+        // Set next page to null, unless we got the header
+        let body = ""
 
-      response.on("end", () => {
-        const json = JSON.parse(body)
-        const tempCloneURL = json.temp_clone_url
-        if (tempCloneURL) {
-          const cloneURL = new URL(tempCloneURL)
-          if (!cloneURL.password) {
-            cloneURL.username = ""
+        response.on("data", (chunk) => {
+          body += chunk.toString()
+        })
+
+        response.on("end", () => {
+          const json = JSON.parse(body)
+          const tempCloneURL = json.temp_clone_url
+          if (tempCloneURL) {
+            const cloneURL = new URL(tempCloneURL)
+            if (!cloneURL.password) {
+              cloneURL.username = ""
+            }
+            resolve(cloneURL.toString())
+          } else {
+            reject(new Error("Failed to fetch temporary cloning URL."))
           }
-          resolve(cloneURL.toString())
-        } else {
-          reject(new Error("Failed to fetch temporary cloning URL."))
-        }
-      })
+        })
 
-      response.on("error", function (err) {
-        reject(err)
+        response.on("error", function (err) {
+          reject(err)
+        })
       })
     })
-  })
+  }
 }
