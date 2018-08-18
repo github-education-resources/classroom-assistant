@@ -14,7 +14,7 @@ const keytar = require("keytar")
 // wraps around "clone" from "clone-utils" and dispatches actions to update
 // progress/display errors in the UI
 
-export function submissionCloneFunc (clone) {
+export const submissionCloneFunc = (clone) => {
   return (submissionProps) => {
     return async (dispatch, getState) => {
       const submissionsBaseDirectory = cloneDestination(getState())
@@ -64,9 +64,11 @@ export function submissionCloneFunc (clone) {
   }
 }
 
-// PUBLIC: Async thunk action for fetching the clone URL for an assignment
+// PUBLIC: Async thunk action for fetching the clone URL for an assignment. Hits clone_url endpoint on
+// Classroom API to get cloning url for current submission, if public url is returned then it strips the
+// username from the url because of a bug in NodeGit
 
-export function fetchCloneURL (accessToken, id) {
+export const fetchCloneURL = (accessToken, id) => {
   return getState => {
     const typeLabel = all(getState()).type === "individual" ? "assignment_repos" : "group-assignment-repos"
 
@@ -74,7 +76,6 @@ export function fetchCloneURL (accessToken, id) {
     const cloneURLPath = `${urlObj.origin}/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
     return new Promise((resolve, reject) => {
       http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
-        // Set next page to null, unless we got the header
         let body = ""
 
         response.on("data", (chunk) => {

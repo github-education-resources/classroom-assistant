@@ -28,6 +28,12 @@ export const settingsFetchUserFromKeychain = () => {
   }
 }
 
+/**
+ * PUBLIC: Fetch username from Classroom API using Access Token
+ * Resolves with token if found, else resolves with null
+ *
+ * @return async thunk action that resolves with username
+ */
 export const fetchUsername = (token) => {
   return new Promise(resolve => {
     http.get(`http://classroom.github.com/api/internal/user?access_token=${token}`, (response) => {
@@ -55,7 +61,7 @@ export const fetchUsername = (token) => {
   })
 }
 
-async function tokenInKeychain () {
+const tokenInKeychain = async () => {
   try {
     return keytar.getPassword("Classroom-Desktop", "x-access-token")
   } catch (err) {
