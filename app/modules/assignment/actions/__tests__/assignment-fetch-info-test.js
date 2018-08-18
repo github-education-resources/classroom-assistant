@@ -17,7 +17,7 @@ const jsonOK = (body) => {
 }
 
 describe("assignmentFetchInfo", () => {
-  let invalidURLAssignment = {
+  const invalidURLAssignment = {
     title: "Test Assignment",
     type: "individual",
     url: "invalidURL",
@@ -25,7 +25,7 @@ describe("assignmentFetchInfo", () => {
     error: null,
   }
 
-  let validAssignment = {
+  const validAssignment = {
     title: "Test Assignment",
     type: "individual",
     url: "http://this-is-a-valid-url.com/assignments/a1",

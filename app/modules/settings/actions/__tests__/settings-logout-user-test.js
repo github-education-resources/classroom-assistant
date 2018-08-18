@@ -49,7 +49,7 @@ describe("settingsLogoutUser", () => {
   })
 
   it("clears session storage", async () => {
-    let sessionSpy = sinon.spy()
+    const sessionSpy = sinon.spy()
     session.fromPartition("auth:session").clearStorageData = sessionSpy
     await settingsLogoutUser()(dispatch)
 

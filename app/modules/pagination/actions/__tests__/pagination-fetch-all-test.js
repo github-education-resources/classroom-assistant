@@ -7,7 +7,7 @@ import { PAGINATION_SET_ASSIGNMENT_URL, PAGINATION_SET_FETCHING } from "../../co
 const keytar = require("keytar")
 
 describe("paginationFetchAll", () => {
-  let validAssignment = {
+  const validAssignment = {
     title: "Test Assignment",
     type: "individual",
     url: "http://this-is-a-valid-url.com/assignments/a1",
