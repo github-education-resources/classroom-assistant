@@ -6,7 +6,7 @@ import SubmissionList from "../SubmissionList"
 import SelectableSubmission from "../../containers/SelectableSubmission"
 
 describe("SubmissionList", () => {
-  let testProps = {
+  const testProps = {
     submissions: [{
       id: 1,
       username: "testusername",
@@ -25,7 +25,7 @@ describe("SubmissionList", () => {
   }
 
   it("renders SelectableSubmission components as children", () => {
-    let wrapper = shallow(<SubmissionList {...testProps} />)
+    const wrapper = shallow(<SubmissionList {...testProps} />)
     expect(wrapper.find(SelectableSubmission).length).to.equal(2)
   })
 })

@@ -72,7 +72,7 @@ const submissions = (state, action) => {
   case SUBMISSION_RESET:
     return initialState
   case SUBMISSION_CREATE:
-    let newState = [...state]
+    const newState = [...state]
     action.submissions.map((submission) => {
       newState.push(Object.assign({}, initialSubmissionState, submission))
     })

@@ -28,6 +28,7 @@
         "never"
       ],
       "no-var": "error",
+      "prefer-const": "error",
       "jsx-quotes": [
         "error",
         "prefer-double"
@@ -45,7 +46,8 @@
       {
           "files": "*-test.js",
           "rules": {
-              "no-unused-expressions": "off"
+              "no-unused-expressions": "off",
+              "react/jsx-no-bind": "off"
           }
       }
     ]

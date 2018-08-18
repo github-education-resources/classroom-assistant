@@ -16,7 +16,7 @@ export function authorizeUser (mainWindowRef) {
 
 export function fetchAccessToken (code) {
   authWindow.destroy()
-  let data = {
+  const data = {
     client_id: clientId,
     client_secret: clientSecret,
     code: code,

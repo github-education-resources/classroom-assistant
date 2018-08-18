@@ -15,7 +15,7 @@ const jsonOK = (body) => {
 }
 
 describe("assignmentFetchInfo", () => {
-  let invalidURLAssignment = {
+  const invalidURLAssignment = {
     name: "Test Assignment",
     type: "individual",
     url: "invalidURL",
@@ -23,7 +23,7 @@ describe("assignmentFetchInfo", () => {
     error: null,
   }
 
-  let validAssignment = {
+  const validAssignment = {
     name: "Test Assignment",
     type: "individual",
     url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
@@ -31,7 +31,7 @@ describe("assignmentFetchInfo", () => {
     error: null,
   }
 
-  let validSettings = {
+  const validSettings = {
     username: "testUser",
   }
 

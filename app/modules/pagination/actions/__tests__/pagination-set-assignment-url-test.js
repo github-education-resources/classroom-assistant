@@ -3,7 +3,7 @@ import { paginationSetAssignmentURL } from "../pagination-set-assignment-url"
 import { PAGINATION_SET_ASSIGNMENT_URL } from "../../constants"
 
 describe("paginationSetAssignmentURL", () => {
-  let assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+  const assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
   it("creates action with correct type and url", () => {
     expect(paginationSetAssignmentURL(assignmentURL)).eql({
