@@ -12,6 +12,7 @@ export const submissionCloneAll = () => {
     return Promise.map(selectedSubmissions, submission => {
       return dispatch(submissionClone(submission))
     },
-    {concurrency: 5})
+    // TODO: dynamically set this based on system
+    {concurrency: 3})
   }
 }
