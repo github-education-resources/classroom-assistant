@@ -30,14 +30,14 @@ export const clone = async (repoURL, destination, progressCallback) => {
   const options = { }
 
   if (progressCallback) {
-    const progressParser = new ProgressParser(repoURL, progressCallback)
+    const progressParser = new ProgressParser(progressCallback)
     options.processCallback = progressParser.parseProgressFromProcess
   }
 
   progressCallback(0)
 
   const result = await GitProcess.exec(
-    ["clone", repoURL, "--progress"],
+    ["clone", repoURL, "--progress", "."],
     destination,
     options
   )
