@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { name } from "../../assignment/selectors"
+=======
+import * as http from "http"
+import { name, url, all } from "../../assignment/selectors"
+>>>>>>> 34080a3... undo changes to clone and clone all, bump concurrency to 5
 import { cloneDestination } from "../../settings/selectors"
 
 import { submissionSetCloneProgress } from "./submission-set-clone-progress"
