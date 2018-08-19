@@ -2,9 +2,11 @@ const byline = require("byline")
 
 const steps = [
   { title: "remote: Compressing objects", weight: 0.1 },
-  { title: "Receiving objects", weight: 0.7 },
-  { title: "Resolving deltas", weight: 0.2 },
+  { title: "Receiving objects", weight: 0.6 },
+  { title: "Resolving deltas", weight: 0.1 },
+  { title: "Checking out files", weight: 0.2 },
 ]
+
 const tryParse = (str) => {
   const value = /(\d+)%/.exec(str)
   if (value) {
@@ -17,7 +19,7 @@ const tryParse = (str) => {
 }
 
 class ProgressParser {
-  constructor (repoURL, progressCallback) {
+  constructor (progressCallback) {
     this.lastProgress = 0
     this.progressCallback = progressCallback
     this.parseProgressFromProcess = this.parseProgressFromProcess.bind(this)
