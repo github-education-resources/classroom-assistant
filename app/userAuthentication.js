@@ -38,7 +38,7 @@ function openAuthWindow (mainWindow, protocolHandler) {
     },
   })
 
-  const authURL = new URL("http://localhost:5000/login/oauth/authorize")
+  const authURL = new URL("http://classroom.github.com/login/oauth/authorize")
 
   authWindow.webContents.loadURL(authURL.toString())
 
@@ -50,7 +50,7 @@ function openAuthWindow (mainWindow, protocolHandler) {
 }
 
 async function fetchAccessToken (code) {
-  const accessTokenURL = `http://localhost:5000/login/oauth/access_token?code=${code}`
+  const accessTokenURL = `http://classroom.github.com/login/oauth/access_token?code=${code}`
   const response = await axios.post(accessTokenURL, {
     "Content-Type": "application/json; charset=utf-8",
     "Accept": "application/json",
