@@ -1,5 +1,5 @@
 import keytar from "keytar"
-import * as http from "http"
+import axios from "axios"
 
 import { settingsSetUsername } from "./settings-set-username"
 import { settingsLogoutUser } from "./settings-logout-user"
@@ -37,27 +37,8 @@ export const settingsFetchUserFromKeychain = () => {
  * @return async thunk action that resolves with username
  */
 export const fetchUsername = async (token) => {
-  http.get(`http://classroom.github.com/api/internal/user?access_token=${token}`, (response) => {
-    let body = ""
-
-    if (response.statusCode !== 200) {
-      return null
-    }
-
-    response.on("data", (chunk) => {
-      body += chunk.toString()
-    })
-
-    response.on("end", () => {
-      const json = JSON.parse(body)
-      if (json.username) {
-        return json.username
-      }
-      return null
-    })
-  }).on("error", () => {
-    return null
-  })
+  const response = await axios.get(`http://localhost:5000/api/internal/user?access_token=${token}`)
+  return response.data.username
 }
 
 const tokenInKeychain = async () => {

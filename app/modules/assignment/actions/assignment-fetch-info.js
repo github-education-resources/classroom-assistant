@@ -1,7 +1,8 @@
+import axios from "axios"
+
 import {receiveInfo} from "./assignment-receive-info"
 import {requestInfo} from "./assignment-request-info"
 import {errorInfo} from "./assignment-error-info"
-
 import {url} from "../selectors"
 
 const keytar = require("keytar")
@@ -26,15 +27,12 @@ export const assignmentFetchInfo = () => {
       return
     }
     dispatch(requestInfo())
-    return window.fetch(infoURL, {
-      credentials: "include"
-    })
-      .then(response => response.json())
-      .then((data) => {
-        dispatch(receiveInfo(data.title, data.type))
-      })
-      .catch((e) => {
-        dispatch(errorInfo("Could not find assignment."))
-      })
+
+    try {
+      const response = await axios.get(infoURL)
+      dispatch(receiveInfo(response.data.title, response.data.type))
+    } catch (error) {
+      dispatch(errorInfo("Could not find assignment."))
+    }
   }
 }

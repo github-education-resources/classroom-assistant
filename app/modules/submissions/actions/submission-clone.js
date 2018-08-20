@@ -1,4 +1,4 @@
-import * as http from "http"
+import axios from "axios"
 import { name, url, all } from "../../assignment/selectors"
 import { cloneDestination } from "../../settings/selectors"
 
@@ -37,7 +37,21 @@ export const submissionCloneFunc = (clone) => {
 
       try {
         const cloneURL = await fetchCloneURL(accessToken, submissionProps.id)(getState)
-        await clone(cloneURL, destination, progressCallback(submissionProps)(dispatch))
+        await clone(
+          cloneURL,
+          destination,
+          progress => {
+            dispatch(
+              submissionSetCloneProgress(
+                submissionProps.id,
+                progress
+              )
+            )
+            if (progress === 100) {
+              dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
+            }
+          }
+        )
       } catch (error) {
         dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
       }
@@ -56,47 +70,17 @@ export const fetchCloneURL = (accessToken, id) => {
     const urlObj = new URL(url(getState()))
     const cloneURLPath = `${urlObj.origin}/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
 
-    http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
-      let body = ""
+    const resp = await axios.get(`${cloneURLPath}?access_token=${accessToken}`)
+    const tempCloneURL = resp.data.temp_clone_url
 
-      response.on("data", (chunk) => {
-        body += chunk.toString()
-      })
-
-      response.on("end", () => {
-        const json = JSON.parse(body)
-        const tempCloneURL = json.temp_clone_url
-        if (tempCloneURL) {
-          const cloneURL = new URL(tempCloneURL)
-          if (!cloneURL.password) {
-            cloneURL.username = ""
-          }
-          return cloneURL.toString()
-        } else {
-          throw new Error("Failed to fetch temporary cloning URL.")
-        }
-      })
-
-      response.on("error", function (err) {
-        throw err
-      })
-    })
-  }
-}
-
-const progressCallback = (progress) => {
-  return submissionProps => {
-    return dispatch => {
-      dispatch(
-        submissionSetCloneProgress(
-          submissionProps.id,
-          progress
-        )
-      )
-
-      if (progress === 100) {
-        dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
+    if (tempCloneURL) {
+      const cloneURL = new URL(tempCloneURL)
+      if (!cloneURL.password) {
+        cloneURL.username = ""
       }
+      return cloneURL.toString()
+    } else {
+      throw new Error("Failed to fetch temporary cloning URL.")
     }
   }
 }
