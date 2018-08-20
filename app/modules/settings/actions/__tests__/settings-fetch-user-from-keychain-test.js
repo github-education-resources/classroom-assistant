@@ -24,6 +24,7 @@ describe("Keychain User Lookup Tests", () => {
 
   afterEach(() => {
     keytar.getPassword.restore()
+    nock.cleanAll()
   })
 
   describe("#fetchUsername", () => {
@@ -48,7 +49,7 @@ describe("Keychain User Lookup Tests", () => {
       expect(response).to.be.null
     })
 
-    it("returns null if response status code is 200", async () => {
+    it("returns null if response status code isn't 200", async () => {
       cloneURLMock.reply(403, {
         username: "bogus"
       })

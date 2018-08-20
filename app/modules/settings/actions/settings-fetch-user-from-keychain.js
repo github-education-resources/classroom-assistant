@@ -37,8 +37,16 @@ export const settingsFetchUserFromKeychain = () => {
  * @return async thunk action that resolves with username
  */
 export const fetchUsername = async (token) => {
-  const response = await axios.get(`http://localhost:5000/api/internal/user?access_token=${token}`)
-  return response.data.username
+  try {
+    const response = await axios.get(`http://classroom.github.com/api/internal/user?access_token=${token}`)
+    if (response.data.username) {
+      return response.data.username
+    } else {
+      return null
+    }
+  } catch (error) {
+    return null
+  }
 }
 
 const tokenInKeychain = async () => {

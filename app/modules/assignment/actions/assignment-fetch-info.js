@@ -21,7 +21,7 @@ export const assignmentFetchInfo = () => {
 
     try {
       urlObj = new URL(url(getState()))
-      infoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}?access_token=${accessToken}`
+      infoURL = `${urlObj.origin}/api/internal${urlObj.pathname}?access_token=${accessToken}`
     } catch (e) {
       dispatch(errorInfo("URL is invalid!"))
       return
@@ -30,7 +30,11 @@ export const assignmentFetchInfo = () => {
 
     try {
       const response = await axios.get(infoURL)
-      dispatch(receiveInfo(response.data.title, response.data.type))
+      if (response.data.title && response.data.type) {
+        dispatch(receiveInfo(response.data.title, response.data.type))
+      } else {
+        dispatch(errorInfo("Could not find assignment."))
+      }
     } catch (error) {
       dispatch(errorInfo("Could not find assignment."))
     }

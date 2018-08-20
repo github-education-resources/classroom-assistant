@@ -1,12 +1,11 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
+import nock from "nock"
 
 import { fetchPage } from "../pagination-fetch-page"
 import { PAGINATION_SET_NEXT_PAGE, PAGINATION_RECEIVE_PAGE } from "../../constants"
 import { SUBMISSION_CREATE } from "../../../submissions/constants"
 import LinkHeader from "http-link-header"
-
-const nock = require("nock")
 
 const sampleSubmission = (id) => {
   return {
