@@ -1,8 +1,9 @@
-import fetch from "electron-fetch/lib"
+import axios from "axios"
 import keytar from "keytar"
 import {BrowserWindow, session} from "electron"
 
 const { URL } = require("url")
+const logger = require("./logger")
 
 let authWindow
 
@@ -15,9 +16,13 @@ export async function setAccessToken (code, mainWindow) {
     authWindow.destroy()
   }
   // TODO: Error handling
-  const data = await fetchAccessToken(code)
-  await keytar.setPassword("Classroom-Desktop", "x-access-token", data.access_token)
-  mainWindow.webContents.send("receivedAuthorization")
+  try {
+    const token = await fetchAccessToken(code)
+    await keytar.setPassword("Classroom-Desktop", "x-access-token", token)
+    mainWindow.webContents.send("receivedAuthorization")
+  } catch (error) {
+    logger.error(error)
+  }
 }
 
 function openAuthWindow (mainWindow, protocolHandler) {
@@ -44,12 +49,11 @@ function openAuthWindow (mainWindow, protocolHandler) {
   })
 }
 
-function fetchAccessToken (code) {
-  return fetch(`http://localhost:5000/login/oauth/access_token?code=${code}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
-    },
-  }).then(response => response.json())
+async function fetchAccessToken (code) {
+  const accessTokenURL = `http://localhost:5000/login/oauth/access_token?code=${code}`
+  const response = await axios.post(accessTokenURL, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Accept": "application/json",
+  })
+  return response.data.access_token
 }
