@@ -35,31 +35,12 @@ export const submissionCloneFunc = (clone) => {
       dispatch(submissionSetClonePath(submissionProps.id, destination))
       dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
 
-      return new Promise((resolve, reject) => {
-        fetchCloneURL(accessToken, submissionProps.id)(getState).then((cloneURL) => {
-          clone(
-            cloneURL,
-            destination,
-            (progress) => {
-              dispatch(
-                submissionSetCloneProgress(
-                  submissionProps.id,
-                  progress
-                )
-              )
-
-              if (progress === 100) {
-                dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
-              }
-            }
-          )
-            .then(resolve)
-            .catch((e) => {
-              dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
-              resolve()
-            })
-        })
-      })
+      try {
+        const cloneURL = await fetchCloneURL(accessToken, submissionProps.id)(getState)
+        await clone(cloneURL, destination, progressCallback(submissionProps)(dispatch))
+      } catch (error) {
+        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
+      }
     }
   }
 }
@@ -69,37 +50,53 @@ export const submissionCloneFunc = (clone) => {
 // username from the url because of a bug in NodeGit
 
 export const fetchCloneURL = (accessToken, id) => {
-  return getState => {
+  return async getState => {
     const typeLabel = all(getState()).type === "individual" ? "assignment_repos" : "group-assignment-repos"
 
     const urlObj = new URL(url(getState()))
     const cloneURLPath = `${urlObj.origin}/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
-    return new Promise((resolve, reject) => {
-      http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
-        let body = ""
 
-        response.on("data", (chunk) => {
-          body += chunk.toString()
-        })
+    http.get(`${cloneURLPath}?access_token=${accessToken}`, (response) => {
+      let body = ""
 
-        response.on("end", () => {
-          const json = JSON.parse(body)
-          const tempCloneURL = json.temp_clone_url
-          if (tempCloneURL) {
-            const cloneURL = new URL(tempCloneURL)
-            if (!cloneURL.password) {
-              cloneURL.username = ""
-            }
-            resolve(cloneURL.toString())
-          } else {
-            reject(new Error("Failed to fetch temporary cloning URL."))
+      response.on("data", (chunk) => {
+        body += chunk.toString()
+      })
+
+      response.on("end", () => {
+        const json = JSON.parse(body)
+        const tempCloneURL = json.temp_clone_url
+        if (tempCloneURL) {
+          const cloneURL = new URL(tempCloneURL)
+          if (!cloneURL.password) {
+            cloneURL.username = ""
           }
-        })
+          return cloneURL.toString()
+        } else {
+          throw new Error("Failed to fetch temporary cloning URL.")
+        }
+      })
 
-        response.on("error", function (err) {
-          reject(err)
-        })
+      response.on("error", function (err) {
+        throw err
       })
     })
+  }
+}
+
+const progressCallback = (progress) => {
+  return submissionProps => {
+    return dispatch => {
+      dispatch(
+        submissionSetCloneProgress(
+          submissionProps.id,
+          progress
+        )
+      )
+
+      if (progress === 100) {
+        dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
+      }
+    }
   }
 }

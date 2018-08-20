@@ -11,20 +11,22 @@ import { settingsLogoutUser } from "./settings-logout-user"
  * @return async thunk action that resolves once set username is dispatched
  */
 export const settingsFetchUserFromKeychain = () => {
-  return dispatch => {
-    return new Promise(async resolve => {
+  return async dispatch => {
+    try {
       const token = await tokenInKeychain()
       if (token) {
-        return fetchUsername(token).then(username => {
-          if (username) {
-            dispatch(settingsSetUsername(username))
-            resolve(username)
-          }
-        })
+        const username = await fetchUsername(token)
+        if (username) {
+          dispatch(settingsSetUsername(username))
+          return username
+        }
       }
       dispatch(settingsLogoutUser())
-      resolve(null)
-    })
+      return null
+    } catch (error) {
+      dispatch(settingsLogoutUser())
+      return null
+    }
   }
 }
 
@@ -34,37 +36,30 @@ export const settingsFetchUserFromKeychain = () => {
  *
  * @return async thunk action that resolves with username
  */
-export const fetchUsername = (token) => {
-  return new Promise(resolve => {
-    http.get(`http://classroom.github.com/api/internal/user?access_token=${token}`, (response) => {
-      let body = ""
+export const fetchUsername = async (token) => {
+  http.get(`http://classroom.github.com/api/internal/user?access_token=${token}`, (response) => {
+    let body = ""
 
-      if (response.statusCode !== 200) {
-        resolve(null)
-        return
-      }
+    if (response.statusCode !== 200) {
+      return null
+    }
 
-      response.on("data", (chunk) => {
-        body += chunk.toString()
-      })
-
-      response.on("end", () => {
-        const json = JSON.parse(body)
-        if (json.username) {
-          resolve(json.username)
-        }
-        resolve(null)
-      })
-    }).on("error", () => {
-      resolve(null)
+    response.on("data", (chunk) => {
+      body += chunk.toString()
     })
+
+    response.on("end", () => {
+      const json = JSON.parse(body)
+      if (json.username) {
+        return json.username
+      }
+      return null
+    })
+  }).on("error", () => {
+    return null
   })
 }
 
 const tokenInKeychain = async () => {
-  try {
-    return keytar.getPassword("Classroom-Desktop", "x-access-token")
-  } catch (err) {
-    return null
-  }
+  return keytar.getPassword("Classroom-Desktop", "x-access-token")
 }
