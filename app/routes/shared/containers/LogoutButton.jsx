@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
-import { loggedIn, username } from "../../../modules/settings/selectors"
+import { userAuthorized, username } from "../../../modules/settings/selectors"
 import {settingsLogoutUser} from "../../../modules/settings/actions/settings-logout-user"
 
 import { push } from "react-router-redux"
@@ -46,7 +46,7 @@ class LogoutButton extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  loggedIn: loggedIn(state),
+  loggedIn: userAuthorized(state),
   username: username(state),
 })
 const mapDispatchToProps = (dispatch) => ({

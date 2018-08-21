@@ -9,7 +9,7 @@ import LoadingPanel from "../shared/components/LoadingPanel"
 import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
 import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
-import {all, url, error, valid, name, typeLabel, fetching} from "../../modules/assignment/selectors"
+import {url, error, valid, name, typeLabel, fetching, all} from "../../modules/assignment/selectors"
 import {userAuthorized} from "../../modules/settings/selectors"
 import ClassroomPanel from "../shared/containers/ClassroomPanel"
 
