@@ -9,7 +9,7 @@ describe("submissionClone", () => {
   let mockSubmission
   // let mockSetClonePathAction
 
-  const mockClonePath = "/some/clone/path"
+  const mockClonePath = "/tmp/" + Math.random().toString(36).substring(7)
 
   beforeEach(() => {
     mockSubmission = {
@@ -29,7 +29,7 @@ describe("submissionClone", () => {
     const getState = () => ({ settings: { cloneDestination: mockClonePath }, assignment: { type: "individual" } })
     const dispatch = sinon.spy()
     const submissionClone = submissionCloneFunc(clone)
-    await submissionClone(mockSubmission)(dispatch, getState)
+    await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", id: 1 })).is.true
   })
@@ -38,7 +38,7 @@ describe("submissionClone", () => {
     const getState = () => ({ settings: { cloneDestination: mockClonePath }, assignment: { type: "individual" } })
     const dispatch = sinon.spy()
     const submissionClone = submissionCloneFunc(clone)
-    await submissionClone(mockSubmission)(dispatch, getState)
+    await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_STATUS", id: 1 })).is.true
   })
@@ -52,7 +52,7 @@ describe("submissionClone", () => {
     const dispatch = sinon.spy()
 
     const submissionClone = submissionCloneFunc(cloneMock)
-    await submissionClone(mockSubmission)(dispatch, getState)
+    await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
     // ignoring the second argument because we no longer mock the current Date
     expect(cloneMock.calledWithMatch("http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn")).is.true
@@ -62,7 +62,7 @@ describe("submissionClone", () => {
     const getState = () => ({ settings: { cloneDestination: mockClonePath }, assignment: { type: "individual" } })
     const dispatch = sinon.spy()
     const submissionClone = submissionCloneFunc(clone)
-    await submissionClone(mockSubmission)(dispatch, getState)
+    await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_STATUS", id: 1, cloneStatus: "Clone failed: an error has occured." })).is.true
   })
@@ -80,7 +80,7 @@ describe("submissionClone", () => {
     const getState = () => ({ settings: { cloneDestination: mockClonePath }, assignment: { type: "individual" } })
     const dispatch = sinon.spy()
     const submissionClone = submissionCloneFunc(cloneMock)
-    await submissionClone(mockSubmission)(dispatch, getState)
+    await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PROGRESS", id: 1, cloneProgress: 0 })).is.true
     expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PROGRESS", id: 1, cloneProgress: 30 })).is.true

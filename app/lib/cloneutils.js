@@ -40,8 +40,10 @@ export const clone = async (repoURL, destination, progressCallback) => {
     destination,
     options
   )
-  // TODO Add Error handling
+  // TODO Better Error handling and recovery
   if (result.exitCode === 0) {
     progressCallback(100)
+  } else {
+    throw new Error("Git Clone Process Failed.")
   }
 }
