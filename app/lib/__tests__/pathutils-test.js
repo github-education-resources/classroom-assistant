@@ -4,7 +4,7 @@ import { getAssignmentFolder, getClonePath } from "../pathutils"
 
 const fs = require("fs-extra")
 
-const TEST_BASE_PATH = `/tmp/${Math.random().toString(36).substring(7)}`
+const TEST_BASE_PATH = `/tmp/${(Math.random().toString(36) + "00000").substr(2, 5)}`
 const TEST_ASSIGNMENT_NAME = "SomeAssignment"
 const TEST_STUDENT_USERNAME = "SomeStudentUsername"
 
@@ -12,9 +12,9 @@ describe("Path Utilities", () => {
   describe("getAssignmentFolder", () => {
     it("returns the correct path for the assignment", async () => {
       const folderPath = getAssignmentFolder(TEST_BASE_PATH, TEST_ASSIGNMENT_NAME)
-      const regex = /\/tmp\/\w{6}\/SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}/g
+      const regex = /\/tmp\/\w{5}\/SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}/g
 
-      expect(regex.test(folderPath)).equals(true)
+      expect(regex.test(folderPath)).to.be.true
     })
   })
 
@@ -23,9 +23,9 @@ describe("Path Utilities", () => {
       const assignmentPath = getAssignmentFolder(TEST_BASE_PATH, TEST_ASSIGNMENT_NAME)
 
       const clonePath = await getClonePath(assignmentPath, TEST_STUDENT_USERNAME)
-      const regex = /\/tmp\/\w{6}\/SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}\/SomeStudentUsername/g
+      const regex = /\/tmp\/\w{5}\/SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}\/SomeStudentUsername/g
 
-      expect(regex.test(clonePath)).equals(true)
+      expect(regex.test(clonePath)).to.be.true
     })
 
     it("creates the folder for cloning", async () => {

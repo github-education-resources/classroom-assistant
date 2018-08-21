@@ -9,7 +9,7 @@ describe("submissionClone", () => {
   let mockSubmission
   // let mockSetClonePathAction
 
-  const mockClonePath = "/tmp/" + Math.random().toString(36).substring(7)
+  const mockClonePath = "/tmp/" + (Math.random().toString(36) + "00000").substr(2, 5)
 
   beforeEach(() => {
     mockSubmission = {
