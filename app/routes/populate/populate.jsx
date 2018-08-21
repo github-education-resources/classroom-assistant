@@ -10,7 +10,7 @@ import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-f
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
 import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
 import {url, error, valid, name, typeLabel, fetching, all} from "../../modules/assignment/selectors"
-import {loggedIn} from "../../modules/settings/selectors"
+import {userAuthorized} from "../../modules/settings/selectors"
 
 const containerStyles = {
   paddingTop: "100px"
@@ -91,7 +91,7 @@ const mapStateToProps = (state) => ({
   typeLabel: typeLabel(state),
   valid: valid(state),
   fetching: fetching(state),
-  loggedIn: loggedIn(state),
+  loggedIn: userAuthorized(state),
   type: all(state).type,
 })
 
