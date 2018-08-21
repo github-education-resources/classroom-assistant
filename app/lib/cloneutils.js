@@ -26,7 +26,6 @@ import ProgressParser from "./progressutils"
 //
 // Returns a Promise
 export const clone = async (repoURL, destination, progressCallback) => {
-  console.log(`destination ${destination}`)
   const options = { }
 
   if (progressCallback) {

@@ -1,6 +1,3 @@
-import { name } from "../../assignment/selectors"
-import { cloneDestination } from "../../settings/selectors"
-
 import { submissionSetCloneProgress } from "./submission-set-clone-progress"
 import { submissionSetClonePath } from "./submission-set-clone-path"
 import { submissionSetCloneStatus } from "./submission-set-clone-status"
@@ -14,10 +11,8 @@ const keytar = require("keytar")
 // progress/display errors in the UI
 
 export function submissionCloneFunc (clone) {
-  return (submissionProps) => {
+  return (submissionProps, cloneDirectory) => {
     return async (dispatch, getState) => {
-      const submissionsBaseDirectory = cloneDestination(getState())
-      const assignmentName = name(getState())
       const submissionAuthorUsername = submissionProps.username
 
       // Sets to null if password cannot be found
@@ -25,11 +20,7 @@ export function submissionCloneFunc (clone) {
       // fails
       const accessToken = await keytar.findPassword("Classroom-Desktop")
 
-      const destination = await getClonePath(
-        submissionsBaseDirectory,
-        assignmentName,
-        submissionAuthorUsername
-      )
+      const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
 
       dispatch(submissionSetClonePath(submissionProps.id, destination))
       dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
