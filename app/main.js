@@ -6,6 +6,7 @@ const { URL } = require("url")
 const defaultMenu = require("electron-default-menu")
 const updater = require("./updater")
 const logger = require("./logger")
+const path = require("path")
 
 const {authorizeUser, setAccessToken} = require("./userAuthentication")
 
@@ -18,7 +19,7 @@ if (require("electron-squirrel-startup")) app.quit()
 
 logger.init()
 
-function createWindow () {
+const createWindow = () => {
   logger.info("creating app window")
 
   const menu = defaultMenu(app, shell)
@@ -57,12 +58,33 @@ function createWindow () {
   })
 }
 
-function loadPopulatePage (assignmentURL) {
+const loadPopulatePage = (assignmentURL) => {
   mainWindow.webContents.send("open-url", assignmentURL)
 }
 
+const setInstanceProtocolHandler = () => {
+  app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
+
+  return app.makeSingleInstance((argv) => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+
+      if (process.platform === "win32") {
+        const url = argv.find(function (arg) {
+          return /^x-github-classroom:\/\//.test(arg)
+        })
+        if (url) app.emit("open-url", null, url)
+      }
+    }
+  })
+}
+
 app.on("open-url", async function (event, urlToOpen) {
-  event.preventDefault()
+  if (event) {
+    event.preventDefault()
+  }
+
   let assignmentURL = ""
   const urlParams = new URL(urlToOpen).searchParams
   const isClassroomDeeplink = urlParams.has("assignment_url")
@@ -88,7 +110,9 @@ app.on("open-url", async function (event, urlToOpen) {
 })
 
 app.on("ready", async () => {
-  app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
+  const anotherInstanceRunning = setInstanceProtocolHandler()
+  if (anotherInstanceRunning) app.quit()
+
   createWindow()
 })
 
