@@ -23,7 +23,7 @@ node_js:
 branches:
   only:
     - master
-    - all-the-updates #temporary for testing ci builds
+    - /^__release-.*/
 
 addons:
   apt:
@@ -51,5 +51,5 @@ deploy:
   provider: script
   script: ./script/publish
   on:
-    branch: all-the-updates #will be updated to master after testing
+    all_branches: true
     tags: true
