@@ -23,7 +23,7 @@ node_js:
 branches:
   only:
     - master
-    - /^__release-.*/
+    - /^release-.*/
 
 addons:
   apt:
