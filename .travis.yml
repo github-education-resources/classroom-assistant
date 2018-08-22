@@ -45,3 +45,10 @@ before_script:
 
 script:
   - ./script/test
+
+deploy:
+  provider: script
+  script: ./script/publish
+  on:
+    branch: all-the-updates #will be updated to master after testing
+    tags: true
