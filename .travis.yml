@@ -44,6 +44,9 @@ before_script:
         "import gnomekeyring;gnomekeyring.create_sync('login', '');"
     fi
 
+install:
+  - npm install
+
 script:
   - ./script/test
 
