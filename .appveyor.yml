@@ -16,6 +16,7 @@ cache:
 branches:
   only:
     - auto-updater
+    - all-the-updates
 
 skip_tags: true
 
