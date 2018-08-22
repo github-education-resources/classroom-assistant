@@ -37,6 +37,7 @@ addons:
       - gnome-keyring
       - libsecret-1-dev
       - python-gnomekeyring
+      - fakeroot
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login); fi
