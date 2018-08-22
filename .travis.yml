@@ -23,6 +23,7 @@ node_js:
 branches:
   only:
     - master
+    - all-the-updates #temporary for testing ci builds
 
 addons:
   apt:
