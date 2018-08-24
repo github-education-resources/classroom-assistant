@@ -60,7 +60,7 @@ script:
 deploy:
   skip_cleanup: true
   provider: releases
-  name: "v{{ $TRAVIS_TAG }}"
+  name: ${TRAVIS_TAG}
   draft: true
   file_glob: true
   api_key:
