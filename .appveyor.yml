@@ -28,17 +28,22 @@ build_script:
 
 artifacts:
   # pushing all *.nupkg files in build directory recursively
-  - path: '**\*.nupkg'
+  - path: out\**\*.nupkg
+    name: deploy-nupkg
+  - path: out\**\*.exe
+    name: deploy-exe
+  - path: out\**\RELEASES
+    name: deploy-RELEASES
 
 # test_script:
 #   - npm run test
 
 deploy:
-  description: 'Release description'
+  description: ''
   provider: GitHub
   auth_token:
     secure: Qw9G7NiqHJZHtZ8tQTYzzEqYaLzDEkg4SV2rWKOac4gtNL4UBNGKCvjKQCOq7kM1 # your encrypted token from GitHub
-  artifact: /.*\.nupkg/            # upload all NuGet packages to release assets
+  artifact: /^deploy-.*/            # upload all NuGet packages to release assets
   draft: true
   on:
     branch: /^v[0-9].[0-9].?[0-9]?-?.*/  # release from tags only

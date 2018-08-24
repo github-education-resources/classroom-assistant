@@ -57,12 +57,16 @@ script:
   - npm run make
 
 deploy:
-  skip_cleanup: true
   provider: releases
+  skip_cleanup: true
+  draft: true
   api_key:
     secure: ${GITHUB_TOKEN}
   file_glob: true
-  file: /.*(\.zip|\.deb|\.rpm)/
+  file:
+    - "./out/*.zip"
+    - "./out/*.rpm"
+    - "./out/*.deb"
   on:
     all_branches: true
     tags: true
