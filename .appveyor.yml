@@ -14,7 +14,7 @@ cache:
 branches:
   only:
     - master
-    - /^v[0-9].[0-9].?[0-9]?-?.*/
+    - /^v[0-9].[0-9].[0-9].*/
 
 version: '{build}'
 
@@ -46,5 +46,5 @@ deploy:
   artifact: /^deploy-.*/
   draft: true
   on:
-    branch: /^v[0-9].[0-9].?[0-9]?-?.*/  # release from tags only
+    branch: /^v[0-9].[0-9].[0-9].*/  # release from tags only
     appveyor_repo_tag: true              # deploy on tag push only

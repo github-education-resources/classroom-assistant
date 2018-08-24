@@ -26,7 +26,7 @@ cache:
 branches:
   only:
     - master
-    - /^v[0-9].[0-9].?[0-9]?-?.*/
+    - /^v[0-9].[0-9].[0-9].*/
 
 addons:
   apt:
@@ -61,6 +61,7 @@ deploy:
   skip_cleanup: true
   provider: releases
   name: ${TRAVIS_TAG}
+  tag_name: ${TRAVIS_TAG}
   draft: true
   file_glob: true
   api_key:
