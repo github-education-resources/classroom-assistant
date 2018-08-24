@@ -40,6 +40,9 @@ addons:
       - fakeroot
       - rpm
 
+install:
+  - npm install --prune
+
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login); fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start); fi
@@ -49,16 +52,17 @@ before_script:
         "import gnomekeyring;gnomekeyring.create_sync('login', '');"
     fi
 
-install:
-  - npm install --prune
-
 script:
   - ./script/test
+  - npm run make
 
 deploy:
   skip_cleanup: true
-  provider: script
-  script: ./script/publish
+  provider: releases
+  api_key:
+    secure: ${GITHUB_TOKEN}
+  file_glob: true
+  file: /.*(\.zip|\.deb|\.rpm)/
   on:
     all_branches: true
     tags: true
