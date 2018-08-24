@@ -28,5 +28,5 @@ install:
 test_script:
   - npm run test
 
-deploy_script:
+on_success:
   - npm run publish
