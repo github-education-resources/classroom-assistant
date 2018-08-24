@@ -39,6 +39,7 @@ addons:
       - python-gnomekeyring
       - fakeroot
       - rpm
+      - zip
 
 install:
   - npm install --prune
@@ -57,7 +58,8 @@ script:
   - npm run make
 
 before_deploy:
-  - ls -R ./
+  - ls -R ./out/make
+  - ls -R ./out
 
 deploy:
   skip_cleanup: true
