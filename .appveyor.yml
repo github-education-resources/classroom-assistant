@@ -28,11 +28,11 @@ build_script:
 
 artifacts:
   # pushing all *.nupkg files in build directory recursively
-  - path: out\**\*.nupkg
+  - path: out\make\squirell.windows\**\*.nupkg
     name: deploy-nupkg
-  - path: out\**\*.exe
+  - path: out\make\squirell.windows\**\*.exe
     name: deploy-exe
-  - path: out\**\RELEASES
+  - path: out\make\squirell.windows\**\RELEASES
     name: deploy-RELEASES
 
 # test_script:
