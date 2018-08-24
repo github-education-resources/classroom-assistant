@@ -4,8 +4,6 @@ environment:
   nodejs_version: '8.11'
   matrix:
   - node_installer: npm
-  GITHUB_TOKEN:
-    secure: Ny4K0l6RB6+fckzK0mgIzafemr4hwDnuNmwXK3XI/hw6HC1nGbRYtdKbqWyPVLq6
 
 cache:
   - .eslintcache
@@ -15,7 +13,7 @@ cache:
 
 branches:
   only:
-    - auto-updater
+    - master
     - /^v[0-9].[0-9].?[0-9]?-?.*/
 
 version: '{build}'
@@ -25,8 +23,23 @@ install:
   - git submodule update --init --recursive
   - npm install --prune
 
-test_script:
-  - npm run test
+build_script:
+  - npm run make
 
-on_success:
-  - npm run publish
+artifacts:
+  # pushing all *.nupkg files in build directory recursively
+  - path: '**\*.nupkg'
+
+# test_script:
+#   - npm run test
+
+deploy:
+  description: 'Release description'
+  provider: GitHub
+  auth_token:
+    secure: Ny4K0l6RB6+fckzK0mgIzafemr4hwDnuNmwXK3XI/hw6HC1nGbRYtdKbqWyPVLq6 # your encrypted token from GitHub
+  artifact: /.*\.nupkg/            # upload all NuGet packages to release assets
+  draft: true
+  on:
+    branch: /^v[0-9].[0-9].?[0-9]?-?.*/  # release from tags only
+    appveyor_repo_tag: true              # deploy on tag push only
