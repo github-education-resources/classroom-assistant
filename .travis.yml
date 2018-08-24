@@ -56,6 +56,9 @@ script:
   - ./script/test
   - npm run make
 
+before_deploy:
+  - ls ./
+
 deploy:
   provider: releases
   skip_cleanup: true
@@ -64,9 +67,9 @@ deploy:
     secure: ${GITHUB_TOKEN}
   file_glob: true
   file:
-    - "./out/make/*.zip"
-    - "./out/make/*.rpm"
-    - "./out/make/*.deb"
+    - "./out/make/**/*.zip"
+    - "./out/make/**/*.rpm"
+    - "./out/make/**/*.deb"
   on:
     all_branches: true
     tags: true
