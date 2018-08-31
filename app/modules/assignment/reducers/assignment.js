@@ -9,7 +9,7 @@ import {
 } from "../constants"
 
 const initialState = {
-  name: null,
+  title: null,
   type: null,
   url: null,
   isFetching: false,

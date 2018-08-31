@@ -4,7 +4,7 @@ import assignment from "../assignment"
 import {ASSIGNMENT_RECEIVE_INFO, ASSIGNMENT_RESET} from "../../constants"
 
 const initialState = {
-  name: null,
+  title: null,
   type: null,
   url: null,
   isFetching: false,
@@ -12,7 +12,7 @@ const initialState = {
 }
 
 const populatedState = {
-  name: "Test Assignment",
+  title: "Test Assignment",
   type: "individual",
   url: null,
   isFetching: false,
@@ -29,7 +29,7 @@ describe("assignments reducer", () => {
       type: ASSIGNMENT_RECEIVE_INFO,
       payload:
         {
-          name: "Test Assignment",
+          title: "Test Assignment",
           type: "individual",
         }
     }

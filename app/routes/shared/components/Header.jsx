@@ -1,31 +1,21 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const mediaContainerStyles = {
-  padding: "20px",
-  background: "#fbfbfb",
-  borderBottom: "solid 1px #e3e3e3"
-}
+import LogoutButton from "../containers/LogoutButton"
 
 const Header = ({
-  title,
-  subtitle,
-  imagePath,
   children
 }) => {
   return (
-    <div className="navbar" style={mediaContainerStyles}>
-      <div className="media w-100">
-        <img className="mr-3" src={imagePath} alt={title} />
-        <div className="media-body">
-          <div className="row">
-            <div className="col-sm col-sm-auto">
-              <h4 className="my-0">{title}</h4>
-              {subtitle}
-            </div>
-            <div className="col">
-              {children}
-            </div>
+    <div className="navbar" className="shared-header-navbar">
+      <div className="shared-header-toolbar"/>
+      <div className="container shared-header-content">
+        <div className = "row align-items-center">
+          <div className = "col-10">
+            {children}
+          </div>
+          <div className = "col-2">
+            <LogoutButton />
           </div>
         </div>
       </div>

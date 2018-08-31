@@ -2,7 +2,7 @@ import { expect } from "chai"
 import * as sinon from "sinon"
 
 import {settingsLoginUser} from "../settings-login-user"
-import {settingsUpdateUserState} from "../settings-update-user-state"
+import {settingsFetchUserFromKeychain} from "../settings-fetch-user-from-keychain"
 
 describe("settingsLoginUser", () => {
   let dispatch, ipcRenderer, sendStub, onStub
@@ -29,6 +29,6 @@ describe("settingsLoginUser", () => {
   it("dispatches update user state on received authorization", async () => {
     await settingsLoginUser("testURL")(dispatch)
 
-    expect(dispatch.calledWithMatch(settingsUpdateUserState)).is.true
+    expect(dispatch.calledWithMatch(settingsFetchUserFromKeychain)).is.true
   })
 })

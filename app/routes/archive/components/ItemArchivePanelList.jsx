@@ -3,13 +3,9 @@ import PropTypes from "prop-types"
 
 import ActionableItemArchivePanel from "../containers/ActionableItemArchivePanel"
 
-const containerStyles = {
-  marginBottom: "100px"
-}
-
 const ItemArchivePanelList = function (props, context) {
   return (
-    <div style={containerStyles}>
+    <div className="archive-item-archive-panel-list-container">
       {props.submissions.map(submission => {
         return <ActionableItemArchivePanel key={submission.id} {...submission}/>
       })}

@@ -17,7 +17,7 @@ export const typeLabel = createSelector(
 
 export const name = createSelector(
   all,
-  (assignment) => assignment.name
+  (assignment) => assignment.title
 )
 
 export const url = createSelector(
@@ -37,5 +37,5 @@ export const fetching = createSelector(
 
 export const valid = createSelector(
   all,
-  (assignment) => Boolean(!assignment.error && assignment.name && assignment.type)
+  (assignment) => Boolean(!assignment.error && assignment.title && assignment.type)
 )
