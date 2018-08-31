@@ -1,82 +1,83 @@
-// import { expect } from "chai"
-// import { clone } from "../cloneutils"
-// import * as sinon from "sinon"
-// import rmdir from "rimraf"
+import { expect } from "chai"
+import { clone } from "../cloneutils"
+import * as sinon from "sinon"
 
-// const fs = require("fs")
+const fs = require("fs-extra")
 
-// const TEST_REPO = "https://github.com/education/classroom-desktop"
-// const TEST_FAKE_REPO = "https://github.com/education/a-repo-that-will-never-exist"
+const TEST_REPO = "https://github.com/education/classroom-desktop"
+const TEST_FAKE_REPO = "https://github.com/education/a-repo-that-will-never-exist"
 
-// const DESTINATION = "/tmp/" + Math.random().toString(36).substring(7)
+const DESTINATION = "/tmp/" + Math.random().toString(36).substring(7)
 
-// describe("Progress Parser", () => {
-//   describe("clone", () => {
-//     const removeTestDir = (done) => {
-//       rmdir(DESTINATION, () => {
-//         done()
-//       })
-//     }
+describe("Progress Parser", () => {
+  describe("clone", () => {
+    const removeTestDir = async () => {
+      await fs.remove(DESTINATION)
+    }
 
-//     beforeEach(removeTestDir)
-//     afterEach(removeTestDir)
+    const createTestDir = async () => {
+      await fs.ensureDir(DESTINATION)
+    }
 
-//     it("clones the repository to the correct destination", async () => {
-//       await clone(
-//         TEST_REPO,
-//         DESTINATION,
-//         () => {}
-//       )
+    beforeEach(createTestDir)
+    afterEach(removeTestDir)
 
-//       const stats = fs.lstatSync(DESTINATION)
-//       expect(stats.isDirectory()).is.equal(true)
-//     })
+    it("clones the repository to the correct destination", async () => {
+      await clone(
+        TEST_REPO,
+        DESTINATION,
+        () => {}
+      )
 
-//     it("reports progress to the callback during the clone", async () => {
-//       const callback = sinon.spy()
+      const stats = fs.lstatSync(DESTINATION)
+      expect(stats.isDirectory()).is.equal(true)
+    })
 
-//       await clone(
-//         TEST_REPO,
-//         DESTINATION,
-//         callback
-//       )
+    it("reports progress to the callback during the clone", async () => {
+      const callback = sinon.spy()
 
-//       expect(callback.calledWith(0)).equals(true)
-//       expect(callback.calledWith(100)).equals(true)
-//     })
+      await clone(
+        TEST_REPO,
+        DESTINATION,
+        callback
+      )
 
-//     it("throws an error when cloning a repo that doesn't exist", async () => {
-//       try {
-//         await clone(
-//           TEST_FAKE_REPO,
-//           DESTINATION,
-//           () => {}
-//         )
-//       } catch (err) {
-//         return
-//       }
+      expect(callback.calledWith(0)).equals(true)
+      expect(callback.calledWith(100)).equals(true)
+    })
 
-//       throw new Error("Clone when repository doesn't exist should not succeed")
-//     })
+    it("throws an error when cloning a repo that doesn't exist", async () => {
+      try {
+        await clone(
+          TEST_FAKE_REPO,
+          DESTINATION,
+          () => {}
+        )
+      } catch (err) {
+        return
+      }
 
-//     it("throws an error when cloning a repo to an existing non-empty directory", async () => {
-//       await clone(
-//         TEST_REPO,
-//         DESTINATION,
-//         () => {}
-//       )
+      throw new Error("Clone when repository doesn't exist should not succeed")
+    })
 
-//       try {
-//         await clone(
-//           TEST_REPO,
-//           DESTINATION,
-//           () => {}
-//         )
-//       } catch (err) {
-//         return
-//       }
+    it("throws an error when cloning a repo to an existing non-empty directory", async () => {
+      await clone(
+        TEST_REPO,
+        DESTINATION,
+        () => {}
+      )
 
-//       throw new Error("Clone to existing directory should not succeed")
-//     })
-//   })
-// })
+      try {
+        await clone(
+          TEST_REPO,
+          DESTINATION,
+          () => {}
+        )
+      } catch (err) {
+        return
+      }
+
+      throw new Error("Clone to existing directory should not succeed")
+    })
+  })
+})
