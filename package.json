@@ -1,7 +1,7 @@
 {
   "name": "classroom-desktop",
   "productName": "Classroom-Desktop",
-  "version": "0.4.0-beta0",
+  "version": "0.5.1",
   "description": "Desktop helper for GitHub Classroom",
   "main": "app/main.js",
   "scripts": {
@@ -54,7 +54,6 @@
     "fs-extra": "^7.0.0",
     "http-link-header": "^0.8.0",
     "keytar": "^4.2.1",
-    "nodegit": "^0.22.2",
     "opener": "^1.4.1",
     "prop-types": "^15.6.1",
     "react": "~16.2.0",

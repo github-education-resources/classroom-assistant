@@ -9,7 +9,6 @@ cache:
   - .eslintcache
   - node_modules
   - '%USERPROFILE%\.electron'
-  - '%LOCALAPPDATA%\Yarn'
 
 branches:
   only:
@@ -47,4 +46,4 @@ deploy:
   draft: true
   on:
     branch: /^v[0-9].[0-9].[0-9].*/  # release from tags only
-    appveyor_repo_tag: true              # deploy on tag push only
+    appveyor_repo_tag: true          # deploy on tag push only

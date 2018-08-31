@@ -1,5 +1,5 @@
 #!/bin/sh
-# Usage: script/package
+# Usage: script/publish
 set -e
 
 COL='\033[1;32m'
@@ -11,7 +11,7 @@ echo_status() {
 
 cd "$(dirname "$0")/.."
 
-echo_status "Building and packaging app"
+echo_status "Building and deploying app"
 npm run publish
 
 echo_status "Done!"
