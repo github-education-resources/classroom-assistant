@@ -1,59 +1,59 @@
-import fetch from "electron-fetch/lib"
-import appInfo from "./app-info.json"
+import axios from "axios"
 import keytar from "keytar"
 import {BrowserWindow, session} from "electron"
 
-let mainWindow, authWindow
+const { URL } = require("url")
+const logger = require("./logger")
 
-const clientId = appInfo["client_id"]
-const clientSecret = appInfo["client_secret"]
-const requiredScopes = ["repo"].join("%20")
+let authWindow
 
-export function authorizeUser (mainWindowRef) {
-  mainWindow = mainWindowRef
-  openAuthWindow()
+export function authorizeUser (mainWindowRef, protocolHandler) {
+  openAuthWindow(mainWindowRef, protocolHandler)
 }
 
-export function fetchAccessToken (code) {
-  authWindow.destroy()
-  const data = {
-    client_id: clientId,
-    client_secret: clientSecret,
-    code: code,
+export async function setAccessToken (code, mainWindow) {
+  if (authWindow) {
+    authWindow.destroy()
   }
-  fetch("https://github.com/login/oauth/access_token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then(response => response.json())
-    .then(async data => {
-      await keytar.setPassword("Classroom-Desktop", "token", data.access_token)
-      mainWindow.webContents.send("receivedAuthorization")
-    })
-    // TODO: Send IPC Message to close window and show error message
-    .catch((error) => console.log(error))
+  // TODO: Error handling
+  try {
+    const token = await fetchAccessToken(code)
+    await keytar.setPassword("Classroom-Desktop", "x-access-token", token)
+    mainWindow.webContents.send("receivedAuthorization")
+  } catch (error) {
+    logger.error(error)
+  }
 }
 
-function openAuthWindow () {
+function openAuthWindow (mainWindow, protocolHandler) {
   authWindow = new BrowserWindow({
-    parent: mainWindow,
-    modal: true,
-    height: 600,
+    height: 650,
     width: 400,
+    frame: false,
     show: false,
+    parent: mainWindow,
     webPreferences: {
-      session: session.defaultSession,
-    }
+      session: session.fromPartition("auth:session"),
+      nodeIntegration: false,
+    },
   })
 
-  authWindow.loadURL(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=${requiredScopes}`)
+  const authURL = new URL("http://classroom.github.com/login/oauth/authorize")
+
+  authWindow.webContents.loadURL(authURL.toString())
+
   authWindow.once("ready-to-show", () => {
     if (authWindow) {
       authWindow.show()
     }
   })
+}
+
+async function fetchAccessToken (code) {
+  const accessTokenURL = `http://classroom.github.com/login/oauth/access_token?code=${code}`
+  const response = await axios.post(accessTokenURL, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Accept": "application/json",
+  })
+  return response.data.access_token
 }

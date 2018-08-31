@@ -1,24 +1,25 @@
 import { expect } from "chai"
 import { clone } from "../cloneutils"
 import * as sinon from "sinon"
-import rmdir from "rimraf"
 
-const fs = require("fs")
+const fs = require("fs-extra")
 
 const TEST_REPO = "https://github.com/education/classroom-desktop"
 const TEST_FAKE_REPO = "https://github.com/education/a-repo-that-will-never-exist"
 
-const DESTINATION = "/tmp/" + Math.random().toString(36).substring(7)
+const DESTINATION = "/tmp/" + (Math.random().toString(36) + "00000").substr(2, 5)
 
 describe("Clone Utilities", () => {
   describe("clone", () => {
-    const removeTestDir = (done) => {
-      rmdir(DESTINATION, () => {
-        done()
-      })
+    const removeTestDir = async () => {
+      await fs.remove(DESTINATION)
     }
 
-    beforeEach(removeTestDir)
+    const createTestDir = async () => {
+      await fs.ensureDir(DESTINATION)
+    }
+
+    beforeEach(createTestDir)
     afterEach(removeTestDir)
 
     it("clones the repository to the correct destination", async () => {
