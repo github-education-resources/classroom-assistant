@@ -21,12 +21,6 @@ class PopulatePage extends Component {
     this.updateInput = this.updateInput.bind(this)
   }
 
-  componentDidMount () {
-    if (!this.props.loggedIn) {
-      this.props.loginUser()
-    }
-  }
-
   updateInput (e) {
     this.props.fetchAssignment(e.target.value)
   }

@@ -2,7 +2,7 @@ import { expect } from "chai"
 import * as sinon from "sinon"
 
 import {settingsLogoutUser} from "../settings-logout-user"
-import {settingsUpdateUserState} from "../settings-update-user-state"
+import {settingsSetUsername} from "../settings-set-username"
 import {assignmentReset} from "../../../assignment/actions/assignment-reset"
 import {submissionReset} from "../../../submissions/actions/submission-reset"
 import {paginationReset} from "../../../pagination/actions/pagination-reset"
@@ -42,15 +42,15 @@ describe("settingsLogoutUser", () => {
     })
   })
 
-  it("dispatches update user state", async () => {
+  it("dispatches set username null", async () => {
     await settingsLogoutUser()(dispatch)
 
-    expect(dispatch.calledWithMatch(settingsUpdateUserState)).is.true
+    expect(dispatch.calledWithMatch(settingsSetUsername(null))).is.true
   })
 
   it("clears session storage", async () => {
     const sessionSpy = sinon.spy()
-    session.defaultSession.clearStorageData = sessionSpy
+    session.fromPartition("auth:session").clearStorageData = sessionSpy
     await settingsLogoutUser()(dispatch)
 
     expect(sessionSpy.calledOnce).is.true
@@ -62,5 +62,7 @@ describe("settingsLogoutUser", () => {
     await settingsLogoutUser()(dispatch)
 
     expect(keytarStub.calledOnce).is.true
+
+    keytar.deletePassword.restore()
   })
 })

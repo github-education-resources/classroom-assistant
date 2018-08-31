@@ -1,22 +1,19 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
+import nock from "nock"
 
 import { assignmentFetchInfo } from "../assignment-fetch-info"
 import {ASSIGNMENT_ERROR_INFO, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO} from "../../constants"
 
-const jsonOK = (body) => {
-  const mockResponse = new window.Response(JSON.stringify(body), {
-    status: 200,
-    headers: {
-      "Content-type": "application/json"
-    }
-  })
-  return Promise.resolve(mockResponse)
-}
+const keytar = require("keytar")
+
+const ACCESS_TOKEN = "token"
 
 describe("assignmentFetchInfo", () => {
+  let dispatch, assignmentStub
+
   const invalidURLAssignment = {
-    name: "Test Assignment",
+    title: "Test Assignment",
     type: "individual",
     url: "invalidURL",
     isFetching: false,
@@ -24,9 +21,9 @@ describe("assignmentFetchInfo", () => {
   }
 
   const validAssignment = {
-    name: "Test Assignment",
+    title: "Test Assignment",
     type: "individual",
-    url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
+    url: "http://classroom.github.com/assignments/a1",
     isFetching: false,
     error: null,
   }
@@ -35,9 +32,24 @@ describe("assignmentFetchInfo", () => {
     username: "testUser",
   }
 
+  beforeEach(() => {
+    dispatch = sinon.spy()
+
+    assignmentStub = nock("http://classroom.github.com")
+      .get("/api/internal/assignments/a1")
+      .query({ access_token: ACCESS_TOKEN })
+
+    const passwordStub = sinon.stub(keytar, "findPassword")
+    passwordStub.returns(ACCESS_TOKEN)
+  })
+
+  afterEach(() => {
+    keytar.findPassword.restore()
+    nock.cleanAll()
+  })
+
   it("dispatches error action on invalid URL", async () => {
     const getState = () => ({ assignment: invalidURLAssignment, settings: validSettings })
-    const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
 
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid!" })).is.true
@@ -45,29 +57,29 @@ describe("assignmentFetchInfo", () => {
 
   it("dispatches request info action", async () => {
     const getState = () => ({ assignment: validAssignment, settings: validSettings })
-    const dispatch = sinon.spy()
     await assignmentFetchInfo()(dispatch, getState)
+    assignmentStub.reply(200, { })
 
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_REQUEST_INFO })).is.true
   })
 
   it("dispatches error action on cannot find assignment", async () => {
     const getState = () => ({ assignment: validAssignment, settings: validSettings })
-    const dispatch = sinon.spy()
+    assignmentStub.reply(200, { })
     await assignmentFetchInfo()(dispatch, getState)
 
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "Could not find assignment." })).is.true
   })
 
   it("dispatches receive info action after fetch", async () => {
-    const response = {name: "Test Assignment", type: "individual"}
     const getState = () => ({ assignment: validAssignment, settings: validSettings })
-    const dispatch = sinon.spy()
-    sinon.stub(window, "fetch")
-    window.fetch.returns(jsonOK(response))
+    const response = {
+      title: "Test Assignment",
+      type: "individual",
+    }
+    assignmentStub.reply(200, response)
     await assignmentFetchInfo()(dispatch, getState)
 
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_RECEIVE_INFO, payload: response })).is.true
-    window.fetch.restore()
   })
 })
