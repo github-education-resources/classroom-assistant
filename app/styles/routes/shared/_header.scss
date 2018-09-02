@@ -1,6 +1,6 @@
 .shared-header-navbar {
+  height: 95px;
   padding-top: 20px;
-  padding-bottom: 10px;
   background: #5fb27b;
   border-bottom: solid 1px #e3e3e3;
 }
@@ -15,6 +15,9 @@
 }
 
 .shared-header-content {
-  margin-top: 10px;
   color: white;
+}
+
+.shared-header-spacer {
+  padding-top: 95px;
 }
