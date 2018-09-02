@@ -3,9 +3,7 @@ import * as sinon from "sinon"
 
 import {settingsLogoutUser} from "../settings-logout-user"
 import {settingsSetUsername} from "../settings-set-username"
-import {assignmentReset} from "../../../assignment/actions/assignment-reset"
-import {submissionReset} from "../../../submissions/actions/submission-reset"
-import {paginationReset} from "../../../pagination/actions/pagination-reset"
+import { settingsResetState } from "../settings-reset-state"
 
 const keytar = require("keytar")
 const {session} = require("electron").remote
@@ -22,24 +20,10 @@ describe("settingsLogoutUser", () => {
     dispatch = null
   })
 
-  context(("It clears application state"), () => {
-    it("resets assignment", async () => {
-      await settingsLogoutUser()(dispatch)
+  it("dispatches reset state", async () => {
+    await settingsLogoutUser()(dispatch)
 
-      expect(dispatch.calledWithMatch(assignmentReset)).is.true
-    })
-
-    it("resets submissions", async () => {
-      await settingsLogoutUser()(dispatch)
-
-      expect(dispatch.calledWithMatch(submissionReset)).is.true
-    })
-
-    it("resets pagination", async () => {
-      await settingsLogoutUser()(dispatch)
-
-      expect(dispatch.calledWithMatch(paginationReset)).is.true
-    })
+    expect(dispatch.calledWithMatch(settingsResetState)).is.true
   })
 
   it("dispatches set username null", async () => {
