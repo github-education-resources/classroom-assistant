@@ -21,6 +21,10 @@ class AppContainer extends Component {
         pathname: "/populate",
       })
     })
+
+    ipcRenderer.on("update-found", () => {
+      console.log("Update found!!")
+    })
   }
 
   async componentDidMount () {

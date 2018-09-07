@@ -1,6 +1,6 @@
 /* eslint-env node */
 const electron = require("electron")
-const {app, BrowserWindow, ipcMain, Menu, shell} = electron
+const {app, BrowserWindow, ipcMain, Menu, shell, dialog} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const defaultMenu = require("electron-default-menu")
@@ -33,9 +33,16 @@ function createWindow () {
   if (!isDev) {
     const msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates, () => {
-      mainWindow.webContents.send("info", {msg: "update found"})
+      logger.info("Update Downloaded")
+      dialog.showMessageBox(mainWindow, {
+        type: "question",
+        buttons: ["Install", "Cancel"],
+        title: "Update Downloaded",
+        message: "An update for this application has been downloaded. Do you want to install it now?"
+      })
     }, (err) => {
-      mainWindow.webContents.send("info", {msg: err})
+      logger.error(err)
+      dialog.showErrorBox("Update Failed", err)
     })
   }
 
