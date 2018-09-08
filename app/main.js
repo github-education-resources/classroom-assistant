@@ -1,6 +1,6 @@
 /* eslint-env node */
 const electron = require("electron")
-const {app, BrowserWindow, ipcMain, Menu, shell, dialog} = electron
+const {app, BrowserWindow, ipcMain, Menu, shell} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const defaultMenu = require("electron-default-menu")
@@ -13,6 +13,8 @@ let mainWindow
 let loadOnReady = null
 
 const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
+
+if (require("electron-squirrel-startup")) app.quit()
 
 logger.init()
 
@@ -32,18 +34,7 @@ function createWindow () {
 
   if (!isDev) {
     const msBetweenUpdates = 1000 * 60 * 30
-    updater.start(app, msBetweenUpdates, () => {
-      logger.info("Update Downloaded")
-      dialog.showMessageBox(mainWindow, {
-        type: "question",
-        buttons: ["Install", "Cancel"],
-        title: "Update Downloaded",
-        message: "An update for this application has been downloaded. Do you want to install it now?"
-      })
-    }, (err) => {
-      logger.error(err)
-      dialog.showErrorBox("Update Failed", err)
-    })
+    updater.start(app, msBetweenUpdates)
   }
 
   mainWindow.on("closed", function () {

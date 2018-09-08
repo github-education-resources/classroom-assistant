@@ -1,6 +1,7 @@
 import os from "os"
 
-const autoUpdater = require("electron").autoUpdater
+const electron = require("electron")
+const {autoUpdater, dialog} = electron
 const logger = require("./logger")
 
 // Internal: URL of the update metadata server -
@@ -18,19 +19,30 @@ module.exports = {
   //                      the error oject as an argument.
   //
   // Returns noting.
-  start (app, interval, availableCallback, errorCallback) {
+  start (app, interval) {
     logger.info("starting auto-updater")
     const platform = os.platform() + "_" + os.arch()
     autoUpdater.setFeedURL(`${UPDATES_SERVER_URL}/update/${platform}/${app.getVersion()}`)
 
     // Fire callbacks on events for notification purposes
-    autoUpdater.on("error", errorCallback)
-    autoUpdater.on("update-available", availableCallback)
+    autoUpdater.on("error", (err) => {
+      logger.error(err)
+    })
 
-    autoUpdater.on("update-downloaded", () => {
-      // TODO: Prompt User to Restart Application
-      logger.info("downloaded update, installing")
-      autoUpdater.quitAndInstall()
+    autoUpdater.on("update-downloaded", (releaseNotes, releaseName) => {
+      logger.info("Application update downloaded")
+
+      const updateDialogOpts = {
+        type: "info",
+        buttons: ["Restart", "Later"],
+        title: "Application Update",
+        message: "An update for this Classroom Assistant has been downloaded. Please restart the application to apply the updates.",
+        detail: process.platform === "win32" ? releaseName : releaseNotes
+      }
+
+      dialog.showMessageBox(updateDialogOpts, (response) => {
+        if (response === 0) autoUpdater.quitAndInstall()
+      })
     })
 
     logger.info("checking for updates..")
