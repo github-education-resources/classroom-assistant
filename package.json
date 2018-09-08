@@ -1,7 +1,7 @@
 {
   "name": "classroom-desktop",
   "productName": "Classroom-Desktop",
-  "version": "0.5.4",
+  "version": "0.5.2",
   "description": "Desktop helper for GitHub Classroom",
   "main": "app/main.js",
   "scripts": {

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -x
+set -e
 
 # decode certificate
 echo $KEY_LINK | base64 --decode > developer-id-cert.p12
