@@ -6,9 +6,10 @@ import EditItemPanel from "../EditItemPanel"
 
 describe("EditItemPanel", () => {
   const staticOptions = {
-    imagePath: "some/path.jpg",
     title: "some title",
-    subtitle: "some subtitle"
+    subtitle: "some subtitle",
+    leftIconName: "fa-file",
+    rightIconName: "fa-pencil",
   }
 
   it("calls onEditClick when pencil is clicked", () => {
@@ -30,8 +31,8 @@ describe("EditItemPanel", () => {
     expect(itemPanels.length).to.equal(1)
 
     const itemPanel = itemPanels.first()
-    expect(itemPanel.prop("imagePath")).to.equal(staticOptions.imagePath)
     expect(itemPanel.prop("title")).to.equal(staticOptions.title)
     expect(itemPanel.prop("subtitle")).to.equal(staticOptions.subtitle)
+    expect(itemPanel.prop("iconName")).to.equal(staticOptions.leftIconName)
   })
 })

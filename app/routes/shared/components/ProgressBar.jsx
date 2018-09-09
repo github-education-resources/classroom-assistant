@@ -1,9 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const ProgressBar = ({cloneProgress}) => (
+const ProgressBar = ({
+  cloneProgress,
+  showPercentage,
+  className,
+}) => (
   <div
-    className="progress"
+    className={`progress my-0 ${className}`}
   >
     <div
       className="progress-bar progress-bar-info mt-0"
@@ -14,13 +18,19 @@ const ProgressBar = ({cloneProgress}) => (
         width: cloneProgress + "%"
       }}
     >
-      {cloneProgress.toFixed(0)}%
+      {showPercentage && cloneProgress.toFixed(0) + "%"}
     </div>
   </div>
 )
 
 ProgressBar.propTypes = {
   cloneProgress: PropTypes.number.isRequired,
+  showPercentage: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+}
+
+ProgressBar.defaultProps = {
+  showPercentage: true,
 }
 
 export default ProgressBar

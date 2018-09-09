@@ -1,7 +1,7 @@
 {
   "name": "classroom-desktop",
-  "productName": "GitHub Classroom",
-  "version": "0.5.0",
+  "productName": "Classroom-Desktop",
+  "version": "0.5.2",
   "description": "Desktop helper for GitHub Classroom",
   "main": "app/main.js",
   "scripts": {
@@ -30,66 +30,39 @@
   "bugs": {
     "url": "https://github.com/education/classroom-desktop/issues"
   },
-  "homepage": "https://github.com/education/classroom-desktop#readme",
+  "homepage": "https://github.com/education/classroom-desktop",
   "engines": {
     "node": ">= 8"
   },
   "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "npm"
-      },
-      "electronWinstallerConfig": {
-        "name": "classroom-desktop"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "",
-        "name": ""
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "classroom-desktop"
-      }
-    }
+    "forge": "./forge.config.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bluebird": "^3.5.1",
     "bootstrap": "~4.1.1",
+    "byline": "^5.0.0",
     "classnames": "^2.2.6",
     "dateformat": "^3.0.3",
+    "dugite": "^1.69.0",
     "electron-compile": "^6.4.2",
     "electron-default-menu": "^1.0.1",
     "electron-devtools-installer": "^2.1.0",
-    "electron-fetch": "^1.2.0",
     "electron-is-dev": "~0.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "font-awesome": "~4.7.0",
+    "fs-extra": "^7.0.0",
     "http-link-header": "^0.8.0",
     "keytar": "^4.2.1",
-    "nodegit": "^0.21.2",
     "opener": "^1.4.1",
     "prop-types": "^15.6.1",
     "react": "~16.2.0",
     "react-dom": "~16.2.0",
     "react-hot-loader": "^4.0.0",
+    "react-octicons": "^0.2.0",
     "react-redux": "~5.0.7",
     "react-router": "~3.0.2",
     "react-router-redux": "~4.0.5",
-    "react-spinners": "^0.2.6",
     "redux": "~3.7.2",
     "redux-devtools": "~3.4.1",
     "redux-devtools-dock-monitor": "~1.1.1",
@@ -122,6 +95,7 @@
     "eslint-plugin-react": "~7.7.0",
     "eslint-plugin-standard": "~3.0.1",
     "mocha": "~5.0.5",
+    "nock": "^9.6.1",
     "rimraf": "~2.6.2",
     "sinon": "^4.5.0",
     "xvfb-maybe": "^0.2.1"

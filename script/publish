@@ -1,0 +1,17 @@
+#!/bin/sh
+# Usage: script/publish
+set -e
+
+COL='\033[1;32m'
+NC='\033[0m' # No Color
+
+echo_status() {
+  echo "${COL}==> $1${NC}"
+}
+
+cd "$(dirname "$0")/.."
+
+echo_status "Building and deploying app"
+npm run publish
+
+echo_status "Done!"

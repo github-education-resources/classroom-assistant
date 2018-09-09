@@ -5,27 +5,37 @@ import { ipcRenderer } from "electron"
 
 import {assignmentFetchInfo} from "../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../modules/assignment/actions/assignment-set-url"
-import {settingsUpdateUserState} from "../modules/settings/actions/settings-update-user-state"
+import {settingsFetchUserFromKeychain} from "../modules/settings/actions/settings-fetch-user-from-keychain"
 
 class AppContainer extends Component {
   constructor (props) {
     super(props)
 
-    // TODO: Rename to populateUserSession
-    // Update username in store from session
-    this.props.updateUserState()
+    ipcRenderer.on("open-url", async (event, assignmentURL) => {
+      await this.props.fetchUserFromKeychain()
 
-    ipcRenderer.on("open-url", (event, assignmentURL) => {
-      this.props.fetchAssignment(assignmentURL)
+      if (assignmentURL) {
+        this.props.fetchAssignment(assignmentURL)
+      }
       this.props.router.push({
         pathname: "/populate",
       })
     })
+
+    ipcRenderer.on("update-found", () => {
+      console.log("Update found!!")
+    })
   }
 
-  componentDidMount () {
+  async componentDidMount () {
     // Send initialized message to Main process so we can open
     // the populate page if deep link was opened
+    const username = await this.props.fetchUserFromKeychain()
+    if (username) {
+      this.props.router.push({
+        pathname: "/populate",
+      })
+    }
     ipcRenderer.send("initialized")
   }
 
@@ -43,12 +53,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setAssignmentURL(assignmentURL))
     dispatch(assignmentFetchInfo())
   },
-  updateUserState: () => dispatch(settingsUpdateUserState())
+  fetchUserFromKeychain: () => dispatch(settingsFetchUserFromKeychain())
 })
 
 AppContainer.propTypes = {
   fetchAssignment: PropTypes.func.isRequired,
-  updateUserState: PropTypes.func.isRequired,
+  fetchUserFromKeychain: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
   router: PropTypes.any.isRequired,
   children: PropTypes.any
 }

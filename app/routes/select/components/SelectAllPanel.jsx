@@ -1,17 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const styles = {
-  paddingLeft: "20px",
-  paddingRight: "20px",
-  paddingTop: "10px",
-  paddingBottom: "10px"
-}
-
-const checkboxStyles = {
-  marginLeft: "5px"
-}
-
 class SelectAllPanel extends React.Component {
   constructor (props) {
     super(props)
@@ -27,20 +16,22 @@ class SelectAllPanel extends React.Component {
 
   render () {
     return (
-      <div style={styles}>
-        <div className="row">
-          <div className="col-6">
-            {this.props.selected}/{this.props.total} selected
-          </div>
-          <div className="col-6">
-            <div className="float-right">
-              Select All
-              <input
-                style={checkboxStyles}
-                type="checkbox"
-                checked={this.props.selectAll}
-                onChange={this.onCheckboxChange}
-              />
+      <div className="select-all-panel-wrapper">
+        <div className="container">
+          <div className="row">
+            <div className="col-6">
+              {this.props.selected}/{this.props.total} selected
+            </div>
+            <div className="col-6">
+              <div className="float-right">
+                Select All
+                <input
+                  className="select-all-panel-checkbox"
+                  type="checkbox"
+                  checked={this.props.selectAll}
+                  onChange={this.onCheckboxChange}
+                />
+              </div>
             </div>
           </div>
         </div>

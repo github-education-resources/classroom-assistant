@@ -1,5 +1,5 @@
-import NodeGit from "nodegit"
-import _ from "underscore"
+import { GitProcess } from "dugite"
+import ProgressParser from "./progressutils"
 
 // Public: Clones a public git repository to the specified destination directory,
 // and notifies the caller of clone progress via callback.
@@ -25,51 +25,25 @@ import _ from "underscore"
 //    })
 //
 // Returns a Promise
-export const clone = (repoURL, destination, progressCallback, token) => {
-  return new Promise((resolve, reject) => {
-    let progressOnCompletion = false
+export const clone = async (repoURL, destination, progressCallback) => {
+  const options = { }
 
-    const options = {
-      fetchOpts: {
-        callbacks: {
+  if (progressCallback) {
+    const progressParser = new ProgressParser(progressCallback)
+    options.processCallback = progressParser.parseProgressFromProcess
+  }
 
-        }
-      }
-    }
+  progressCallback(0)
 
-    if (progressCallback) {
-      options.fetchOpts.callbacks.transferProgress = _.throttle((progressInfo) => {
-        const percentage = 100 * progressInfo.receivedObjects() / progressInfo.totalObjects()
-        if (percentage === 100) progressOnCompletion = true
-        progressCallback(percentage)
-      }, 300, { trailing: false })
-    }
-
-    if (token) {
-      // Skipping Certificate check because libgit2 is unable to look up GitHub
-      // certificates correctly, this issue is documented here:
-      // https://github.com/nodegit/nodegit/tree/master/guides/cloning/gh-two-factor#github-certificate-issue-in-os-x
-      options.fetchOpts.callbacks.certificate_check = () => {
-        return 1
-      }
-      options.fetchOpts.callbacks.credentials = () => {
-        return NodeGit.Cred.userpassPlaintextNew(token, "x-oauth-basic")
-      }
-    }
-
-    progressCallback(0)
-
-    NodeGit.Clone(
-      repoURL,
-      destination,
-      options
-    ).then((repo) => {
-      if (!progressOnCompletion && progressCallback) {
-        progressCallback(100)
-      }
-      resolve()
-    }).catch((err) => {
-      reject(err)
-    })
-  })
+  const result = await GitProcess.exec(
+    ["clone", repoURL, "--progress", "."],
+    destination,
+    options
+  )
+  // TODO Better Error handling and recovery
+  if (result.exitCode === 0) {
+    progressCallback(100)
+  } else {
+    throw new Error("Git Clone Process Failed.")
+  }
 }

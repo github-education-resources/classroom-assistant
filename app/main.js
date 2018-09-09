@@ -7,10 +7,14 @@ const defaultMenu = require("electron-default-menu")
 const updater = require("./updater")
 const logger = require("./logger")
 
-const {authorizeUser, fetchAccessToken} = require("./userAuthentication")
+const {authorizeUser, setAccessToken} = require("./userAuthentication")
 
 let mainWindow
-let deepLinkURLOnReady = null
+let loadOnReady = null
+
+const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
+
+if (require("electron-squirrel-startup")) app.quit()
 
 logger.init()
 
@@ -20,7 +24,7 @@ function createWindow () {
   const menu = defaultMenu(app, shell)
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 
-  mainWindow = new BrowserWindow({width: 900, height: 600})
+  mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden", show: false})
   const url = `file://${__dirname}/index.html`
   mainWindow.loadURL(url)
 
@@ -30,27 +34,26 @@ function createWindow () {
 
   if (!isDev) {
     const msBetweenUpdates = 1000 * 60 * 30
-    updater.start(app, msBetweenUpdates, () => {
-      mainWindow.webContents.send("info", {msg: "update found"})
-    }, (err) => {
-      mainWindow.webContents.send("info", {msg: err})
-    })
+    updater.start(app, msBetweenUpdates)
   }
 
   mainWindow.on("closed", function () {
     mainWindow = null
   })
 
-  ipcMain.on("initialized", () => {
-    if (deepLinkURLOnReady != null) {
+  ipcMain.on("initialized", async () => {
+    if (loadOnReady != null) {
       // If open-url event was fired before app was ready
-      loadPopulatePage(deepLinkURLOnReady)
-      deepLinkURLOnReady = null
+      await setAccessToken(loadOnReady.code, mainWindow)
+      loadPopulatePage(loadOnReady.assignmentURL)
+      loadOnReady = null
     }
+
+    mainWindow.show()
   })
 
-  ipcMain.on("requestAuthorization", (e, assignmentURL) => {
-    authorizeUser(mainWindow, assignmentURL)
+  ipcMain.on("requestAuthorization", () => {
+    authorizeUser(mainWindow, DEFAULT_PROTOCOL_HANDLER)
   })
 }
 
@@ -58,27 +61,34 @@ function loadPopulatePage (assignmentURL) {
   mainWindow.webContents.send("open-url", assignmentURL)
 }
 
-app.on("open-url", function (event, urlToOpen) {
+app.on("open-url", async function (event, urlToOpen) {
   event.preventDefault()
+  let assignmentURL = ""
   const urlParams = new URL(urlToOpen).searchParams
   const isClassroomDeeplink = urlParams.has("assignment_url")
   const isOAuthDeeplink = urlParams.has("code")
 
-  if (isClassroomDeeplink) {
-    const assignmentURL = urlParams.get("assignment_url")
+  if (isOAuthDeeplink) {
+    const oauthCode = urlParams.get("code")
+
+    if (isClassroomDeeplink) {
+      assignmentURL = urlParams.get("assignment_url")
+    }
     if (app.isReady()) {
+      // TODO: Handle rejected promise
+      await setAccessToken(oauthCode, mainWindow)
       loadPopulatePage(assignmentURL)
     } else {
-      deepLinkURLOnReady = assignmentURL
+      loadOnReady = {
+        assignmentURL: assignmentURL,
+        code: oauthCode
+      }
     }
-  } else if (isOAuthDeeplink) {
-    const oauthCode = urlParams.get("code")
-    fetchAccessToken(oauthCode)
   }
 })
 
-app.on("ready", () => {
-  app.setAsDefaultProtocolClient("x-github-classroom")
+app.on("ready", async () => {
+  app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
   createWindow()
 })
 

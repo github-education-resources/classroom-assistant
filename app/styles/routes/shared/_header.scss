@@ -1,0 +1,20 @@
+.shared-header-navbar {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background: #5fb27b;
+  border-bottom: solid 1px #e3e3e3;
+}
+
+.shared-header-toolbar {
+  height: 22px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: #519869;
+  -webkit-app-region: drag;
+}
+
+.shared-header-content {
+  margin-top: 10px;
+  color: white;
+}
