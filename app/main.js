@@ -6,7 +6,6 @@ const { URL } = require("url")
 const defaultMenu = require("electron-default-menu")
 const updater = require("./updater")
 const logger = require("./logger")
-const path = require("path")
 
 const {authorizeUser, setAccessToken} = require("./userAuthentication")
 
