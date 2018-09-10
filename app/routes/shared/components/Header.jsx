@@ -9,7 +9,8 @@ const Header = ({
   return (
     <div>
       <div className="fixed-top shared-header-navbar">
-        <div className="shared-header-toolbar"/>
+        {process.platform === "darwin" && <div className="shared-header-toolbar"/>}
+
         <div className="container shared-header-content h-100">
           <div className = "row align-items-center align-self-center h-100">
             <div className = "col-10">

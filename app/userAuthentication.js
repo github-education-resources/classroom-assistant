@@ -29,7 +29,6 @@ function openAuthWindow (mainWindow, protocolHandler) {
   authWindow = new BrowserWindow({
     height: 650,
     width: 400,
-    frame: false,
     show: false,
     parent: mainWindow,
     webPreferences: {
