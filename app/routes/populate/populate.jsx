@@ -9,7 +9,7 @@ import LoadingPanel from "../shared/components/LoadingPanel"
 import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
 import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
 import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
-import {url, error, valid, name, typeLabel, fetching} from "../../modules/assignment/selectors"
+import {url, error, valid, name, typeLabel, fetching, all} from "../../modules/assignment/selectors"
 import {userAuthorized} from "../../modules/settings/selectors"
 
 const containerStyles = {
@@ -26,12 +26,6 @@ class PopulatePage extends Component {
   constructor (props) {
     super(props)
     this.updateInput = this.updateInput.bind(this)
-  }
-
-  componentDidMount () {
-    if (!this.props.loggedIn) {
-      this.props.loginUser()
-    }
   }
 
   updateInput (e) {
@@ -98,6 +92,7 @@ const mapStateToProps = (state) => ({
   valid: valid(state),
   fetching: fetching(state),
   loggedIn: userAuthorized(state),
+  type: all(state).type,
 })
 
 PopulatePage.propTypes = {

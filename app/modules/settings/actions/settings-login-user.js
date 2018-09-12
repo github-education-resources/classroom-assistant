@@ -1,5 +1,5 @@
 import {ipcRenderer} from "electron"
-import { settingsUpdateUserState } from "./settings-update-user-state"
+import { settingsFetchUserFromKeychain } from "./settings-fetch-user-from-keychain"
 
 /**
  * PUBLIC: Sends IPC message to open Login window with assignment url
@@ -14,7 +14,7 @@ export const settingsLoginUser = (assignmentURL) => {
 
       // TODO: Handle authorization failure so app doesn't hang
       ipcRenderer.on("receivedAuthorization", () => {
-        dispatch(settingsUpdateUserState())
+        dispatch(settingsFetchUserFromKeychain())
         resolve()
       })
     })
