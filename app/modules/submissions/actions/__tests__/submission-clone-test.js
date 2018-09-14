@@ -107,14 +107,9 @@ describe("submissionClone", () => {
     })
 
     it("dispatches correct error state when a clone error occurs", async () => {
-      const cloneMock = function (repo, destination, progress) {
-        return new Promise((resolve, reject) => {
-          progress(0)
-          progress(30)
-          progress(100)
-          resolve()
-        })
-      }
+      const cloneMock = sinon.spy(() => {
+        return Promise.reject(new Error("something went wrong"))
+      })
 
       const submissionClone = submissionCloneFunc(cloneMock)
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
