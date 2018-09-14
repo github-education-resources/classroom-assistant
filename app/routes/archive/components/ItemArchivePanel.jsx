@@ -17,7 +17,7 @@ const ItemArchivePanel = ({
 }) => {
   let progressElement
 
-  if (cloneProgress === 0) {
+  if (cloneProgress === 0 && !cloneStatus) {
     progressElement = (
       <Spinner className={`archive-item-archive-panel-spinner ${(cloneStatus ? "mt-0" : "mt-3")}`}/>
     )
@@ -29,7 +29,7 @@ const ItemArchivePanel = ({
         showPercentage={false}
       />
     )
-  } else {
+  } else if (cloneProgress === 100) {
     progressElement = (
       <button className="btn btn-sm btn-primary archive-item-archive-panel-button" onClick={onViewClick}>
         <i className="fa fa-folder-open" aria-hidden="true"></i> View
