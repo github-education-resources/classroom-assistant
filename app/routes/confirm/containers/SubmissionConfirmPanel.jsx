@@ -4,8 +4,8 @@ import { num, numSelected } from "../../../modules/submissions/selectors"
 
 const mapStateToProps = (state) => ({
   title: `${numSelected(state)}/${num(state)}`,
-  imagePath: "http://placehold.it/48x48",
-  subtitle: "Submissions Selected"
+  iconName: "fa-check",
+  subtitle: "Assignments Selected"
 })
 
 export default connect(mapStateToProps, null)(ItemPanel)

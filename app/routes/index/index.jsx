@@ -1,39 +1,46 @@
 import React from "react"
-import { Link } from "react-router"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
-import NavFooter from "../shared/components/NavFooter"
+import * as Path from "path"
 
-const containerStyles = {
-  paddingTop: "100px"
-}
+import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
 
-const buttonWrapperStyles = {
-  margin: "5px"
-}
-
-const IndexPage = () => (
-  <div style={containerStyles}>
-    <div className="row justify-content-center">
-      <div className="col-sm-6 col-sm-offset-3">
-        <h1 className="text-center">GitHub Classroom Desktop</h1>
-        <p className="lead text-center">
-          GitHub Classroom Desktop lets you archive assignments submitted on GitHub
-          Classroom with a click of a button.
-        </p>
-        <div className="text-center">
-          <Link to="populate" style={buttonWrapperStyles}>
-            <button className="btn btn-primary btn-lg">Get started on GitHub Classroom</button>
-          </Link>
+const IndexPage = ({
+  loginUser
+}) => (
+  <div className="index-container">
+    <div className="row">
+      <div className="col-5 align-self-center index-left-pane">
+        <img
+          className="index-logo"
+          src={ Path.join(__dirname, "../../resources/images/classroom-logo.png") }
+        />
+      </div>
+      <div className="col-7 index-right-pane">
+        <div className = "index-right-pane-content">
+          <h1 className="text-center">GitHub Classroom Desktop</h1>
+          <p className="lead text-center">
+            GitHub Classroom Desktop lets you archive assignments submitted on GitHub
+            Classroom with a click of a button.
+          </p>
+          <div className="text-center">
+            <button onClick = {loginUser} className="btn btn-primary btn-lg">Log In with Classroom</button>
+          </div>
         </div>
       </div>
     </div>
-    <NavFooter
-      left={{
-        label: "Settings",
-        route: "/settings"
-      }}
-    />
   </div>
 )
 
-export default IndexPage
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: () => {
+    dispatch(settingsLoginUser())
+  },
+})
+
+IndexPage.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+}
+
+export default connect(null, mapDispatchToProps)(IndexPage)

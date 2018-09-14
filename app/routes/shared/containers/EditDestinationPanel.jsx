@@ -7,8 +7,9 @@ import { settingsChangeDestinationWithDialog } from "../../../modules/settings/a
 
 const mapStateToProps = (state) => ({
   title: "Archive Destination",
-  imagePath: "http://placehold.it/48x48",
-  subtitle: cloneDestination(state)
+  subtitle: cloneDestination(state),
+  rightIconName: "fa-pencil",
+  leftIconName: "fa-file"
 })
 
 const mapDispatchToProps = (dispatch) => ({

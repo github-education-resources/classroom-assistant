@@ -1,0 +1,33 @@
+.shared-item-panel-wrapper {
+  padding: 15px;
+  border-bottom: solid 1px #e3e3e3;
+  height: 85px;
+}
+
+.shared-item-panel-icon {
+  font-size: 20px;
+}
+
+.shared-item-panel-icon-wrapper {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  margin-right: 0.7rem;
+  text-align: center;
+  border-radius: 50%;
+
+  i {
+    font-size: 22px;
+    line-height: 45px;
+  }
+
+  background-color: rgba(216, 216, 216, 0.3);
+}
+
+.shared-item-panel-title {
+  margin-bottom: 0;
+}
+
+.shared-item-panel-subtitle {
+  margin-top: 0.5rem;
+}

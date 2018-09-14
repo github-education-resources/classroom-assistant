@@ -29,8 +29,8 @@ class SelectPage extends Component {
         {this.props.fetching ? <LoadingPanel message="Loading Assignment Repositories"/> : <SelectableSubmissionList />}
         <NavFooter
           left={{
-            label: "Cancel",
-            route: "/",
+            label: "Back",
+            route: "/populate",
           }}
           right={{
             label: "Next: Choose Destination",
