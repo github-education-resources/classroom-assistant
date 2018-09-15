@@ -22,6 +22,9 @@ install:
   - git submodule update --init --recursive
   - npm install --prune
 
+before_build:
+  - ps: script\setup-windows-certificate.ps1
+
 build_script:
   - npm run make
 
