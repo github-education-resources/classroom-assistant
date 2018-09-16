@@ -1,10 +1,11 @@
+import { remote } from "electron"
+
 import {fetchPage} from "./pagination-fetch-page"
 import {paginationSetFetching} from "./pagination-set-fetching"
 import {paginationSetAssignmentURL} from "./pagination-set-assignment-url"
 import {nextPage} from "../selectors"
 import {all} from "../../assignment/selectors"
 
-const keytar = require("keytar")
 let accessToken
 /**
  * PUBLIC: Fetch all pages of repositories associated with an assignment
@@ -16,7 +17,8 @@ export const fetchAllPages = (assignmentURL) => {
     // Sets to null if password cannot be found
     // TODO: Add specific error message/ask for reauthorization if clone
     // fails
-    accessToken = await keytar.findPassword("Classroom-Desktop")
+    accessToken = remote.getGlobal("accessToken")
+
     const urlObj = new URL(assignmentURL)
 
     let repoURL = `${urlObj.origin}/api/internal/${urlObj.pathname}/`

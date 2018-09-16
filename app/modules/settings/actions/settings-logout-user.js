@@ -1,8 +1,9 @@
+import { ipcRenderer } from "electron"
+
 import { settingsResetState } from "./settings-reset-state"
 import { settingsSetUsername } from "./settings-set-username"
 
 const {session} = require("electron").remote
-const keytar = require("keytar")
 
 /**
  * PUBLIC: Logs out user from app by clearing session
@@ -12,7 +13,8 @@ const keytar = require("keytar")
  */
 export const settingsLogoutUser = () => {
   return async dispatch => {
-    await keytar.deletePassword("Classroom-Desktop", "x-access-token")
+    ipcRenderer.send("deleteToken")
+
     session.fromPartition("auth:session").clearStorageData()
     await dispatch(settingsSetUsername(null))
     await dispatch(settingsResetState())
