@@ -1,11 +1,11 @@
 import { expect } from "chai"
+import { remote } from "electron"
 import * as sinon from "sinon"
 
 import { submissionCloneFunc, fetchCloneURL } from "../submission-clone"
 import { clone } from "../../../../lib/cloneutils"
 
 const nock = require("nock")
-const keytar = require("keytar")
 
 const mockClonePath = "/tmp/" + (Math.random().toString(36) + "00000").substr(2, 5)
 const ACCESS_TOKEN = "token"
@@ -35,7 +35,7 @@ describe("submissionClone", () => {
 
   beforeEach(() => {
     dispatch = sinon.spy()
-    sinon.stub(keytar, "findPassword").returns(ACCESS_TOKEN)
+    sinon.stub(remote, "getGlobal").returns(ACCESS_TOKEN)
 
     getState = () => ({
       settings: mockSettings,
@@ -48,7 +48,7 @@ describe("submissionClone", () => {
   })
 
   afterEach(() => {
-    keytar.findPassword.restore()
+    remote.getGlobal.restore()
   })
 
   describe("#fetchCloneURL", () => {
