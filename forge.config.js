@@ -28,7 +28,6 @@ module.exports = {
   electronWinstallerConfig: {
     name: "classroom-desktop",
     icon: "./app/resources/icon.ico",
-    authors: "GitHub, Inc."
   },
   electronInstallerDebian: {},
   electronInstallerRedhat: {},
