@@ -7,7 +7,7 @@ import SubmissionArchivePanelList from "./containers/SubmissionArchivePanelList"
 import NavFooter from "../shared/components/NavFooter"
 import ArchiveProgressPanel from "./containers/ArchiveProgressPanel"
 
-import { settingsResetState } from "../../modules/settings/actions/settings-reset-state";
+import { settingsResetState } from "../../modules/settings/actions/settings-reset-state"
 
 const ArchivePage = ({
   quitApp
