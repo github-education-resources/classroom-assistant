@@ -4,7 +4,9 @@ import { getAssignmentFolder, getClonePath } from "../pathutils"
 
 const fs = require("fs-extra")
 
-const TEST_BASE_PATH = `/tmp/${(Math.random().toString(36) + "00000").substr(2, 5)}`
+const RANDOM_FILENAME = (Math.random().toString(36) + "00000").substr(2, 5)
+const TEST_BASE_PATH = "/tmp/" + RANDOM_FILENAME
+
 const TEST_ASSIGNMENT_NAME = "SomeAssignment"
 const TEST_STUDENT_USERNAME = "SomeStudentUsername"
 
