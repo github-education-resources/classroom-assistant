@@ -28,6 +28,9 @@ before_build:
 build_script:
   - npm run make
 
+after_build:
+  - ps: script\cleanup-windows-certificate.ps1
+
 artifacts:
   # pushing all *.nupkg files in build directory recursively
   - path: out\make\**\*.nupkg
