@@ -28,6 +28,8 @@ module.exports = {
   electronWinstallerConfig: {
     name: "classroom-desktop",
     icon: "./app/resources/icon.ico",
+    setupIcon: "./app/resources/icon.ico",
+    loadingGif: "./app/resources/images/win32-installer-splash.gif",
   },
   electronInstallerDebian: {},
   electronInstallerRedhat: {},
