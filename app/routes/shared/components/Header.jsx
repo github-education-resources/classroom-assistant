@@ -7,11 +7,11 @@ const Header = ({
   children
 }) => {
   return (
-    <div>
-      <div className="fixed-top shared-header-navbar">
+    <div className={process.platform === "darwin" ? "darwin" : "windows"}>
+      <div className="shared-header-navbar fixed-top">
         {process.platform === "darwin" && <div className="shared-header-toolbar"/>}
 
-        <div className="container shared-header-content h-100">
+        <div className="container-fluid shared-header-content h-100">
           <div className = "row align-items-center align-self-center h-100">
             <div className = "col-10">
               {children}

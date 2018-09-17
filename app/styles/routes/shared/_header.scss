@@ -1,8 +1,27 @@
+$darwin_navbar_height: 95px;
+$windows_navbar_height: 77px;
+
 .shared-header-navbar {
-  height: 95px;
   padding-top: 20px;
   background: #5fb27b;
   border-bottom: solid 1px #e3e3e3;
+}
+
+.darwin {
+  .shared-header-navbar {
+    height: $darwin_navbar_height;
+  }
+  .shared-header-spacer {
+    height: $darwin_navbar_height;
+  }
+}
+.darwin {
+  .shared-header-navbar {
+    height: $windows_navbar_height;
+  }
+  .shared-header-spacer {
+    height: $windows_navbar_height;
+  }
 }
 
 .shared-header-toolbar {
@@ -16,8 +35,4 @@
 
 .shared-header-content {
   color: white;
-}
-
-.shared-header-spacer {
-  padding-top: 95px;
 }
