@@ -1,6 +1,5 @@
 import axios from "axios"
-import { name, url, all } from "../../assignment/selectors"
-import { cloneDestination } from "../../settings/selectors"
+import { url, all } from "../../assignment/selectors"
 
 import { submissionSetCloneProgress } from "./submission-set-clone-progress"
 import { submissionSetClonePath } from "./submission-set-clone-path"
@@ -15,10 +14,8 @@ const keytar = require("keytar")
 // progress/display errors in the UI
 
 export const submissionCloneFunc = (clone) => {
-  return (submissionProps) => {
+  return (submissionProps, cloneDirectory) => {
     return async (dispatch, getState) => {
-      const submissionsBaseDirectory = cloneDestination(getState())
-      const assignmentName = name(getState())
       const submissionAuthorUsername = submissionProps.username
 
       // Sets to null if password cannot be found
@@ -26,11 +23,12 @@ export const submissionCloneFunc = (clone) => {
       // fails
       const accessToken = await keytar.findPassword("Classroom-Desktop")
 
-      const destination = getClonePath(
-        submissionsBaseDirectory,
-        assignmentName,
-        submissionAuthorUsername
-      )
+      const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
+
+      if (!destination) {
+        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: Folder could not be created."))
+        return
+      }
 
       dispatch(submissionSetClonePath(submissionProps.id, destination))
       dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
