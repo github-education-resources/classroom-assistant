@@ -27,7 +27,7 @@ const progressProps = {
   cloneStatus: "Sample Status"
 }
 
-const noProgressProps = {
+const statusProps = {
   id: 1,
   username: "test username",
   displayName: "test display name",
@@ -35,6 +35,15 @@ const noProgressProps = {
   repoUrl: "http://www.someurl.com",
   cloneProgress: 0,
   cloneStatus: "Sample Status"
+}
+
+const noProgressProps = {
+  id: 1,
+  username: "test username",
+  displayName: "test display name",
+  avatarUrl: "/some/path.jpg",
+  repoUrl: "http://www.someurl.com",
+  cloneProgress: 0
 }
 
 describe("ItemArchivePanel", () => {
@@ -82,8 +91,13 @@ describe("ItemArchivePanel", () => {
     expect(wasCalled).equals(true)
   })
 
-  it("renders a spinner when the progress is 0", () => {
+  it("renders a spinner when the progress is 0 and clone status is empty", () => {
     const wrapper = shallow(<ItemArchivePanel {...noProgressProps}/>)
     expect(wrapper.find(Spinner).length).equals(1)
+  })
+
+  it("renders no spinner when the progress is 0 with status message", () => {
+    const wrapper = shallow(<ItemArchivePanel {...statusProps}/>)
+    expect(wrapper.find(Spinner).length).equals(0)
   })
 })
