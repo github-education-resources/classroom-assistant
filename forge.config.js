@@ -1,8 +1,8 @@
-function getWindowsCertificatePassword() {
-  if (process.env.KEY_PASSWORD){
-    return process.env.KEY_PASSWORD;
+function getWindowsCertificatePassword () {
+  if (process.env.KEY_PASSWORD) {
+    return process.env.KEY_PASSWORD
   } else {
-    console.log("Skipping Windows Certificate Password");
+    console.log("Skipping Windows Certificate Password")
   }
 }
 
