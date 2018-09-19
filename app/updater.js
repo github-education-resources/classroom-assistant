@@ -36,8 +36,7 @@ module.exports = {
         type: "info",
         buttons: ["Restart", "Later"],
         title: "Application Update",
-        message: "An update for this Classroom Assistant has been downloaded. Please restart the application to apply the updates.",
-        detail: process.platform === "win32" ? releaseName : releaseNotes
+        message: "An update for this Classroom Assistant has been downloaded. Please restart the application to apply the updates."
       }
 
       dialog.showMessageBox(updateDialogOpts, (response) => {
