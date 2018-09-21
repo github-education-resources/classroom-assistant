@@ -6,7 +6,7 @@ const logger = require("./logger")
 
 // Internal: URL of the update metadata server -
 //    an instance of Aluxian/squirrel-updates-server
-const UPDATES_SERVER_URL = "http://localhost:5000/desktop"
+const UPDATES_SERVER_URL = "http://classroom.github.com/assistant"
 
 module.exports = {
 
