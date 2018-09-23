@@ -1,3 +1,11 @@
+function getWindowsCertificatePassword () {
+  if (process.env.KEY_PASSWORD) {
+    return process.env.KEY_PASSWORD
+  } else {
+    console.log("Skipping Windows Certificate Password")
+  }
+}
+
 module.exports = {
   // other config here
   make_targets: {
@@ -30,6 +38,8 @@ module.exports = {
     icon: "./app/resources/icon.ico",
     setupIcon: "./app/resources/icon.ico",
     loadingGif: "./app/resources/images/win32-installer-splash.gif",
+    certificateFile: "./script/windows-certificate.pfx",
+    certificatePassword: getWindowsCertificatePassword()
   },
   electronInstallerDebian: {},
   electronInstallerRedhat: {},
