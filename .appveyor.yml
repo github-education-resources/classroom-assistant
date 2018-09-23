@@ -22,8 +22,14 @@ install:
   - git submodule update --init --recursive
   - npm install --prune
 
+before_build:
+  - ps: script\setup-windows-certificate.ps1
+
 build_script:
   - npm run make
+
+after_build:
+  - ps: script\cleanup-windows-certificate.ps1
 
 artifacts:
   # pushing all *.nupkg files in build directory recursively
@@ -34,6 +40,7 @@ artifacts:
   - path: out\make\**\RELEASES
     name: deploy-RELEASES
 
+# TODO: Add Windows Testing Support
 # test_script:
 #   - npm run test
 

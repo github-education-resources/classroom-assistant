@@ -24,6 +24,11 @@ export const submissionCloneFunc = (clone) => {
 
       const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
 
+      if (!destination) {
+        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: Folder could not be created."))
+        return
+      }
+
       dispatch(submissionSetClonePath(submissionProps.id, destination))
       dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
 

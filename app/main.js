@@ -14,7 +14,7 @@ let loadOnReady = null
 
 const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
 
-if (require("electron-squirrel-startup")) app.quit()
+if (require("electron-squirrel-startup")) app.exit()
 
 logger.init()
 
