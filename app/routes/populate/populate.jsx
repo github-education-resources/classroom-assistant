@@ -29,7 +29,7 @@ class PopulatePage extends Component {
     const inputClasses = classNames("form-control", {"is-invalid": this.props.error})
 
     return (
-      <div>
+      <div className="container-fluid">
         <ClassroomPanel/>
         <div className="row justify-content-center populate-content">
           <div className="col-8">

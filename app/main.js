@@ -1,13 +1,12 @@
 /* eslint-env node */
 const electron = require("electron")
-const {app, BrowserWindow, ipcMain, Menu, shell} = electron
+const {app, BrowserWindow, ipcMain} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require("url")
-const defaultMenu = require("electron-default-menu")
 const updater = require("./updater")
 const logger = require("./logger")
-
 const {authorizeUser, setAccessTokenFromCode, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
+const {generateMenu} = require("./menu")
 
 let mainWindow
 let loadOnReady = null
@@ -21,8 +20,8 @@ logger.init()
 const createWindow = () => {
   logger.info("creating app window")
 
-  const menu = defaultMenu(app, shell)
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
+  // Set window toolbar options
+  generateMenu()
 
   mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden", show: false})
   const url = `file://${__dirname}/index.html`

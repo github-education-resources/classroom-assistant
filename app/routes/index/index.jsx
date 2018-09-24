@@ -9,7 +9,7 @@ import {settingsLoginUser} from "../../modules/settings/actions/settings-login-u
 const IndexPage = ({
   loginUser
 }) => (
-  <div className="index-container">
+  <div className="index-container container-fluid">
     <div className="row">
       <div className="col-5 align-self-center index-left-pane">
         <img
