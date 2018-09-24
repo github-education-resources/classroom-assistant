@@ -1,8 +1,8 @@
-import keytar from "keytar"
 import axios from "axios"
 
 import { settingsSetUsername } from "./settings-set-username"
 import { settingsLogoutUser } from "./settings-logout-user"
+import { remote } from "electron"
 
 /**
  * PUBLIC: Update username in store based on token and redirect to populate page
@@ -50,5 +50,6 @@ export const fetchUsername = async (token) => {
 }
 
 const tokenInKeychain = async () => {
-  return keytar.getPassword("Classroom-Desktop", "x-access-token")
+  const token = remote.getGlobal("accessToken")
+  return token
 }

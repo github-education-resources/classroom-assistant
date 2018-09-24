@@ -1,11 +1,11 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
+import { ipcRenderer } from "electron"
 
 import {settingsLogoutUser} from "../settings-logout-user"
 import {settingsSetUsername} from "../settings-set-username"
 import { settingsResetState } from "../settings-reset-state"
 
-const keytar = require("keytar")
 const {session} = require("electron").remote
 
 describe("settingsLogoutUser", () => {
@@ -40,13 +40,13 @@ describe("settingsLogoutUser", () => {
     expect(sessionSpy.calledOnce).is.true
   })
 
-  // TODO: Make this test more specific after keytar config is finalized
-  it("calls node keytar delete password", async () => {
-    const keytarStub = sinon.stub(keytar, "deletePassword")
+  it("dispatches message to delete token", async () => {
+    const ipcStub = sinon.stub(ipcRenderer, "send")
     await settingsLogoutUser()(dispatch)
 
-    expect(keytarStub.calledOnce).is.true
+    expect(ipcStub.calledOnce).is.true
+    expect(ipcStub.getCall(0).args[0]).to.eql("deleteToken")
 
-    keytar.deletePassword.restore()
+    ipcRenderer.send.restore()
   })
 })
