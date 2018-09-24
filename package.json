@@ -49,6 +49,7 @@
     "electron-default-menu": "^1.0.1",
     "electron-devtools-installer": "^2.1.0",
     "electron-is-dev": "~0.3.0",
+    "electron-log": "^2.2.17",
     "electron-squirrel-startup": "^1.0.0",
     "font-awesome": "~4.7.0",
     "fs-extra": "^7.0.0",
@@ -71,8 +72,7 @@
     "redux-thunk": "~2.2.0",
     "reselect": "~3.0.1",
     "sanitize-filename": "^1.6.1",
-    "underscore": "^1.8.3",
-    "winston": "~2.4.1"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

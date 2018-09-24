@@ -3,8 +3,10 @@ const electron = require("electron")
 const {app, BrowserWindow, ipcMain} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require("url")
+const log = require("electron-log")
+
 const updater = require("./updater")
-const logger = require("./logger")
+const initLogger = require("./log")
 const {authorizeUser, setAccessTokenFromCode, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
 const {generateMenu} = require("./menu")
 
@@ -15,10 +17,10 @@ const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
 
 if (require("electron-squirrel-startup")) app.exit()
 
-logger.init()
+initLogger()
 
 const createWindow = () => {
-  logger.info("creating app window")
+  log.info("creating app window")
 
   // Set window toolbar options
   generateMenu()

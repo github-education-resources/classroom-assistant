@@ -2,7 +2,7 @@ import os from "os"
 
 const electron = require("electron")
 const {autoUpdater, dialog} = electron
-const logger = require("./logger")
+const log = require("electron-log")
 
 // Internal: URL of the update metadata server -
 //    an instance of Aluxian/squirrel-updates-server
@@ -20,17 +20,17 @@ module.exports = {
   //
   // Returns noting.
   start (app, interval) {
-    logger.info("starting auto-updater")
+    log.info("starting auto-updater")
     const platform = os.platform() + "_" + os.arch()
     autoUpdater.setFeedURL(`${UPDATES_SERVER_URL}/update/${platform}/${app.getVersion()}`)
 
     // Fire callbacks on events for notification purposes
     autoUpdater.on("error", (err) => {
-      logger.error(err)
+      log.error(err)
     })
 
     autoUpdater.on("update-downloaded", (releaseNotes, releaseName) => {
-      logger.info("Application update downloaded")
+      log.info("Application update downloaded")
 
       const updateDialogOpts = {
         type: "info",
@@ -44,10 +44,10 @@ module.exports = {
       })
     })
 
-    logger.info("checking for updates..")
+    log.info("checking for updates..")
     autoUpdater.checkForUpdates()
     setInterval(() => {
-      logger.info("checking for updates..")
+      log.info("checking for updates..")
       autoUpdater.checkForUpdates()
     }, interval)
   }
