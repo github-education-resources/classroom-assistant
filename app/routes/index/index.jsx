@@ -1,10 +1,20 @@
 import React from "react"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
+import lifecycle from "react-pure-lifecycle"
 
 import * as Path from "path"
 
 import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
+
+const methods = {
+  componentDidMount (props) {
+    const remote = require("electron").remote
+    const trackScreen = remote.getGlobal("trackScreen")
+
+    trackScreen("index")
+  }
+}
 
 const IndexPage = ({
   loginUser
@@ -43,4 +53,4 @@ IndexPage.propTypes = {
   loginUser: PropTypes.func.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(IndexPage)
+export default lifecycle(methods)(connect(null, mapDispatchToProps)(IndexPage))

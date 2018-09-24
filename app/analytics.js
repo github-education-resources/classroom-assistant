@@ -4,9 +4,9 @@ const ua = require("universal-analytics")
 const uuid = require("uuid/v4")
 const Store = require("electron-store")
 const log = require("electron-log")
-const packageInfo = require("./package")
+const packageInfo = require("../package")
 
-const gaID = appInfo["ga_id"]
+const gaID = "UA-56121800-3"
 
 const fetchGAUser = () => {
   const store = new Store()
@@ -15,8 +15,7 @@ const fetchGAUser = () => {
 
   store.set("classroom-assistant-ga-user-id", userId)
 
-  log.info(`Fetched Analytics User: ${userId}`)
-
+  log.info(gaID)
   return ua(gaID, userId)
 }
 
@@ -32,13 +31,17 @@ export const trackEvent = (category, action, label = null, value = null) => {
 
 export const trackException = (description, fatal = false) => {
   const usr = fetchGAUser()
-  usr.exception(description, fatal)
+  usr.exception(description, fatal).send()
+  log.info(`GA Exception: ${description}`)
 }
 
 export const trackScreen = (screenName) => {
   const usr = fetchGAUser()
-  usr.screenview(screenName, packageInfo.name, packageInfo.version)
+  usr.screenview(screenName, packageInfo.name, packageInfo.version).send()
+  log.info(`GA Track Screen: ${screenName}`)
 }
 
 // Share with Renderer Process
 global.trackEvent = trackEvent
+global.trackException = trackException
+global.trackScreen = trackScreen

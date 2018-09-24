@@ -21,6 +21,13 @@ class PopulatePage extends Component {
     this.updateInput = this.updateInput.bind(this)
   }
 
+  componentDidMount (props) {
+    const remote = require("electron").remote
+    const trackScreen = remote.getGlobal("trackScreen")
+
+    trackScreen("populate")
+  }
+
   updateInput (e) {
     this.props.fetchAssignment(e.target.value)
   }
