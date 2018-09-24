@@ -11,7 +11,7 @@ export function authorizeUser (mainWindowRef, protocolHandler) {
   openAuthWindow(mainWindowRef, protocolHandler)
 }
 
-export async function setAccessToken (code, mainWindow) {
+export async function setAccessTokenFromCode (code, mainWindow) {
   if (authWindow) {
     authWindow.destroy()
   }
@@ -19,10 +19,21 @@ export async function setAccessToken (code, mainWindow) {
   try {
     const token = await fetchAccessToken(code)
     await keytar.setPassword("Classroom-Desktop", "x-access-token", token)
+    global.accessToken = token
+
     mainWindow.webContents.send("receivedAuthorization")
   } catch (error) {
     logger.error(error)
   }
+}
+
+export async function loadAccessToken () {
+  global.accessToken = await keytar.getPassword("Classroom-Desktop", "x-access-token")
+}
+
+export async function deleteAccessToken () {
+  global.accessToken = null
+  await keytar.deletePassword("Classroom-Desktop", "x-access-token")
 }
 
 function openAuthWindow (mainWindow, protocolHandler) {

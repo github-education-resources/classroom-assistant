@@ -1,11 +1,10 @@
+import { remote } from "electron"
 import axios from "axios"
 
 import {receiveInfo} from "./assignment-receive-info"
 import {requestInfo} from "./assignment-request-info"
 import {errorInfo} from "./assignment-error-info"
 import {url} from "../selectors"
-
-const keytar = require("keytar")
 
 /**
  * PUBLIC: Fetch information about assignment from URL in state
@@ -17,7 +16,7 @@ export const assignmentFetchInfo = () => {
   return async (dispatch, getState) => {
     let urlObj, infoURL
 
-    const accessToken = await keytar.findPassword("Classroom-Desktop")
+    const accessToken = remote.getGlobal("accessToken")
 
     try {
       urlObj = new URL(url(getState()))

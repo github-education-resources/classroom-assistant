@@ -5,8 +5,7 @@ const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const updater = require("./updater")
 const logger = require("./logger")
-
-const {authorizeUser, setAccessToken} = require("./userAuthentication")
+const {authorizeUser, setAccessToken, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
 const {generateMenu} = require("./menu")
 
 let mainWindow
@@ -44,7 +43,7 @@ const createWindow = () => {
   ipcMain.on("initialized", async () => {
     if (loadOnReady != null) {
       // If open-url event was fired before app was ready
-      await setAccessToken(loadOnReady.code, mainWindow)
+      await setAccessTokenFromCode(loadOnReady.code, mainWindow)
       loadPopulatePage(loadOnReady.assignmentURL)
       loadOnReady = null
     }
@@ -55,6 +54,8 @@ const createWindow = () => {
   ipcMain.on("requestAuthorization", () => {
     authorizeUser(mainWindow, DEFAULT_PROTOCOL_HANDLER)
   })
+
+  ipcMain.on("deleteToken", deleteAccessToken)
 }
 
 const loadPopulatePage = (assignmentURL) => {
@@ -97,7 +98,7 @@ app.on("open-url", async function (event, urlToOpen) {
     }
     if (app.isReady()) {
       // TODO: Handle rejected promise
-      await setAccessToken(oauthCode, mainWindow)
+      await setAccessTokenFromCode(oauthCode, mainWindow)
       loadPopulatePage(assignmentURL)
     } else {
       loadOnReady = {
@@ -112,6 +113,7 @@ app.on("ready", async () => {
   const anotherInstanceRunning = setInstanceProtocolHandler()
   if (anotherInstanceRunning) app.quit()
 
+  loadAccessToken()
   createWindow()
 })
 
