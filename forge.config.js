@@ -1,3 +1,11 @@
+const fs = require("fs-extra")
+
+const s = JSON.stringify
+
+const appInfo = s({
+  ga_id: process.env.GOOGLE_ANALYTICS_ID
+})
+
 function getWindowsCertificatePassword () {
   if (process.env.KEY_PASSWORD) {
     return process.env.KEY_PASSWORD
@@ -52,4 +60,14 @@ module.exports = {
     packageName: "",
     name: "classroom-desktop"
   },
+  hooks: {
+    generateAssets: async () => {
+      return new Promise((resolve, reject) =>
+        fs.writeFile("./app/app-info.json", appInfo, (e) => {
+          if (e) reject(e)
+          else resolve()
+        })
+      )
+    }
+  }
 }
