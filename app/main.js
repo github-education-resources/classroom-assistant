@@ -6,7 +6,7 @@ const { URL } = require("url")
 const log = require("electron-log")
 
 const updater = require("./updater")
-const initLogger = require("./log")
+const {initLogger} = require("./logger")
 const {authorizeUser, setAccessTokenFromCode, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
 const {generateMenu} = require("./menu")
 
