@@ -14,6 +14,8 @@ let loadOnReady = null
 
 const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
 
+if (require("electron-squirrel-startup")) app.quit()
+
 logger.init()
 
 function createWindow () {
@@ -32,11 +34,7 @@ function createWindow () {
 
   if (!isDev) {
     const msBetweenUpdates = 1000 * 60 * 30
-    updater.start(app, msBetweenUpdates, () => {
-      mainWindow.webContents.send("info", {msg: "update found"})
-    }, (err) => {
-      mainWindow.webContents.send("info", {msg: err})
-    })
+    updater.start(app, msBetweenUpdates)
   }
 
   mainWindow.on("closed", function () {

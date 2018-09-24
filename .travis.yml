@@ -14,8 +14,11 @@ matrix:
 
 language: node_js
 node_js:
-  - "8.10.0"
+  - "8.11.3"
 
+cache:
+  directories:
+    - node_modules
 
 # this ensures PRs based on a local branch are not built twice
 # the downside is that a PR targeting a different branch is not built
@@ -23,6 +26,7 @@ node_js:
 branches:
   only:
     - master
+    - /^v[0-9].[0-9].[0-9].*/
 
 addons:
   apt:
@@ -33,15 +37,35 @@ addons:
       - gnome-keyring
       - libsecret-1-dev
       - python-gnomekeyring
+      - fakeroot
+      - rpm
+      - zip
+
+install:
+  - npm install --prune
 
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login); fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start); fi
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      dbus-launch /usr/bin/python -c \
-        "import gnomekeyring;gnomekeyring.create_sync('login', '');"
-    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" && ! -z "$KEY_LINK" ]]; then bash ./script/setup-macos-keychain; fi
 
 script:
   - ./script/test
+  - npm run make
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  name: ${TRAVIS_TAG}
+  tag_name: ${TRAVIS_TAG}
+  draft: true
+  file_glob: true
+  api_key:
+    secure: ${GITHUB_TOKEN}
+  file:
+    - "out/make/**/*.zip"
+    - "out/make/**/*.rpm"
+    - "out/make/**/*.deb"
+  on:
+    all_branches: true
+    tags: true
+    #deploy only on tag matching semantic versioning format
+    condition: "$TRAVIS_TAG =~ ^v[0-9].[0-9].[0-9].*$"
