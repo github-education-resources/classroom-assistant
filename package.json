@@ -70,6 +70,7 @@
     "redux-mock-store": "^1.1.2",
     "redux-thunk": "~2.2.0",
     "reselect": "~3.0.1",
+    "sanitize-filename": "^1.6.1",
     "underscore": "^1.8.3",
     "winston": "~2.4.1"
   },
