@@ -5,7 +5,7 @@ const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const updater = require("./updater")
 const logger = require("./logger")
-const {authorizeUser, setAccessToken, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
+const {authorizeUser, setAccessTokenFromCode, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
 const {generateMenu} = require("./menu")
 
 let mainWindow
