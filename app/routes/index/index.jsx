@@ -29,12 +29,11 @@ const IndexPage = ({
       </div>
       <div className="col-7 index-right-pane">
         <div className = "index-right-pane-content">
-          <h1 className="text-center">GitHub Classroom Desktop</h1>
-          <p className="lead text-center">
-            GitHub Classroom Desktop lets you archive assignments submitted on GitHub
-            Classroom with a click of a button.
-          </p>
-          <div className="text-center">
+          <h1 className="text-center"><b>GitHub</b> Classroom Assistant</h1>
+          <h4 className="text-center mt-2">
+            Download GitHub Classroom assignments for grading with the click of a button.
+          </h4>
+          <div className="text-center mt-4">
             <button onClick = {loginUser} className="btn btn-primary btn-lg">Log In with Classroom</button>
           </div>
         </div>
