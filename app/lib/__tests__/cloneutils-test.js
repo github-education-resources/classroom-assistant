@@ -7,7 +7,8 @@ const fs = require("fs-extra")
 const TEST_REPO = "https://github.com/education/classroom-desktop"
 const TEST_FAKE_REPO = "https://github.com/education/a-repo-that-will-never-exist"
 
-const DESTINATION = "/tmp/" + (Math.random().toString(36) + "00000").substr(2, 5)
+const RANDOM_FILENAME = (Math.random().toString(36) + "00000").substr(2, 5)
+const DESTINATION = "/tmp/" + RANDOM_FILENAME
 
 describe("Clone Utilities", () => {
   describe("clone", () => {

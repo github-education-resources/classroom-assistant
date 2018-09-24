@@ -1,14 +1,16 @@
 import { expect } from "chai"
+import { remote } from "electron"
 import * as sinon from "sinon"
 
 import { submissionCloneFunc, fetchCloneURL } from "../submission-clone"
 import { clone } from "../../../../lib/cloneutils"
 
 const nock = require("nock")
-const keytar = require("keytar")
 
-const mockClonePath = "/tmp/" + (Math.random().toString(36) + "00000").substr(2, 5)
 const ACCESS_TOKEN = "token"
+const RANDOM_FILENAME = (Math.random().toString(36) + "00000").substr(2, 5)
+
+const mockClonePath = "/tmp/" + RANDOM_FILENAME
 
 describe("submissionClone", () => {
   let getState, dispatch, cloneURLMock
@@ -35,7 +37,7 @@ describe("submissionClone", () => {
 
   beforeEach(() => {
     dispatch = sinon.spy()
-    sinon.stub(keytar, "findPassword").returns(ACCESS_TOKEN)
+    sinon.stub(remote, "getGlobal").returns(ACCESS_TOKEN)
 
     getState = () => ({
       settings: mockSettings,
@@ -48,7 +50,7 @@ describe("submissionClone", () => {
   })
 
   afterEach(() => {
-    keytar.findPassword.restore()
+    remote.getGlobal.restore()
   })
 
   describe("#fetchCloneURL", () => {
@@ -95,9 +97,7 @@ describe("submissionClone", () => {
     })
 
     it("calls 'clone' helper utility with correct arguments", async () => {
-      const cloneMock = sinon.spy(() => {
-        return Promise.reject(new Error("something went wrong"))
-      })
+      const cloneMock = sinon.stub()
 
       const submissionClone = submissionCloneFunc(cloneMock)
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
@@ -106,8 +106,12 @@ describe("submissionClone", () => {
       expect(cloneMock.calledWithMatch("https://github.com/test-org/test-assignment")).is.true
     })
 
-    it("dispatches an action to update the clone status when an error occurs", async () => {
-      const submissionClone = submissionCloneFunc(clone)
+    it("dispatches correct error state when a clone error occurs", async () => {
+      const cloneMock = sinon.spy(() => {
+        return Promise.reject(new Error("something went wrong"))
+      })
+
+      const submissionClone = submissionCloneFunc(cloneMock)
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
       expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_STATUS", id: 1, cloneStatus: "Clone failed: an error has occured." })).is.true

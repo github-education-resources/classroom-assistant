@@ -1,3 +1,4 @@
+import { remote } from "electron"
 import axios from "axios"
 import { url, all } from "../../assignment/selectors"
 
@@ -6,8 +7,6 @@ import { submissionSetClonePath } from "./submission-set-clone-path"
 import { submissionSetCloneStatus } from "./submission-set-clone-status"
 
 import { getClonePath } from "../../../lib/pathutils"
-
-const keytar = require("keytar")
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update
@@ -21,9 +20,14 @@ export const submissionCloneFunc = (clone) => {
       // Sets to null if password cannot be found
       // TODO: Add specific error message/ask for reauthorization if clone
       // fails
-      const accessToken = await keytar.findPassword("Classroom-Desktop")
+      const accessToken = remote.getGlobal("accessToken")
 
       const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
+
+      if (!destination) {
+        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: Folder could not be created."))
+        return
+      }
 
       dispatch(submissionSetClonePath(submissionProps.id, destination))
       dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))

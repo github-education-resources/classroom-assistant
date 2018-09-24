@@ -7,18 +7,21 @@ const Header = ({
   children
 }) => {
   return (
-    <div className="navbar" className="shared-header-navbar">
-      <div className="shared-header-toolbar"/>
-      <div className="container shared-header-content">
-        <div className = "row align-items-center">
-          <div className = "col-10">
-            {children}
-          </div>
-          <div className = "col-2">
-            <LogoutButton />
+    <div>
+      <div className="fixed-top shared-header-navbar">
+        <div className="shared-header-toolbar"/>
+        <div className="container shared-header-content h-100">
+          <div className = "row align-items-center align-self-center h-100">
+            <div className = "col-10">
+              {children}
+            </div>
+            <div className = "col-2">
+              <LogoutButton />
+            </div>
           </div>
         </div>
       </div>
+      <div className="shared-header-spacer"/>
     </div>
   )
 }

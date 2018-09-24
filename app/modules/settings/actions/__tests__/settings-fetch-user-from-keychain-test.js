@@ -1,12 +1,12 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
+import { remote } from "electron"
 
 import { fetchUsername, settingsFetchUserFromKeychain } from "../settings-fetch-user-from-keychain"
 import { settingsSetUsername } from "../settings-set-username"
 import { settingsLogoutUser } from "../settings-logout-user"
 
 const nock = require("nock")
-const keytar = require("keytar")
 
 const ACCESS_TOKEN = "token"
 
@@ -15,7 +15,7 @@ describe("Keychain User Lookup Tests", () => {
 
   beforeEach(() => {
     dispatch = sinon.spy()
-    sinon.stub(keytar, "getPassword").returns(ACCESS_TOKEN)
+    sinon.stub(remote, "getGlobal").returns(ACCESS_TOKEN)
 
     cloneURLMock = nock("http://classroom.github.com")
       .get("/api/internal/user")
@@ -23,7 +23,7 @@ describe("Keychain User Lookup Tests", () => {
   })
 
   afterEach(() => {
-    keytar.getPassword.restore()
+    remote.getGlobal.restore()
     nock.cleanAll()
   })
 
@@ -77,13 +77,13 @@ describe("Keychain User Lookup Tests", () => {
     })
 
     it("dispatches logout when no username is in keychain", async () => {
-      keytar.getPassword.returns(null)
+      remote.getGlobal.returns(null)
       await settingsFetchUserFromKeychain()(dispatch)
       expect(dispatch.calledWithMatch(settingsLogoutUser())).is.true
     })
 
     it("dispatches logout when no username is in keychain", async () => {
-      keytar.getPassword.returns(null)
+      remote.getGlobal.returns(null)
       await settingsFetchUserFromKeychain()(dispatch)
       expect(dispatch.calledWithMatch(settingsLogoutUser())).is.true
     })

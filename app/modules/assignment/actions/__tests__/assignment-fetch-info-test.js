@@ -1,11 +1,10 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
 import nock from "nock"
+import {remote} from "electron"
 
 import { assignmentFetchInfo } from "../assignment-fetch-info"
 import {ASSIGNMENT_ERROR_INFO, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO} from "../../constants"
-
-const keytar = require("keytar")
 
 const ACCESS_TOKEN = "token"
 
@@ -39,12 +38,12 @@ describe("assignmentFetchInfo", () => {
       .get("/api/internal/assignments/a1")
       .query({ access_token: ACCESS_TOKEN })
 
-    const passwordStub = sinon.stub(keytar, "findPassword")
+    const passwordStub = sinon.stub(remote, "getGlobal")
     passwordStub.returns(ACCESS_TOKEN)
   })
 
   afterEach(() => {
-    keytar.findPassword.restore()
+    remote.getGlobal.restore()
     nock.cleanAll()
   })
 

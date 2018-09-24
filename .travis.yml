@@ -45,14 +45,7 @@ install:
   - npm install --prune
 
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login); fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start); fi
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      dbus-launch /usr/bin/python -c \
-        "import gnomekeyring;gnomekeyring.create_sync('login', '');"
-    fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then bash ./script/setup-macos-keychain; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" && ! -z "$KEY_LINK" ]]; then bash ./script/setup-macos-keychain; fi
 
 script:
   - ./script/test

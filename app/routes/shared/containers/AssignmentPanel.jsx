@@ -33,7 +33,7 @@ AssignmentPanel.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    title: all(state).name,
+    title: all(state).title,
     subtitle: typeLabel(state),
     type: all(state).type,
   }
