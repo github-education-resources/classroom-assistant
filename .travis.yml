@@ -45,7 +45,7 @@ install:
   - npm install --prune
 
 before_script:
-  - if [ $TRAVIS_OS_NAME == "osx" && $TRAVIS_PULL_REQUEST == false ]; then bash ./script/setup-macos-keychain; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" && "$TRAVIS_PULL_REQUEST" == false ]]; then bash ./script/setup-macos-keychain; fi
 
 script:
   - ./script/test
