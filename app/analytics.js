@@ -6,7 +6,7 @@ const Store = require("electron-store")
 const log = require("electron-log")
 const packageInfo = require("../package")
 
-const gaID = "UA-56121800-3"
+const gaID = appInfo["ga_id"]
 
 const fetchGAUser = () => {
   const store = new Store()
