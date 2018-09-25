@@ -15,8 +15,8 @@ import ProgressParser from "./progressutils"
 // Examples
 //
 //    clone(
-//      "https://github.com/education/classroom-desktop",
-//      "/tmp/desktop-classroom",
+//      "https://github.com/education/classroom-assistant",
+//      "/tmp/assistant-classroom",
 //      (percentage) => {
 //        console.log("Percentage complete: " + percentage + "%")
 //      }

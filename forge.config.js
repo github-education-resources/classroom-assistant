@@ -26,7 +26,7 @@ module.exports = {
     icon: "./app/resources/icon.icns",
     protocols: [
       {
-        name: "Classroom Desktop",
+        name: "Classroom Assistant",
         schemes: [
           "x-github-classroom"
         ]
@@ -34,7 +34,7 @@ module.exports = {
     ]
   },
   electronWinstallerConfig: {
-    name: "classroom-desktop",
+    name: "classroom-assistant",
     icon: "./app/resources/icon.ico",
     setupIcon: "./app/resources/icon.ico",
     loadingGif: "./app/resources/images/win32-installer-splash.gif",
@@ -45,11 +45,11 @@ module.exports = {
   electronInstallerRedhat: {},
   github_repository: {
     owner: "education",
-    name: "classroom-desktop"
+    name: "classroom-assistant"
   },
   prerelease: true,
   windowsStoreConfig: {
     packageName: "",
-    name: "classroom-desktop"
+    name: "classroom-assistant"
   },
 }

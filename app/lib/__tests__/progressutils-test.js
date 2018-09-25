@@ -4,7 +4,7 @@ import * as sinon from "sinon"
 
 const fs = require("fs-extra")
 
-const TEST_REPO = "https://github.com/education/classroom-desktop"
+const TEST_REPO = "https://github.com/education/classroom-assistant"
 const TEST_FAKE_REPO = "https://github.com/education/a-repo-that-will-never-exist"
 
 const DESTINATION = "/tmp/" + Math.random().toString(36).substring(7)
