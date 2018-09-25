@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron"
+import { push } from "react-router-redux"
 
 import { settingsResetState } from "./settings-reset-state"
 import { settingsSetUsername } from "./settings-set-username"
@@ -18,5 +19,6 @@ export const settingsLogoutUser = () => {
     session.fromPartition("auth:session").clearStorageData()
     await dispatch(settingsSetUsername(null))
     await dispatch(settingsResetState())
+    dispatch(push("/"))
   }
 }

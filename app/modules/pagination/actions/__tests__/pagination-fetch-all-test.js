@@ -1,10 +1,11 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
+import {remote} from "electron"
 
 import { fetchAllPages } from "../pagination-fetch-all"
 import { PAGINATION_SET_ASSIGNMENT_URL, PAGINATION_SET_FETCHING } from "../../constants"
 
-const keytar = require("keytar")
+const ACCESS_TOKEN = "token"
 
 describe("paginationFetchAll", () => {
   const validAssignment = {
@@ -18,12 +19,12 @@ describe("paginationFetchAll", () => {
   let dispatch, getState
 
   before(() => {
-    const passwordStub = sinon.stub(keytar, "findPassword")
-    passwordStub.returns("token")
+    const passwordStub = sinon.stub(remote, "getGlobal")
+    passwordStub.returns(ACCESS_TOKEN)
   })
 
   after(() => {
-    keytar.findPassword.restore()
+    remote.getGlobal.restore()
   })
 
   beforeEach(() => {
