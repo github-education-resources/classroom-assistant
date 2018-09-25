@@ -18,7 +18,7 @@ export async function setAccessTokenFromCode (code, mainWindow) {
   // TODO: Error handling
   try {
     const token = await fetchAccessToken(code)
-    await keytar.setPassword("Classroom-Desktop", "x-access-token", token)
+    await keytar.setPassword("Classroom-Assistant", "x-access-token", token)
     global.accessToken = token
 
     mainWindow.webContents.send("receivedAuthorization")
@@ -28,12 +28,12 @@ export async function setAccessTokenFromCode (code, mainWindow) {
 }
 
 export async function loadAccessToken () {
-  global.accessToken = await keytar.getPassword("Classroom-Desktop", "x-access-token")
+  global.accessToken = await keytar.getPassword("Classroom-Assistant", "x-access-token")
 }
 
 export async function deleteAccessToken () {
   global.accessToken = null
-  await keytar.deletePassword("Classroom-Desktop", "x-access-token")
+  await keytar.deletePassword("Classroom-Assistant", "x-access-token")
 }
 
 function openAuthWindow (mainWindow, protocolHandler) {
