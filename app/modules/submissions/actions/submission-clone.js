@@ -8,6 +8,8 @@ import { submissionSetCloneStatus } from "./submission-set-clone-status"
 
 import { getClonePath } from "../../../lib/pathutils"
 
+const {trackEvent} = require("../../../analytics")
+
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update
 // progress/display errors in the UI
@@ -26,6 +28,8 @@ export const submissionCloneFunc = (clone) => {
 
       if (!destination) {
         dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: Folder could not be created."))
+
+        trackEvent("error", "submissionClone", "submissionCloneFunc", "Folder could not be created.")
         return
       }
 
@@ -50,6 +54,8 @@ export const submissionCloneFunc = (clone) => {
           }
         )
       } catch (error) {
+        trackEvent("error", "submissionClone", "submissionCloneFunc", `Clone Error occured. ${error}`)
+
         dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
       }
     }

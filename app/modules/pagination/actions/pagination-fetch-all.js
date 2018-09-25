@@ -5,6 +5,9 @@ import {paginationSetFetching} from "./pagination-set-fetching"
 import {paginationSetAssignmentURL} from "./pagination-set-assignment-url"
 import {nextPage} from "../selectors"
 import {all} from "../../assignment/selectors"
+import { settingsLogoutUser } from "../../settings/actions/settings-logout-user"
+
+const {trackEvent} = require("../../../analytics")
 
 let accessToken
 /**
@@ -18,6 +21,12 @@ export const fetchAllPages = (assignmentURL) => {
     // TODO: Add specific error message/ask for reauthorization if clone
     // fails
     accessToken = remote.getGlobal("accessToken")
+
+    if (!accessToken) {
+      trackEvent("paginationFetchAll", "fetchAllPages", "Failed to fetch access token.")
+      dispatch(settingsLogoutUser())
+      return
+    }
 
     const urlObj = new URL(assignmentURL)
 

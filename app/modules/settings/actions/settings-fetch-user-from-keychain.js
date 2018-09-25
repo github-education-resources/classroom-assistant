@@ -4,6 +4,8 @@ import { settingsSetUsername } from "./settings-set-username"
 import { settingsLogoutUser } from "./settings-logout-user"
 import { remote } from "electron"
 
+const {trackEvent} = require("../../../analytics")
+
 /**
  * PUBLIC: Update username in store based on token and redirect to populate page
  * if found
@@ -24,6 +26,7 @@ export const settingsFetchUserFromKeychain = () => {
       dispatch(settingsLogoutUser())
       return null
     } catch (error) {
+      trackEvent("error", "fetchUserFromKeychain", "settingsFetchUserFromKeychain")
       dispatch(settingsLogoutUser())
       return null
     }
@@ -45,6 +48,7 @@ export const fetchUsername = async (token) => {
       return null
     }
   } catch (error) {
+    trackEvent("error", "fetchUserFromKeychain", "fetchUsername")
     return null
   }
 }

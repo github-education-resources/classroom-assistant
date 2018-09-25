@@ -15,7 +15,6 @@ const fetchGAUser = () => {
 
   store.set("classroom-assistant-ga-user-id", userId)
 
-  log.info(gaID)
   return ua(gaID, userId)
 }
 
@@ -27,6 +26,7 @@ export const trackEvent = (category, action, label = null, value = null) => {
     el: label,
     ev: value,
   }).send()
+  log.info(`GA Track Event: ${category}:${action}:${label}:${value}`)
 }
 
 export const trackException = (description, fatal = false) => {
