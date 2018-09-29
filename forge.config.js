@@ -31,6 +31,7 @@ module.exports = {
   electronPackagerConfig: {
     packageManager: "npm",
     osxSign: true,
+    executableName: "classroom-assistant",
     icon: "./app/resources/icon.icns",
     protocols: [
       {
