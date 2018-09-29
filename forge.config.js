@@ -49,8 +49,20 @@ module.exports = {
     certificateFile: "./script/windows-certificate.pfx",
     certificatePassword: getWindowsCertificatePassword()
   },
-  electronInstallerDebian: {},
-  electronInstallerRedhat: {},
+  electronInstallerDebian: {
+    icon: "./app/resources/images/classroom-logo.png",
+    categories: [
+      "Education"
+    ],
+    homepage: "http://classroom.github.com/assistant"
+  },
+  electronInstallerRedhat: {
+    icon: "./app/resources/images/classroom-logo.png",
+    categories: [
+      "Education"
+    ],
+    homepage: "http://classroom.github.com/assistant"
+  },
   github_repository: {
     owner: "education",
     name: "classroom-assistant"
