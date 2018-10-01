@@ -98,8 +98,6 @@ app.on("open-url", async function (event, urlToOpen) {
     event.preventDefault()
   }
 
-  log.info(`Received Open URL event ${urlToOpen}`)
-
   let assignmentURL = ""
   const urlParams = new URL(urlToOpen).searchParams
   const isClassroomDeeplink = urlParams.has("assignment_url")
