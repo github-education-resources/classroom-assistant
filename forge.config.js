@@ -44,10 +44,12 @@ module.exports = {
   },
   electronWinstallerConfig: {
     name: "classroom-assistant",
+    title: "classroom-assistant",
     icon: "./app/resources/icon.ico",
     setupIcon: "./app/resources/icon.ico",
     loadingGif: "./app/resources/images/win32-installer-splash.gif",
     certificateFile: "./script/windows-certificate.pfx",
+    exe: "classroom-assistant",
     certificatePassword: getWindowsCertificatePassword()
   },
   electronInstallerDebian: {
