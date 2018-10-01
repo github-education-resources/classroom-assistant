@@ -67,7 +67,7 @@ const loadPopulatePage = (assignmentURL) => {
 }
 
 const setInstanceProtocolHandler = async () => {
-  if(process.platform === "linux") {
+  if (process.platform === "linux") {
     const command = "xdg-settings set default-url-scheme-handler"
     const packageName = "classroom-assistant.desktop"
 
@@ -77,7 +77,7 @@ const setInstanceProtocolHandler = async () => {
   } else {
     app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
   }
-  
+
   return app.makeSingleInstance((argv) => {
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore()
