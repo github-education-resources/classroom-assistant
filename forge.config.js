@@ -45,6 +45,7 @@ module.exports = {
   electronWinstallerConfig: {
     name: "classroom-assistant",
     title: "classroom-assistant",
+    exe: "classroom-assistant.exe",
     icon: "./app/resources/icon.ico",
     setupIcon: "./app/resources/icon.ico",
     loadingGif: "./app/resources/images/win32-installer-splash.gif",
