@@ -11,6 +11,7 @@ const {trackException} = require("./analytics")
 //    logger.error("Update failed to install")
 export const initLogger = () => {
   log.transports.ga = (msg) => {
+    log.transports.file.level = "info"
     if (msg.level === "error") {
       trackException(msg.data)
     }
