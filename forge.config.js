@@ -49,7 +49,6 @@ module.exports = {
     setupIcon: "./app/resources/icon.ico",
     loadingGif: "./app/resources/images/win32-installer-splash.gif",
     certificateFile: "./script/windows-certificate.pfx",
-    exe: "classroom-assistant",
     certificatePassword: getWindowsCertificatePassword()
   },
   electronInstallerDebian: {
