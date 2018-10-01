@@ -31,6 +31,7 @@ module.exports = {
   electronPackagerConfig: {
     packageManager: "npm",
     osxSign: true,
+    executableName: "classroom-assistant",
     icon: "./app/resources/icon.icns",
     protocols: [
       {
@@ -43,14 +44,28 @@ module.exports = {
   },
   electronWinstallerConfig: {
     name: "classroom-assistant",
+    title: "classroom-assistant",
+    exe: "classroom-assistant.exe",
     icon: "./app/resources/icon.ico",
     setupIcon: "./app/resources/icon.ico",
     loadingGif: "./app/resources/images/win32-installer-splash.gif",
     certificateFile: "./script/windows-certificate.pfx",
     certificatePassword: getWindowsCertificatePassword()
   },
-  electronInstallerDebian: {},
-  electronInstallerRedhat: {},
+  electronInstallerDebian: {
+    icon: "./app/resources/images/classroom-logo.png",
+    categories: [
+      "Education"
+    ],
+    homepage: "http://classroom.github.com/assistant"
+  },
+  electronInstallerRedhat: {
+    icon: "./app/resources/images/classroom-logo.png",
+    categories: [
+      "Education"
+    ],
+    homepage: "http://classroom.github.com/assistant"
+  },
   github_repository: {
     owner: "education",
     name: "classroom-assistant"

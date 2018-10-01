@@ -4,6 +4,8 @@ const {app, BrowserWindow, ipcMain} = electron
 const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const log = require("electron-log")
+const util = require("util")
+const exec = util.promisify(require("child_process").exec)
 
 const updater = require("./updater")
 const {initLogger} = require("./logger")
@@ -64,15 +66,24 @@ const loadPopulatePage = (assignmentURL) => {
   mainWindow.webContents.send("open-url", assignmentURL)
 }
 
-const setInstanceProtocolHandler = () => {
-  app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
+const setInstanceProtocolHandler = async () => {
+  if (process.platform === "linux") {
+    const command = "xdg-settings set default-url-scheme-handler"
+    const packageName = "classroom-assistant.desktop"
+
+    // TODO: Figure out bug in setAsDefaultProtocolClient on Linux
+    // Set Protocol Handler on Linux manually because of bug in Electron
+    await exec(`${command} ${DEFAULT_PROTOCOL_HANDLER} ${packageName}`)
+  } else {
+    app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
+  }
 
   return app.makeSingleInstance((argv) => {
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore()
       mainWindow.focus()
 
-      if (process.platform === "win32") {
+      if (process.platform === "win32" || process.platform === "linux") {
         const url = argv.find(function (arg) {
           return /^x-github-classroom:\/\//.test(arg)
         })
@@ -112,7 +123,8 @@ app.on("open-url", async function (event, urlToOpen) {
 })
 
 app.on("ready", async () => {
-  const anotherInstanceRunning = setInstanceProtocolHandler()
+  const anotherInstanceRunning = await setInstanceProtocolHandler()
+
   if (anotherInstanceRunning) app.quit()
 
   loadAccessToken()
