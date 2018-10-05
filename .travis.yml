@@ -5,13 +5,6 @@ dist: trusty
 
 sudo: false
 
-matrix:
-  include:
-    - os: linux
-      env: CC=clang CXX=clang++ npm_config_clang=1
-      compiler: clang
-    - os: osx
-
 language: node_js
 node_js:
   - "8.11.3"
@@ -47,25 +40,30 @@ install:
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" && ! -z "$KEY_LINK" ]]; then bash ./script/setup-macos-keychain; fi
 
-script:
-  - ./script/test
-  - npm run make
+os:
+  - osx
+  - linux
 
-deploy:
-  skip_cleanup: true
-  provider: releases
-  name: ${TRAVIS_TAG}
-  tag_name: ${TRAVIS_TAG}
-  draft: true
-  file_glob: true
-  api_key:
-    secure: ${GITHUB_TOKEN}
-  file:
-    - "out/make/**/*.zip"
-    - "out/make/**/*.rpm"
-    - "out/make/**/*.deb"
-  on:
-    all_branches: true
-    tags: true
-    #deploy only on tag matching semantic versioning format
-    condition: "$TRAVIS_TAG =~ ^v[0-9].[0-9].[0-9].*$"
+stages:
+  - test
+  - name: deploy
+    condition: tag =~ /^v[0-9].[0-9].[0-9].*$/
+
+jobs:
+  include:
+    - script: ./script/test
+    - stage: deploy
+      script: npm run make
+      deploy:
+        skip_cleanup: true
+        provider: releases
+        name: ${TRAVIS_TAG}
+        tag_name: ${TRAVIS_TAG}
+        draft: true
+        file_glob: true
+        api_key:
+          secure: ${GITHUB_TOKEN}
+        file:
+          - "out/make/**/*.zip"
+          - "out/make/**/*.rpm"
+          - "out/make/**/*.deb"
