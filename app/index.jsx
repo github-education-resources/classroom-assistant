@@ -7,7 +7,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import isDev from "electron-is-dev"
 
-import DevTools from "./DevTools"
+import DevTools from "./routes/shared/components/DevTools"
 import reducer from "./modules/reducers"
 import Routes from "./routes"
 
