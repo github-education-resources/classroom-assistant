@@ -3,7 +3,7 @@
   "productName": "Classroom Assistant",
   "version": "1.0.1",
   "description": "Desktop helper for GitHub Classroom",
-  "main": "app/main.js",
+  "main": "app/main-process/main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

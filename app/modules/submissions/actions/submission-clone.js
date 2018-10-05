@@ -8,7 +8,7 @@ import { submissionSetCloneStatus } from "./submission-set-clone-status"
 
 import { getClonePath } from "../../../lib/pathutils"
 
-const {trackEvent} = require("../../../analytics")
+const {trackEvent} = require("../../../main-process/analytics")
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update

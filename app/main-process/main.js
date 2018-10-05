@@ -5,7 +5,9 @@ const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const log = require("electron-log")
 const util = require("util")
+const path = require("path")
 const exec = util.promisify(require("child_process").exec)
+const url = require("url")
 
 const updater = require("./updater")
 const {initLogger} = require("./logger")
@@ -28,8 +30,12 @@ const createWindow = () => {
   generateMenu()
 
   mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden", show: false})
-  const url = `file://${__dirname}/index.html`
-  mainWindow.loadURL(url)
+
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, "../index.html"),
+    protocol: "file:",
+    slashes: true
+  }))
 
   if (isDev) {
     mainWindow.webContents.openDevTools()

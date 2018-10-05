@@ -2,7 +2,7 @@ const ua = require("universal-analytics")
 const uuid = require("uuid/v4")
 const Store = require("electron-store")
 const log = require("electron-log")
-const packageInfo = require("../package")
+const packageInfo = require("../../package")
 
 const fetchGAUser = () => {
   let gaID

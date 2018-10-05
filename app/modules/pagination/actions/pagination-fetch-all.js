@@ -7,7 +7,7 @@ import {nextPage} from "../selectors"
 import {all} from "../../assignment/selectors"
 import { settingsLogoutUser } from "../../settings/actions/settings-logout-user"
 
-const {trackEvent} = require("../../../analytics")
+const {trackEvent} = require("../../../main-process/analytics")
 
 let accessToken
 /**
