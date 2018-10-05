@@ -81,6 +81,7 @@ const setInstanceProtocolHandler = async () => {
     // Set Protocol Handler on Linux manually because of bug in Electron
     try {
       await exec(`${command} ${DEFAULT_PROTOCOL_HANDLER} ${packageName}`)
+      log.info("Successfully set protocol handler on Linux.")
     } catch (e) {
       log.warn(`Failed to set Protocol Handler on Linux: ${e}`)
     }
