@@ -5,13 +5,6 @@ dist: trusty
 
 sudo: false
 
-matrix:
-  include:
-    - os: linux
-      env: CC=clang CXX=clang++ npm_config_clang=1
-      compiler: clang
-    - os: osx
-
 language: node_js
 node_js:
   - "8.11.3"
@@ -46,6 +39,10 @@ install:
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" && ! -z "$KEY_LINK" ]]; then bash ./script/setup-macos-keychain; fi
+
+os:
+  - osx
+  - linux
 
 jobs:
   include:
