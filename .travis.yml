@@ -37,9 +37,6 @@ addons:
 install:
   - npm install --prune
 
-before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" && ! -z "$KEY_LINK" ]]; then bash ./script/setup-macos-keychain; fi
-
 os:
   - osx
   - linux
@@ -47,11 +44,12 @@ os:
 stages:
   - test
   - name: deploy
-    condition: tag =~ /^v[0-9].[0-9].[0-9].*$/
+    if: tag =~ /^v[0-9].[0-9].[0-9].*$/
 
 jobs:
   include:
-    - script: ./script/test
+    - stage: test
+      script: ./script/test
     - stage: deploy
       script: npm run make
       deploy:
