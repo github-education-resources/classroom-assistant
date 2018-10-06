@@ -34,23 +34,22 @@ addons:
       - rpm
       - zip
 
-install:
-  - npm install --prune
-
 os:
   - osx
   - linux
 
+install: npm install --prune
+
+script: ./script/test
+
 stages:
-  - test
   - name: deploy
     if: tag =~ /^v[0-9].[0-9].[0-9].*$/
 
 jobs:
   include:
-    - stage: test
-      script: ./script/test
     - stage: deploy
+      install: npm install --prune
       script: npm run make
       deploy:
         skip_cleanup: true
