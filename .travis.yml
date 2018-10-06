@@ -40,6 +40,9 @@ os:
 
 install: npm install --prune
 
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" && ! -z "$KEY_LINK" ]]; then bash ./script/setup-macos-keychain; fi
+
 script: ./script/test
 
 stages:
