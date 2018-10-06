@@ -66,5 +66,7 @@ jobs:
           - "out/make/**/*.zip"
           - "out/make/**/*.rpm"
           - "out/make/**/*.deb"
+        on:
+          all_branches: true
     - <<: *deploy
       os: linux
