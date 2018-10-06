@@ -50,11 +50,9 @@ stages:
 
 jobs:
   include:
-    - stage: deploy
+    - &deploy
+      stage: deploy
       script: npm run make
-      os:
-        - osx
-        - linux
       deploy:
         skip_cleanup: true
         provider: releases
@@ -68,5 +66,7 @@ jobs:
           - "out/make/**/*.zip"
           - "out/make/**/*.rpm"
           - "out/make/**/*.deb"
-        on:
-          all_branches: true
+    - <<: *deploy
+      os: osx
+    - <<: *deploy
+      os: linux
