@@ -67,6 +67,4 @@ jobs:
           - "out/make/**/*.rpm"
           - "out/make/**/*.deb"
     - <<: *deploy
-      os: osx
-    - <<: *deploy
       os: linux
