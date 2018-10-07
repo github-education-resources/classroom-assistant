@@ -14,7 +14,9 @@ describe("Path Utilities", () => {
   describe("getAssignmentFolder", () => {
     it("returns the correct path for the assignment", async () => {
       const folderPath = getAssignmentFolder(TEST_BASE_PATH, TEST_ASSIGNMENT_NAME)
-      const regex = /\/tmp\/\w{5}\/SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}/g
+
+      // Checks if path matches what we expect on either Linux or Windows
+      const regex = /[/\\]tmp[/\\]\w{5}[/\\]SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}/g
 
       expect(regex.test(folderPath)).to.be.true
     })
@@ -25,7 +27,9 @@ describe("Path Utilities", () => {
       const assignmentPath = getAssignmentFolder(TEST_BASE_PATH, TEST_ASSIGNMENT_NAME)
 
       const clonePath = await getClonePath(assignmentPath, TEST_STUDENT_USERNAME)
-      const regex = /\/tmp\/\w{5}\/SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}\/SomeStudentUsername/g
+
+      // Checks if path matches what we expect on either Linux or Windows
+      const regex = /[/\\]tmp[/\\]\w{5}[/\\]SomeAssignment-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}-\d{2}[/\\]SomeStudentUsername/g
 
       expect(regex.test(clonePath)).to.be.true
     })

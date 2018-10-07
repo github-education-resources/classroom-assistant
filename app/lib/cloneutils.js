@@ -26,7 +26,12 @@ import ProgressParser from "./progressutils"
 //
 // Returns a Promise
 export const clone = async (repoURL, destination, progressCallback) => {
-  const options = { }
+  const options = {
+    env: {
+      GIT_TERMINAL_PROMPT: "0",
+      HOME: ""
+    }
+  }
 
   if (progressCallback) {
     const progressParser = new ProgressParser(progressCallback)
