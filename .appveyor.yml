@@ -22,34 +22,40 @@ install:
   - git submodule update --init --recursive
   - npm install --prune
 
-before_build:
-  - ps: script\setup-windows-certificate.ps1
-
-build_script:
-  - ps: script\build-appveyor.ps1
-
-after_build:
-  - ps: script\cleanup-windows-certificate.ps1
-
-artifacts:
-  # pushing all *.nupkg files in build directory recursively
-  - path: out\make\**\*.nupkg
-    name: deploy-nupkg
-  - path: out\make\**\*.exe
-    name: deploy-exe
-  - path: out\make\**\RELEASES
-    name: deploy-RELEASES
-
 test_script:
   - npm run test
-  
-deploy:
-  description: ''
-  provider: GitHub
-  auth_token:
-    secure: Qw9G7NiqHJZHtZ8tQTYzzEqYaLzDEkg4SV2rWKOac4gtNL4UBNGKCvjKQCOq7kM1 # your encrypted token from GitHub
-  artifact: /^deploy-.*/
-  draft: true
-  on:
-    branch: /^v[0-9].[0-9].[0-9].*/  # release from tags only
-    appveyor_repo_tag: true          # deploy on tag push only
+
+for:
+-
+  branches:
+    only:
+      - /^v[0-9].[0-9].[0-9].*/
+
+  before_build:
+    - ps: script\setup-windows-certificate.ps1
+
+  build_script:
+    - npm run make
+
+  after_build:
+    - ps: script\cleanup-windows-certificate.ps1
+
+  artifacts:
+    # pushing all *.nupkg files in build directory recursively
+    - path: out\make\**\*.nupkg
+      name: deploy-nupkg
+    - path: out\make\**\*.exe
+      name: deploy-exe
+    - path: out\make\**\RELEASES
+      name: deploy-RELEASES
+
+  deploy:
+    description: ''
+    provider: GitHub
+    auth_token:
+      secure: Qw9G7NiqHJZHtZ8tQTYzzEqYaLzDEkg4SV2rWKOac4gtNL4UBNGKCvjKQCOq7kM1 # your encrypted token from GitHub
+    artifact: /^deploy-.*/
+    draft: true
+    on:
+      branch: /^v[0-9].[0-9].[0-9].*/  # release from tags only
+      appveyor_repo_tag: true          # deploy on tag push only
