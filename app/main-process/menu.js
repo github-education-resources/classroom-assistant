@@ -28,7 +28,7 @@ const defaultTemplate = [
     submenu: [
       {
         label: "Learn More",
-        click () { require("electron").shell.openExternal("https://www.classroom.github.com/assistant") }
+        click () { require("electron").shell.openExternal("http://github.com/education/classroom-assistant") }
       }
     ]
   }
