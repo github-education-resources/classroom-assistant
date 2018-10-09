@@ -1,49 +1,18 @@
 # GitHub Classroom Assistant
 [![Build Status](https://travis-ci.org/education/classroom-assistant.svg?branch=master)](https://travis-ci.org/education/classroom-assistant)
 
-A desktop helper for [GitHub Classroom](https://classroom.github.com/)
+GitHub Classroom Assistant is a cross-platform desktop application to help you get student repositories for grading.
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
 
-## Installing for Development
+![alt text](./app/resources/images/classroom-assistant-downloading.png "Logo Title Text 1")
 
-A local version is simple to set up:
+## Where can I get it?
+- [Mac OS](http://classroom.github.com/assistant/download/osx)
+- [Windows](http://classroom.github.com/assistant/download/win)
+- [Linux](http://classroom.github.com/assistant/download/linux_deb_64)
 
-```sh
-git clone https://github.com/education/classroom-assistant
-cd classroom-assistant
-script/setup
-```
+## Classroom Assistant isn't running on my platform
+More information about supported platforms and troubleshooting instructions can be found in the [docs](docs/) folder. There are known issues on some distros of Linux, if you don't see an issue already that matches what you're seeing, open a [new issue](https://github.com/education/classroom-assistant/issues/new)
 
-Once installed, run the application with
-
-```
-script/run
-```
-
-## Building
-
-You can build Classroom Assistant into executables by running
-
-```
-script/package
-```
-
-Please follow platform-specific instructions below:
-
-### MacOS
-
-Building for MacOS requires an [Apple Developer ID certificate](https://developer.apple.com/developer-id/).
-Once obtained and installed on your machine, reference the identity as the
-`CLASSROOM_ASSISTANT_OSX_DEVELOPER_ID` environment variable. This can be done by
-adding the following line to your `.bashrc`:
-
-```sh
-export CLASSROOM_ASSISTANT_OSX_DEVELOPER_ID="<your developer identity>"
-```
-
-You can retrieve a list of developer identities available in your keychain by running:
-
-```
-security find-identity -p codesigning
-```
+More information about supported platforms, troubleshooting, and development can be found in the [docs](docs/) folder.
