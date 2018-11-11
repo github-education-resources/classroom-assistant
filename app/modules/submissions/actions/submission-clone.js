@@ -8,6 +8,14 @@ import { submissionSetCloneStatus } from "./submission-set-clone-status"
 
 import { getClonePath } from "../../../lib/pathutils"
 
+import {
+  SUBMISSION_CLONE_IN_PROGRESS,
+  SUBMISSION_CLONE_SUCCESS,
+  SUBMISSION_CLONE_PATH_ERROR,
+  SUBMISSION_CLONE_CLASSROOM_API_ERROR,
+  SUBMISSION_CLONE_GIT_ERROR
+} from "../constants"
+
 const {trackEvent} = require("../../../main-process/analytics")
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
@@ -27,14 +35,14 @@ export const submissionCloneFunc = (clone) => {
       const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
 
       if (!destination) {
-        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: Folder could not be created."))
+        dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_PATH_ERROR))
 
-        trackEvent("error", "submissionClone", "submissionCloneFunc", "Folder could not be created.")
+        trackEvent("error", "submissionClone", "submissionCloneFunc", SUBMISSION_CLONE_PATH_ERROR)
         return
       }
 
       dispatch(submissionSetClonePath(submissionProps.id, destination))
-      dispatch(submissionSetCloneStatus(submissionProps.id, "Cloning Submission..."))
+      dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_IN_PROGRESS))
 
       try {
         const cloneURL = await fetchCloneURL(accessToken, submissionProps.id)(getState)
@@ -49,14 +57,14 @@ export const submissionCloneFunc = (clone) => {
               )
             )
             if (progress === 100) {
-              dispatch(submissionSetCloneStatus(submissionProps.id, "Finished Cloning."))
+              dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_SUCCESS))
             }
           }
         )
       } catch (error) {
-        trackEvent("error", "submissionClone", "submissionCloneFunc", `Clone Error occured. ${error}`)
+        trackEvent("error", "submissionClone", "submissionCloneFunc", `${SUBMISSION_CLONE_GIT_ERROR}: ${error}`)
 
-        dispatch(submissionSetCloneStatus(submissionProps.id, "Clone failed: an error has occured."))
+        dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_GIT_ERROR))
       }
     }
   }
@@ -83,7 +91,7 @@ export const fetchCloneURL = (accessToken, id) => {
       }
       return cloneURL.toString()
     } else {
-      throw new Error("Failed to fetch temporary cloning URL.")
+      throw new Error(SUBMISSION_CLONE_CLASSROOM_API_ERROR)
     }
   }
 }
