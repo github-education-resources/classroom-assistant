@@ -27,7 +27,7 @@ const ArchiveProgressPanel = ({progress}) => {
     )
   }
 
-  return(
+  return (
     <div className="archive-progress-panel-wrapper">
       <div className="d-flex align-items-center h-100">
         {progressElement}

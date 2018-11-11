@@ -31,7 +31,7 @@ export const progress = createSelector(
   selected,
   numSelected,
   (submissions, numSelected) => {
-    if (numSelected < 1){
+    if (numSelected < 1) {
       return 0
     }
 
