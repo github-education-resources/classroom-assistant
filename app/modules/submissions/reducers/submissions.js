@@ -45,15 +45,7 @@ const submission = (state, action) => {
     }
   case SUBMISSION_SET_CLONE_PROGRESS:
     if (action.id === state.id) {
-      let newProgress
-      if (action.cloneProgress > 100) {
-        newProgress = 100
-      } else if (action.cloneProgress < 0) {
-        newProgress = 0
-      } else {
-        newProgress = action.cloneProgress
-      }
-      return Object.assign({}, state, {cloneProgress: newProgress})
+      return Object.assign({}, state, {cloneProgress: action.cloneProgress})
     } else {
       return state
     }
