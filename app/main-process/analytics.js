@@ -22,6 +22,8 @@ const fetchGAUser = () => {
 }
 
 export const trackEvent = (category, action, label = null, value = null) => {
+  log.info(`GA Track Event: ${category}:${action}:${label}:${value}`)
+
   const usr = fetchGAUser()
   if (!usr) {
     return
@@ -33,17 +35,16 @@ export const trackEvent = (category, action, label = null, value = null) => {
     el: label,
     ev: value,
   }).send()
-  log.info(`GA Track Event: ${category}:${action}:${label}:${value}`)
 }
 
 export const trackException = (description, fatal = false) => {
+  log.info(`GA Exception: ${description}`)
   const usr = fetchGAUser()
   if (!usr) {
     return
   }
 
   usr.exception(description, fatal).send()
-  log.info(`GA Exception: ${description}`)
 }
 
 export const trackScreen = (screenName) => {
