@@ -33,6 +33,15 @@
 }
 
 .archive-progress-panel-wrapper {
+  height: 70px;
   padding: 10px;
   border-bottom: solid 1px #e3e3e3;
+}
+
+.archive-progress-panel-warning-icon {
+  color: #ffc107;
+}
+
+.archive-progress-panel-success-icon {
+  color: green
 }
