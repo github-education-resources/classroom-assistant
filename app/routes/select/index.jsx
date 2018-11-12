@@ -75,6 +75,7 @@ SelectPage.propTypes = {
   outOfDate: PropTypes.bool.isRequired,
   fetching: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
+  submissions: PropTypes.array.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectPage)
