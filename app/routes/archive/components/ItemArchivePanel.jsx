@@ -5,33 +5,32 @@ import Spinner from "../../shared/components/Spinner"
 import ItemPanel from "../../shared/components/ItemPanel"
 import ProgressBar from "../../shared/components/ProgressBar"
 
-const ItemArchivePanel = ({
-  id,
-  username,
-  displayName,
-  avatarUrl,
-  repoUrl,
-  cloneProgress,
-  cloneStatus,
-  onViewClick
-}) => {
+const avatarURL = (assignmentType, username) => {
+  if (assignmentType == "group"){
+    return `https://avatars.githubusercontent.com/t/${username}?v=3&size=96`
+  } else {
+    return `https://avatars.githubusercontent.com/${username}?v=3&size=96`
+  }
+}
+
+const ItemArchivePanel = (props, context) => {
   let progressElement
 
-  if (cloneProgress === 0 && !cloneStatus) {
+  if (props.cloneProgress === 0 && !props.cloneStatus) {
     progressElement = (
-      <Spinner className={`archive-item-archive-panel-spinner ${(cloneStatus ? "mt-0" : "mt-3")}`}/>
+      <Spinner className={`archive-item-archive-panel-spinner ${(props.cloneStatus ? "mt-0" : "mt-3")}`}/>
     )
-  } else if (cloneProgress > 0 && cloneProgress < 100) {
+  } else if (props.cloneProgress > 0 && props.cloneProgress < 100) {
     progressElement = (
       <ProgressBar
         className="archive-item-archive-panel-progress-bar"
-        cloneProgress={cloneProgress}
+        cloneProgress={props.cloneProgress}
         showPercentage={false}
       />
     )
-  } else if (cloneProgress === 100) {
+  } else if (props.cloneProgress === 100) {
     progressElement = (
-      <button className="btn btn-sm btn-primary archive-item-archive-panel-button" onClick={onViewClick}>
+      <button className="btn btn-sm btn-primary archive-item-archive-panel-button" onClick={props.onViewClick}>
         <i className="fa fa-folder-open" aria-hidden="true"></i> View
       </button>
     )
@@ -39,14 +38,14 @@ const ItemArchivePanel = ({
 
   return (
     <ItemPanel
-      imagePath={avatarUrl}
-      title={username}
-      subtitle={displayName}
+      imagePath={avatarURL(props.assignmentType, props.username)}
+      title={props.username}
+      subtitle={props.displayName}
     >
       <div className="pull-right archive-item-archive-panel-container align-self-center">
-        { cloneStatus &&
+        { props.cloneStatus &&
           <div>
-            <p className="archive-item-archive-panel-status">{cloneStatus}</p>
+            <p className="archive-item-archive-panel-status">{props.cloneStatus}</p>
           </div>
         }
         {progressElement}

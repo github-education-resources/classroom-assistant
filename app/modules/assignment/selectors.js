@@ -2,12 +2,17 @@ import { createSelector } from "reselect"
 
 export const all = (state) => state.assignment
 
-export const typeLabel = createSelector(
+export const type = createSelector(
   all,
-  (assignment) => {
-    if (assignment.type === "individual") {
+  (assignment) => assignment.type
+)
+
+export const typeLabel = createSelector(
+  type,
+  (type) => {
+    if (type === "individual") {
       return "Individual Assignment"
-    } else if (assignment.type === "group") {
+    } else if (type === "group") {
       return "Group Assignment"
     } else {
       return "Unknown Assignment Type"

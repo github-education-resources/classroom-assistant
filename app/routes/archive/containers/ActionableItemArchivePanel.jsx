@@ -6,8 +6,13 @@ import { connect } from "react-redux"
 
 import ItemArchivePanel from "../components/ItemArchivePanel"
 import { submissionViewDirectory } from "../../../modules/submissions/actions/submission-view-directory"
+import {type} from "../../../modules/assignment/selectors"
 
-const mapStateToProps = (state, ownProps) => ownProps
+const mapStateToProps = (state, ownProps) => {
+  return Object.assign({}, ownProps, {
+    assignmentType: type(state)
+  })
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
