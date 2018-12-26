@@ -5,7 +5,7 @@ const log = require("electron-log")
 const Store = require("electron-store")
 
 export const moveToApplicationsFolder = () => {
-  if (!app.isInApplicationsFolder() && !isDev && shouldRemindUser()) {
+  if (!app.isInApplicationsFolder() && !isDev && !userOptedOut()) {
     dialog.showMessageBox({
       type: "question",
       buttons: ["Move to Applications", "Do Not Move"],
@@ -26,18 +26,18 @@ export const moveToApplicationsFolder = () => {
 
       if (checkboxChecked) {
         // Don't remind user again
-        setReminder(false)
+        optOutReminder()
       }
     })
   }
 }
 
-const shouldRemindUser = () => {
+const userOptedOut = () => {
   const store = new Store()
-  return !store.get("classroom-assistant-move-to-app-folder")
+  return store.get("classroom-assistant-opt-out-move")
 }
 
-const setReminder = (value) => {
+const optOutReminder = () => {
   const store = new Store()
-  store.set("classroom-assistant-move-to-app-folder", !value)
+  store.set("classroom-assistant-opt-out-move", true)
 }

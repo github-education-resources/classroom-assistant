@@ -22,33 +22,38 @@ module.exports = {
   start (app, interval) {
     log.info("starting auto-updater")
     const platform = os.platform() + "_" + os.arch()
-    autoUpdater.setFeedURL(`${UPDATES_SERVER_URL}/update/${platform}/${app.getVersion()}`)
 
-    // Fire callbacks on events for notification purposes
-    autoUpdater.on("error", (err) => {
-      log.error(err)
-    })
+    try {
+      autoUpdater.setFeedURL(`${UPDATES_SERVER_URL}/update/${platform}/${app.getVersion()}`)
 
-    autoUpdater.on("update-downloaded", (releaseNotes, releaseName) => {
-      log.info("Application update downloaded")
-
-      const updateDialogOpts = {
-        type: "info",
-        buttons: ["Restart", "Later"],
-        title: "Application Update",
-        message: "An update for this Classroom Assistant has been downloaded. Please restart the application to apply the updates."
-      }
-
-      dialog.showMessageBox(updateDialogOpts, (response) => {
-        if (response === 0) autoUpdater.quitAndInstall()
+      // Fire callbacks on events for notification purposes
+      autoUpdater.on("error", (err) => {
+        log.error(err)
       })
-    })
 
-    log.info("checking for updates..")
-    autoUpdater.checkForUpdates()
-    setInterval(() => {
+      autoUpdater.on("update-downloaded", (releaseNotes, releaseName) => {
+        log.info("Application update downloaded")
+
+        const updateDialogOpts = {
+          type: "info",
+          buttons: ["Restart", "Later"],
+          title: "Application Update",
+          message: "An update for this Classroom Assistant has been downloaded. Please restart the application to apply the updates."
+        }
+
+        dialog.showMessageBox(updateDialogOpts, (response) => {
+          if (response === 0) autoUpdater.quitAndInstall()
+        })
+      })
+
       log.info("checking for updates..")
       autoUpdater.checkForUpdates()
-    }, interval)
+      setInterval(() => {
+        log.info("checking for updates..")
+        autoUpdater.checkForUpdates()
+      }, interval)
+    } catch (err) {
+      log.warn(`Failed to initialize updater ${err}`)
+    }
   }
 }
