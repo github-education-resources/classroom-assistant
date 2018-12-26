@@ -13,6 +13,7 @@ const updater = require("./updater")
 const {initLogger} = require("./logger")
 const {authorizeUser, setAccessTokenFromCode, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
 const {generateMenu} = require("./menu")
+const {moveToApplicationsFolder} = require("./letsMove")
 
 let mainWindow
 let loadOnReady = null
@@ -138,6 +139,7 @@ app.on("ready", async () => {
 
   if (anotherInstanceRunning) app.quit()
 
+  moveToApplicationsFolder()
   loadAccessToken()
   createWindow()
 })
