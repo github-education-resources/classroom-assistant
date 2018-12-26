@@ -22,7 +22,6 @@ const DEFAULT_PROTOCOL_HANDLER = "x-github-classroom"
 
 if (require("electron-squirrel-startup")) app.exit()
 
-
 initLogger()
 
 const createWindow = () => {
