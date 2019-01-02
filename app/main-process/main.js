@@ -29,7 +29,7 @@ const createWindow = () => {
   // Set window toolbar options
   generateMenu()
 
-  mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden", show: false, 'minHeight': 300, 'minWidth': 300})
+  mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden", show: false, "minHeight": 300, "minWidth": 300})
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, "../index.html"),
