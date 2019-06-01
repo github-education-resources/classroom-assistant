@@ -38,7 +38,7 @@
     "forge": "./forge.config.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bluebird": "^3.5.1",
     "bootstrap": "~4.1.1",
     "byline": "^5.0.0",
