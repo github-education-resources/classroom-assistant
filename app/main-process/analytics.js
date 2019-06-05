@@ -7,7 +7,7 @@ const packageInfo = require("../../package")
 const fetchGAUser = () => {
   let gaID
   try {
-    const appInfo = require("./app-info.json")
+    const appInfo = require("../app-info.json")
     gaID = appInfo["ga_id"]
   } catch (e) {
     log.warn("Google Analytics ID not found, not tracking any events.")
