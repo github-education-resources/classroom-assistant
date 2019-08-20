@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { ipcRenderer } from "electron"
 
 import {assignmentFetchInfo} from "../modules/assignment/actions/assignment-fetch-info"
-import {setAssignmentURL} from "../modules/assignment/actions/assignment-set-url"
+import {verifyAssignmentURL} from "../modules/assignment/actions/assignment-verify-url"
 import {settingsFetchUserFromKeychain} from "../modules/settings/actions/settings-fetch-user-from-keychain"
 
 class AppContainer extends Component {
@@ -46,7 +46,7 @@ class AppContainer extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAssignment: (assignmentURL) => {
-    dispatch(setAssignmentURL(assignmentURL))
+    dispatch(verifyAssignmentURL(assignmentURL))
     dispatch(assignmentFetchInfo())
   },
   fetchUserFromKeychain: () => dispatch(settingsFetchUserFromKeychain())
