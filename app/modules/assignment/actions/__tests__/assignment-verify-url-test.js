@@ -3,7 +3,7 @@ import * as sinon from "sinon"
 import { verifyAssignmentURL } from "../assignment-verify-url"
 import { ASSIGNMENT_SET_URL, ASSIGNMENT_ERROR_INFO } from "../../constants"
 
-describe("assignmentFetchInfo", () => {
+describe("assignmentVerifyURL", () => {
   let dispatch
 
   beforeEach(() => {
