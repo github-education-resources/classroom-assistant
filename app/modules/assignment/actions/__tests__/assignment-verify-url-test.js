@@ -10,8 +10,29 @@ describe("assignmentVerifyURL", () => {
     dispatch = sinon.spy()
   })
 
-  it("dispatches error action on invalid URL", async () => {
-    const invalidURL = "https://BAD_SERVER"
+  it("dispatches error action on invalid server", async () => {
+    const invalidURL = "https://BAD_SERVER/classrooms/test/assignments/test"
+
+    await verifyAssignmentURL(invalidURL)(dispatch, null)
+    expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid!" })).is.true
+  })
+
+  it("dispatches error action on invalid assignment type", async () => {
+    const invalidURL = "https://classroom.github.com/classrooms/test/not-assignments/test"
+
+    await verifyAssignmentURL(invalidURL)(dispatch, null)
+    expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid!" })).is.true
+  })
+
+  it("dispatches error action on invalid classroom name", async () => {
+    const invalidURL = "https://classroom.github.com/classrooms/test@badname/not-assignments/test"
+
+    await verifyAssignmentURL(invalidURL)(dispatch, null)
+    expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid!" })).is.true
+  })
+
+  it("dispatches error action on invalid assignment name", async () => {
+    const invalidURL = "https://classroom.github.com/classrooms/test/not-assignments/test@badn@me*"
 
     await verifyAssignmentURL(invalidURL)(dispatch, null)
     expect(dispatch.calledWithMatch({ type: ASSIGNMENT_ERROR_INFO, error: "URL is invalid!" })).is.true
