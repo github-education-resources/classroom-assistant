@@ -33,7 +33,7 @@ export const submissionCloneFunc = (clone) => {
       const accessToken = remote.getGlobal("accessToken")
 
       const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
-
+      console.log(destination)
       if (!destination) {
         dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_PATH_ERROR))
 
