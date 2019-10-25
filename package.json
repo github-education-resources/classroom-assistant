@@ -95,7 +95,7 @@
     "electron-forge": "^5.1.1",
     "electron-mocha": "^6.0.1",
     "electron-packager": "~11.2.0",
-    "electron-prebuilt-compile": "^4.0.0",
+    "electron-prebuilt-compile": "2.0.16",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
