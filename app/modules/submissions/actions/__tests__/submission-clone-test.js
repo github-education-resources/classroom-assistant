@@ -103,7 +103,6 @@ describe("submissionClone", () => {
       const submissionClone = submissionCloneFunc(clone)
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
-      console.log(`${mockClonePath}/${mockSubmission.displayName}`)
       expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: `${mockClonePath}/${mockSubmission.displayName}` })).is.true
     })
 
@@ -111,7 +110,6 @@ describe("submissionClone", () => {
       const submissionClone = submissionCloneFunc(clone)
       await submissionClone(mockSubmissionWithRoster, mockClonePath)(dispatch, getState)
 
-      console.log(`${mockClonePath}/${mockSubmissionWithRoster.rosterIdentifier}`)
       expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: `${mockClonePath}/${mockSubmissionWithRoster.rosterIdentifier}` })).is.true
     })
 
