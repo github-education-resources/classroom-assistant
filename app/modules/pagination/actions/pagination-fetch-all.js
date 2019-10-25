@@ -16,7 +16,7 @@ let accessToken
  * @return An asynchronous thunk action which resolves once all pages have been fetched
  */
 export const fetchAllPages = (assignmentURL) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     // Sets to null if password cannot be found
     // TODO: Add specific error message/ask for reauthorization if clone
     // fails

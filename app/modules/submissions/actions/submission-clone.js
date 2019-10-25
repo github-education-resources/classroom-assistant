@@ -25,7 +25,7 @@ const {trackEvent} = require("../../../main-process/analytics")
 export const submissionCloneFunc = (clone) => {
   return (submissionProps, cloneDirectory) => {
     return async (dispatch, getState) => {
-      const submissionAuthorUsername = submissionProps.username
+      const submissionAuthorUsername = submissionProps.rosterIdentifier || submissionProps.username
 
       // Sets to null if password cannot be found
       // TODO: Add specific error message/ask for reauthorization if clone

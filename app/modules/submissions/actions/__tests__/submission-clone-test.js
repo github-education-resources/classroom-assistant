@@ -19,6 +19,16 @@ describe("submissionClone", () => {
     id: 1,
     username: "StudentEvelyn",
     displayName: "Evelyn",
+    rosterIdentifier: "Evelyn",
+    cloneStatus: "",
+    cloneProgress: 0
+  }
+
+  const mockSubmissionWithRoster = {
+    id: 2,
+    username: "StudentEvelyn2",
+    displayName: "Evelyn2",
+    rosterIdentifier: "Eve",
     cloneStatus: "",
     cloneProgress: 0
   }
@@ -87,6 +97,22 @@ describe("submissionClone", () => {
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
       expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", id: 1 })).is.true
+    })
+
+    it("includes username in clone path if no rosterIdentifier", async () => {
+      const submissionClone = submissionCloneFunc(clone)
+      await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
+
+      console.log(`${mockClonePath}/${mockSubmission.displayName}`)
+      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: `${mockClonePath}/${mockSubmission.displayName}` })).is.true
+    })
+
+    it("includes roster identifier in clone path if there is one", async () => {
+      const submissionClone = submissionCloneFunc(clone)
+      await submissionClone(mockSubmissionWithRoster, mockClonePath)(dispatch, getState)
+
+      console.log(`${mockClonePath}/${mockSubmissionWithRoster.rosterIdentifier}`)
+      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: `${mockClonePath}/${mockSubmissionWithRoster.rosterIdentifier}` })).is.true
     })
 
     it("dispatches an action to set the clone status of a submission", async () => {

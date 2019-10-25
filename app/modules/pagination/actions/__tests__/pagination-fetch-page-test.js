@@ -11,7 +11,8 @@ const sampleSubmission = (id) => {
   return {
     id: id,
     username: `test${id}`,
-    avatarUrl: `test-avatar${id}`
+    avatarUrl: `test-avatar${id}`,
+    rosterIdentifier: `identifier${id}`
   }
 }
 
