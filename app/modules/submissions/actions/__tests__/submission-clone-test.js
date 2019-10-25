@@ -6,11 +6,12 @@ import { submissionCloneFunc, fetchCloneURL } from "../submission-clone"
 import { clone } from "../../../../lib/cloneutils"
 
 const nock = require("nock")
+const path = require("path")
 
 const ACCESS_TOKEN = "token"
 const RANDOM_FILENAME = (Math.random().toString(36) + "00000").substr(2, 5)
 
-const mockClonePath = "/tmp/" + RANDOM_FILENAME
+const mockClonePath = path.join(".", "tmp", RANDOM_FILENAME + path.join(""))
 
 describe("submissionClone", () => {
   let getState, dispatch, cloneURLMock
@@ -103,16 +104,18 @@ describe("submissionClone", () => {
       const submissionClone = submissionCloneFunc(clone)
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
-      console.log(`${mockClonePath}/${mockSubmission.displayName}`)
-      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: `${mockClonePath}/${mockSubmission.displayName}` })).is.true
+      const expectedPath = path.join(mockClonePath, mockSubmission.displayName)
+      console.log(expectedPath)
+      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: expectedPath })).is.true
     })
 
     it("includes roster identifier in clone path if there is one", async () => {
       const submissionClone = submissionCloneFunc(clone)
       await submissionClone(mockSubmissionWithRoster, mockClonePath)(dispatch, getState)
 
-      console.log(`${mockClonePath}/${mockSubmissionWithRoster.rosterIdentifier}`)
-      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: `${mockClonePath}/${mockSubmissionWithRoster.rosterIdentifier}` })).is.true
+      const expectedPath = path.join(mockClonePath, mockSubmissionWithRoster.rosterIdentifier)
+      console.log(expectedPath)
+      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: expectedPath })).is.true
     })
 
     it("dispatches an action to set the clone status of a submission", async () => {
