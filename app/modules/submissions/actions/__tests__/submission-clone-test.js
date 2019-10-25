@@ -6,11 +6,12 @@ import { submissionCloneFunc, fetchCloneURL } from "../submission-clone"
 import { clone } from "../../../../lib/cloneutils"
 
 const nock = require("nock")
+const path = require("path")
 
 const ACCESS_TOKEN = "token"
 const RANDOM_FILENAME = (Math.random().toString(36) + "00000").substr(2, 5)
 
-const mockClonePath = "/tmp/" + RANDOM_FILENAME
+const mockClonePath = path.join(".", "tmp", RANDOM_FILENAME + path.join(""))
 
 describe("submissionClone", () => {
   let getState, dispatch, cloneURLMock
@@ -19,6 +20,16 @@ describe("submissionClone", () => {
     id: 1,
     username: "StudentEvelyn",
     displayName: "Evelyn",
+    rosterIdentifier: "Evelyn",
+    cloneStatus: "",
+    cloneProgress: 0
+  }
+
+  const mockSubmissionWithRoster = {
+    id: 2,
+    username: "StudentEvelyn2",
+    displayName: "Evelyn2",
+    rosterIdentifier: "Eve",
     cloneStatus: "",
     cloneProgress: 0
   }
@@ -87,6 +98,22 @@ describe("submissionClone", () => {
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
       expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", id: 1 })).is.true
+    })
+
+    it("includes username in clone path if no rosterIdentifier", async () => {
+      const submissionClone = submissionCloneFunc(clone)
+      await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
+
+      const expectedPath = path.join(mockClonePath, mockSubmission.displayName)
+      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: expectedPath })).is.true
+    })
+
+    it("includes roster identifier in clone path if there is one", async () => {
+      const submissionClone = submissionCloneFunc(clone)
+      await submissionClone(mockSubmissionWithRoster, mockClonePath)(dispatch, getState)
+
+      const expectedPath = path.join(mockClonePath, mockSubmissionWithRoster.rosterIdentifier)
+      expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: expectedPath })).is.true
     })
 
     it("dispatches an action to set the clone status of a submission", async () => {
