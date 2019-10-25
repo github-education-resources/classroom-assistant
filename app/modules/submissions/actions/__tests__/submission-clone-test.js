@@ -105,7 +105,6 @@ describe("submissionClone", () => {
       await submissionClone(mockSubmission, mockClonePath)(dispatch, getState)
 
       const expectedPath = path.join(mockClonePath, mockSubmission.displayName)
-      console.log(expectedPath)
       expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: expectedPath })).is.true
     })
 
@@ -114,7 +113,6 @@ describe("submissionClone", () => {
       await submissionClone(mockSubmissionWithRoster, mockClonePath)(dispatch, getState)
 
       const expectedPath = path.join(mockClonePath, mockSubmissionWithRoster.rosterIdentifier)
-      console.log(expectedPath)
       expect(dispatch.calledWithMatch({ type: "SUBMISSION_SET_CLONE_PATH", clonePath: expectedPath })).is.true
     })
 
