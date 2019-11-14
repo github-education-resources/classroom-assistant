@@ -53,7 +53,7 @@ for:
     description: ''
     provider: GitHub
     auth_token:
-      secure: Qw9G7NiqHJZHtZ8tQTYzzEqYaLzDEkg4SV2rWKOac4gtNL4UBNGKCvjKQCOq7kM1 # your encrypted token from GitHub
+      secure: c0x3uDPJX5CAUtCHk8aP+N4Q7VcnOlnV28L2mxMg4HFhPZ8+3CVJvafkZcI1yAE3 # your encrypted token from GitHub
     artifact: /^deploy-.*/
     draft: true
     on:
