@@ -52,7 +52,7 @@ for:
       description: ""
       provider: GitHub
       auth_token:
-        secure: SG5maIgTAlIM0ZOv7J8968gWz6YKQlP3EImIgkCJoWJVzSeY+zcYma1QA+vjUEqH
+        secure: vwRKXIUa0r68g/xoT4XQc0Z8cHRVafwQgaWsVR2h96Svv+pUBb7HjUd/4PgzV/Ix
       artifact: /^deploy-.*/
       draft: true
       on:
