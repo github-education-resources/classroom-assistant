@@ -41,3 +41,5 @@ You can retrieve a list of developer identities available in your keychain by ru
 ```
 security find-identity -p codesigning
 ```
+
+Do this and all will be well
