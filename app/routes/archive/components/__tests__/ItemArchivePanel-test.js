@@ -12,7 +12,7 @@ const completeProps = {
   username: "test username",
   displayName: "test display name",
   avatarUrl: "/some/path.jpg",
-  repoUrl: "http://www.someurl.com",
+  repoUrl: "https://www.someurl.com",
   cloneProgress: 100,
   cloneStatus: "Sample Status"
 }
@@ -22,7 +22,7 @@ const progressProps = {
   username: "test username",
   displayName: "test display name",
   avatarUrl: "/some/path.jpg",
-  repoUrl: "http://www.someurl.com",
+  repoUrl: "https://www.someurl.com",
   cloneProgress: 32,
   cloneStatus: "Sample Status"
 }
@@ -32,7 +32,7 @@ const statusProps = {
   username: "test username",
   displayName: "test display name",
   avatarUrl: "/some/path.jpg",
-  repoUrl: "http://www.someurl.com",
+  repoUrl: "https://www.someurl.com",
   cloneProgress: 0,
   cloneStatus: "Sample Status"
 }
@@ -42,7 +42,7 @@ const noProgressProps = {
   username: "test username",
   displayName: "test display name",
   avatarUrl: "/some/path.jpg",
-  repoUrl: "http://www.someurl.com",
+  repoUrl: "https://www.someurl.com",
   cloneProgress: 0
 }
 

@@ -12,14 +12,14 @@ const testProps = {
     username: "test username",
     displayName: "test display name",
     avatarUrl: "/some/path.jpg",
-    repoUrl: "http://www.someurl.com",
+    repoUrl: "https://www.someurl.com",
     progress: 100
   }, {
     id: 2,
     username: "test username",
     displayName: "test display name",
     avatarUrl: "/some/path.jpg",
-    repoUrl: "http://www.someurl.com",
+    repoUrl: "https://www.someurl.com",
     progress: 100
   }]
 }

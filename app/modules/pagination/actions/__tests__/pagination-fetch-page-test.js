@@ -17,7 +17,7 @@ const sampleSubmission = (id) => {
 }
 
 describe("paginationFetchPage", () => {
-  const sampleAssignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+  const sampleAssignmentURL = "https://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
   let dispatch, assignmentStub
 
@@ -37,7 +37,7 @@ describe("paginationFetchPage", () => {
 
   beforeEach(() => {
     dispatch = sinon.spy()
-    assignmentStub = nock("http://classroom.github.com")
+    assignmentStub = nock("https://classroom.github.com")
       .defaultReplyHeaders(defaultHeaders)
       .get("/classrooms/test-org/assignments/test-assignment")
   })

@@ -10,7 +10,7 @@ describe("submissionCloneAll", () => {
       username: "StudentEvelyn",
       displayName: "Evelyn",
       avatarUrl: "https://avatars.githubusercontent.com/u/16492679?v=3&size=96",
-      repoUrl: "http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
+      repoUrl: "https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn",
       selected: true,
       clonePath: "",
       cloneStatus: "",
@@ -27,6 +27,6 @@ describe("submissionCloneAll", () => {
     const dispatch = sinon.spy()
     await submissionCloneAll()(dispatch, getState)
 
-    expect(cloneMock.calledWithMatch("http://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn")).is.true
+    expect(cloneMock.calledWithMatch("https://github.com/CS50Spring2016/assignment-1-introduction-to-programming-StudentEvelyn")).is.true
   })
 })

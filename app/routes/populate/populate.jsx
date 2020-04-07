@@ -13,7 +13,7 @@ import {url, error, valid, name, typeLabel, fetching, all} from "../../modules/a
 import {userAuthorized} from "../../modules/settings/selectors"
 import ClassroomPanel from "../shared/containers/ClassroomPanel"
 
-const placeholderURL = "http://classroom.github.com/classrooms/your-org/assignments/your-assignment"
+const placeholderURL = "https://classroom.github.com/classrooms/your-org/assignments/your-assignment"
 
 class PopulatePage extends Component {
   constructor (props) {

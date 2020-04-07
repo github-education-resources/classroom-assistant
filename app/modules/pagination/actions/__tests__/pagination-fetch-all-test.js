@@ -11,7 +11,7 @@ describe("paginationFetchAll", () => {
   const validAssignment = {
     title: "Test Assignment",
     type: "individual",
-    url: "http://this-is-a-valid-url.com/assignments/a1",
+    url: "https://this-is-a-valid-url.com/assignments/a1",
     isFetching: true,
     error: null,
   }

@@ -37,7 +37,7 @@ describe("submissionClone", () => {
   const mockAssignment = {
     title: "Test Assignment",
     type: "individual",
-    url: "http://classroom.github.com/classrooms/test-org/assignments/test-assignment",
+    url: "https://classroom.github.com/classrooms/test-org/assignments/test-assignment",
     isFetching: false,
     error: null,
   }
@@ -55,7 +55,7 @@ describe("submissionClone", () => {
       assignment: mockAssignment,
     })
 
-    cloneURLMock = nock("http://classroom.github.com")
+    cloneURLMock = nock("https://classroom.github.com")
       .get("/api/internal/classrooms/test-org/assignments/test-assignment/assignment_repos/1/clone_url")
       .query({access_token: ACCESS_TOKEN})
   })

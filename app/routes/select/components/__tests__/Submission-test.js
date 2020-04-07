@@ -10,7 +10,7 @@ describe("Submission", () => {
     username: "testusername",
     displayName: "testdisplayname",
     avatarUrl: "/some/path.jpg",
-    repoUrl: "http://some/path.com",
+    repoUrl: "https://some/path.com",
     selected: false
   }
 
@@ -19,7 +19,7 @@ describe("Submission", () => {
     username: "testusername",
     displayName: "testdisplayname",
     avatarUrl: "/some/path.jpg",
-    repoUrl: "http://some/path.com",
+    repoUrl: "https://some/path.com",
     selected: true
   }
 

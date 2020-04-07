@@ -57,14 +57,14 @@ module.exports = {
     categories: [
       "Education"
     ],
-    homepage: "http://classroom.github.com/assistant"
+    homepage: "https://classroom.github.com/assistant"
   },
   electronInstallerRedhat: {
     icon: "./app/resources/images/classroom-logo.png",
     categories: [
       "Education"
     ],
-    homepage: "http://classroom.github.com/assistant"
+    homepage: "https://classroom.github.com/assistant"
   },
   github_repository: {
     owner: "education",
