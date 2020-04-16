@@ -1,32 +1,29 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import { hashHistory } from "react-router"
-import { syncHistoryWithStore, routerMiddleware } from "react-router-redux"
-import { createStore, compose, applyMiddleware } from "redux"
-import { Provider } from "react-redux"
-import thunk from "redux-thunk"
-import isDev from "electron-is-dev"
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { hashHistory } from "react-router";
+import { syncHistoryWithStore, routerMiddleware } from "react-router-redux";
+import { createStore, compose, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import isDev from "electron-is-dev";
 
-import DevTools from "./routes/shared/components/DevTools"
-import reducer from "./modules/reducers"
-import Routes from "./routes"
+import DevTools from "./routes/shared/components/DevTools";
+import reducer from "./modules/reducers";
+import Routes from "./routes";
 
 const store = createStore(
   reducer,
   compose(
-    applyMiddleware(
-      thunk,
-      routerMiddleware(hashHistory)
-    ),
+    applyMiddleware(thunk, routerMiddleware(hashHistory)),
     DevTools.instrument()
   )
-)
+);
 
-const history = syncHistoryWithStore(hashHistory, store)
+const history = syncHistoryWithStore(hashHistory, store);
 
-let devToolsInstance
+let devToolsInstance;
 if (isDev) {
-  devToolsInstance = <DevTools />
+  devToolsInstance = <DevTools />;
 }
 
 const render = () => {
@@ -36,13 +33,14 @@ const render = () => {
         <Routes history={history} />
         {devToolsInstance}
       </div>
-    </Provider>
-    , document.getElementById("app"))
-}
+    </Provider>,
+    document.getElementById("app")
+  );
+};
 
-store.subscribe(render)
-render()
+store.subscribe(render);
+render();
 
 if (module.hot) {
-  module.hot.accept(render)
+  module.hot.accept(render);
 }
