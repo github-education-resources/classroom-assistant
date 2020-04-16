@@ -1,6 +1,13 @@
 {
   "presets": [
-    ["env", { "targets": { "electron": "1.8.4" } }],
-    "react"
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ],
+    "@babel/preset-react"
   ]
 }
