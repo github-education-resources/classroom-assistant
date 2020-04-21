@@ -1,42 +1,45 @@
-import axios from "axios"
-import keytar from "keytar"
-import {BrowserWindow, session} from "electron"
+import axios from "axios";
+import keytar from "keytar";
+import { BrowserWindow, session } from "electron";
 
-const { URL } = require("url")
-const {trackEvent} = require("./analytics")
+const { URL } = require("url");
+const { trackEvent } = require("./analytics");
 
-let authWindow
+let authWindow;
 
-export function authorizeUser (mainWindowRef, protocolHandler) {
-  openAuthWindow(mainWindowRef, protocolHandler)
+export function authorizeUser(mainWindowRef, protocolHandler) {
+  openAuthWindow(mainWindowRef, protocolHandler);
 }
 
-export async function setAccessTokenFromCode (code, mainWindow) {
+export async function setAccessTokenFromCode(code, mainWindow) {
   if (authWindow) {
-    authWindow.destroy()
+    authWindow.destroy();
   }
   // TODO: Error handling
   try {
-    const token = await fetchAccessToken(code)
-    await keytar.setPassword("Classroom-Assistant", "x-access-token", token)
-    global.accessToken = token
+    const token = await fetchAccessToken(code);
+    await keytar.setPassword("Classroom-Assistant", "x-access-token", token);
+    global.accessToken = token;
 
-    mainWindow.webContents.send("receivedAuthorization")
+    mainWindow.webContents.send("receivedAuthorization");
   } catch (error) {
-    trackEvent("error", "userAuthentication", "fetchAccessToken", error)
+    trackEvent("error", "userAuthentication", "fetchAccessToken", error);
   }
 }
 
-export async function loadAccessToken () {
-  global.accessToken = await keytar.getPassword("Classroom-Assistant", "x-access-token")
+export async function loadAccessToken() {
+  global.accessToken = await keytar.getPassword(
+    "Classroom-Assistant",
+    "x-access-token"
+  );
 }
 
-export async function deleteAccessToken () {
-  global.accessToken = null
-  await keytar.deletePassword("Classroom-Assistant", "x-access-token")
+export async function deleteAccessToken() {
+  global.accessToken = null;
+  await keytar.deletePassword("Classroom-Assistant", "x-access-token");
 }
 
-function openAuthWindow (mainWindow, protocolHandler) {
+function openAuthWindow(mainWindow, protocolHandler) {
   authWindow = new BrowserWindow({
     height: 650,
     width: 400,
@@ -46,32 +49,24 @@ function openAuthWindow (mainWindow, protocolHandler) {
       session: session.fromPartition("auth:session"),
       nodeIntegration: false,
     },
-  })
+  });
 
-  const authURL = new URL("https://classroom.github.com/login/oauth/authorize")
+  const authURL = new URL("https://classroom.github.com/login/oauth/authorize");
 
-  authWindow.webContents.loadURL(authURL.toString())
+  authWindow.webContents.loadURL(authURL.toString());
 
   authWindow.once("ready-to-show", () => {
     if (authWindow) {
-      authWindow.show()
+      authWindow.show();
     }
-  })
+  });
 }
 
-async function fetchAccessToken (code) {
-  const accessTokenURL = `https://glb-db52c2cf8be544.github.com/login/oauth/access_token?code=${code}`
-  console.log("ACCESSTOKENURL")
-  console.log(accessTokenURL)
+async function fetchAccessToken(code) {
+  const accessTokenURL = `https://classroom.github.com/login/oauth/access_token?code=${code}`;
   const response = await axios.post(accessTokenURL, {
     "Content-Type": "application/json; charset=utf-8",
-    "Accept": "application/json",
-    "Host": "classroom.github.com"
-  })
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-  console.log({response})
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-  console.log({d: response.data})
-  console.log({a: response.data.access_token})
-  return response.data.access_token
+    Accept: "application/json",
+  });
+  return response.data.access_token;
 }

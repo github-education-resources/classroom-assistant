@@ -1,6 +1,4 @@
 const rules = require("./webpack.rules");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const devMode = process.env.NODE_ENV !== "production";
 
 rules.push(
   {
@@ -8,14 +6,14 @@ rules.push(
     exclude: /node_modules/,
     loaders: [
       {
-        loader: "css-loader",
-        options: {
-          modules: true,
-          sourceMap: true,
-          importLoaders: 1,
-        },
+        loader: "style-loader",
       },
-      "sass-loader",
+      {
+        loader: "css-loader",
+      },
+      {
+        loader: "sass-loader",
+      },
     ],
   },
   {
@@ -26,11 +24,6 @@ rules.push(
       },
       {
         loader: "css-loader",
-        options: {
-          modules: true,
-          sourceMap: true,
-          importLoaders: 1,
-        },
       },
     ],
   }, // the sass-loader converts the sass into css, the css-loader puts that css into the JS, the style-loader puts the javascript into the DOM.
