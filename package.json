@@ -46,7 +46,6 @@
     "clean-css": "^4.2.1",
     "dateformat": "^3.0.3",
     "dugite": "1.68.0",
-    "electron-compilers": "git+https://github.com/jeffrafter/electron-compilers.git#v5.9.1",
     "electron-default-menu": "^1.0.1",
     "electron-devtools-installer": "^2.1.0",
     "electron-is-dev": "~0.3.0",
