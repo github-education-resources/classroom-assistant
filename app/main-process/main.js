@@ -50,6 +50,12 @@ const createWindow = () => {
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
+  // mainWindow.loadURL(url.format({
+  //   pathname: path.join(__dirname, "../index.html"),
+  //   protocol: "file:",
+  //   slashes: true
+  // }))
+
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }

@@ -7,6 +7,10 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import isDev from "electron-is-dev";
 
+import "font-awesome/css/font-awesome.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "./styles/routes.scss";
+
 import DevTools from "./routes/shared/components/DevTools";
 import reducer from "./modules/reducers";
 import Routes from "./routes";
