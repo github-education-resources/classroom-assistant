@@ -12,7 +12,7 @@ rules.push(
         loader: "css-loader",
       },
       {
-        loader: "sass-loader",
+        loader: "sass-loader", // the sass-loader converts the sass into css, the css-loader puts that css into the JS, the style-loader puts the javascript into the DOM.
       },
     ],
   },
@@ -26,7 +26,8 @@ rules.push(
         loader: "css-loader",
       },
     ],
-  }, // the sass-loader converts the sass into css, the css-loader puts that css into the JS, the style-loader puts the javascript into the DOM.
+  },
+  // Needed for font-awesome
   {
     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: "url-loader?limit=10000&mimetype=application/font-woff",
@@ -54,12 +55,23 @@ rules.push(
 );
 
 module.exports = {
-  // Put your normal webpack config below here
   module: {
     rules,
   },
+  // TODO: may not need this once webSecurity is solved
+  devServer: {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers":
+        "X-Requested-With, content-type, Authorization",
+    },
+  },
+  node: {
+    __dirname: true,
+  },
   resolve: {
-    extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".scss", ".json"],
+    extensions: [".js", ".jsx", ".css", ".scss", ".json"],
     modules: ["node_modules"],
   },
 };

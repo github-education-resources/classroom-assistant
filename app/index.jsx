@@ -27,7 +27,8 @@ const history = syncHistoryWithStore(hashHistory, store);
 
 let devToolsInstance;
 if (isDev) {
-  devToolsInstance = <DevTools />;
+  // TODO
+  // devToolsInstance = <DevTools />;
 }
 
 const render = () => {

@@ -9,6 +9,7 @@ const path = require("path");
 const exec = util.promisify(require("child_process").exec);
 const url = require("url");
 
+// TODO: modern updater
 // const updater = require("./updater");
 const { initLogger } = require("./logger");
 const {
@@ -38,11 +39,14 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 750,
-    // TODO: verify
+    // TODO: verify these two options can/should be removed
     //titleBarStyle: "hidden",
     //show: false,
     webPreferences: {
+      // TODO: we need a preload to access the config https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content
       nodeIntegration: true,
+      // TODO: this solves the CORS issue, but a more complete fix is needed https://www.electronjs.org/docs/tutorial/security#5-do-not-disable-websecurity
+      webSecurity: false,
     },
     minHeight: 300,
     minWidth: 300,
@@ -50,14 +54,9 @@ const createWindow = () => {
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // mainWindow.loadURL(url.format({
-  //   pathname: path.join(__dirname, "../index.html"),
-  //   protocol: "file:",
-  //   slashes: true
-  // }))
-
   if (isDev) {
-    mainWindow.webContents.openDevTools();
+    // TODO: this is temporary
+    //  mainWindow.webContents.openDevTools();
   }
 
   if (!isDev) {
@@ -125,7 +124,7 @@ const setInstanceProtocolHandler = async () => {
     }
   });
 
-  // TODO: verify single instna
+  // TODO: verify single instance
   // return app.makeSingleInstance((argv) => {
   // });
 };

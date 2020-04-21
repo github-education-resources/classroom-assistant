@@ -91,34 +91,4 @@ module.exports = {
       },
     ],
   ],
-
-  // other config here
-  // make_targets: {
-  //   win32: ["squirrel"],
-  //   darwin: ["zip"],
-  //   linux: ["deb", "rpm"],
-  // },
-  // electronPackagerConfig: {
-  //   packageManager: "npm",
-  //   osxSign: true,
-  //   executableName: "classroom-assistant",
-  //   icon: "./app/resources/icon.icns",
-  //   protocols: [
-  //     {
-  //       name: "Classroom Assistant",
-  //       schemes: ["x-github-classroom"],
-  //     },
-  //   ],
-  // },
-  // electronWinstallerConfig: {},
-  // electronInstallerDebian: {},
-  // electronInstallerRedhat: {},
-  // github_repository: {
-  //   owner: "education",
-  //   name: "classroom-assistant",
-  // },
-  // windowsStoreConfig: {
-  //   packageName: "",
-  //   name: "classroom-assistant",
-  // },
 };
