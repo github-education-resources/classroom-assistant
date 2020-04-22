@@ -10,7 +10,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js .",
-    "test-unit": "cross-env TEST_ENV=1 ELECTRON_NO_ATTACH_CONSOLE=1 xvfb-maybe --auto-servernum -- electron-mocha --renderer -t 15000 --require @babel/register --require ignore-styles --require ./test/setup 'app/**/*-test.js' --recursive",
+    "test-unit": "cross-env TEST_ENV=1 ELECTRON_NO_ATTACH_CONSOLE=1 xvfb-maybe -screen 0 1024x768x24 --auto-servernum -- electron-mocha --renderer -t 15000 --require @babel/register --require ignore-styles --require ./test/setup 'app/**/*-test.js' --recursive",
     "test": "npm run lint && npm run test-unit"
   },
   "repository": {
