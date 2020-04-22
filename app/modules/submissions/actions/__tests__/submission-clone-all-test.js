@@ -23,7 +23,7 @@ describe("submissionCloneAll", () => {
       return Promise.reject(new Error("something went wrong"))
     })
 
-    const getState = () => ({ submissions: [ mockSubmission ] })
+    const getState = () => ({ submissions: [mockSubmission] })
     const dispatch = sinon.spy()
     await submissionCloneAll()(dispatch, getState)
 

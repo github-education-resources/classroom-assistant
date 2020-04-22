@@ -9,7 +9,7 @@ import NavFooter from "../shared/components/NavFooter"
 import ArchiveProgressPanel from "./containers/ArchiveProgressPanel"
 
 import { settingsResetState } from "../../modules/settings/actions/settings-reset-state"
-import {progress} from "../../modules/submissions/selectors"
+import { progress } from "../../modules/submissions/selectors"
 
 const methods = {
   componentDidMount (props) {

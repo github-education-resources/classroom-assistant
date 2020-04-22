@@ -16,7 +16,7 @@ import {
   SUBMISSION_CLONE_GIT_ERROR
 } from "../constants"
 
-const {trackEvent} = require("../../../main-process/analytics")
+const { trackEvent } = require("../../../main-process/analytics")
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update

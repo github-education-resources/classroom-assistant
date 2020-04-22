@@ -1,26 +1,26 @@
 /* eslint-env node */
-const {app, Menu} = require("electron")
+const { app, Menu } = require("electron")
 const isDev = require("electron-is-dev")
 
 const defaultTemplate = [
   {
     label: "Edit",
     submenu: [
-      {role: "undo"},
-      {role: "redo"},
-      {type: "separator"},
-      {role: "cut"},
-      {role: "copy"},
-      {role: "paste"},
-      {role: "delete"},
-      {role: "selectall"}
+      { role: "undo" },
+      { role: "redo" },
+      { type: "separator" },
+      { role: "cut" },
+      { role: "copy" },
+      { role: "paste" },
+      { role: "delete" },
+      { role: "selectall" }
     ]
   },
   {
     role: "window",
     submenu: [
-      {role: "minimize"},
-      {role: "close"}
+      { role: "minimize" },
+      { role: "close" }
     ]
   },
   {
@@ -38,25 +38,25 @@ const addDarwinOptions = () => {
   defaultTemplate.unshift({
     label: app.getName(),
     submenu: [
-      {role: "about"},
-      {type: "separator"},
-      {role: "services", submenu: []},
-      {type: "separator"},
-      {role: "hide"},
-      {role: "hideothers"},
-      {role: "unhide"},
-      {type: "separator"},
-      {role: "quit"}
+      { role: "about" },
+      { type: "separator" },
+      { role: "services", submenu: [] },
+      { type: "separator" },
+      { role: "hide" },
+      { role: "hideothers" },
+      { role: "unhide" },
+      { type: "separator" },
+      { role: "quit" }
     ]
   })
 
   // Window menu
   defaultTemplate[3].submenu = [
-    {role: "close"},
-    {role: "minimize"},
-    {role: "zoom"},
-    {type: "separator"},
-    {role: "front"}
+    { role: "close" },
+    { role: "minimize" },
+    { role: "zoom" },
+    { type: "separator" },
+    { role: "front" }
   ]
 }
 

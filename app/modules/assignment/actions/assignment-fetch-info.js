@@ -1,10 +1,10 @@
 import { remote } from "electron"
 import axios from "axios"
 
-import {receiveInfo} from "./assignment-receive-info"
-import {requestInfo} from "./assignment-request-info"
-import {errorInfo} from "./assignment-error-info"
-import {url} from "../selectors"
+import { receiveInfo } from "./assignment-receive-info"
+import { requestInfo } from "./assignment-request-info"
+import { errorInfo } from "./assignment-error-info"
+import { url } from "../selectors"
 
 /**
  * PUBLIC: Fetch information about assignment from URL in state

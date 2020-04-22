@@ -1,6 +1,6 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
-import {remote} from "electron"
+import { remote } from "electron"
 
 import { fetchAllPages } from "../pagination-fetch-all"
 import { PAGINATION_SET_ASSIGNMENT_URL, PAGINATION_SET_FETCHING } from "../../constants"
@@ -48,18 +48,18 @@ describe("paginationFetchAll", () => {
   it("dispatches set assignment URL", async () => {
     await fetchAllPages(validAssignment.url)(dispatch, getState)
 
-    expect(dispatch.calledWithMatch({type: PAGINATION_SET_ASSIGNMENT_URL, url: validAssignment.url})).is.true
+    expect(dispatch.calledWithMatch({ type: PAGINATION_SET_ASSIGNMENT_URL, url: validAssignment.url })).is.true
   })
 
   it("dispatches set fetching to true when starting fetch", async () => {
     await fetchAllPages(validAssignment.url)(dispatch, getState)
 
-    expect(dispatch.calledWithMatch({type: PAGINATION_SET_FETCHING, payload: true})).is.true
+    expect(dispatch.calledWithMatch({ type: PAGINATION_SET_FETCHING, payload: true })).is.true
   })
 
   it("dispatches set fetching to false when ending fetch", async () => {
     await fetchAllPages(validAssignment.url)(dispatch, getState)
 
-    expect(dispatch.calledWithMatch({type: PAGINATION_SET_FETCHING, payload: false})).is.true
+    expect(dispatch.calledWithMatch({ type: PAGINATION_SET_FETCHING, payload: false })).is.true
   })
 })

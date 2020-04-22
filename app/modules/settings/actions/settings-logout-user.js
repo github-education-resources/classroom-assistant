@@ -4,7 +4,7 @@ import { push } from "react-router-redux"
 import { settingsResetState } from "./settings-reset-state"
 import { settingsSetUsername } from "./settings-set-username"
 
-const {session} = require("electron").remote
+const { session } = require("electron").remote
 
 /**
  * PUBLIC: Logs out user from app by clearing session

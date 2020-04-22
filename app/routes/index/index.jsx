@@ -1,18 +1,18 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import lifecycle from "react-pure-lifecycle";
-import { settingsLoginUser } from "../../modules/settings/actions/settings-login-user";
-import logo from "../../resources/images/classroom-logo.png";
+import React from "react"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
+import lifecycle from "react-pure-lifecycle"
+import { settingsLoginUser } from "../../modules/settings/actions/settings-login-user"
+import logo from "../../resources/images/classroom-logo.png"
 
 const methods = {
-  componentDidMount(props) {
-    const remote = require("electron").remote;
-    const trackScreen = remote.getGlobal("trackScreen");
+  componentDidMount (props) {
+    const remote = require("electron").remote
+    const trackScreen = remote.getGlobal("trackScreen")
 
-    trackScreen("index");
+    trackScreen("index")
   },
-};
+}
 
 const IndexPage = ({ loginUser }) => (
   <div className="index-container container-fluid">
@@ -38,16 +38,16 @@ const IndexPage = ({ loginUser }) => (
       </div>
     </div>
   </div>
-);
+)
 
 const mapDispatchToProps = (dispatch) => ({
   loginUser: () => {
-    dispatch(settingsLoginUser());
+    dispatch(settingsLoginUser())
   },
-});
+})
 
 IndexPage.propTypes = {
   loginUser: PropTypes.func.isRequired,
-};
+}
 
-export default lifecycle(methods)(connect(null, mapDispatchToProps)(IndexPage));
+export default lifecycle(methods)(connect(null, mapDispatchToProps)(IndexPage))

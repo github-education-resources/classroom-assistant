@@ -12,13 +12,13 @@ const pagination = (state = initialPaginationState, action) => {
   case PAGINATION_RESET:
     return initialPaginationState
   case PAGINATION_SET_FETCHING:
-    return Object.assign({}, state, {fetching: action.payload})
+    return Object.assign({}, state, { fetching: action.payload })
   case PAGINATION_SET_ASSIGNMENT_URL:
-    return Object.assign({}, state, {assignmentURL: action.url})
+    return Object.assign({}, state, { assignmentURL: action.url })
   case PAGINATION_SET_NEXT_PAGE:
-    return Object.assign({}, state, {nextPage: action.nextPage})
+    return Object.assign({}, state, { nextPage: action.nextPage })
   case PAGINATION_RECEIVE_PAGE:
-    return Object.assign({}, state, {submissionIds: state.submissionIds.concat(action.repoIds)})
+    return Object.assign({}, state, { submissionIds: state.submissionIds.concat(action.repoIds) })
   default:
     return state
   }

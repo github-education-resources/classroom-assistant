@@ -1,4 +1,4 @@
-import {SUBMISSION_CREATE} from "../constants"
+import { SUBMISSION_CREATE } from "../constants"
 
 export const submissionCreate = (submissions) => {
   // TODO: Find a better place to generate this avatarURL, do we even need to

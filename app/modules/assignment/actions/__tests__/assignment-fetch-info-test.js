@@ -1,10 +1,10 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
 import nock from "nock"
-import {remote} from "electron"
+import { remote } from "electron"
 
 import { assignmentFetchInfo } from "../assignment-fetch-info"
-import {ASSIGNMENT_ERROR_INFO, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO} from "../../constants"
+import { ASSIGNMENT_ERROR_INFO, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO } from "../../constants"
 
 const ACCESS_TOKEN = "token"
 

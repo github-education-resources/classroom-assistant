@@ -1,6 +1,6 @@
 import isDev from "electron-is-dev"
 
-const {app, dialog} = require("electron")
+const { app, dialog } = require("electron")
 const log = require("electron-log")
 const Store = require("electron-store")
 

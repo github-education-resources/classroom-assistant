@@ -1,4 +1,4 @@
-const rules = require("./webpack.rules");
+const rules = require("./webpack.rules")
 
 rules.push(
   {
@@ -52,7 +52,7 @@ rules.push(
       },
     ],
   }
-);
+)
 
 module.exports = {
   module: {
@@ -74,4 +74,4 @@ module.exports = {
     extensions: [".js", ".jsx", ".css", ".scss", ".json"],
     modules: ["node_modules"],
   },
-};
+}

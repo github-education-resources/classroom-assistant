@@ -1,14 +1,14 @@
-const fs = require("fs-extra");
+const fs = require("fs-extra")
 
 const appInfo = JSON.stringify({
   ga_id: process.env.GOOGLE_ANALYTICS_ID,
-});
+})
 
-function getWindowsCertificatePassword() {
+function getWindowsCertificatePassword () {
   if (process.env.KEY_PASSWORD) {
-    return process.env.KEY_PASSWORD;
+    return process.env.KEY_PASSWORD
   } else {
-    console.log("Skipping Windows Certificate Password");
+    console.log("Skipping Windows Certificate Password")
   }
 }
 
@@ -67,10 +67,10 @@ module.exports = {
     generateAssets: async () => {
       return new Promise((resolve, reject) =>
         fs.writeFile("./app/app-info.json", appInfo, (e) => {
-          if (e) reject(e);
-          else resolve();
+          if (e) reject(e)
+          else resolve()
         })
-      );
+      )
     },
   },
   plugins: [
@@ -91,4 +91,4 @@ module.exports = {
       },
     ],
   ],
-};
+}

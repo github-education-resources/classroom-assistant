@@ -1,11 +1,11 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
 
-import {settingsResetState} from "../settings-reset-state"
+import { settingsResetState } from "../settings-reset-state"
 
-import {assignmentReset} from "../../../assignment/actions/assignment-reset"
-import {submissionReset} from "../../../submissions/actions/submission-reset"
-import {paginationReset} from "../../../pagination/actions/pagination-reset"
+import { assignmentReset } from "../../../assignment/actions/assignment-reset"
+import { submissionReset } from "../../../submissions/actions/submission-reset"
+import { paginationReset } from "../../../pagination/actions/pagination-reset"
 
 describe("settingsResetState", () => {
   let dispatch

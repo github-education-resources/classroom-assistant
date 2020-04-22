@@ -1,7 +1,7 @@
 import os from "os"
 
 const electron = require("electron")
-const {autoUpdater, dialog} = electron
+const { autoUpdater, dialog } = electron
 const log = require("electron-log")
 
 // Internal: URL of the update metadata server -

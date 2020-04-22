@@ -4,7 +4,7 @@ import { settingsSetUsername } from "./settings-set-username"
 import { settingsLogoutUser } from "./settings-logout-user"
 import { remote } from "electron"
 
-const {trackEvent} = require("../../../main-process/analytics")
+const { trackEvent } = require("../../../main-process/analytics")
 
 /**
  * PUBLIC: Update username in store based on token and redirect to populate page

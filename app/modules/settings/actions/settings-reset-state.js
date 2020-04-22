@@ -1,6 +1,6 @@
-import {assignmentReset} from "../../assignment/actions/assignment-reset"
-import {submissionReset} from "../../submissions/actions/submission-reset"
-import {paginationReset} from "../../pagination/actions/pagination-reset"
+import { assignmentReset } from "../../assignment/actions/assignment-reset"
+import { submissionReset } from "../../submissions/actions/submission-reset"
+import { paginationReset } from "../../pagination/actions/pagination-reset"
 
 /**
  * PUBLIC: Resets application, submission and pagination state

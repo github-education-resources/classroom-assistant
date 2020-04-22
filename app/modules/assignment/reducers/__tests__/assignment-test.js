@@ -1,7 +1,7 @@
 import { expect } from "chai"
 
 import assignment from "../assignment"
-import {ASSIGNMENT_RECEIVE_INFO, ASSIGNMENT_RESET} from "../../constants"
+import { ASSIGNMENT_RECEIVE_INFO, ASSIGNMENT_RESET } from "../../constants"
 
 const initialState = {
   title: null,

@@ -1,5 +1,5 @@
 const log = require("electron-log")
-const {trackException} = require("./analytics")
+const { trackException } = require("./analytics")
 
 // Public: methods for initialising and using the project logger. Designed
 // to provide a common abstract interface for project-wide logging.

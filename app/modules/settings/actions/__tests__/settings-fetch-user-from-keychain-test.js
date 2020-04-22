@@ -19,7 +19,7 @@ describe("Keychain User Lookup Tests", () => {
 
     cloneURLMock = nock("https://classroom.github.com")
       .get("/api/internal/user")
-      .query({access_token: ACCESS_TOKEN})
+      .query({ access_token: ACCESS_TOKEN })
   })
 
   afterEach(() => {

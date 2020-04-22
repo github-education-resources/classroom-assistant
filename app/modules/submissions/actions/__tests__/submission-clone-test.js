@@ -57,7 +57,7 @@ describe("submissionClone", () => {
 
     cloneURLMock = nock("https://classroom.github.com")
       .get("/api/internal/classrooms/test-org/assignments/test-assignment/assignment_repos/1/clone_url")
-      .query({access_token: ACCESS_TOKEN})
+      .query({ access_token: ACCESS_TOKEN })
   })
 
   afterEach(() => {
