@@ -13,6 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Setup Node
       uses: actions/setup-node@v1
       with:
         version: ${{ matrix.node_version }}
