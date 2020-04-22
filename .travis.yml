@@ -33,6 +33,7 @@ addons:
       - fakeroot
       - rpm
       - zip
+      - chromium-browser
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" && ! -z "$KEY_LINK" ]]; then bash ./script/setup-macos-keychain; fi
