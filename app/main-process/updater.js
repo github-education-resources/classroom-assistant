@@ -8,7 +8,7 @@ const log = require("electron-log")
 //    an instance of Aluxian/squirrel-updates-server
 const UPDATES_SERVER_URL = "https://classroom.github.com/assistant"
 
-module.exports = {
+const updater = {
 
   // Public: start listening for autoupdates from Squirrel update server.
   //
@@ -19,7 +19,7 @@ module.exports = {
   //                      the error oject as an argument.
   //
   // Returns noting.
-  start (app, interval) {
+  start(app, interval) {
     log.info("starting auto-updater")
     const platform = os.platform() + "_" + os.arch()
 
@@ -57,3 +57,5 @@ module.exports = {
     }
   }
 }
+
+export default updater

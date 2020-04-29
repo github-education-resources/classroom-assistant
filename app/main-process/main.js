@@ -10,8 +10,7 @@ const axios = require("axios")
 // Set the default URL
 axios.defaults.baseURL = __API_URL__
 
-// TODO: modern updater
-// const updater = require("./updater");
+const updater = require("./updater")
 const { initLogger } = require("./logger")
 const {
   authorizeUser,
@@ -51,14 +50,12 @@ const createWindow = () => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
   if (__DEV__) {
-    // TODO: this is temporary
-    //  mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools()
   }
 
   if (!__DEV__) {
-    // const msBetweenUpdates = 1000 * 60 * 30;
-    // TODO: update to modern updater
-    // updater.start(app, msBetweenUpdates);
+    const msBetweenUpdates = 1000 * 60 * 30
+    updater.start(app, msBetweenUpdates)
   }
 
   mainWindow.on("closed", function () {
@@ -119,10 +116,6 @@ const setInstanceProtocolHandler = async () => {
       }
     }
   })
-
-  // TODO: verify single instance
-  // return app.makeSingleInstance((argv) => {
-  // });
 }
 
 app.on("open-url", async function (event, urlToOpen) {

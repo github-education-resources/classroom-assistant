@@ -64,11 +64,18 @@ module.exports = {
       },
     },
   ],
-  github_repository: {
-    owner: "education",
-    name: "classroom-assistant"
-  },
-  prerelease: true,
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "education",
+          name: "classroom-assistant"
+        },
+        prerelease: true
+      }
+    }
+  ],
   windowsStoreConfig: {
     packageName: "",
     name: "classroom-assistant"
