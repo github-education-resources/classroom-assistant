@@ -5,7 +5,6 @@ import httpAdapter from "axios/lib/adapters/http"
 
 configure({ adapter: new Adapter() })
 
-const host = "http://localhost"
-
-axios.defaults.host = host
+axios.defaults.baseURL = "https://classroom.github.com"
+axios.defaults.host = "http://localhost"
 axios.defaults.adapter = httpAdapter

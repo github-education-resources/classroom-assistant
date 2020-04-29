@@ -12,6 +12,7 @@
     "react"
   ],
   "rules": {
+    "space-before-function-paren": 0,
     "no-undef": "warn",
     "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,

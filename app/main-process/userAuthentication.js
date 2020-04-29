@@ -7,11 +7,11 @@ const { trackEvent } = require("./analytics")
 
 let authWindow
 
-export function authorizeUser (mainWindowRef, protocolHandler) {
+export function authorizeUser(mainWindowRef, protocolHandler) {
   openAuthWindow(mainWindowRef, protocolHandler)
 }
 
-export async function setAccessTokenFromCode (code, mainWindow) {
+export async function setAccessTokenFromCode(code, mainWindow) {
   if (authWindow) {
     authWindow.destroy()
   }
@@ -27,19 +27,19 @@ export async function setAccessTokenFromCode (code, mainWindow) {
   }
 }
 
-export async function loadAccessToken () {
+export async function loadAccessToken() {
   global.accessToken = await keytar.getPassword(
     "Classroom-Assistant",
     "x-access-token"
   )
 }
 
-export async function deleteAccessToken () {
+export async function deleteAccessToken() {
   global.accessToken = null
   await keytar.deletePassword("Classroom-Assistant", "x-access-token")
 }
 
-function openAuthWindow (mainWindow, protocolHandler) {
+function openAuthWindow(mainWindow, protocolHandler) {
   authWindow = new BrowserWindow({
     height: 650,
     width: 400,
@@ -51,7 +51,7 @@ function openAuthWindow (mainWindow, protocolHandler) {
     },
   })
 
-  const authURL = new URL(`${__API_URL__}/login/oauth/authorize`)
+  const authURL = new URL("/login/oauth/authorize")
 
   authWindow.webContents.loadURL(authURL.toString())
 
@@ -62,8 +62,8 @@ function openAuthWindow (mainWindow, protocolHandler) {
   })
 }
 
-async function fetchAccessToken (code) {
-  const accessTokenURL = `${__API_URL__}/login/oauth/access_token?code=${code}`
+async function fetchAccessToken(code) {
+  const accessTokenURL = `/login/oauth/access_token?code=${code}`
   const response = await axios.post(accessTokenURL, {
     "Content-Type": "application/json; charset=utf-8",
     Accept: "application/json",

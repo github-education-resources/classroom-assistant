@@ -41,7 +41,7 @@ export const settingsFetchUserFromKeychain = () => {
  */
 export const fetchUsername = async (token) => {
   try {
-    const response = await axios.get(`${__API_URL__}/api/internal/user?access_token=${token}`)
+    const response = await axios.get(`/api/internal/user?access_token=${token}`)
     if (response.data.username) {
       return response.data.username
     } else {

@@ -5,12 +5,12 @@
   "description": "Desktop helper for GitHub Classroom",
   "main": ".webpack/main",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "NODE_ENV=development electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --cache --color --ext .jsx,.js .",
-    "test-unit": "cross-env TEST_ENV=1 ELECTRON_NO_ATTACH_CONSOLE=1 xvfb-maybe --server-args='-screen 0 1024x768x24' --auto-servernum -- electron-mocha --renderer -t 15000 --require @babel/register --require ignore-styles --require ./test/setup 'app/**/*-test.js' --recursive",
+    "test-unit": "cross-env NODE_ENV=test TEST_ENV=1 ELECTRON_NO_ATTACH_CONSOLE=1 xvfb-maybe --server-args='-screen 0 1024x768x24' --auto-servernum -- electron-mocha NODE_ENV=test --renderer -t 15000 --require @babel/register --require ignore-styles --require ./test/setup 'app/**/*-test.js' --recursive",
     "test": "npm run lint && npm run test-unit"
   },
   "repository": {

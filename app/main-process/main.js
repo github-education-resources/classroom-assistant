@@ -5,6 +5,10 @@ const { URL } = require("url")
 const log = require("electron-log")
 const util = require("util")
 const exec = util.promisify(require("child_process").exec)
+const axios = require("axios")
+
+// Set the default URL
+axios.defaults.baseURL = __API_URL__
 
 // TODO: modern updater
 // const updater = require("./updater");

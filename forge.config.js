@@ -4,7 +4,8 @@ const appInfo = JSON.stringify({
   ga_id: process.env.GOOGLE_ANALYTICS_ID,
 })
 
-function getWindowsCertificatePassword () {
+// eslint-disable-next-line space-before-function-paren
+function getWindowsCertificatePassword() {
   if (process.env.KEY_PASSWORD) {
     return process.env.KEY_PASSWORD
   } else {
@@ -63,6 +64,15 @@ module.exports = {
       },
     },
   ],
+  github_repository: {
+    owner: "education",
+    name: "classroom-assistant"
+  },
+  prerelease: true,
+  windowsStoreConfig: {
+    packageName: "",
+    name: "classroom-assistant"
+  },
   hooks: {
     generateAssets: async () => {
       return new Promise((resolve, reject) =>
