@@ -1,4 +1,7 @@
 const rules = require("./webpack.rules")
+const webpack = require("webpack")
+const getReplacements = require("./app-info")
+const replacements = getReplacements()
 
 rules.push(
   {
@@ -58,15 +61,6 @@ module.exports = {
   module: {
     rules,
   },
-  // TODO: may not need this once webSecurity is solved
-  devServer: {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers":
-        "X-Requested-With, content-type, Authorization",
-    },
-  },
   node: {
     __dirname: true,
   },
@@ -74,4 +68,11 @@ module.exports = {
     extensions: [".js", ".jsx", ".css", ".scss", ".json"],
     modules: ["node_modules"],
   },
+  plugins: [
+    new webpack.DefinePlugin(
+      Object.assign({}, replacements, {
+        __PROCESS_KIND__: JSON.stringify("renderer"),
+      })
+    ),
+  ]
 }

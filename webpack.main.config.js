@@ -1,3 +1,7 @@
+const webpack = require("webpack")
+const getReplacements = require("./app-info")
+const replacements = getReplacements()
+
 module.exports = {
   /**
    * This is the main entry point for your application, it's the first file
@@ -10,4 +14,11 @@ module.exports = {
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".json"],
   },
+  plugins: [
+    new webpack.DefinePlugin(
+      Object.assign({}, replacements, {
+        __PROCESS_KIND__: JSON.stringify("main"),
+      })
+    ),
+  ]
 }

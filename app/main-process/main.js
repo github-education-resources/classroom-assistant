@@ -1,7 +1,6 @@
 /* eslint-env node */
 const electron = require("electron")
 const { app, BrowserWindow, ipcMain } = electron
-const isDev = require("electron-is-dev")
 const { URL } = require("url")
 const log = require("electron-log")
 const util = require("util")
@@ -37,14 +36,8 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 750,
-    // TODO: verify these two options can/should be removed
-    // titleBarStyle: "hidden",
-    // show: false,
     webPreferences: {
-      // TODO: we need a preload to access the config https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content
       nodeIntegration: true,
-      // TODO: this solves the CORS issue, but a more complete fix is needed https://www.electronjs.org/docs/tutorial/security#5-do-not-disable-websecurity
-      webSecurity: false,
     },
     minHeight: 300,
     minWidth: 300,
@@ -53,12 +46,12 @@ const createWindow = () => {
   // eslint-disable-next-line no-undef
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
-  if (isDev) {
+  if (__DEV__) {
     // TODO: this is temporary
     //  mainWindow.webContents.openDevTools();
   }
 
-  if (!isDev) {
+  if (!__DEV__) {
     // const msBetweenUpdates = 1000 * 60 * 30;
     // TODO: update to modern updater
     // updater.start(app, msBetweenUpdates);
@@ -145,7 +138,6 @@ app.on("open-url", async function (event, urlToOpen) {
       assignmentURL = urlParams.get("assignment_url")
     }
     if (app.isReady()) {
-      // TODO: Handle rejected promise
       await setAccessTokenFromCode(oauthCode, mainWindow)
       loadPopulatePage(assignmentURL)
     } else {
