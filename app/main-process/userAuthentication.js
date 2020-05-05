@@ -51,7 +51,7 @@ function openAuthWindow(mainWindow, protocolHandler) {
     },
   })
 
-  const authURL = new URL("/login/oauth/authorize")
+  const authURL = new URL(`${axios.defaults.baseURL}/login/oauth/authorize`)
 
   authWindow.webContents.loadURL(authURL.toString())
 
