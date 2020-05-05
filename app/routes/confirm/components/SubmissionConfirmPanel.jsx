@@ -1,10 +1,11 @@
 import { connect } from "react-redux"
 import EditItemPanel from "../../shared/components/EditItemPanel"
+import placeholder from "../../../resources/images/48x48.png"
 
 const mapStateToProps = (state) => {
   return {
     title: `${state.submissions.filter(each => each.selected).length}/${state.submissions.length}`,
-    imagePath: "https://placehold.it/48x48",
+    imagePath: { placeholder },
     subtitle: "Submissions Selected"
   }
 }
