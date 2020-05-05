@@ -14,6 +14,10 @@ import "./styles/routes.scss"
 import DevTools from "./routes/shared/components/DevTools"
 import reducer from "./modules/reducers"
 import Routes from "./routes"
+import axios from "axios"
+
+// Set the default URL
+axios.defaults.baseURL = __API_URL__
 
 const store = createStore(
   reducer,
