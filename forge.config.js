@@ -15,8 +15,20 @@ function getWindowsCertificatePassword() {
 
 module.exports = {
   packagerConfig: {
+    asar: false, // TODO: true for release
+    darwinDarkModeSupport: "true",
     packageManager: "npm",
-    osxSign: true,
+    osxSign: {
+      entitlements: "entitlements.plist",
+      "entitlements-inherit": "entitlements.plist",
+      "gatekeeper-assess": false,
+      hardenedRuntime: true,
+      identity: "Developer ID Application: GitHub (VEKTX9H2N7)"
+    },
+    osxNotarize: {
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_ID_PASSWORD
+    },
     executableName: "classroom-assistant",
     icon: "./app/resources/icon.icns",
     protocols: [
@@ -36,7 +48,7 @@ module.exports = {
         name: "classroom-assistant",
         title: "classroom-assistant",
         exe: "classroom-assistant.exe",
-        iconUrl: "./app/resources/icon.ico",
+        iconUrl: "https://raw.githubusercontent.com/education/classroom-assistant/master/app/resources/icon.ico",
         setupIcon: "./app/resources/icon.ico",
         loadingGif: "./app/resources/images/win32-installer-splash.gif",
         certificateFile: "./script/windows-certificate.pfx",

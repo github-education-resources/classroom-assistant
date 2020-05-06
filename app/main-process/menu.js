@@ -1,6 +1,6 @@
 /* eslint-env node */
 const { app, Menu } = require("electron")
-const isDev = require("electron-is-dev")
+const isDev = true // require("electron-is-dev")
 
 const defaultTemplate = [
   {
@@ -28,7 +28,7 @@ const defaultTemplate = [
     submenu: [
       {
         label: "Learn More",
-        click () { require("electron").shell.openExternal("https://github.com/education/classroom-assistant") }
+        click() { require("electron").shell.openExternal("https://github.com/education/classroom-assistant") }
       }
     ]
   }
@@ -67,14 +67,14 @@ const addDevOptions = () => {
       {
         label: "Reload",
         accelerator: "CmdOrCtrl+R",
-        click (item, focusedWindow) {
+        click(item, focusedWindow) {
           if (focusedWindow) focusedWindow.reload()
         }
       },
       {
         label: "Toggle Developer Tools",
         accelerator: process.platform === "darwin" ? "Alt+Command+I" : "Ctrl+Shift+I",
-        click (item, focusedWindow) {
+        click(item, focusedWindow) {
           if (focusedWindow) focusedWindow.webContents.toggleDevTools()
         }
       }

@@ -1,9 +1,5 @@
 module.exports = [
   {
-    test: /\.node$/,
-    use: "node-loader",
-  },
-  {
     test: /\.(m?js|node)$/,
     parser: { amd: false },
     use: {
@@ -11,13 +7,6 @@ module.exports = [
       options: {
         outputAssetBase: "native_modules",
       },
-    },
-  },
-  {
-    test: /\.(js|jsx)$/,
-    exclude: /node_modules/,
-    use: {
-      loader: "babel-loader",
     },
   },
 ]

@@ -1,6 +1,6 @@
 const s = JSON.stringify
 
-const isDev = process.env.NODE_ENV === "development"
+const isDev = false // process.env.NODE_ENV === "development"
 
 // eslint-disable-next-line space-before-function-paren
 module.exports = function getReplacements() {

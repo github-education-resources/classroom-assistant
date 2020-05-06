@@ -2,6 +2,8 @@ const rules = require("./webpack.rules")
 const webpack = require("webpack")
 const getReplacements = require("./app-info")
 const replacements = getReplacements()
+const CopyPlugin = require("copy-webpack-plugin")
+const PermissionsOutputPlugin = require("webpack-permissions-plugin")
 
 rules.push(
   {
@@ -33,7 +35,7 @@ rules.push(
   // Needed for font-awesome
   {
     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: "url-loader?limit=10000&mimetype=application/font-woff",
+    loader: "url-loader?limit=10000000&mimetype=application/font-woff",
   },
   {
     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -41,7 +43,8 @@ rules.push(
   },
   {
     test: /\.(png|jpg|gif)$/,
-    loader: "url-loader?limit=25000",
+    // loader: "file-loader",
+    loader: "url-loader?limit=1000000",
   },
   {
     test: /\.jsx$/,
@@ -62,7 +65,7 @@ module.exports = {
     rules,
   },
   node: {
-    __dirname: true,
+    __dirname: false,
   },
   resolve: {
     extensions: [".js", ".jsx", ".css", ".scss", ".json"],
@@ -74,5 +77,21 @@ module.exports = {
         __PROCESS_KIND__: JSON.stringify("renderer"),
       })
     ),
-  ]
+    new CopyPlugin([
+      { from: "node_modules/dugite/git", to: "../git" },
+    ]),
+    new PermissionsOutputPlugin({
+      buildFolders: [
+        ".webpack/git/bin",
+        ".webpack/git/libexec/git-core",
+        ".webpack/git/libexec/git-core/mergetools",
+      ],
+      buildFiles: [
+        {
+          path: ".webpack/git/bin/git",
+          fileMode: "755"
+        }
+      ]
+    }),
+  ],
 }
