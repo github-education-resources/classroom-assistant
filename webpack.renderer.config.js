@@ -78,20 +78,16 @@ module.exports = {
       })
     ),
     new CopyPlugin([
-      { from: "node_modules/dugite/git", to: "../git" },
+      { from: "node_modules/dugite/git/bin/git", to: "../git/bin/" },
+      { from: "node_modules/dugite/git/libexec/git-core/git", to: "../git/libexec/git-core/" },
+      { from: "node_modules/dugite/git/libexec/git-core/git-clone", to: "../git/libexec/git-core/" },
+      { from: "node_modules/dugite/git/libexec/git-core/git-remote-https", to: "../git/libexec/git-core/" },
     ]),
     new PermissionsOutputPlugin({
       buildFolders: [
         ".webpack/git/bin",
         ".webpack/git/libexec/git-core",
-        ".webpack/git/libexec/git-core/mergetools",
       ],
-      buildFiles: [
-        {
-          path: ".webpack/git/bin/git",
-          fileMode: "755"
-        }
-      ]
     }),
   ],
 }
