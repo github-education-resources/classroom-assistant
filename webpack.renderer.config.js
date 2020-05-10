@@ -1,9 +1,28 @@
+const fs = require("fs-extra")
+const path = require("path")
 const rules = require("./webpack.rules")
 const webpack = require("webpack")
 const getReplacements = require("./app-info")
 const replacements = getReplacements()
-const CopyPlugin = require("copy-webpack-plugin")
-const PermissionsOutputPlugin = require("webpack-permissions-plugin")
+
+const AfterDonePlugin = function (calllback) {
+  this.apply = function (compiler) {
+    const runAfter = () => {
+      calllback()
+    }
+
+    const webpackTap =
+      compiler.hooks &&
+      compiler.hooks.done &&
+      compiler.hooks.done.tap.bind(compiler.hooks.done)
+
+    if (webpackTap) {
+      webpackTap("WebpackAfterDonePlugin", runAfter)
+    } else {
+      compiler.plugin("done", runAfter)
+    }
+  }
+}
 
 rules.push(
   {
@@ -77,17 +96,11 @@ module.exports = {
         __PROCESS_KIND__: JSON.stringify("renderer"),
       })
     ),
-    new CopyPlugin([
-      { from: "node_modules/dugite/git/bin/git", to: "../git/bin/" },
-      { from: "node_modules/dugite/git/libexec/git-core/git", to: "../git/libexec/git-core/" },
-      { from: "node_modules/dugite/git/libexec/git-core/git-clone", to: "../git/libexec/git-core/" },
-      { from: "node_modules/dugite/git/libexec/git-core/git-remote-https", to: "../git/libexec/git-core/" },
-    ]),
-    new PermissionsOutputPlugin({
-      buildFolders: [
-        ".webpack/git/bin",
-        ".webpack/git/libexec/git-core",
-      ],
+    new AfterDonePlugin((logger) => {
+      const gitDir = ".webpack/git"
+      fs.removeSync(gitDir)
+      fs.mkdirpSync(gitDir)
+      fs.copySync(path.resolve(__dirname, "node_modules/dugite/git"), gitDir, { recursive: true })
     }),
   ],
 }
