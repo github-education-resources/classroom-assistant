@@ -10,7 +10,7 @@ const axios = require("axios")
 // Set the default URL
 axios.defaults.baseURL = __API_URL__
 
-// const updater = require("./updater")
+const updater = require("./updater")
 const { initLogger } = require("./logger")
 const {
   authorizeUser,

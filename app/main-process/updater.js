@@ -1,5 +1,4 @@
-import os from "os"
-
+const os = require("os")
 const electron = require("electron")
 const { autoUpdater, dialog } = electron
 const log = require("electron-log")
@@ -58,4 +57,4 @@ const updater = {
   }
 }
 
-export default updater
+module.exports = updater
