@@ -5,6 +5,8 @@ const webpack = require("webpack")
 const getReplacements = require("./app-info")
 const replacements = getReplacements()
 
+const isDev = process.env.NODE_ENV === "development"
+
 const AfterDonePlugin = function (calllback) {
   this.apply = function (compiler) {
     const runAfter = () => {
@@ -22,6 +24,23 @@ const AfterDonePlugin = function (calllback) {
       compiler.plugin("done", runAfter)
     }
   }
+}
+
+const plugins = [
+  new webpack.DefinePlugin(
+    Object.assign({}, replacements, {
+      __PROCESS_KIND__: JSON.stringify("renderer"),
+    })
+  ),
+]
+// In development we don't need to copy because we use the node_modules version of dugite
+if (!isDev) {
+  plugins.push(new AfterDonePlugin((logger) => {
+    const gitDir = ".webpack/git"
+    fs.removeSync(gitDir)
+    fs.mkdirpSync(gitDir)
+    fs.copySync(path.resolve(__dirname, "node_modules/dugite/git"), gitDir, { recursive: true })
+  }))
 }
 
 rules.push(
@@ -84,23 +103,11 @@ module.exports = {
     rules,
   },
   node: {
-    __dirname: false,
+    __dirname: isDev,
   },
   resolve: {
     extensions: [".js", ".jsx", ".css", ".scss", ".json"],
     modules: ["node_modules"],
   },
-  plugins: [
-    new webpack.DefinePlugin(
-      Object.assign({}, replacements, {
-        __PROCESS_KIND__: JSON.stringify("renderer"),
-      })
-    ),
-    new AfterDonePlugin((logger) => {
-      const gitDir = ".webpack/git"
-      fs.removeSync(gitDir)
-      fs.mkdirpSync(gitDir)
-      fs.copySync(path.resolve(__dirname, "node_modules/dugite/git"), gitDir, { recursive: true })
-    }),
-  ],
+  plugins: plugins,
 }

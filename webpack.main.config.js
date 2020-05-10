@@ -2,6 +2,8 @@ const webpack = require("webpack")
 const getReplacements = require("./app-info")
 const replacements = getReplacements()
 
+const isDev = process.env.NODE_ENV === "development"
+
 module.exports = {
   /**
    * This is the main entry point for your application, it's the first file
@@ -12,7 +14,7 @@ module.exports = {
     rules: require("./webpack.rules"),
   },
   node: {
-    __dirname: false
+    __dirname: isDev
   },
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".json"],
