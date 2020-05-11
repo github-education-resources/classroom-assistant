@@ -170,7 +170,7 @@ app.on("window-all-closed", function () {
     app.quit()
   }
 })
-2
+
 app.on("activate", function () {
   console.log("ACTIVATE")
   if (mainWindow === null) {
