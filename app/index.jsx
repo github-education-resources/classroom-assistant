@@ -35,6 +35,7 @@ if (isDev) {
 }
 
 const render = () => {
+  console.log("RENDER v2.0.0-beta")
   ReactDOM.render(
     <Provider store={store}>
       <div>

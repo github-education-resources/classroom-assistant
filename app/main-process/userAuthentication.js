@@ -44,7 +44,7 @@ function openAuthWindow(mainWindow, protocolHandler) {
 
   // Account for the invertocat that shows on windows
   if (__WIN32__) {
-    height = 770
+    height = 780
   }
   authWindow = new BrowserWindow({
     height: height,
