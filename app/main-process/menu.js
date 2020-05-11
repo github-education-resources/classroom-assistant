@@ -1,6 +1,6 @@
 /* eslint-env node */
 const { app, Menu } = require("electron")
-const isDev = true // require("electron-is-dev")
+const isDev = require("electron-is-dev")
 
 const defaultTemplate = [
   {

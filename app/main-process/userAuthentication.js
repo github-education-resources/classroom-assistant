@@ -40,12 +40,8 @@ export async function deleteAccessToken() {
 }
 
 function openAuthWindow(mainWindow, protocolHandler) {
-  let height = 650
+  const height = 650
 
-  // Account for the invertocat that shows on windows
-  if (__WIN32__) {
-    height = 780
-  }
   authWindow = new BrowserWindow({
     height: height,
     width: 400,

@@ -64,8 +64,6 @@ const createWindow = () => {
   })
 
   ipcMain.on("initialized", async () => {
-    console.log("INITIALIZED")
-
     if (loadOnReady != null) {
       // If open-url event was fired before app was ready
       await setAccessTokenFromCode(loadOnReady.code, mainWindow)
@@ -106,7 +104,6 @@ const setInstanceProtocolHandler = async () => {
 }
 
 app.on("open-url", async function (event, urlToOpen) {
-  console.log("OPEN-URL")
   if (event) {
     event.preventDefault()
   }
@@ -135,18 +132,15 @@ app.on("open-url", async function (event, urlToOpen) {
 })
 
 app.on("ready", async () => {
-  console.log("READY")
   await setInstanceProtocolHandler()
 
   const gotTheLock = app.requestSingleInstanceLock()
   if (!gotTheLock) {
-    console.log("NO LOCK QUITTING")
     app.quit()
     return
   }
 
   app.on("second-instance", (event, argv, cwd) => {
-    console.log("SECOND-INSTANCE")
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore()
       mainWindow.focus()
@@ -172,9 +166,7 @@ app.on("window-all-closed", function () {
 })
 
 app.on("activate", function () {
-  console.log("ACTIVATE")
   if (mainWindow === null) {
-    console.log("ACTIVATE CREATE WINDOW")
     createWindow()
   }
 })
