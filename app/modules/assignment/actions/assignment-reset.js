@@ -1,4 +1,4 @@
-import {ASSIGNMENT_RESET} from "../constants"
+import { ASSIGNMENT_RESET } from "../constants"
 
 export const assignmentReset = () => {
   return {

@@ -7,7 +7,11 @@ const showPickDestinationDialog = () => {
   return new Promise((resolve, reject) => {
     return dialog.showOpenDialog({
       properties: ["openDirectory"]
-    }, (paths) => {
+    }).then((openDialogResult) => {
+      if (openDialogResult.canceled) {
+        resolve(null)
+      }
+      const paths = openDialogResult.filePaths
       if (paths !== undefined) {
         resolve(paths[0])
       } else {

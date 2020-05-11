@@ -5,7 +5,7 @@ import {
   PAGINATION_RESET, PAGINATION_SET_NEXT_PAGE, PAGINATION_RECEIVE_PAGE,
 } from "../../constants"
 
-const assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+const assignmentURL = "https://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
 const initialPaginationState = {
   assignmentURL: "",

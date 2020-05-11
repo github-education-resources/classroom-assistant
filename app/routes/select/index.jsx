@@ -7,11 +7,11 @@ import NavFooter from "../shared/components/NavFooter"
 import LoadingPanel from "../shared/components/LoadingPanel"
 import SubmissionList from "./components/SubmissionList"
 
-import {fetchAllPages} from "../../modules/pagination/actions/pagination-fetch-all"
-import {submissionReset} from "../../modules/submissions/actions/submission-reset"
-import {paginationReset} from "../../modules/pagination/actions/pagination-reset"
-import {url} from "../../modules/assignment/selectors"
-import {fetching, outOfDate} from "../../modules/pagination/selectors"
+import { fetchAllPages } from "../../modules/pagination/actions/pagination-fetch-all"
+import { submissionReset } from "../../modules/submissions/actions/submission-reset"
+import { paginationReset } from "../../modules/pagination/actions/pagination-reset"
+import { url } from "../../modules/assignment/selectors"
+import { fetching, outOfDate } from "../../modules/pagination/selectors"
 import { all } from "../../modules/submissions/selectors"
 
 class SelectPage extends Component {

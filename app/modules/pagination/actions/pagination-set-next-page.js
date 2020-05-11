@@ -1,4 +1,4 @@
-import {PAGINATION_SET_NEXT_PAGE} from "../constants"
+import { PAGINATION_SET_NEXT_PAGE } from "../constants"
 
 export const paginationSetNextPage = (nextPage = null) => {
   return {

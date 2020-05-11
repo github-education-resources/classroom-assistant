@@ -9,9 +9,9 @@ const initialState = {
 const settings = (state = initialState, action) => {
   switch (action.type) {
   case SETTINGS_CHANGE_CLONE_DESTINATION:
-    return Object.assign({}, state, {cloneDestination: action.destination})
+    return Object.assign({}, state, { cloneDestination: action.destination })
   case SETTINGS_SET_USERNAME:
-    return Object.assign({}, state, {username: action.payload})
+    return Object.assign({}, state, { username: action.payload })
   default:
     return state
   }

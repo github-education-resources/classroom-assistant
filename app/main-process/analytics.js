@@ -8,7 +8,7 @@ const fetchGAUser = () => {
   let gaID
   try {
     const appInfo = require("../app-info.json")
-    gaID = appInfo["ga_id"]
+    gaID = appInfo.ga_id
   } catch (e) {
     log.warn("Google Analytics ID not found, not tracking any events.")
     return null
@@ -29,12 +29,14 @@ export const trackEvent = (category, action, label = null, value = null) => {
     return
   }
 
-  usr.event({
-    ec: category,
-    ea: action,
-    el: label,
-    ev: value,
-  }).send()
+  usr
+    .event({
+      ec: category,
+      ea: action,
+      el: label,
+      ev: value,
+    })
+    .send()
 }
 
 export const trackException = (description, fatal = false) => {

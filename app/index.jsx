@@ -7,17 +7,22 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import isDev from "electron-is-dev"
 
+import "font-awesome/css/font-awesome.css"
+import "bootstrap/dist/css/bootstrap.css"
+import "./styles/routes.scss"
+
 import DevTools from "./routes/shared/components/DevTools"
 import reducer from "./modules/reducers"
 import Routes from "./routes"
+import axios from "axios"
+
+// Set the default URL
+axios.defaults.baseURL = __API_URL__
 
 const store = createStore(
   reducer,
   compose(
-    applyMiddleware(
-      thunk,
-      routerMiddleware(hashHistory)
-    ),
+    applyMiddleware(thunk, routerMiddleware(hashHistory)),
     DevTools.instrument()
   )
 )
@@ -36,8 +41,9 @@ const render = () => {
         <Routes history={history} />
         {devToolsInstance}
       </div>
-    </Provider>
-    , document.getElementById("app"))
+    </Provider>,
+    document.getElementById("app")
+  )
 }
 
 store.subscribe(render)

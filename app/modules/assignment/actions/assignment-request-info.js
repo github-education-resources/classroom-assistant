@@ -1,4 +1,4 @@
-import {ASSIGNMENT_REQUEST_INFO} from "../constants"
+import { ASSIGNMENT_REQUEST_INFO } from "../constants"
 
 export const requestInfo = () => {
   return {

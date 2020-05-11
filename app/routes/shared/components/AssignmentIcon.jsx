@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import {PersonIcon, OrganizationIcon} from "react-octicons"
+import { PersonIcon, OrganizationIcon } from "react-octicons"
 
 const IndividualIcon = (dark) => {
   return (

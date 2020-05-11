@@ -1,4 +1,4 @@
-import {ipcRenderer} from "electron"
+import { ipcRenderer } from "electron"
 import { settingsFetchUserFromKeychain } from "./settings-fetch-user-from-keychain"
 
 /**

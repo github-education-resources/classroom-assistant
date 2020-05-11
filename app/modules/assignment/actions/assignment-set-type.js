@@ -1,4 +1,4 @@
-import {ASSIGNMENT_SET_TYPE} from "../constants"
+import { ASSIGNMENT_SET_TYPE } from "../constants"
 
 export const setAssignmentType = (type) => {
   return {

@@ -1,4 +1,4 @@
-import {PAGINATION_RECEIVE_PAGE} from "../constants"
+import { PAGINATION_RECEIVE_PAGE } from "../constants"
 
 export const paginationReceivePage = (data) => {
   return {

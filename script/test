@@ -1,5 +1,5 @@
 #!/bin/sh
-# Usage: script/server
+# Usage: script/test
 
 set -e
 

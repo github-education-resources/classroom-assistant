@@ -1,4 +1,4 @@
-import {SUBMISSION_SET_CLONE_STATUS} from "../constants"
+import { SUBMISSION_SET_CLONE_STATUS } from "../constants"
 
 export const submissionSetCloneStatus = (id, cloneStatus) => {
   return {

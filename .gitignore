@@ -6,3 +6,4 @@ out/*
 .DS_Store
 .eslintcache
 app/app-info.json
+.webpack

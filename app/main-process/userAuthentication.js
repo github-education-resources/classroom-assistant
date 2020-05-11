@@ -1,17 +1,17 @@
 import axios from "axios"
 import keytar from "keytar"
-import {BrowserWindow, session} from "electron"
+import { BrowserWindow, session } from "electron"
 
 const { URL } = require("url")
-const {trackEvent} = require("./analytics")
+const { trackEvent } = require("./analytics")
 
 let authWindow
 
-export function authorizeUser (mainWindowRef, protocolHandler) {
+export function authorizeUser(mainWindowRef, protocolHandler) {
   openAuthWindow(mainWindowRef, protocolHandler)
 }
 
-export async function setAccessTokenFromCode (code, mainWindow) {
+export async function setAccessTokenFromCode(code, mainWindow) {
   if (authWindow) {
     authWindow.destroy()
   }
@@ -27,18 +27,23 @@ export async function setAccessTokenFromCode (code, mainWindow) {
   }
 }
 
-export async function loadAccessToken () {
-  global.accessToken = await keytar.getPassword("Classroom-Assistant", "x-access-token")
+export async function loadAccessToken() {
+  global.accessToken = await keytar.getPassword(
+    "Classroom-Assistant",
+    "x-access-token"
+  )
 }
 
-export async function deleteAccessToken () {
+export async function deleteAccessToken() {
   global.accessToken = null
   await keytar.deletePassword("Classroom-Assistant", "x-access-token")
 }
 
-function openAuthWindow (mainWindow, protocolHandler) {
+function openAuthWindow(mainWindow, protocolHandler) {
+  const height = 650
+
   authWindow = new BrowserWindow({
-    height: 650,
+    height: height,
     width: 400,
     show: false,
     parent: mainWindow,
@@ -48,7 +53,7 @@ function openAuthWindow (mainWindow, protocolHandler) {
     },
   })
 
-  const authURL = new URL("http://classroom.github.com/login/oauth/authorize")
+  const authURL = new URL(`${axios.defaults.baseURL}/login/oauth/authorize`)
 
   authWindow.webContents.loadURL(authURL.toString())
 
@@ -59,11 +64,11 @@ function openAuthWindow (mainWindow, protocolHandler) {
   })
 }
 
-async function fetchAccessToken (code) {
-  const accessTokenURL = `http://classroom.github.com/login/oauth/access_token?code=${code}`
+async function fetchAccessToken(code) {
+  const accessTokenURL = `/login/oauth/access_token?code=${code}`
   const response = await axios.post(accessTokenURL, {
     "Content-Type": "application/json; charset=utf-8",
-    "Accept": "application/json",
+    Accept: "application/json",
   })
   return response.data.access_token
 }

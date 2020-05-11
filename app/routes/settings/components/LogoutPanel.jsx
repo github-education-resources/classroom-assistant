@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import PropTypes from "prop-types"
 import EditItemPanel from "../../shared/components/EditItemPanel"
-import {settingsLogoutUser} from "../../../modules/settings/actions/settings-logout-user"
+import { settingsLogoutUser } from "../../../modules/settings/actions/settings-logout-user"
 
 const LogoutPanel = ({
   username,

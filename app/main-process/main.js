@@ -1,19 +1,25 @@
 /* eslint-env node */
 const electron = require("electron")
-const {app, BrowserWindow, ipcMain} = electron
-const isDev = require("electron-is-dev")
+const { app, BrowserWindow, ipcMain } = electron
 const { URL } = require("url")
 const log = require("electron-log")
 const util = require("util")
-const path = require("path")
 const exec = util.promisify(require("child_process").exec)
-const url = require("url")
+const axios = require("axios")
+
+// Set the default URL
+axios.defaults.baseURL = __API_URL__
 
 const updater = require("./updater")
-const {initLogger} = require("./logger")
-const {authorizeUser, setAccessTokenFromCode, loadAccessToken, deleteAccessToken} = require("./userAuthentication")
-const {generateMenu} = require("./menu")
-const {moveToApplicationsFolder} = require("./letsMove")
+const { initLogger } = require("./logger")
+const {
+  authorizeUser,
+  setAccessTokenFromCode,
+  loadAccessToken,
+  deleteAccessToken,
+} = require("./userAuthentication")
+const { generateMenu } = require("./menu")
+const { moveToApplicationsFolder } = require("./letsMove")
 
 let mainWindow
 let loadOnReady = null
@@ -30,19 +36,25 @@ const createWindow = () => {
   // Set window toolbar options
   generateMenu()
 
-  mainWindow = new BrowserWindow({width: 1200, height: 750, titleBarStyle: "hidden", show: false, minHeight: 300, minWidth: 300})
+  mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 750,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+    minHeight: 300,
+    minWidth: 300,
+  })
 
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, "../index.html"),
-    protocol: "file:",
-    slashes: true
-  }))
+  // eslint-disable-next-line no-undef
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
-  if (isDev) {
+  if (__DEV__) {
     mainWindow.webContents.openDevTools()
   }
 
-  if (!isDev) {
+  if (!__DEV__) {
     const msBetweenUpdates = 1000 * 60 * 30
     updater.start(app, msBetweenUpdates)
   }
@@ -89,20 +101,6 @@ const setInstanceProtocolHandler = async () => {
   } else {
     app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
   }
-
-  return app.makeSingleInstance((argv) => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore()
-      mainWindow.focus()
-
-      if (process.platform === "win32" || process.platform === "linux") {
-        const url = argv.find(function (arg) {
-          return /^x-github-classroom:\/\//.test(arg)
-        })
-        if (url) app.emit("open-url", null, url)
-      }
-    }
-  })
 }
 
 app.on("open-url", async function (event, urlToOpen) {
@@ -122,22 +120,39 @@ app.on("open-url", async function (event, urlToOpen) {
       assignmentURL = urlParams.get("assignment_url")
     }
     if (app.isReady()) {
-      // TODO: Handle rejected promise
       await setAccessTokenFromCode(oauthCode, mainWindow)
       loadPopulatePage(assignmentURL)
     } else {
       loadOnReady = {
         assignmentURL: assignmentURL,
-        code: oauthCode
+        code: oauthCode,
       }
     }
   }
 })
 
 app.on("ready", async () => {
-  const anotherInstanceRunning = await setInstanceProtocolHandler()
+  await setInstanceProtocolHandler()
 
-  if (anotherInstanceRunning) app.quit()
+  const gotTheLock = app.requestSingleInstanceLock()
+  if (!gotTheLock) {
+    app.quit()
+    return
+  }
+
+  app.on("second-instance", (event, argv, cwd) => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+
+      if (process.platform === "win32" || process.platform === "linux") {
+        const url = argv.find(function (arg) {
+          return /^x-github-classroom:\/\//.test(arg)
+        })
+        if (url) app.emit("open-url", null, url)
+      }
+    }
+  })
 
   moveToApplicationsFolder()
   loadAccessToken()
