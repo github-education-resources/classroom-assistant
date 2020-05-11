@@ -54,16 +54,18 @@ const createWindow = () => {
     mainWindow.webContents.openDevTools()
   }
 
-  // if (!__DEV__) {
-  //   const msBetweenUpdates = 1000 * 60 * 30
-  //   updater.start(app, msBetweenUpdates)
-  // }
+  if (!__DEV__) {
+    const msBetweenUpdates = 1000 * 60 * 30
+    updater.start(app, msBetweenUpdates)
+  }
 
   mainWindow.on("closed", function () {
     mainWindow = null
   })
 
   ipcMain.on("initialized", async () => {
+    console.log("INITIALIZED")
+
     if (loadOnReady != null) {
       // If open-url event was fired before app was ready
       await setAccessTokenFromCode(loadOnReady.code, mainWindow)
@@ -101,25 +103,10 @@ const setInstanceProtocolHandler = async () => {
   } else {
     app.setAsDefaultProtocolClient(DEFAULT_PROTOCOL_HANDLER)
   }
-
-  app.requestSingleInstanceLock()
-
-  app.on("second-instance", (event, argv, cwd) => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore()
-      mainWindow.focus()
-
-      if (process.platform === "win32" || process.platform === "linux") {
-        const url = argv.find(function (arg) {
-          return /^x-github-classroom:\/\//.test(arg)
-        })
-        if (url) app.emit("open-url", null, url)
-      }
-    }
-  })
 }
 
 app.on("open-url", async function (event, urlToOpen) {
+  console.log("OPEN-URL")
   if (event) {
     event.preventDefault()
   }
@@ -148,9 +135,30 @@ app.on("open-url", async function (event, urlToOpen) {
 })
 
 app.on("ready", async () => {
-  const anotherInstanceRunning = await setInstanceProtocolHandler()
+  console.log("READY")
+  await setInstanceProtocolHandler()
 
-  if (anotherInstanceRunning) app.quit()
+  const gotTheLock = app.requestSingleInstanceLock()
+  if (!gotTheLock) {
+    console.log("NO LOCK QUITTING")
+    app.quit()
+    return
+  }
+
+  app.on("second-instance", (event, argv, cwd) => {
+    console.log("SECOND-INSTANCE")
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+
+      if (process.platform === "win32" || process.platform === "linux") {
+        const url = argv.find(function (arg) {
+          return /^x-github-classroom:\/\//.test(arg)
+        })
+        if (url) app.emit("open-url", null, url)
+      }
+    }
+  })
 
   moveToApplicationsFolder()
   loadAccessToken()
@@ -162,9 +170,11 @@ app.on("window-all-closed", function () {
     app.quit()
   }
 })
-
+2
 app.on("activate", function () {
+  console.log("ACTIVATE")
   if (mainWindow === null) {
+    console.log("ACTIVATE CREATE WINDOW")
     createWindow()
   }
 })

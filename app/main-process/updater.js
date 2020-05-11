@@ -31,6 +31,7 @@ const updater = {
       })
 
       autoUpdater.on("update-downloaded", (releaseNotes, releaseName) => {
+        console.log("UPDATE DOWNLOADED")
         log.info("Application update downloaded")
 
         const updateDialogOpts = {
