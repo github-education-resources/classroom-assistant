@@ -1,5 +1,5 @@
-import {setAssignmentURL} from "./assignment-set-url"
-import {errorInfo} from "./assignment-error-info"
+import { setAssignmentURL } from "./assignment-set-url"
+import { errorInfo } from "./assignment-error-info"
 
 /**
  * Verifies assignment URL to ensure we only redirect to the Classroom API
@@ -31,9 +31,9 @@ const parseAssignmentURL = (url) => {
   const pathComponents = urlObj.pathname.substr(1).split("/")
   if (pathComponents.length === 4) {
     return {
-      "classroomTitle": verifyTitle(pathComponents[1]),
-      "assignmentType": verifyAssignmentType(pathComponents[2]),
-      "assignmentTitle": verifyTitle(pathComponents[3])
+      classroomTitle: verifyTitle(pathComponents[1]),
+      assignmentType: verifyAssignmentType(pathComponents[2]),
+      assignmentTitle: verifyTitle(pathComponents[3])
     }
   } else {
     throw new Error("Path arguments malformed")
