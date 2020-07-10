@@ -6,14 +6,14 @@ import classNames from "classnames"
 import AssignmentCard from "./components/AssignmentCard"
 import LoadingPanel from "../shared/components/LoadingPanel"
 
-import {assignmentFetchInfo} from "../../modules/assignment/actions/assignment-fetch-info"
-import {setAssignmentURL} from "../../modules/assignment/actions/assignment-set-url"
-import {settingsLoginUser} from "../../modules/settings/actions/settings-login-user"
-import {url, error, valid, name, typeLabel, fetching, all} from "../../modules/assignment/selectors"
-import {userAuthorized} from "../../modules/settings/selectors"
+import { assignmentFetchInfo } from "../../modules/assignment/actions/assignment-fetch-info"
+import { setAssignmentURL } from "../../modules/assignment/actions/assignment-set-url"
+import { settingsLoginUser } from "../../modules/settings/actions/settings-login-user"
+import { url, error, valid, name, typeLabel, fetching, all } from "../../modules/assignment/selectors"
+import { userAuthorized } from "../../modules/settings/selectors"
 import ClassroomPanel from "../shared/containers/ClassroomPanel"
 
-const placeholderURL = "http://classroom.github.com/classrooms/your-org/assignments/your-assignment"
+const placeholderURL = "https://classroom.github.com/classrooms/your-org/assignments/your-assignment"
 
 class PopulatePage extends Component {
   constructor (props) {
@@ -33,7 +33,7 @@ class PopulatePage extends Component {
   }
 
   render () {
-    const inputClasses = classNames("form-control", {"is-invalid": this.props.error})
+    const inputClasses = classNames("form-control", { "is-invalid": this.props.error })
 
     return (
       <div className="container-fluid">

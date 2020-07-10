@@ -1,10 +1,10 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
 import nock from "nock"
-import {remote} from "electron"
+import { remote } from "electron"
 
 import { assignmentFetchInfo } from "../assignment-fetch-info"
-import {ASSIGNMENT_ERROR_INFO, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO} from "../../constants"
+import { ASSIGNMENT_ERROR_INFO, ASSIGNMENT_REQUEST_INFO, ASSIGNMENT_RECEIVE_INFO } from "../../constants"
 
 const ACCESS_TOKEN = "token"
 
@@ -22,7 +22,7 @@ describe("assignmentFetchInfo", () => {
   const validAssignment = {
     title: "Test Assignment",
     type: "individual",
-    url: "http://classroom.github.com/assignments/a1",
+    url: "https://classroom.github.com/assignments/a1",
     isFetching: false,
     error: null,
   }
@@ -34,7 +34,7 @@ describe("assignmentFetchInfo", () => {
   beforeEach(() => {
     dispatch = sinon.spy()
 
-    assignmentStub = nock("http://classroom.github.com")
+    assignmentStub = nock("https://classroom.github.com")
       .get("/api/internal/assignments/a1")
       .query({ access_token: ACCESS_TOKEN })
 

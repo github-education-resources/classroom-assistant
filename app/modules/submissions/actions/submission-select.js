@@ -1,4 +1,4 @@
-import {SUBMISSION_SELECT} from "../constants"
+import { SUBMISSION_SELECT } from "../constants"
 
 export const submissionSelect = (id) => {
   return {

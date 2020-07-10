@@ -7,7 +7,7 @@ import Footer from "./Footer"
 
 const linkElement = (id, obj, className) => {
   return (
-    <Link to={{pathname: obj.route, state: {params: obj.params}}} key={id}>
+    <Link to={{ pathname: obj.route, state: { params: obj.params } }} key={id}>
       <button onClick={obj.onClick}
         className={className}
         disabled={obj.disabled}

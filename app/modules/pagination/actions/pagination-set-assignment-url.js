@@ -1,4 +1,4 @@
-import {PAGINATION_SET_ASSIGNMENT_URL} from "../constants"
+import { PAGINATION_SET_ASSIGNMENT_URL } from "../constants"
 
 export const paginationSetAssignmentURL = (url) => {
   return {

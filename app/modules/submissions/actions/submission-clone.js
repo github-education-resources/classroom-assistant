@@ -16,7 +16,7 @@ import {
   SUBMISSION_CLONE_GIT_ERROR
 } from "../constants"
 
-const {trackEvent} = require("../../../main-process/analytics")
+const { trackEvent } = require("../../../main-process/analytics")
 
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update
@@ -25,7 +25,7 @@ const {trackEvent} = require("../../../main-process/analytics")
 export const submissionCloneFunc = (clone) => {
   return (submissionProps, cloneDirectory) => {
     return async (dispatch, getState) => {
-      const submissionAuthorUsername = submissionProps.username
+      const submissionAuthorUsername = submissionProps.rosterIdentifier || submissionProps.username
 
       // Sets to null if password cannot be found
       // TODO: Add specific error message/ask for reauthorization if clone
@@ -33,7 +33,6 @@ export const submissionCloneFunc = (clone) => {
       const accessToken = remote.getGlobal("accessToken")
 
       const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
-
       if (!destination) {
         dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_PATH_ERROR))
 

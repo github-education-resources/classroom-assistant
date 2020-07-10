@@ -1,8 +1,8 @@
 import { expect } from "chai"
 import * as sinon from "sinon"
 
-import {settingsLoginUser} from "../settings-login-user"
-import {settingsFetchUserFromKeychain} from "../settings-fetch-user-from-keychain"
+import { settingsLoginUser } from "../settings-login-user"
+import { settingsFetchUserFromKeychain } from "../settings-fetch-user-from-keychain"
 
 describe("settingsLoginUser", () => {
   let dispatch, ipcRenderer, sendStub, onStub

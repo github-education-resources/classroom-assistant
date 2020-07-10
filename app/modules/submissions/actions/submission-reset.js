@@ -1,4 +1,4 @@
-import {SUBMISSION_RESET} from "../constants"
+import { SUBMISSION_RESET } from "../constants"
 
 export const submissionReset = () => {
   return {

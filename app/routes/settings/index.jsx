@@ -7,7 +7,7 @@ import NavFooter from "../shared/components/NavFooter"
 import EditDestinationPanel from "../shared/containers/EditDestinationPanel"
 import LogoutPanel from "./components/LogoutPanel"
 import LoginPanel from "./components/LoginPanel"
-import {username} from "../../modules/settings/selectors"
+import { username } from "../../modules/settings/selectors"
 
 const methods = {
   componentDidMount (props) {

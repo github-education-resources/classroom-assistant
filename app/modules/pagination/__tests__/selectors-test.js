@@ -3,7 +3,7 @@ import { expect } from "chai"
 import { nextPage, outOfDate, fetching } from "../selectors"
 
 describe("pagination selectors", () => {
-  const assignmentURL = "http://classroom.github.com/classrooms/test-org/assignments/test-assignment"
+  const assignmentURL = "https://classroom.github.com/classrooms/test-org/assignments/test-assignment"
 
   const initialPaginationState = {
     assignmentURL: "",

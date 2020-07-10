@@ -1,4 +1,4 @@
-import {SUBMISSION_SET_CLONE_PROGRESS} from "../constants"
+import { SUBMISSION_SET_CLONE_PROGRESS } from "../constants"
 
 export const submissionSetCloneProgress = (id, cloneProgress) => {
   if (cloneProgress < 0) {

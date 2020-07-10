@@ -17,9 +17,9 @@ describe("Keychain User Lookup Tests", () => {
     dispatch = sinon.spy()
     sinon.stub(remote, "getGlobal").returns(ACCESS_TOKEN)
 
-    cloneURLMock = nock("http://classroom.github.com")
+    cloneURLMock = nock("https://classroom.github.com")
       .get("/api/internal/user")
-      .query({access_token: ACCESS_TOKEN})
+      .query({ access_token: ACCESS_TOKEN })
   })
 
   afterEach(() => {

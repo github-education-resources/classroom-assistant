@@ -1,6 +1,17 @@
 {
   "presets": [
-    ["env", { "targets": { "electron": "1.8.4" } }],
-    "react"
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true,
+          "electron": 8
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-react-jsx"
   ]
 }

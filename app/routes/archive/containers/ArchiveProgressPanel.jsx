@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import ProgressBar from "../../shared/components/ProgressBar"
 
-const ArchiveProgressPanel = ({progress}) => {
+const ArchiveProgressPanel = ({ progress }) => {
   let progressElement
   if (progress < 0) {
     progressElement = (

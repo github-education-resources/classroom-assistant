@@ -1,4 +1,4 @@
-import {ASSIGNMENT_SET_URL} from "../constants"
+import { ASSIGNMENT_SET_URL } from "../constants"
 
 export const setAssignmentURL = (url) => {
   return {

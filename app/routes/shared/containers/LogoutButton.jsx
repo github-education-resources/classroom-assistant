@@ -3,19 +3,19 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
 import { userAuthorized, username } from "../../../modules/settings/selectors"
-import {settingsLogoutUser} from "../../../modules/settings/actions/settings-logout-user"
+import { settingsLogoutUser } from "../../../modules/settings/actions/settings-logout-user"
 
 import { push } from "react-router-redux"
 
 class LogoutButton extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {toggled: false}
+    this.state = { toggled: false }
     this.toggleState = this.toggleState.bind(this)
   }
 
   toggleState () {
-    this.setState({toggled: !this.state.toggled})
+    this.setState({ toggled: !this.state.toggled })
   }
 
   render () {

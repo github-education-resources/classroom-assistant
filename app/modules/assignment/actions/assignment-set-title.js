@@ -1,4 +1,4 @@
-import {ASSIGNMENT_SET_TITLE} from "../constants"
+import { ASSIGNMENT_SET_TITLE } from "../constants"
 
 export const setAssignmentTitle = (title) => {
   return {

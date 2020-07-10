@@ -1,14 +1,13 @@
-import os from "os"
-
+const os = require("os")
 const electron = require("electron")
-const {autoUpdater, dialog} = electron
+const { autoUpdater, dialog } = electron
 const log = require("electron-log")
 
 // Internal: URL of the update metadata server -
 //    an instance of Aluxian/squirrel-updates-server
-const UPDATES_SERVER_URL = "http://classroom.github.com/assistant"
+const UPDATES_SERVER_URL = "https://classroom.github.com/assistant"
 
-module.exports = {
+const updater = {
 
   // Public: start listening for autoupdates from Squirrel update server.
   //
@@ -19,7 +18,7 @@ module.exports = {
   //                      the error oject as an argument.
   //
   // Returns noting.
-  start (app, interval) {
+  start(app, interval) {
     log.info("starting auto-updater")
     const platform = os.platform() + "_" + os.arch()
 
@@ -57,3 +56,5 @@ module.exports = {
     }
   }
 }
+
+module.exports = updater

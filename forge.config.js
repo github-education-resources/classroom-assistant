@@ -1,12 +1,11 @@
 const fs = require("fs-extra")
 
-const s = JSON.stringify
-
-const appInfo = s({
-  ga_id: process.env.GOOGLE_ANALYTICS_ID
+const appInfo = JSON.stringify({
+  ga_id: process.env.GOOGLE_ANALYTICS_ID,
 })
 
-function getWindowsCertificatePassword () {
+// eslint-disable-next-line space-before-function-paren
+function getWindowsCertificatePassword() {
   if (process.env.KEY_PASSWORD) {
     return process.env.KEY_PASSWORD
   } else {
@@ -15,62 +14,80 @@ function getWindowsCertificatePassword () {
 }
 
 module.exports = {
-  // other config here
-  make_targets: {
-    win32: [
-      "squirrel"
-    ],
-    darwin: [
-      "zip"
-    ],
-    linux: [
-      "deb",
-      "rpm"
-    ]
-  },
-  electronPackagerConfig: {
+  packagerConfig: {
+    asar: false, // TODO: true for release
+    darwinDarkModeSupport: "true",
     packageManager: "npm",
-    osxSign: true,
+    osxSign: {
+      entitlements: "entitlements.plist",
+      "entitlements-inherit": "entitlements.plist",
+      "gatekeeper-assess": false,
+      hardenedRuntime: true,
+      identity: "Developer ID Application: GitHub (VEKTX9H2N7)"
+    },
+    osxNotarize: {
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_ID_PASSWORD
+    },
     executableName: "classroom-assistant",
     icon: "./app/resources/icon.icns",
     protocols: [
       {
         name: "Classroom Assistant",
-        schemes: [
-          "x-github-classroom"
-        ]
+        schemes: ["x-github-classroom"],
+      },
+    ],
+  },
+  makers: [
+    {
+      name: "@electron-forge/maker-zip",
+    },
+    {
+      name: "@electron-forge/maker-squirrel",
+      config: {
+        name: "classroom-assistant",
+        title: "classroom-assistant",
+        exe: "classroom-assistant.exe",
+        iconUrl: "https://raw.githubusercontent.com/education/classroom-assistant/master/app/resources/icon.ico",
+        setupIcon: "./app/resources/icon.ico",
+        loadingGif: "./app/resources/images/win32-installer-splash.gif",
+        certificateFile: "./script/windows-certificate.pfx",
+        certificatePassword: getWindowsCertificatePassword(),
+      },
+    },
+    {
+      name: "@electron-forge/maker-deb",
+      config: {
+        options: {
+          icon: "./app/resources/images/classroom-logo.png",
+          categories: ["Education"],
+          homepage: "https://classroom.github.com/assistant",
+        },
+      },
+    },
+    {
+      name: "@electron-forge/maker-rpm",
+      config: {
+        options: {
+          icon: "./app/resources/images/classroom-logo.png",
+          categories: ["Education"],
+          homepage: "https://classroom.github.com/assistant",
+        },
+      },
+    },
+  ],
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "education",
+          name: "classroom-assistant"
+        },
+        prerelease: true
       }
-    ]
-  },
-  electronWinstallerConfig: {
-    name: "classroom-assistant",
-    title: "classroom-assistant",
-    exe: "classroom-assistant.exe",
-    icon: "./app/resources/icon.ico",
-    setupIcon: "./app/resources/icon.ico",
-    loadingGif: "./app/resources/images/win32-installer-splash.gif",
-    certificateFile: "./script/windows-certificate.pfx",
-    certificatePassword: getWindowsCertificatePassword()
-  },
-  electronInstallerDebian: {
-    icon: "./app/resources/images/classroom-logo.png",
-    categories: [
-      "Education"
-    ],
-    homepage: "http://classroom.github.com/assistant"
-  },
-  electronInstallerRedhat: {
-    icon: "./app/resources/images/classroom-logo.png",
-    categories: [
-      "Education"
-    ],
-    homepage: "http://classroom.github.com/assistant"
-  },
-  github_repository: {
-    owner: "education",
-    name: "classroom-assistant"
-  },
-  prerelease: true,
+    }
+  ],
   windowsStoreConfig: {
     packageName: "",
     name: "classroom-assistant"
@@ -83,6 +100,24 @@ module.exports = {
           else resolve()
         })
       )
-    }
-  }
+    },
+  },
+  plugins: [
+    [
+      "@electron-forge/plugin-webpack",
+      {
+        mainConfig: "./webpack.main.config.js",
+        renderer: {
+          config: "./webpack.renderer.config.js",
+          entryPoints: [
+            {
+              html: "./app/index.html",
+              js: "./app/index.jsx",
+              name: "main_window",
+            },
+          ],
+        },
+      },
+    ],
+  ],
 }

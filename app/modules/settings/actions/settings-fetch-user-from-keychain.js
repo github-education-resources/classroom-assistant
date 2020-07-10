@@ -4,7 +4,7 @@ import { settingsSetUsername } from "./settings-set-username"
 import { settingsLogoutUser } from "./settings-logout-user"
 import { remote } from "electron"
 
-const {trackEvent} = require("../../../main-process/analytics")
+const { trackEvent } = require("../../../main-process/analytics")
 
 /**
  * PUBLIC: Update username in store based on token and redirect to populate page
@@ -41,7 +41,7 @@ export const settingsFetchUserFromKeychain = () => {
  */
 export const fetchUsername = async (token) => {
   try {
-    const response = await axios.get(`http://classroom.github.com/api/internal/user?access_token=${token}`)
+    const response = await axios.get(`/api/internal/user?access_token=${token}`)
     if (response.data.username) {
       return response.data.username
     } else {

@@ -3,9 +3,9 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { ipcRenderer } from "electron"
 
-import {assignmentFetchInfo} from "../modules/assignment/actions/assignment-fetch-info"
-import {verifyAssignmentURL} from "../modules/assignment/actions/assignment-verify-url"
-import {settingsFetchUserFromKeychain} from "../modules/settings/actions/settings-fetch-user-from-keychain"
+import { assignmentFetchInfo } from "../modules/assignment/actions/assignment-fetch-info"
+import { verifyAssignmentURL } from "../modules/assignment/actions/assignment-verify-url"
+import { settingsFetchUserFromKeychain } from "../modules/settings/actions/settings-fetch-user-from-keychain"
 
 class AppContainer extends Component {
   constructor (props) {

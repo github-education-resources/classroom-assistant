@@ -1,4 +1,4 @@
-import {ASSIGNMENT_ERROR_INFO} from "../constants"
+import { ASSIGNMENT_ERROR_INFO } from "../constants"
 
 export const errorInfo = (e) => {
   return {

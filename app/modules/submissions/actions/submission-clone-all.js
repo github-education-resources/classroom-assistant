@@ -21,6 +21,6 @@ export const submissionCloneAll = () => {
       return dispatch(submissionClone(submission, cloneDirectory))
     },
     // TODO: dynamically set this based on system
-    {concurrency: 3})
+    { concurrency: 3 })
   }
 }

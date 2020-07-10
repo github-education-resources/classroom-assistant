@@ -12,14 +12,14 @@ describe("SubmissionList", () => {
       username: "testusername",
       displayName: "testdisplayname",
       avatarUrl: "/some/path.jpg",
-      repoUrl: "http://some/path.com",
+      repoUrl: "https://some/path.com",
       selected: false
     }, {
       id: 2,
       username: "testusername",
       displayName: "testdisplayname",
       avatarUrl: "/some/path.jpg",
-      repoUrl: "http://some/path.com",
+      repoUrl: "https://some/path.com",
       selected: true
     }]
   }

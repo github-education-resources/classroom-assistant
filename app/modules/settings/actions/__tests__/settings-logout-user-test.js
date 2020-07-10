@@ -2,11 +2,11 @@ import { expect } from "chai"
 import * as sinon from "sinon"
 import { ipcRenderer } from "electron"
 
-import {settingsLogoutUser} from "../settings-logout-user"
-import {settingsSetUsername} from "../settings-set-username"
+import { settingsLogoutUser } from "../settings-logout-user"
+import { settingsSetUsername } from "../settings-set-username"
 import { settingsResetState } from "../settings-reset-state"
 
-const {session} = require("electron").remote
+const { session } = require("electron").remote
 
 describe("settingsLogoutUser", () => {
   let dispatch
