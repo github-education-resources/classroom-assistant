@@ -78,7 +78,7 @@ export const fetchCloneURL = (accessToken, id) => {
     const typeLabel = all(getState()).type === "individual" ? "assignment_repos" : "group-assignment-repos"
 
     const urlObj = new URL(url(getState()))
-    const cloneURLPath = `${urlObj.origin}/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
+    const cloneURLPath = `https://classroom.github.com/api/internal${urlObj.pathname}/${typeLabel}/${id}/clone_url`
 
     const resp = await axios.get(`${cloneURLPath}?access_token=${accessToken}`)
     const tempCloneURL = resp.data.temp_clone_url
