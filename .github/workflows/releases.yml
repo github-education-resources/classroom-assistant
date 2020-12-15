@@ -18,7 +18,7 @@ jobs:
       - name: Use node 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - name: Npm install
         run: npm install
       - name: Get xvfb
@@ -39,7 +39,7 @@ jobs:
       - name: Use node 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - name: Npm install
         run: npm install
       - name: Add MacOS certs
@@ -53,13 +53,12 @@ jobs:
         id: write_file
         uses: timheuer/base64-to-file@v1
         with:
-          fileName: 'win-certificate.pfx'
+          fileName: "win-certificate.pfx"
           encodedString: ${{ secrets.CERTIFICATE_WINDOWS_PFX }}
       - name: Make
         if: startsWith(github.ref, 'refs/tags/')
         run: npm run make
         env:
-          GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
