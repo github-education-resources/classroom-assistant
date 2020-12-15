@@ -6,11 +6,7 @@ import { settingsLoginUser } from "../../modules/settings/actions/settings-login
 import logo from "../../resources/images/classroom-logo.png"
 
 const methods = {
-  componentDidMount (props) {
-    const remote = require("electron").remote
-    const trackScreen = remote.getGlobal("trackScreen")
-
-    trackScreen("index")
+  componentDidMount (_props) {
   },
 }
 

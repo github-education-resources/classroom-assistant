@@ -16,8 +16,6 @@ import {
   SUBMISSION_CLONE_GIT_ERROR
 } from "../constants"
 
-const { trackEvent } = require("../../../main-process/analytics")
-
 // PUBLIC: Async thunk action for cloning a single submisison. This creator
 // wraps around "clone" from "clone-utils" and dispatches actions to update
 // progress/display errors in the UI
@@ -35,8 +33,6 @@ export const submissionCloneFunc = (clone) => {
       const destination = await getClonePath(cloneDirectory, submissionAuthorUsername)
       if (!destination) {
         dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_PATH_ERROR))
-
-        trackEvent("error", "submissionClone", "submissionCloneFunc", SUBMISSION_CLONE_PATH_ERROR)
         return
       }
 
@@ -61,8 +57,6 @@ export const submissionCloneFunc = (clone) => {
           }
         )
       } catch (error) {
-        trackEvent("error", "submissionClone", "submissionCloneFunc", `${SUBMISSION_CLONE_GIT_ERROR}: ${error}`)
-
         dispatch(submissionSetCloneStatus(submissionProps.id, SUBMISSION_CLONE_GIT_ERROR))
       }
     }

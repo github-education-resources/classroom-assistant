@@ -12,11 +12,7 @@ import { settingsResetState } from "../../modules/settings/actions/settings-rese
 import { progress } from "../../modules/submissions/selectors"
 
 const methods = {
-  componentDidMount (props) {
-    const remote = require("electron").remote
-    const trackScreen = remote.getGlobal("trackScreen")
-
-    trackScreen("archive")
+  componentDidMount (_props) {
   }
 }
 

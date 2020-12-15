@@ -3,7 +3,6 @@ import keytar from "keytar"
 import { BrowserWindow, session } from "electron"
 
 const { URL } = require("url")
-const { trackEvent } = require("./analytics")
 
 let authWindow
 
@@ -23,7 +22,7 @@ export async function setAccessTokenFromCode(code, mainWindow) {
 
     mainWindow.webContents.send("receivedAuthorization")
   } catch (error) {
-    trackEvent("error", "userAuthentication", "fetchAccessToken", error)
+    // do nothing
   }
 }
 

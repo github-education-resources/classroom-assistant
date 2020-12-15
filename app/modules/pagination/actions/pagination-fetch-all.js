@@ -7,8 +7,6 @@ import { nextPage } from "../selectors"
 import { all } from "../../assignment/selectors"
 import { settingsLogoutUser } from "../../settings/actions/settings-logout-user"
 
-const { trackEvent } = require("../../../main-process/analytics")
-
 let accessToken
 /**
  * PUBLIC: Fetch all pages of repositories associated with an assignment
@@ -23,7 +21,6 @@ export const fetchAllPages = (assignmentURL) => {
     accessToken = remote.getGlobal("accessToken")
 
     if (!accessToken) {
-      trackEvent("paginationFetchAll", "fetchAllPages", "Failed to fetch access token.")
       dispatch(settingsLogoutUser())
       return
     }
