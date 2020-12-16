@@ -57,7 +57,7 @@
     "http-link-header": "^0.8.0",
     "js-yaml": "^3.13.1",
     "keytar": "^5.5.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lodash.template": "^4.5.0",
     "mem": "^5.1.1",
     "mime": "^2.4.4",
