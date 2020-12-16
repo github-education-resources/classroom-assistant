@@ -43,3 +43,4 @@ security find-identity -p codesigning
 ```
 
 Do this and all will be well
+
