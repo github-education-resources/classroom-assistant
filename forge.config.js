@@ -1,8 +1,6 @@
 const fs = require("fs-extra")
 
-const appInfo = JSON.stringify({
-  ga_id: process.env.GOOGLE_ANALYTICS_ID,
-})
+const appInfo = JSON.stringify({})
 
 // eslint-disable-next-line space-before-function-paren
 function getWindowsCertificatePassword() {

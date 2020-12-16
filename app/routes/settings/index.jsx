@@ -10,11 +10,7 @@ import LoginPanel from "./components/LoginPanel"
 import { username } from "../../modules/settings/selectors"
 
 const methods = {
-  componentDidMount (props) {
-    const remote = require("electron").remote
-    const trackScreen = remote.getGlobal("trackScreen")
-
-    trackScreen("settings")
+  componentDidMount (_props) {
   }
 }
 

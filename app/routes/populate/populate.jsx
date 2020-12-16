@@ -21,11 +21,7 @@ class PopulatePage extends Component {
     this.updateInput = this.updateInput.bind(this)
   }
 
-  componentDidMount (props) {
-    const remote = require("electron").remote
-    const trackScreen = remote.getGlobal("trackScreen")
-
-    trackScreen("populate")
+  componentDidMount (_props) {
   }
 
   updateInput (e) {

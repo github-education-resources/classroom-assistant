@@ -21,10 +21,6 @@ class SelectPage extends Component {
       this.props.submissionReset()
       this.props.fetchAllPages(this.props.assignmentURL)
     }
-
-    const remote = require("electron").remote
-    const trackScreen = remote.getGlobal("trackScreen")
-    trackScreen("select")
   }
 
   render () {

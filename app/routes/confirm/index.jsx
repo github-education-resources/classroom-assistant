@@ -7,11 +7,7 @@ import SubmissionConfirmPanel from "./containers/SubmissionConfirmPanel"
 import ActionableConfirmFooter from "./containers/ActionableConfirmFooter"
 
 const methods = {
-  componentDidMount (props) {
-    const remote = require("electron").remote
-    const trackScreen = remote.getGlobal("trackScreen")
-
-    trackScreen("index")
+  componentDidMount (_props) {
   }
 }
 
