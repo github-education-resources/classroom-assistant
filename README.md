@@ -10,11 +10,11 @@ GitHub Classroom Assistant is a cross-platform desktop application to help you g
 
 ## Where can I get it?
 
-Download the latest build of Classroom Assistant:
+Download the latest build of Classroom Assistant from the [Releases page](https://github.com/education/classroom-assistant/releases).
 
-- [Mac OS](https://classroom.github.com/assistant/download/osx)
-- [Windows](https://classroom.github.com/assistant/download/win)
-- [Linux](https://classroom.github.com/assistant/download/linux_deb_64)
+- For Mac OS, download the darwin zip package.
+- For Windows, download the .exe package.
+- For Linux, download the .deb package.
 
 ## Classroom Assistant isn't running on my platform
 
