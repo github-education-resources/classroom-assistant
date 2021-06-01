@@ -17,7 +17,7 @@ import Routes from "./routes"
 import axios from "axios"
 
 // Set the default URL
-axios.defaults.baseURL = __API_URL__
+axios.defaults.baseURL = __CLASSROOM_API_URL__
 
 const store = createStore(
   reducer,

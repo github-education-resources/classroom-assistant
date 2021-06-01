@@ -27,7 +27,7 @@ export const fetchAllPages = (assignmentURL) => {
 
     const urlObj = new URL(assignmentURL)
 
-    let repoURL = `https://classroom.github.com/api/internal/${urlObj.pathname}/`
+    let repoURL = `http://classroom.github.localhost/api/internal/${urlObj.pathname}/`
     if (all(getState()).type === "individual") {
       repoURL += "assignment_repos"
     } else {

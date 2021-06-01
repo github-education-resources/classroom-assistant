@@ -20,11 +20,11 @@ export const assignmentFetchInfo = () => {
 
     try {
       urlObj = new URL(url(getState()))
-      if (urlObj.origin !== "https://classroom.github.com") {
+      if (urlObj.origin !== "http://classroom.github.localhost") {
         dispatch(errorInfo("URL is invalid!"))
         return
       }
-      infoURL = `https://classroom.github.com/api/internal${urlObj.pathname}?access_token=${accessToken}`
+      infoURL = `http://classroom.github.localhost/api/internal${urlObj.pathname}?access_token=${accessToken}`
     } catch (e) {
       dispatch(errorInfo("URL is invalid!"))
       return

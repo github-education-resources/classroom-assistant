@@ -8,7 +8,7 @@ const exec = util.promisify(require("child_process").exec)
 const axios = require("axios")
 
 // Set the default URL
-axios.defaults.baseURL = __API_URL__
+axios.defaults.baseURL = __CLASSROOM_API_URL__
 
 const updater = require("./updater")
 const { initLogger } = require("./logger")

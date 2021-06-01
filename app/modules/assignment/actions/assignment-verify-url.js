@@ -9,7 +9,7 @@ export const verifyAssignmentURL = (url) => {
   return async (dispatch, _) => {
     try {
       const parsedURL = parseAssignmentURL(url)
-      const baseURL = "https://classroom.github.com/classrooms"
+      const baseURL = "http://classroom.github.localhost/classrooms"
 
       const rebuiltURL = `${baseURL}/${parsedURL.classroomTitle}/${parsedURL.assignmentType}/${parsedURL.assignmentTitle}`
       dispatch(setAssignmentURL(rebuiltURL))
@@ -45,7 +45,7 @@ const parseAssignmentURL = (url) => {
  * @param {String} hostname string hostname in assignment URL
  */
 const verifyHostname = (hostname) => {
-  if (hostname !== "classroom.github.com") {
+  if (hostname !== "classroom.github.localhost") {
     throw new Error("Invalid hostname.")
   }
 }
