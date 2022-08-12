@@ -62,6 +62,7 @@
     "lodash.template": "^4.5.0",
     "mem": "^5.1.1",
     "mime": "^2.4.4",
+    "node-fetch": "^2.6.7",
     "opener": "^1.4.1",
     "prop-types": "^15.6.1",
     "react": "~16.2.0",
