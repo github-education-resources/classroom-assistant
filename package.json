@@ -80,6 +80,7 @@
     "reselect": "~3.0.1",
     "sanitize-filename": "^1.6.1",
     "sass": "^1.54.4",
+    "tar": "^4.4.18",
     "underscore": "^1.8.3",
     "universal-analytics": "^0.4.17",
     "uuid": "^3.3.2"
