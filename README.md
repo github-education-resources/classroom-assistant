@@ -1,5 +1,9 @@
 # GitHub Classroom Assistant
 
+Will be officially deprecated on July 15, 2023. Please use [Classroom CLI](https://docs.github.com/en/education/manage-coursework-with-github-classroom/teach-with-github-classroom/using-github-classroom-with-github-cli) instead to download student assignment repositories. 
+
+
+---
 [![Build Status](https://travis-ci.org/education/classroom-assistant.svg?branch=master)](https://travis-ci.org/education/classroom-assistant)
 
 GitHub Classroom Assistant is a cross-platform desktop application to help you get student repositories for grading.
