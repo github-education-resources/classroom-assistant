@@ -1,3 +1,5 @@
+# :warning: GitHub Classroom will no longer be available for use starting on July 15, 2023. To continue to download student repositories locally, use the [GitHub Classroom CLI extension for the GitHub CLI](https://docs.github.com/en/education/manage-coursework-with-github-classroom/teach-with-github-classroom/using-github-classroom-with-github-cli).  
+
 # GitHub Classroom Assistant
 
 [![Build Status](https://travis-ci.org/education/classroom-assistant.svg?branch=master)](https://travis-ci.org/education/classroom-assistant)
