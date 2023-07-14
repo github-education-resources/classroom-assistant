@@ -1,3 +1,8 @@
+# Deprecated
+Classroom Assistant has been deprecated in favor of the `clone student-repos` subcommand of the [GitHub Classroom CLI extension for the GitHub CLI](https://docs.github.com/en/education/manage-coursework-with-github-classroom/teach-with-github-classroom/using-github-classroom-with-github-cli). Classroom Assistant will no longer receive feature or security updates. The backend API's that it rely on may be deactivated in the future. We recommend that you install the GitHub Classroom CLI extension!
+
+
+
 # GitHub Classroom Assistant
 
 [![Build Status](https://travis-ci.org/education/classroom-assistant.svg?branch=master)](https://travis-ci.org/education/classroom-assistant)
